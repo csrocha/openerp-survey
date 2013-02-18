@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+##############################################################################
+#
+#    Survey module.
+#    Copyright (C) 2013 Moldeo Interactive
+#    No email
+#
+#    This program is free software: you can redistribute it and/or modify
+#    it under the terms of the GNU Affero General Public License as
+#    published by the Free Software Foundation, either version 3 of the
+#    License, or (at your option) any later version.
+#
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU Affero General Public License for more details.
+#
+#    You should have received a copy of the GNU Affero General Public License
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#
+##############################################################################
+-->
+<!-- survey.survey -->
+<!-- survey.survey -->
+<!-- survey.survey -->
+<openerp>
+    <data>
+
+        <!-- SEARCHVIEW -->
+        <record id="view_survey_survey_filter" model="ir.ui.view">
+            <field name="name">survey.survey.select</field>
+            <field name="model">survey.survey</field>
+            <field name="arch" type="xml">
+                <search string="survey" version="7.0">
+                </search>
+            </field>
+        </record>
+
+        <!-- FORMVIEW -->
+        <record id="view_survey_survey_form" model="ir.ui.view">
+            <field name="name">survey.survey.form</field>
+            <field name="model">survey.survey</field>
+            <field name="arch" type="xml">
+                <form string="survey" version="7.0">
+                    <header>
+                        <button name="sgn_publish"
+                            states="accepted"
+                            string="Publish"
+                            class="oe_highlight"
+                            />
+                        <button name="sgn_cancel"
+                            states="close,published,accepted"
+                            string="Cancel"
+                            />
+                        <button name="sgn_accept"
+                            states="draft"
+                            string="Accept"
+                            class="oe_highlight"
+                            />
+                        <button name="action_wfk_set_draft"
+                            type="object"
+                            states="cancelled"
+                            string="To Draft"
+                            />
+                        <button name="sgn_close"
+                            states="published"
+                            string="Close"
+                            class="oe_highlight"
+                            />
+                        <field name="state" widget="statusbar"
+                            statusbar_colors='{}'
+                            />
+                    </header>
+                    <sheet string="survey">
+                     <group>
+                        <field name="name"
+                            />
+                        <field name="description"
+                            />
+                        <field name="creator_id"
+                            />
+                        <field name="open_dt"
+                            />
+                        <field name="close_dt"
+                            />
+                        <field name="automatic"
+                            />
+                    <field name="question_ids"
+                            />
+                    <field name="answer_ids"
+                            />
+                     </group>
+                    </sheet>
+
+                </form>
+            </field>
+        </record>
+
+        <!-- TREEVIEW -->
+
+        <record id="view_survey_survey_tree" model="ir.ui.view">
+            <field name="name">survey.survey.tree</field>
+            <field name="model">survey.survey</field>
+            <field name="arch" type="xml">
+                <tree string="survey"
+                    colors="grey:state=='cancelled';blue:state in ('draft',);black:state in ('close', 'accepted', 'published'); red:state in ()"
+                    >
+                    <field name="name"
+                        />
+                    <field name="creator_id"
+                        />
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+    </data>
+</openerp>
+<!-- vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4
+     -->

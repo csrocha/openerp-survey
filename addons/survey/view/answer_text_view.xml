@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+##############################################################################
+#
+#    Survey module.
+#    Copyright (C) 2013 Moldeo Interactive
+#    No email
+#
+#    This program is free software: you can redistribute it and/or modify
+#    it under the terms of the GNU Affero General Public License as
+#    published by the Free Software Foundation, either version 3 of the
+#    License, or (at your option) any later version.
+#
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU Affero General Public License for more details.
+#
+#    You should have received a copy of the GNU Affero General Public License
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#
+##############################################################################
+-->
+<!-- survey.answer_text -->
+<!-- survey.answer -->
+<!-- survey.answer -->
+<openerp>
+    <data>
+
+        <!-- INHERITED SEARCH -->
+        <record id="view_survey_answer_text_filter" model="ir.ui.view">
+            <field name="name">survey.answer_text.select</field>
+            <field name="model">survey.answer</field>
+            <field name="inherit_id" ref="view_survey_answer_filter"/>
+            <field name="arch" type="xml">
+                <search position="inside">
+                </search>
+            </field>
+        </record>
+ 
+        <!-- INHERITED FORM -->
+        <record id="view_survey_answer_text_form" model="ir.ui.view">
+            <field name="name">survey.answer_text.form</field>
+            <field name="model">survey.answer</field>
+            <field name="inherit_id" ref="view_survey_answer_form"/>
+            <field name="arch" type="xml">
+                <group position="inside">
+                        <field name="in_char"
+                            />
+                </group>
+            </field>
+        </record>
+
+        <!-- INHERITED TREE -->
+        <record id="view_survey_answer_text_tree" model="ir.ui.view">
+            <field name="name">survey.answer_text.tree</field>
+            <field name="model">survey.answer</field>
+            <field name="inherit_id" ref="view_survey_answer_tree"/>
+            <field name="arch" type="xml">
+                <tree position="inside">
+                </tree>
+            </field>
+        </record>
+
+
+    </data>
+</openerp>
+<!-- vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4
+     -->

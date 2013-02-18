@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+##############################################################################
+#
+#    Survey module.
+#    Copyright (C) 2013 Moldeo Interactive
+#    No email
+#
+#    This program is free software: you can redistribute it and/or modify
+#    it under the terms of the GNU Affero General Public License as
+#    published by the Free Software Foundation, either version 3 of the
+#    License, or (at your option) any later version.
+#
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU Affero General Public License for more details.
+#
+#    You should have received a copy of the GNU Affero General Public License
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#
+##############################################################################
+-->
+<!-- survey.answer -->
+<!-- survey.answer -->
+<!-- survey.answer -->
+<openerp>
+    <data>
+
+        <!-- SEARCHVIEW -->
+        <record id="view_survey_answer_filter" model="ir.ui.view">
+            <field name="name">survey.answer.select</field>
+            <field name="model">survey.answer</field>
+            <field name="arch" type="xml">
+                <search string="answer" version="7.0">
+                </search>
+            </field>
+        </record>
+
+        <!-- FORMVIEW -->
+        <record id="view_survey_answer_form" model="ir.ui.view">
+            <field name="name">survey.answer.form</field>
+            <field name="model">survey.answer</field>
+            <field name="arch" type="xml">
+                <form string="answer" version="7.0">
+                    <header>
+                    </header>
+                    <sheet string="answer">
+                     <group>
+                        <field name="name"
+                            />
+                        <field name="responder_id"
+                            />
+                        <field name="surveyor_id"
+                            />
+                    <field name="question_id"
+                            />
+                    <field name="survey_id"
+                            />
+                     </group>
+                    </sheet>
+
+                </form>
+            </field>
+        </record>
+
+        <!-- TREEVIEW -->
+
+        <record id="view_survey_answer_tree" model="ir.ui.view">
+            <field name="name">survey.answer.tree</field>
+            <field name="model">survey.answer</field>
+            <field name="arch" type="xml">
+                <tree string="answer"
+                    >
+                    <field name="name"
+                        />
+                    <field name="responder_id"
+                        />
+                    <field name="surveyor_id"
+                        />
+                    <field name="question_id"
+                        />
+                    <field name="survey_id"
+                        />
+                </tree>
+            </field>
+        </record>
+
+    </data>
+</openerp>
+<!-- vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4
+     -->
