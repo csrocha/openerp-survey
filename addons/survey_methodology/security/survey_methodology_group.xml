@@ -2,7 +2,7 @@
 <!--
 ##############################################################################
 #
-#    In statistics, survey methodology is the field that studies the sampling of individuals from a population with a view towards making statistical inferences about the population using the sample. This addon help to manage a survey in proffesional way.
+#    Survey Methodology
 #    Copyright (C) 2013 Coop. Trab. Moldeo Interactive Ltda.
 #    No email
 #
@@ -25,8 +25,8 @@
 <openerp>
     <data>
 	<record model="ir.module.category" id="module_category_survey_methodology">
-	    <field name="name">Survey</field>
-	    <field name="description">In statistics, survey methodology is the field that studies the sampling of individuals from a population with a view towards making statistical inferences about the population using the sample. This addon help to manage a survey in proffesional way.</field>
+	    <field name="name">Survey Methodology</field>
+	    <field name="description">Survey Methodology</field>
         <field name="sequence">1</field>
         <field name="parent_id" ref="base.module_category_hidden"/>
     </record>

@@ -1,5 +1,5 @@
 DBS=survey.db
-TARGETS=addons/survey
+TARGETS=addons/survey-methodology
 
 .PRECIOUS: ${DBS}
 

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 ##############################################################################
 #
-#    In statistics, survey methodology is the field that studies the sampling of individuals from a population with a view towards making statistical inferences about the population using the sample. This addon help to manage a survey in proffesional way.
+#    Survey Methodology
 #    Copyright (C) 2013 Coop. Trab. Moldeo Interactive Ltda.
 #    No email
 #
@@ -30,7 +30,7 @@
     'init_xml': [],
     'installable': True,
     'license': 'AGPL-3',
-    'name': u'In statistics, survey methodology is the field that studies the sampling of individuals from a population with a view towards making statistical inferences about the population using the sample. This addon help to manage a survey in proffesional way.',
+    'name': u'Survey Methodology',
     'test': [],
     'update_xml': [   u'security/survey_methodology_group.xml',
                       u'view/category_view.xml',
