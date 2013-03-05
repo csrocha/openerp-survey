@@ -1,0 +1,17 @@
+"id","name","model_id:id","group_id:id","perm_read","perm_write","perm_create","perm_unlink"
+"access_survey_methodology_question_designer","survey_methodology.question.designer","model_survey_methodology_question","group_designer",1,1,1,1
+"access_survey_methodology_question_surveyor","survey_methodology.question.surveyor","model_survey_methodology_question","group_surveyor",1,1,1,1
+"access_survey_methodology_survey_designer","survey_methodology.survey.designer","model_survey_methodology_survey","group_designer",1,1,1,1
+"access_survey_methodology_survey_surveyor","survey_methodology.survey.surveyor","model_survey_methodology_survey","group_surveyor",1,1,1,1
+"access_survey_methodology_answer_designer","survey_methodology.answer.designer","model_survey_methodology_answer","group_designer",1,1,1,1
+"access_survey_methodology_answer_surveyor","survey_methodology.answer.surveyor","model_survey_methodology_answer","group_surveyor",1,1,1,1
+"access_survey_methodology_answer_designer","survey_methodology.answer.designer","model_survey_methodology_answer","group_designer",1,1,1,1
+"access_survey_methodology_answer_surveyor","survey_methodology.answer.surveyor","model_survey_methodology_answer","group_surveyor",1,1,1,1
+"access_survey_methodology_category_designer","survey_methodology.category.designer","model_survey_methodology_category","group_designer",1,1,1,1
+"access_survey_methodology_category_surveyor","survey_methodology.category.surveyor","model_survey_methodology_category","group_surveyor",1,1,1,1
+"access_survey_methodology_answer_designer","survey_methodology.answer.designer","model_survey_methodology_answer","group_designer",1,1,1,1
+"access_survey_methodology_answer_surveyor","survey_methodology.answer.surveyor","model_survey_methodology_answer","group_surveyor",1,1,1,1
+"access_survey_methodology_answer_designer","survey_methodology.answer.designer","model_survey_methodology_answer","group_designer",1,1,1,1
+"access_survey_methodology_answer_surveyor","survey_methodology.answer.surveyor","model_survey_methodology_answer","group_surveyor",1,1,1,1
+"access_survey_methodology_options_designer","survey_methodology.options.designer","model_survey_methodology_options","group_designer",1,1,1,1
+"access_survey_methodology_options_surveyor","survey_methodology.options.surveyor","model_survey_methodology_options","group_surveyor",1,1,1,1

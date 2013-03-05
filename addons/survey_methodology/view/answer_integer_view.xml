@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+##############################################################################
+#
+#    In statistics, survey methodology is the field that studies the sampling of individuals from a population with a view towards making statistical inferences about the population using the sample. This addon help to manage a survey in proffesional way.
+#    Copyright (C) 2013 Coop. Trab. Moldeo Interactive Ltda.
+#    No email
+#
+#    This program is free software: you can redistribute it and/or modify
+#    it under the terms of the GNU Affero General Public License as
+#    published by the Free Software Foundation, either version 3 of the
+#    License, or (at your option) any later version.
+#
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU Affero General Public License for more details.
+#
+#    You should have received a copy of the GNU Affero General Public License
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#
+##############################################################################
+-->
+<!-- survey_methodology.answer_integer -->
+<!-- survey_methodology.answer -->
+<!-- survey_methodology.answer -->
+<openerp>
+    <data>
+
+        <!-- INHERITED SEARCH -->
+        <record id="view_survey_methodology_answer_integer_filter" model="ir.ui.view">
+            <field name="name">survey_methodology.answer_integer.select</field>
+            <field name="model">survey_methodology.answer</field>
+            <field name="inherit_id" ref="view_survey_methodology_answer_filter"/>
+            <field name="arch" type="xml">
+                <search position="inside">
+                </search>
+            </field>
+        </record>
+ 
+        <!-- INHERITED FORM -->
+        <record id="view_survey_methodology_answer_integer_form" model="ir.ui.view">
+            <field name="name">survey_methodology.answer_integer.form</field>
+            <field name="model">survey_methodology.answer</field>
+            <field name="inherit_id" ref="view_survey_methodology_answer_form"/>
+            <field name="arch" type="xml">
+                <group position="inside">
+                        <field name="in_integer"
+                            />
+                </group>
+            </field>
+        </record>
+
+        <!-- INHERITED TREE -->
+        <record id="view_survey_methodology_answer_integer_tree" model="ir.ui.view">
+            <field name="name">survey_methodology.answer_integer.tree</field>
+            <field name="model">survey_methodology.answer</field>
+            <field name="inherit_id" ref="view_survey_methodology_answer_tree"/>
+            <field name="arch" type="xml">
+                <tree position="inside">
+                </tree>
+            </field>
+        </record>
+
+
+    </data>
+</openerp>
+<!-- vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4
+     -->

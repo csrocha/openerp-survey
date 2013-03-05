@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+##############################################################################
+#
+#    In statistics, survey methodology is the field that studies the sampling of individuals from a population with a view towards making statistical inferences about the population using the sample. This addon help to manage a survey in proffesional way.
+#    Copyright (C) 2013 Coop. Trab. Moldeo Interactive Ltda.
+#    No email
+#
+#    This program is free software: you can redistribute it and/or modify
+#    it under the terms of the GNU Affero General Public License as
+#    published by the Free Software Foundation, either version 3 of the
+#    License, or (at your option) any later version.
+#
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU Affero General Public License for more details.
+#
+#    You should have received a copy of the GNU Affero General Public License
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#
+##############################################################################
+-->
+<!-- survey_methodology.survey -->
+<!-- survey_methodology.survey -->
+<!-- survey_methodology.survey -->
+<openerp>
+    <data>
+        <!-- Workflow -->
+
+        <record id="survey_untitle_wkf" model="workflow">
+            <field name="name">survey_methodology.survey.untitle</field>
+            <field name="osv">survey_methodology.survey</field>
+            <field name="on_create">True</field>
+        </record>
+
+        <!-- Activities -->
+
+        <record id="a_1870_0CA9" model="workflow.activity">
+            <field name="wkf_id" ref="survey_untitle_wkf"/>
+            <field name="flow_start">True</field>
+            <field name="name">Draft</field>
+            <field name="action">write({'state':'draft'})</field>
+            <field name="kind">function</field>
+        </record>
+        <record id="a_1870_0CAB" model="workflow.activity">
+            <field name="wkf_id" ref="survey_untitle_wkf"/>
+            <field name="name">Accepted</field>
+            <field name="action">generate_questions</field>
+            <field name="kind">function</field>
+        </record>
+        <record id="a_1870_0CAC" model="workflow.activity">
+            <field name="wkf_id" ref="survey_untitle_wkf"/>
+            <field name="name">Published</field>
+            <field name="action">write({'state':'published'})</field>
+            <field name="kind">function</field>
+        </record>
+        <record id="a_1870_0CAD" model="workflow.activity">
+            <field name="wkf_id" ref="survey_untitle_wkf"/>
+            <field name="name">Close</field>
+            <field name="action">write({'state':'close'})</field>
+            <field name="kind">function</field>
+        </record>
+        <record id="a_1870_0CB1" model="workflow.activity">
+            <field name="wkf_id" ref="survey_untitle_wkf"/>
+            <field name="flow_stop">True</field>
+            <field name="name">Cancelled</field>
+            <field name="action">write({'state':'cancelled'})</field>
+            <field name="kind">function</field>
+        </record>
+
+        <!-- Transitions -->
+
+        <record id="t_1870_0CAE" model="workflow.transition">
+            <field name="act_from" ref="a_1870_0CA9"/>
+            <field name="act_to" ref="a_1870_0CAB"/>
+            <field name="signal">sgn_accept</field>
+            <field name="condition">True</field>
+        </record>
+        <record id="t_1870_0CAF" model="workflow.transition">
+            <field name="act_from" ref="a_1870_0CAB"/>
+            <field name="act_to" ref="a_1870_0CAC"/>
+            <field name="signal">sgn_publish</field>
+            <field name="condition">True</field>
+        </record>
+        <record id="t_1870_0CB0" model="workflow.transition">
+            <field name="act_from" ref="a_1870_0CAC"/>
+            <field name="act_to" ref="a_1870_0CAD"/>
+            <field name="signal">sgn_close</field>
+            <field name="condition">True</field>
+        </record>
+        <record id="t_1870_0CB2" model="workflow.transition">
+            <field name="act_from" ref="a_1870_0CAD"/>
+            <field name="act_to" ref="a_1870_0CB1"/>
+            <field name="signal">sgn_cancel</field>
+            <field name="condition">True</field>
+        </record>
+        <record id="t_1870_0CB4" model="workflow.transition">
+            <field name="act_from" ref="a_1870_0CB1"/>
+            <field name="act_to" ref="a_1870_0CA9"/>
+            <field name="signal">sgn_to_draft</field>
+            <field name="condition">True</field>
+        </record>
+        <record id="t_1870_0CBA" model="workflow.transition">
+            <field name="act_from" ref="a_1870_0CAB"/>
+            <field name="act_to" ref="a_1870_0CB1"/>
+            <field name="signal">sgn_cancel</field>
+            <field name="condition">True</field>
+        </record>
+        <record id="t_1870_0CBD" model="workflow.transition">
+            <field name="act_from" ref="a_1870_0CAC"/>
+            <field name="act_to" ref="a_1870_0CB1"/>
+            <field name="signal">sgn_cancel</field>
+            <field name="condition">True</field>
+        </record>
+    </data>
+</openerp>
+<!-- vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4
+     -->

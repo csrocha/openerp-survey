@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+##############################################################################
+#
+#    In statistics, survey methodology is the field that studies the sampling of individuals from a population with a view towards making statistical inferences about the population using the sample. This addon help to manage a survey in proffesional way.
+#    Copyright (C) 2013 Coop. Trab. Moldeo Interactive Ltda.
+#    No email
+#
+#    This program is free software: you can redistribute it and/or modify
+#    it under the terms of the GNU Affero General Public License as
+#    published by the Free Software Foundation, either version 3 of the
+#    License, or (at your option) any later version.
+#
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU Affero General Public License for more details.
+#
+#    You should have received a copy of the GNU Affero General Public License
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#
+##############################################################################
+-->
+<!-- survey_methodology.options -->
+<!-- survey_methodology.options -->
+<!-- survey_methodology.options -->
+<openerp>
+    <data>
+
+        <!-- SEARCHVIEW -->
+        <record id="view_survey_methodology_options_filter" model="ir.ui.view">
+            <field name="name">survey_methodology.options.select</field>
+            <field name="model">survey_methodology.options</field>
+            <field name="arch" type="xml">
+                <search string="options" version="7.0">
+                </search>
+            </field>
+        </record>
+
+        <!-- FORMVIEW -->
+        <record id="view_survey_methodology_options_form" model="ir.ui.view">
+            <field name="name">survey_methodology.options.form</field>
+            <field name="model">survey_methodology.options</field>
+            <field name="arch" type="xml">
+                <form string="options" version="7.0">
+                    <header>
+                    </header>
+                    <sheet string="options">
+                     <group>
+                        <field name="name"
+                            />
+                     </group>
+                    </sheet>
+
+                </form>
+            </field>
+        </record>
+
+        <!-- TREEVIEW -->
+
+        <record id="view_survey_methodology_options_tree" model="ir.ui.view">
+            <field name="name">survey_methodology.options.tree</field>
+            <field name="model">survey_methodology.options</field>
+            <field name="arch" type="xml">
+                <tree string="options"
+                    >
+                    <field name="name"
+                        />
+                </tree>
+            </field>
+        </record>
+
+    </data>
+</openerp>
+<!-- vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4
+     -->
