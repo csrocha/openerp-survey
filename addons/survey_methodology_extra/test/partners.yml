@@ -1,0 +1,41 @@
+#
+# Role partners
+#
+
+- !record { model: res.partner, id: designer_01 }:
+        name: Designer 01
+        use_as_sample: False
+
+- !record { model: res.partner, id: surveyor_01 }:
+        name: Surveyor 01
+        use_as_sample: False
+
+#
+# Some partners
+#
+
+- !record { model: res.partner, id: sample_001 }:
+        name: Sample 001
+        use_as_sample: True
+
+- !record { model: res.partner, id: sample_002 }:
+        name: Sample 002
+        use_as_sample: True
+
+- !record { model: res.partner, id: sample_003 }:
+        name: Sample 003
+        use_as_sample: True
+
+- !record { model: res.partner, id: sample_004 }:
+        name: Sample 004
+        use_as_sample: True
+
+- !record { model: res.partner, id: sample_005 }:
+        name: Sample 005
+        use_as_sample: True
+
+
+
+
+
+
