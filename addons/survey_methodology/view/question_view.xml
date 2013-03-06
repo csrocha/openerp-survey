@@ -53,7 +53,7 @@
                             />
                         <field name="description"
                             />
-                        <field name="data_type"
+                        <field name="type"
                             on_change="onchange_type(type)"
                             />
                         <field name="size"
@@ -96,7 +96,7 @@
                         />
                     <field name="description"
                         />
-                    <field name="data_type"
+                    <field name="type"
                         />
                     <field name="parent_id"
                         />

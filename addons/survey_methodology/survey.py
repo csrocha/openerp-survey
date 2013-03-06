@@ -46,8 +46,11 @@ class survey(osv.osv):
         'open_dt': fields.datetime(string='open_dt', readonly=True, states={'draft':[('readonly',False)]}),
         'close_dt': fields.datetime(string='close_dt', readonly=True, states={'draft':[('readonly',False)]}),
         'automatic': fields.boolean(string='automatic', readonly=True, states={'draft':[('readonly',False)]}),
+        'message': fields.text(string='message', readonly=True),
+        'sample_size': fields.integer(string='sample_size', readonly=True),
+        'sample_filter': fields.char(string='sample_filter', help=u"""Context filter for partner. This help to select partners to create the sample.""", readonly=True, size=512),
         'state': fields.selection(_states_, "State"),
-        'question_ids': fields.many2many('survey_methodology.question', 'survey_methodology_survey_ids_question_ids_rel', 'question_ids', 'survey_ids', string='question_ids'), 
+        'question_id': fields.many2one('survey_methodology.question', string='question_id', required=True), 
         'answer_ids': fields.one2many('survey_methodology.answer', 'survey_id', string='answer_ids'), 
         'partner_ids': fields.many2many('res.partner', 'survey_methodology_survey_ids_partner_ids_rel', 'partner_ids', 'survey_ids', string='partner_ids'), 
     }
@@ -57,6 +60,10 @@ class survey(osv.osv):
     }
 
     def generate_questions(self, cr, uid, ids, context=None):
+        """"""
+        raise NotImplementedError
+
+    def newOperation(self, cr, uid, ids, context=None):
         """"""
         raise NotImplementedError
 

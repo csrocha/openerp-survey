@@ -24,6 +24,7 @@
 import category
 import question
 import survey
+import partner
 import answer
 import answer_text
 import answer_integer

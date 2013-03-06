@@ -37,12 +37,12 @@ class question(osv.osv):
         'code': fields.char(string='Code', required=True),
         'name': fields.char(string='Name', required=True),
         'description': fields.text(string='Description'),
-        'data_type': fields.selection([(u'Group', 'Group'), (u'Integer', 'Integer'), (u'Text', 'Text'), (u'Char', 'Char'), (u'Float', 'Float'), (u'Selection', 'Selection')], string='Data type', required=True),
+        'type': fields.selection([(u'Group', 'Group'), (u'Integer', 'Integer'), (u'Text', 'Text'), (u'Char', 'Char'), (u'Float', 'Float'), (u'Boolean', 'Boolean')], string='Data type', required=True),
         'size': fields.integer(string='Size'),
         'min': fields.integer(string='Min value'),
         'max': fields.integer(string='Max value'),
         'validation': fields.text(string='validation'),
-        'survey_ids': fields.many2many('survey_methodology.survey', 'survey_methodology_survey_ids_question_ids_rel', 'survey_ids', 'question_ids', string='survey_ids'), 
+        'survey_ids': fields.one2many('survey_methodology.survey', 'question_id', string='survey_ids'), 
         'answers_ids': fields.one2many('survey_methodology.answer', 'question_id', string='answers_ids'), 
         'parent_id': fields.many2one('survey_methodology.question', string='parent_id'), 
         'child_ids': fields.one2many('survey_methodology.question', 'parent_id', string='child_ids'), 
@@ -51,7 +51,7 @@ class question(osv.osv):
     }
 
     _defaults = {
-        'data_type': 'integer',
+        'type': 'Group',
         'parent_id': lambda self, cr, uid, context=None: context and context.get('parent_id', False),
     }
 

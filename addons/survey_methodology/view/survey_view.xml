@@ -86,7 +86,13 @@
                             />
                         <field name="automatic"
                             />
-                    <field name="question_ids"
+                        <field name="message"
+                            />
+                        <field name="sample_size"
+                            />
+                        <field name="sample_filter"
+                            />
+                    <field name="question_id"
                             />
                     <field name="answer_ids"
                             />

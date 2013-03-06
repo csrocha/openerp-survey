@@ -31,6 +31,8 @@
     'license': 'AGPL-3',
     'name': u'Survey Methodology',
     'test': [
+        'test/partners.yml',
+        'test/survey001.yml',
     ],
     'update_xml': [
 #       u'security/survey_methodology_group.xml',
