@@ -32,7 +32,9 @@
             <field name="name">survey_methodology.answer.select</field>
             <field name="model">survey_methodology.answer</field>
             <field name="arch" type="xml">
-                <search string="answer" version="7.0">
+                <search string="Answer" version="7.0">
+                        <field name="survey_code"
+                            />
                 </search>
             </field>
         </record>
@@ -42,10 +44,26 @@
             <field name="name">survey_methodology.answer.form</field>
             <field name="model">survey_methodology.answer</field>
             <field name="arch" type="xml">
-                <form string="answer" version="7.0">
+                <form string="Answer" version="7.0">
                     <header>
+                        <button name="sgn_disable"
+                            states="enabled"
+                            string="Disable"
+                            />
+                        <button name="action_wfk_set_enabled"
+                            type="object"
+                            states="disabled"
+                            string="Enable"
+                            />
+                        <button name="sgn_close"
+                            states="disabled"
+                            string="Close"
+                            />
+                        <field name="state" widget="statusbar"
+                            statusbar_colors='{}'
+                            />
                     </header>
-                    <sheet string="answer">
+                    <sheet string="Answer">
                      <group>
                         <field name="name"
                             />
@@ -55,9 +73,23 @@
                             />
                         <field name="progress"
                             />
+                        <field name="input"
+                            />
+                        <field name="input_as_integer"
+                            />
+                        <field name="input_as_char"
+                            />
+                        <field name="input_as_boolean"
+                            />
+                        <field name="input_as_float"
+                            />
+                        <field name="message"
+                            />
                     <field name="question_id"
                             />
                     <field name="survey_id"
+                            />
+                    <field name="survey_code"
                             />
                      </group>
                     </sheet>
@@ -72,20 +104,47 @@
             <field name="name">survey_methodology.answer.tree</field>
             <field name="model">survey_methodology.answer</field>
             <field name="arch" type="xml">
-                <tree string="answer"
+                <tree string="Answer"
+                    colors="grey:state=='cancelled';blue:state in ('enabled',);black:state in ('disabled',); red:state in ()"
                     >
                     <field name="name"
                         />
                     <field name="responder_id"
                         />
-                    <field name="surveyor_id"
-                        />
-                    <field name="progress"
+                    <field name="input"
                         />
                     <field name="question_id"
                         />
                     <field name="survey_id"
                         />
+                    <field name="survey_code"
+                        />
+                    <field name="state" readonly='True'/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_survey_methodology_answer_tree_edit" model="ir.ui.view">
+            <field name="name">survey_methodology.answer.tree_edit</field>
+            <field name="model">survey_methodology.answer</field>
+            <field name="arch" type="xml">
+                <tree string="Answer"
+                    editable="bottom"
+                    colors="grey:state=='cancelled';blue:state in ('enabled',);black:state in ('disabled',); red:state in ()"
+                    >
+                    <field name="name"
+                        />
+                    <field name="responder_id"
+                        />
+                    <field name="input"
+                        />
+                    <field name="question_id"
+                        />
+                    <field name="survey_id"
+                        />
+                    <field name="survey_code"
+                        />
+                    <field name="state" readonly='True'/>
                 </tree>
             </field>
         </record>

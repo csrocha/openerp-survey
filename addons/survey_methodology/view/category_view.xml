@@ -32,7 +32,7 @@
             <field name="name">survey_methodology.category.select</field>
             <field name="model">survey_methodology.category</field>
             <field name="arch" type="xml">
-                <search string="category" version="7.0">
+                <search string="Question Category" version="7.0">
                 </search>
             </field>
         </record>
@@ -42,10 +42,10 @@
             <field name="name">survey_methodology.category.form</field>
             <field name="model">survey_methodology.category</field>
             <field name="arch" type="xml">
-                <form string="category" version="7.0">
+                <form string="Question Category" version="7.0">
                     <header>
                     </header>
-                    <sheet string="category">
+                    <sheet string="Question Category">
                      <group>
                         <field name="name"
                             />
@@ -62,10 +62,29 @@
             <field name="name">survey_methodology.category.tree</field>
             <field name="model">survey_methodology.category</field>
             <field name="arch" type="xml">
-                <tree string="category"
+                <tree string="Question Category"
                     >
                     <field name="name"
                         />
+                    <field name="parent_id"
+                            invisible="True"
+                       />
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_survey_methodology_category_tree_hier" model="ir.ui.view">
+            <field name="name">survey_methodology.category.tree_hier</field>
+            <field name="model">survey_methodology.category</field>
+            <field name="field_parent">child_ids</field>
+            <field name="arch" type="xml">
+                <tree string="Question Category"
+                    >
+                    <field name="name"
+                        />
+                    <field name="parent_id"
+                            invisible="True"
+                       />
                 </tree>
             </field>
         </record>

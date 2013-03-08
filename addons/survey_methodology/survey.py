@@ -40,30 +40,33 @@ class survey(osv.osv):
     ]
 
     _columns = {
-        'name': fields.char(string='name', readonly=True, required=True, states={'draft':[('readonly',False)]}),
-        'description': fields.text(string='description', readonly=True, states={'draft':[('readonly',False)]}),
-        'creator_id': fields.many2one('res.partner', string='creator_id', readonly=True, states={'draft':[('readonly',False)]}),
-        'open_dt': fields.datetime(string='open_dt', readonly=True, states={'draft':[('readonly',False)]}),
-        'close_dt': fields.datetime(string='close_dt', readonly=True, states={'draft':[('readonly',False)]}),
-        'automatic': fields.boolean(string='automatic', readonly=True, states={'draft':[('readonly',False)]}),
-        'message': fields.text(string='message', readonly=True),
-        'sample_size': fields.integer(string='sample_size', readonly=True),
-        'sample_filter': fields.char(string='sample_filter', help=u"""Context filter for partner. This help to select partners to create the sample.""", readonly=True, size=512),
+        'name': fields.char(string='Name', readonly=True, required=True, states={'draft':[('readonly',False)]}),
+        'description': fields.text(string='Description', readonly=True, states={'draft':[('readonly',False)]}),
+        'manager_id': fields.many2one('res.users', string='Survey Manager', readonly=True, states={'draft':[('readonly',False)]}),
+        'open_dt': fields.datetime(string='Open date', readonly=True, states={'draft':[('readonly',False)]}),
+        'close_dt': fields.datetime(string='Close date', readonly=True, states={'draft':[('readonly',False)]}),
+        'automatic': fields.boolean(string='Automatic start', readonly=True, states={'draft':[('readonly',False)]}),
+        'message': fields.text(string='Message to Responder', readonly=True, states={'draft':[('readonly',False)]}),
+        'sample_size': fields.integer(string='Sample size', readonly=True, states={'draft':[('readonly',False)]}),
+        'sample_filter': fields.char(string='Filter for the Sample', help=u"""Context filter for partner. This help to select partners to create the sample. For example: [(&quot;is_company&quot;,&quot;=&quot;,True)] Only select companies.""", readonly=True, size=512, states={'draft':[('readonly',False)]}),
         'state': fields.selection(_states_, "State"),
-        'question_id': fields.many2one('survey_methodology.question', string='question_id', required=True), 
-        'answer_ids': fields.one2many('survey_methodology.answer', 'survey_id', string='answer_ids'), 
-        'partner_ids': fields.many2many('res.partner', 'survey_methodology_survey_ids_partner_ids_rel', 'partner_ids', 'survey_ids', string='partner_ids'), 
+        'question_id': fields.many2one('survey_methodology.question', string='Question', readonly=True, states={'draft':[('readonly',False)]}, required=True), 
+        'answer_ids': fields.one2many('survey_methodology.answer', 'survey_id', string='Answers', readonly=True), 
+        'responder_ids': fields.many2many('res.partner', 'survey_methodology_respond_ids_responder_ids_rel', 'responder_ids', 'respond_ids', string='Responders', readonly=True, states={'draft':[('readonly',False)]}), 
+        'surveyor_ids': fields.many2many('res.users', 'survey_methodology_work_ids_surveyor_ids_rel', 'surveyor_ids', 'work_ids', string='Surveyors', readonly=True, states={'draft':[('readonly',False)]}), 
     }
 
     _defaults = {
         'state': 'draft',
+        'sample_filter': [],
+        'manager_id': lambda cr, uid, id, context: id,
     }
 
     def generate_questions(self, cr, uid, ids, context=None):
         """"""
         raise NotImplementedError
 
-    def newOperation(self, cr, uid, ids, context=None):
+    def generate_sample(self, cr, uid, ids, context=None):
         """"""
         raise NotImplementedError
 

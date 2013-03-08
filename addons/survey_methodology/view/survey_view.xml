@@ -32,7 +32,7 @@
             <field name="name">survey_methodology.survey.select</field>
             <field name="model">survey_methodology.survey</field>
             <field name="arch" type="xml">
-                <search string="survey" version="7.0">
+                <search string="Survey" version="7.0">
                 </search>
             </field>
         </record>
@@ -42,7 +42,7 @@
             <field name="name">survey_methodology.survey.form</field>
             <field name="model">survey_methodology.survey</field>
             <field name="arch" type="xml">
-                <form string="survey" version="7.0">
+                <form string="Survey" version="7.0">
                     <header>
                         <button name="sgn_accept"
                             states="draft"
@@ -72,13 +72,13 @@
                             statusbar_colors='{}'
                             />
                     </header>
-                    <sheet string="survey">
+                    <sheet string="Survey">
                      <group>
                         <field name="name"
                             />
                         <field name="description"
                             />
-                        <field name="creator_id"
+                        <field name="manager_id"
                             />
                         <field name="open_dt"
                             />
@@ -94,9 +94,10 @@
                             />
                     <field name="question_id"
                             />
-                    <field name="answer_ids"
+                    <field name="responder_ids"
+                            domain="[('is_responder','=',True)]"
                             />
-                    <field name="partner_ids"
+                    <field name="surveyor_ids"
                             />
                      </group>
                     </sheet>
@@ -111,14 +112,14 @@
             <field name="name">survey_methodology.survey.tree</field>
             <field name="model">survey_methodology.survey</field>
             <field name="arch" type="xml">
-                <tree string="survey"
+                <tree string="Survey"
                     colors="grey:state=='cancelled';blue:state in ('draft',);black:state in ('close', 'accepted', 'published'); red:state in ()"
                     >
                     <field name="name"
                         />
-                    <field name="creator_id"
+                    <field name="manager_id"
                         />
-                    <field name="state"/>
+                    <field name="state" />
                 </tree>
             </field>
         </record>

@@ -22,14 +22,13 @@
 
 
 import category
+import input_test
 import question
+import validator
 import survey
-import partner
 import answer
-import answer_text
-import answer_integer
-import answer_selection
-import options
+import partner
+import caster
 import wizard
 import report
 

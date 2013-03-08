@@ -34,8 +34,10 @@ class category(osv.osv):
     ]
 
     _columns = {
-        'name': fields.char(string='name', required=True),
-        'question_ids': fields.many2many('survey_methodology.question', 'survey_methodology_question_ids_category_ids_rel', 'question_ids', 'category_ids', string='question_ids'), 
+        'name': fields.char(string='Name', required=True),
+        'question_ids': fields.many2many('survey_methodology.question', 'survey_methodology_question_ids_category_ids_rel', 'question_ids', 'category_ids', string='Questions'), 
+        'child_ids': fields.one2many('survey_methodology.category', 'parent_id', string='child_ids'), 
+        'parent_id': fields.many2one('survey_methodology.category', string='parent_id'), 
     }
 
     _defaults = {

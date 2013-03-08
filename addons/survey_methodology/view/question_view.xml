@@ -32,7 +32,7 @@
             <field name="name">survey_methodology.question.select</field>
             <field name="model">survey_methodology.question</field>
             <field name="arch" type="xml">
-                <search string="question" version="7.0">
+                <search string="Question" version="7.0">
                 </search>
             </field>
         </record>
@@ -42,10 +42,10 @@
             <field name="name">survey_methodology.question.form</field>
             <field name="model">survey_methodology.question</field>
             <field name="arch" type="xml">
-                <form string="question" version="7.0">
+                <form string="Question" version="7.0">
                     <header>
                     </header>
-                    <sheet string="question">
+                    <sheet string="Question">
                      <group>
                         <field name="code"
                             />
@@ -54,15 +54,12 @@
                         <field name="description"
                             />
                         <field name="type"
-                            on_change="onchange_type(type)"
                             />
-                        <field name="size"
+                        <field name="validator_id"
                             />
-                        <field name="min"
+                        <field name="caster_id"
                             />
-                        <field name="max"
-                            />
-                        <field name="validation"
+                        <field name="variable_name"
                             />
                     <field name="survey_ids"
                             />
@@ -72,8 +69,6 @@
                             />
                     <field name="category_ids"
                             widget="many2many_tags"
-                            />
-                    <field name="selection_options_ids"
                             />
                      </group>
                     </sheet>
@@ -88,18 +83,35 @@
             <field name="name">survey_methodology.question.tree</field>
             <field name="model">survey_methodology.question</field>
             <field name="arch" type="xml">
-                <tree string="question"
+                <tree string="Question"
                     >
                     <field name="code"
                         />
                     <field name="name"
                         />
-                    <field name="description"
+                    <field name="type"
+                        />
+                    <field name="parent_id"
+                       />
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_survey_methodology_question_tree_hier" model="ir.ui.view">
+            <field name="name">survey_methodology.question.tree_hier</field>
+            <field name="model">survey_methodology.question</field>
+            <field name="field_parent">child_ids</field>
+            <field name="arch" type="xml">
+                <tree string="Question"
+                    >
+                    <field name="code"
+                        />
+                    <field name="name"
                         />
                     <field name="type"
                         />
                     <field name="parent_id"
-                        />
+                       />
                 </tree>
             </field>
         </record>

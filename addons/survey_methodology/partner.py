@@ -35,7 +35,10 @@ class partner(osv.osv):
     ]
 
     _columns = {
-        'use_as_sample': fields.boolean(string='use_as_sample'),
+        'is_responder': fields.boolean(string='is responder?'),
+        'is_surveyor': fields.boolean(string='is surveyor?'),
+        'survey_code': fields.integer(string='survey_code'),
+        'answer_id': fields.many2many('survey_methodology.answer', 'survey_methodology___survey_code_rel', 'answer_id', 'survey_code', string='&lt;no label&gt;'), 
     }
 
     _defaults = {

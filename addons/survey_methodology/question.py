@@ -37,27 +37,21 @@ class question(osv.osv):
         'code': fields.char(string='Code', required=True),
         'name': fields.char(string='Name', required=True),
         'description': fields.text(string='Description'),
-        'type': fields.selection([(u'Group', 'Group'), (u'Integer', 'Integer'), (u'Text', 'Text'), (u'Char', 'Char'), (u'Float', 'Float'), (u'Boolean', 'Boolean')], string='Data type', required=True),
-        'size': fields.integer(string='Size'),
-        'min': fields.integer(string='Min value'),
-        'max': fields.integer(string='Max value'),
-        'validation': fields.text(string='validation'),
-        'survey_ids': fields.one2many('survey_methodology.survey', 'question_id', string='survey_ids'), 
-        'answers_ids': fields.one2many('survey_methodology.answer', 'question_id', string='answers_ids'), 
-        'parent_id': fields.many2one('survey_methodology.question', string='parent_id'), 
-        'child_ids': fields.one2many('survey_methodology.question', 'parent_id', string='child_ids'), 
-        'category_ids': fields.many2many('survey_methodology.category', 'survey_methodology_question_ids_category_ids_rel', 'category_ids', 'question_ids', string='category_ids'), 
-        'selection_options_ids': fields.one2many('survey_methodology.options', 'question_selection_id', string='selection_options_ids'), 
+        'type': fields.selection([(u'Group', 'Group'), (u'Integer', 'Integer'), (u'Text', 'Text'), (u'Char', 'Char'), (u'Float', 'Float'), (u'Boolean', 'Boolean')], string='Type', required=True),
+        'validator_id': fields.many2one('survey_methodology.validator', string='Validator'),
+        'caster_id': fields.many2one('survey_methodology.caster', string='Caster'),
+        'variable_name': fields.char(string='variable_name'),
+        'survey_ids': fields.one2many('survey_methodology.survey', 'question_id', string='Surveis'), 
+        'answers_ids': fields.one2many('survey_methodology.answer', 'question_id', string='Answers'), 
+        'parent_id': fields.many2one('survey_methodology.question', string='Parent'), 
+        'child_ids': fields.one2many('survey_methodology.question', 'parent_id', string='Childs'), 
+        'category_ids': fields.many2many('survey_methodology.category', 'survey_methodology_question_ids_category_ids_rel', 'category_ids', 'question_ids', string='Categories'), 
     }
 
     _defaults = {
         'type': 'Group',
         'parent_id': lambda self, cr, uid, context=None: context and context.get('parent_id', False),
     }
-
-    def onchange_type(self, cr, uid, ids, type, context=None):
-        """"""
-        raise NotImplementedError
 
 
 question()

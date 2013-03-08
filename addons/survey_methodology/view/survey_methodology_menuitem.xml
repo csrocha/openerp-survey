@@ -49,22 +49,109 @@
             groups="group_designer"
             />
 
-        <record id="action_survey_methodology_answer_answers" model="ir.actions.act_window">
+        <record id="action_survey_methodology_answer_answers_edit" model="ir.actions.act_window">
             <field name="name">Answers</field>
             <field name="res_model">survey_methodology.answer</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
-            <field name="view_id" ref="view_survey_methodology_answer_tree"/>
+            <field name="view_id" ref="view_survey_methodology_answer_tree_edit"/>
             <field name="search_view_id" ref="view_survey_methodology_answer_filter"/>
+            <field name="domain">[            ]            </field>
         </record>
 
         <menuitem
             name="Answers"
             id="menu_answers"
             sequence="100"
-            action="action_survey_methodology_answer_answers"
+            action="action_survey_methodology_answer_answers_edit"
             parent="menu_answer_pool"
             groups="group_surveyor"
+            />
+
+        <record id="action_survey_methodology_caster_casters" model="ir.actions.act_window">
+            <field name="name">Casters</field>
+            <field name="res_model">survey_methodology.caster</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_survey_methodology_caster_tree"/>
+            <field name="search_view_id" ref="view_survey_methodology_caster_filter"/>
+            <field name="domain">[            ]            </field>
+        </record>
+
+        <menuitem
+            name="Casters"
+            id="menu_casters"
+            sequence="100"
+            action="action_survey_methodology_caster_casters"
+            parent="menu_design"
+            groups="group_designer"
+            />
+
+        <record id="action_survey_methodology_category_categories_hier" model="ir.actions.act_window">
+            <field name="name">Categories</field>
+            <field name="res_model">survey_methodology.category</field>
+            <field name="view_type">tree</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_survey_methodology_category_tree_hier"/>
+            <field name="search_view_id" ref="view_survey_methodology_category_filter"/>
+            <field name="domain">[            ('parent_id','=',False)]            </field>
+        </record>
+
+        <menuitem
+            name="Categories"
+            id="menu_categories"
+            sequence="100"
+            action="action_survey_methodology_category_categories_hier"
+            parent="menu_design"
+            groups="group_designer"
+            />
+
+        <record id="action_survey_methodology_input_test_input_tests" model="ir.actions.act_window">
+            <field name="name">Input Tests</field>
+            <field name="res_model">survey_methodology.input_test</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_survey_methodology_input_test_tree"/>
+            <field name="search_view_id" ref="view_survey_methodology_input_test_filter"/>
+            <field name="domain">[            ]            </field>
+        </record>
+
+        <menuitem
+            name="Input Tests"
+            id="menu_input_tests"
+            sequence="100"
+            action="action_survey_methodology_input_test_input_tests"
+            parent="menu_design"
+            groups="group_designer"
+            />
+
+
+        <menuitem
+            name="Partners"
+            id="menu_partners"
+            sequence="100"
+            action="base.action_partner_form"
+            parent="menu_design"
+            groups="group_designer"
+            />
+
+        <record id="action_survey_methodology_question_question_organization_hier" model="ir.actions.act_window">
+            <field name="name">Question Organization</field>
+            <field name="res_model">survey_methodology.question</field>
+            <field name="view_type">tree</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_survey_methodology_question_tree_hier"/>
+            <field name="search_view_id" ref="view_survey_methodology_question_filter"/>
+            <field name="domain">[            ('parent_id','=',False)]            </field>
+        </record>
+
+        <menuitem
+            name="Question Organization"
+            id="menu_question_organization"
+            sequence="100"
+            action="action_survey_methodology_question_question_organization_hier"
+            parent="menu_design"
+            groups="group_designer"
             />
 
         <record id="action_survey_methodology_question_questions" model="ir.actions.act_window">
@@ -74,6 +161,7 @@
             <field name="view_mode">tree,form</field>
             <field name="view_id" ref="view_survey_methodology_question_tree"/>
             <field name="search_view_id" ref="view_survey_methodology_question_filter"/>
+            <field name="domain">[            ]            </field>
         </record>
 
         <menuitem
@@ -92,6 +180,7 @@
             <field name="view_mode">tree,form</field>
             <field name="view_id" ref="view_survey_methodology_survey_tree"/>
             <field name="search_view_id" ref="view_survey_methodology_survey_filter"/>
+            <field name="domain">[            ]            </field>
         </record>
 
         <menuitem
@@ -99,6 +188,25 @@
             id="menu_surveys"
             sequence="100"
             action="action_survey_methodology_survey_surveys"
+            parent="menu_design"
+            groups="group_designer"
+            />
+
+        <record id="action_survey_methodology_validator_validators" model="ir.actions.act_window">
+            <field name="name">Validators</field>
+            <field name="res_model">survey_methodology.validator</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_survey_methodology_validator_tree"/>
+            <field name="search_view_id" ref="view_survey_methodology_validator_filter"/>
+            <field name="domain">[            ]            </field>
+        </record>
+
+        <menuitem
+            name="Validators"
+            id="menu_validators"
+            sequence="100"
+            action="action_survey_methodology_validator_validators"
             parent="menu_design"
             groups="group_designer"
             />

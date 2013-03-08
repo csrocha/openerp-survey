@@ -35,23 +35,52 @@ class answer(osv.osv):
         raise NotImplementedError
 
     _states_ = [
+        # State machine: untitle
+        ('enabled','enabled'),
+        ('disabled','disabled'),
+        ('closed','closed'),
     ]
 
     _columns = {
-        'name': fields.char(string='name', required=True),
-        'responder_id': fields.many2one('res.partner', string='responder_id', required=True),
-        'surveyor_id': fields.many2one('res.partner', string='surveyor_id'),
-        'progress': fields.float(string='progress'),
-        'question_id': fields.many2one('survey_methodology.question', string='question_id', required=True), 
-        'survey_id': fields.many2one('survey_methodology.survey', string='survey_id', required=True), 
+        'name': fields.char(string='name', readonly=True, required=True),
+        'responder_id': fields.many2one('res.partner', string='responder_id', readonly=True, required=True),
+        'surveyor_id': fields.many2one('res.users', string='surveyor_id', readonly=True),
+        'progress': fields.float(string='progress', readonly=True),
+        'input': fields.char(string='Input', readonly=True, states={'enabled':[('readonly',False)]}),
+        'input_as_integer': fields.integer(string='as integer number'),
+        'input_as_char': fields.char(string='as text'),
+        'input_as_boolean': fields.boolean(string='as boolean'),
+        'input_as_float': fields.float(string='as real number'),
+        'validator_id': fields.many2one('survey_methodology.validator', string='validator_id', readonly=True),
+        'caster_id': fields.many2one('survey_methodology.caster', string='caster_id', readonly=True),
+        'message': fields.char(string='message', readonly=True),
+        'state': fields.selection(_states_, "State"),
+        'question_id': fields.many2one('survey_methodology.question', string='Question', readonly=True, required=True), 
+        'survey_id': fields.many2one('survey_methodology.survey', string='Survey', readonly=True, required=True), 
+        'survey_code': fields.related(
+                    'responder_id',
+                    'survey_code',
+                    type='integer',
+                    relation='res.partner',
+                    string='survey_code', readonly=True
+                    ),
     }
 
     _defaults = {
+        'state': 'enabled',
     }
 
     def is_valid(self, cr, uid, ids, context=None):
         """"""
         raise NotImplementedError
+
+    def action_wfk_set_enabled(self, cr, uid, ids, *args):
+        self.write(cr, uid, ids, {'state':'enabled'})
+        wf_service = netsvc.LocalService("workflow")
+        for obj_id in ids:
+            wf_service.trg_delete(uid, 'survey_methodology.answer', obj_id, cr)
+            wf_service.trg_create(uid, 'survey_methodology.answer', obj_id, cr)
+        return True
 
 
 answer()

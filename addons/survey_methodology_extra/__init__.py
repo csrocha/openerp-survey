@@ -21,15 +21,9 @@
 ##############################################################################
 
 
-#import category
 import question
-#import survey
-#import answer
-#import answer_text
-#import answer_integer
-#import answer_selection
-#import options
-#import wizard
-#import report
+import survey
+import caster
+import validator
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

@@ -24,16 +24,25 @@
 import re
 import netsvc
 from osv import osv, fields
+import itertools
 
 class question(osv.osv):
     """"""
     _name = 'survey_methodology.question'
     _inherit = [ _name ]
-    
-    def onchange_type(self, cr, uid, ids, type, context=None):
-        """"""
-        return {}
 
+    def get_childs(self, cr, uid, ids, context=None):
+        context = context or {}
+
+        r = {}
+        for question in self.browse(cr, uid, ids):
+            qid = question.id
+            r[qid] = [ q.id for q in question.child_ids ]
+            if len(r[qid]) > 0:
+                r[qid] += itertools.chain(*self.get_childs(cr, uid, r[qid], context).values())
+
+        return r
+    
 question()
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
