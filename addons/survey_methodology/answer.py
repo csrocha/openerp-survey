@@ -27,6 +27,7 @@ from osv import osv, fields
 
 class answer(osv.osv):
     """"""
+    
     _name = 'survey_methodology.answer'
     _description = 'answer'
 
@@ -42,6 +43,7 @@ class answer(osv.osv):
     ]
 
     _columns = {
+        'code': fields.char(string='Code', readonly=True, required=True),
         'name': fields.char(string='Question', readonly=True, required=True),
         'respondent_id': fields.many2one('res.partner', string='Respondent', readonly=True, required=True),
         'pollster_id': fields.many2one('res.users', string='Pollster', readonly=True),
@@ -56,7 +58,7 @@ class answer(osv.osv):
         'message': fields.char(string='Message', readonly=True),
         'state': fields.selection(_states_, "State"),
         'question_id': fields.many2one('survey_methodology.question', string='Question', readonly=True, required=True), 
-        'survey_id': fields.many2one('survey_methodology.survey', string='Survey', readonly=True, required=True), 
+        'survey_id': fields.many2one('survey_methodology.survey', string='Survey', readonly=True, ondelete='cascade', required=True), 
         'respondent_code': fields.related(
                     'respondent_id',
                     'respondent_code',
@@ -69,6 +71,13 @@ class answer(osv.osv):
     _defaults = {
         'state': 'enabled',
     }
+
+    _order = "survey_id, pollster_id, respondent_id, code"
+
+    _constraints = [
+    ]
+
+    _sql_constraints = [ ('unique_answer','unique(survey_id,pollster_id,respondent_id,code)','Not repeat answers.') ]
 
     def is_valid(self, cr, uid, ids, context=None):
         """"""
@@ -85,6 +94,7 @@ class answer(osv.osv):
             wf_service.trg_delete(uid, 'survey_methodology.answer', obj_id, cr)
             wf_service.trg_create(uid, 'survey_methodology.answer', obj_id, cr)
         return True
+
 
 
 answer()

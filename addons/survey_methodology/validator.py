@@ -27,6 +27,7 @@ from osv import osv, fields
 
 class validator(osv.osv):
     """"""
+    
     _name = 'survey_methodology.validator'
     _description = 'validator'
 
@@ -44,9 +45,15 @@ class validator(osv.osv):
     _defaults = {
     }
 
+
+    _constraints = [
+    ]
+
+
     def onchange_code(self, cr, uid, ids, code, input_test_ids, context=None):
         """"""
         raise NotImplementedError
+
 
 
 validator()

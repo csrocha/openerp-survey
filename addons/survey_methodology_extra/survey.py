@@ -47,7 +47,9 @@ class survey(osv.osv):
         return True
 
     def generate_questions(self, cr, uid, ids, context=None):
-        """"""
+        """
+        Create root answer for this survey.
+        """
         context = context or {}
         partner_obj = self.pool.get('res.partner')
         user_obj = self.pool.get('res.partner')
@@ -57,25 +59,32 @@ class survey(osv.osv):
         for survey in self.browse(cr, uid, ids, context):
             survey_id = survey.id
             root_question_id = survey.question_id.id
-            respondent_ids = [ p.id for p in survey.respondent_ids ] or partner_obj.search(cr, uid, [('is_respondent','=',True)])
-            pollster_ids  = [ p.id for p in survey.pollster_ids ] or user_obj.search(cr, uid, [])
-            if len(pollster_ids) == 0:
-                osv.except_osv('No exists pollster', 'Please create pollsters first')
-            s_i = 0
-            s_s = len(pollster_ids)
+            respondent_ids = context.get('respondent_ids', [ p.id for p in survey.respondent_ids ])
             for respondent_id in respondent_ids:
                 question = question_obj.read(cr, uid, root_question_id, ['name', 'initial_state'])
-                v = {
-                    'name': question['name'],
-                    'respondent_id': respondent_id,
-                    'question_id': root_question_id,
-                    'survey_id': survey_id,
-                    'pollster_id': False,
-                    'state': question['initial_state'],
-                }
-                answer_obj.create(cr, uid, v)
-                s_i = (s_i + 1) % s_s
-            self.write(cr, uid, survey.id, {'state': 'accepted' })
+
+                if answer_obj.search(cr, uid, [('respondent_id','=',respondent_id),
+                                               ('question_id','=',root_question_id),
+                                               ('survey_id','=',survey_id),
+                                              ]):
+                    return False
+
+                for question_id in question_obj.walk_to(cr, uid, [root_question_id]):
+                    print "W:", question_id
+                    question = question_obj.browse(cr, uid, question_id)
+                    v = {
+                        'code': question.complete_name,
+                        'name': question.question,
+                        'respondent_id': respondent_id,
+                        'question_id': question_id,
+                        'survey_id': survey_id,
+                        'pollster_id': context.get('pollster_id', False),
+                    }
+
+                    answer_id = answer_obj.create(cr, uid, v)
+                    answer_obj.write(cr, uid, answer_id, {'state': question.initial_state})
+                    wf_service = netsvc.LocalService("workflow")
+                    wf_service.trg_write(uid, 'survey_methodology.answer', answer_id, cr)
         return True
 
 survey()

@@ -27,6 +27,7 @@ from osv import osv, fields
 
 class caster(osv.osv):
     """"""
+    
     _name = 'survey_methodology.caster'
     _description = 'caster'
 
@@ -44,9 +45,15 @@ class caster(osv.osv):
     _defaults = {
     }
 
+
+    _constraints = [
+    ]
+
+
     def onchange_code(self, cr, uid, ids, code, input_test_ids, context=None):
         """"""
         raise NotImplementedError
+
 
 
 caster()

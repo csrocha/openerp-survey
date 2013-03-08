@@ -27,6 +27,7 @@ from osv import osv, fields
 
 class survey(osv.osv):
     """"""
+    
     _name = 'survey_methodology.survey'
     _description = 'survey'
 
@@ -50,9 +51,9 @@ class survey(osv.osv):
         'sample_size': fields.integer(string='Sample size', readonly=True, states={'draft':[('readonly',False)]}),
         'sample_filter': fields.char(string='Filter for the Sample', help=u"""Context filter for partner. This help to select partners to create the sample. For example: [(&quot;is_company&quot;,&quot;=&quot;,True)] Only select companies.""", readonly=True, size=512, states={'draft':[('readonly',False)]}),
         'state': fields.selection(_states_, "State"),
-        'question_id': fields.many2one('survey_methodology.question', string='Question', readonly=True, states={'draft':[('readonly',False)]}, required=True), 
+        'question_ids': fields.one2many('survey_methodology.question', 'survey_id', string='Questions', readonly=True, states={'draft':[('readonly',False)]}), 
         'answer_ids': fields.one2many('survey_methodology.answer', 'survey_id', string='Answers', readonly=True), 
-        'respondent_ids': fields.many2many('res.partner', 'survey_methodology_respond_ids_respondent_ids_rel', 'respondent_ids', 'respond_ids', string='Responders', readonly=True, states={'draft':[('readonly',False)]}), 
+        'respondent_ids': fields.many2many('res.partner', 'survey_methodology_respond_ids_respondent_ids_rel', 'respondent_ids', 'respond_ids', string='Responders', readonly=True, states={'draft':[('readonly',False)], 'published':[('readonly',False)],}), 
         'pollster_ids': fields.many2many('res.users', 'survey_methodology_work_ids_pollster_ids_rel', 'pollster_ids', 'work_ids', string='Surveyors', readonly=True, states={'draft':[('readonly',False)]}), 
     }
 
@@ -61,6 +62,11 @@ class survey(osv.osv):
         'sample_filter': [],
         'manager_id': lambda cr, uid, id, context: id,
     }
+
+
+    _constraints = [
+    ]
+
 
     def generate_questions(self, cr, uid, ids, context=None):
         """"""
@@ -77,6 +83,7 @@ class survey(osv.osv):
             wf_service.trg_delete(uid, 'survey_methodology.survey', obj_id, cr)
             wf_service.trg_create(uid, 'survey_methodology.survey', obj_id, cr)
         return True
+
 
 
 survey()

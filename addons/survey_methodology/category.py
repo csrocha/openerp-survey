@@ -27,6 +27,7 @@ from osv import osv, fields
 
 class category(osv.osv):
     """"""
+    
     _name = 'survey_methodology.category'
     _description = 'category'
 
@@ -42,6 +43,12 @@ class category(osv.osv):
 
     _defaults = {
     }
+
+
+    _constraints = [
+    ]
+
+
 
 
 category()

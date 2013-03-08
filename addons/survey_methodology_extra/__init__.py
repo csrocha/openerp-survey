@@ -26,5 +26,6 @@ import caster
 import question
 import survey
 import validator
+import partner
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

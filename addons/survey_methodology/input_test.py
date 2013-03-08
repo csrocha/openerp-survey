@@ -27,6 +27,7 @@ from osv import osv, fields
 
 class input_test(osv.osv):
     """"""
+    
     _name = 'survey_methodology.input_test'
     _description = 'input_test'
 
@@ -48,6 +49,12 @@ class input_test(osv.osv):
 
     _defaults = {
     }
+
+
+    _constraints = [
+    ]
+
+
 
 
 input_test()

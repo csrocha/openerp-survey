@@ -51,11 +51,11 @@
                     </header>
                     <sheet string="Question">
                      <group>
-                        <field name="code"
-                            />
                         <field name="name"
                             />
-                        <field name="description"
+                        <field name="question"
+                            />
+                        <field name="note"
                             />
                         <field name="type"
                             />
@@ -69,7 +69,7 @@
                             />
                         <field name="next_enable"
                             />
-                    <field name="survey_ids"
+                    <field name="survey_id"
                             />
                     <field name="parent_id"
                             />
@@ -93,9 +93,12 @@
             <field name="arch" type="xml">
                 <tree string="Question"
                     >
-                    <field name="code"
-                        />
+                    <field name="complete_name"/>
                     <field name="name"
+                        />
+                    <field name="question"
+                        />
+                    <field name="note"
                         />
                     <field name="type"
                         />
@@ -112,9 +115,12 @@
             <field name="arch" type="xml">
                 <tree string="Question"
                     >
-                    <field name="code"
-                        />
+                    <field name="complete_name"/>
                     <field name="name"
+                        />
+                    <field name="question"
+                        />
+                    <field name="note"
                         />
                     <field name="type"
                         />

@@ -66,7 +66,7 @@
             <field name="street2">Villa Ortuza, CABA</field>
             <field name="zip">1427</field>
             <field name="is_respondent">1</field>
-            <field name="respondent_code">000005</field>
+            <field name="respondent_code">100000</field>
         </record>
 
     </data>

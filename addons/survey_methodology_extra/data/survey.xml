@@ -28,7 +28,6 @@
             <field name="name">Encuestia Estructural a PyME industriales 2012</field>
             <field name="description"></field>
             <field name="message"></field>
-            <field name="question_id" ref="EE12"/>
             <field name="sample_size">4</field>
         </record>
 

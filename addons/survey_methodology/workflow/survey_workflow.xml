@@ -46,7 +46,7 @@
         <record id="a_1870_0CAB" model="workflow.activity">
             <field name="wkf_id" ref="survey_untitle_wkf"/>
             <field name="name">Accepted</field>
-            <field name="action">generate_questions()</field>
+            <field name="action">write({'state':'accepted'})</field>
             <field name="kind">function</field>
         </record>
         <record id="a_1870_0CAC" model="workflow.activity">

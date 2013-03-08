@@ -33,38 +33,19 @@
 
 
         <menuitem
-            name="Answer Pool"
-            id="menu_answer_pool"
-            sequence="100"
-            parent="menu_survery"
-            groups="group_surveyor"
-            />
-
-
-        <menuitem
-            name="Design"
-            id="menu_design"
+            name="For Designers"
+            id="menu_for_designers"
             sequence="100"
             parent="menu_survery"
             groups="group_designer"
             />
 
-        <record id="action_survey_methodology_answer_answers_edit" model="ir.actions.act_window">
-            <field name="name">Answers</field>
-            <field name="res_model">survey_methodology.answer</field>
-            <field name="view_type">form</field>
-            <field name="view_mode">tree,form</field>
-            <field name="view_id" ref="view_survey_methodology_answer_tree_edit"/>
-            <field name="search_view_id" ref="view_survey_methodology_answer_filter"/>
-            <field name="domain">[            ]            </field>
-        </record>
 
         <menuitem
-            name="Answers"
-            id="menu_answers"
+            name="For Poolster"
+            id="menu_for_poolster"
             sequence="100"
-            action="action_survey_methodology_answer_answers_edit"
-            parent="menu_answer_pool"
+            parent="menu_survery"
             groups="group_surveyor"
             />
 
@@ -83,7 +64,7 @@
             id="menu_casters"
             sequence="100"
             action="action_survey_methodology_caster_casters"
-            parent="menu_design"
+            parent="menu_for_designers"
             groups="group_designer"
             />
 
@@ -102,7 +83,7 @@
             id="menu_categories"
             sequence="100"
             action="action_survey_methodology_category_categories_hier"
-            parent="menu_design"
+            parent="menu_for_designers"
             groups="group_designer"
             />
 
@@ -121,8 +102,27 @@
             id="menu_input_tests"
             sequence="100"
             action="action_survey_methodology_input_test_input_tests"
-            parent="menu_design"
+            parent="menu_for_designers"
             groups="group_designer"
+            />
+
+        <record id="action_survey_methodology_answer_load_answers_edit" model="ir.actions.act_window">
+            <field name="name">Load Answers</field>
+            <field name="res_model">survey_methodology.answer</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_survey_methodology_answer_tree_edit"/>
+            <field name="search_view_id" ref="view_survey_methodology_answer_filter"/>
+            <field name="domain">[            ]            </field>
+        </record>
+
+        <menuitem
+            name="Load Answers"
+            id="menu_load_answers"
+            sequence="100"
+            action="action_survey_methodology_answer_load_answers_edit"
+            parent="menu_for_poolster"
+            groups="group_surveyor"
             />
 
 
@@ -131,8 +131,27 @@
             id="menu_partners"
             sequence="100"
             action="base.action_partner_form"
-            parent="menu_design"
+            parent="menu_for_designers"
             groups="group_designer"
+            />
+
+        <record id="action_survey_methodology_survey_published_surveys" model="ir.actions.act_window">
+            <field name="name">Published Surveys</field>
+            <field name="res_model">survey_methodology.survey</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_survey_methodology_survey_tree"/>
+            <field name="search_view_id" ref="view_survey_methodology_survey_filter"/>
+            <field name="domain">[('state','=','published')            ]            </field>
+        </record>
+
+        <menuitem
+            name="Published Surveys"
+            id="menu_published_surveys"
+            sequence="100"
+            action="action_survey_methodology_survey_published_surveys"
+            parent="menu_for_poolster"
+            groups="group_surveyor"
             />
 
         <record id="action_survey_methodology_question_question_organization_hier" model="ir.actions.act_window">
@@ -150,7 +169,7 @@
             id="menu_question_organization"
             sequence="100"
             action="action_survey_methodology_question_question_organization_hier"
-            parent="menu_design"
+            parent="menu_for_designers"
             groups="group_designer"
             />
 
@@ -169,7 +188,7 @@
             id="menu_questions"
             sequence="100"
             action="action_survey_methodology_question_questions"
-            parent="menu_design"
+            parent="menu_for_designers"
             groups="group_designer"
             />
 
@@ -188,7 +207,7 @@
             id="menu_surveys"
             sequence="100"
             action="action_survey_methodology_survey_surveys"
-            parent="menu_design"
+            parent="menu_for_designers"
             groups="group_designer"
             />
 
@@ -207,7 +226,7 @@
             id="menu_validators"
             sequence="100"
             action="action_survey_methodology_validator_validators"
-            parent="menu_design"
+            parent="menu_for_designers"
             groups="group_designer"
             />
 

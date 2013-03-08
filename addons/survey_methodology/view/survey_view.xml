@@ -96,10 +96,10 @@
                             />
                         <field name="sample_filter"
                             />
-                    <field name="question_id"
+                    <field name="question_ids"
                             />
                     <field name="respondent_ids"
-                            domain="[('is_responder','=',True)]"
+                            domain="[('is_respondent','=',True)]"
                             />
                     <field name="pollster_ids"
                             />

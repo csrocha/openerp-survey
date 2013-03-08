@@ -27,6 +27,7 @@ from osv import osv, fields
 
 class partner(osv.osv):
     """"""
+    
     _name = 'res.partner'
     _inherits = {  }
     _inherit = [ 'res.partner' ]
@@ -37,12 +38,22 @@ class partner(osv.osv):
     _columns = {
         'is_respondent': fields.boolean(string='is responder?'),
         'is_surveyor': fields.boolean(string='is surveyor?'),
-        'respondent_code': fields.char(string='respondent_code'),
+        'respondent_code': fields.char(string='Respondent code'),
         'answer_id': fields.many2many('survey_methodology.answer', 'survey_methodology___respondent_code_rel', 'answer_id', 'respondent_code', string='&lt;no label&gt;'), 
     }
 
     _defaults = {
     }
+
+
+    _constraints = [
+    ]
+
+
+    def generate_questions(self, cr, uid, ids, context=None):
+        """"""
+        raise NotImplementedError
+
 
 
 partner()

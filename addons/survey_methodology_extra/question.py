@@ -31,6 +31,34 @@ class question(osv.osv):
     _name = 'survey_methodology.question'
     _inherit = [ _name ]
 
+    def next(self, cr, uid, ids, context=None):
+        context = context or {}
+        return self.read(cr, uid, ids, ['child_ids'])['child_ids'][0]
+
+    def walk_to(self, cr, uid, ids, stop_in_state='enabled', context=None):
+        data = self.read(cr, uid, ids,['survey_id','complete_name'])
+
+        ids = self.search(cr, uid, [
+            ('survey_id','=',data['survey_id']),
+            ('complete_name','>',data['complete_name']),
+        ], order="survey_id,complete_name")
+
+        if left_ids == []:
+            return right_ids+suffix
+
+        token=left_ids[0]
+        values = self.read(cr, uid, token, ['child_ids', 'initial_state'])
+
+        if values['initial_state'] == stop_in_state:
+            return right_ids + [token]
+        
+        child_ids = values['child_ids']
+        return self.walk_to(cr, uid,
+                            left_ids=child_ids+left_ids[1:],
+                            right_ids=right_ids+[token],
+                            stop_in_state='enabled',
+                            context=context)
+
     def get_childs(self, cr, uid, ids, context=None):
         context = context or {}
 

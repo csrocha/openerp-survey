@@ -30,6 +30,8 @@ class answer(osv.osv):
     _name = 'survey_methodology.answer'
     _inherit = [ _name ]
 
+    _sql_constraints = [('respondent_question_survey_uniq','unique(respondent_id, question_id, survey_id)', 'Answer must be unique!')]
+
     def _get_progress(self, cr, uid, ids, name, attrs, context=None):
         """"""
         r = {}
@@ -48,6 +50,22 @@ class answer(osv.osv):
 
     def onchange_input(self, cr, uid, ids, input, context=None):
         """"""
+        question_obj = self.pool.get('survey_methodology.question')
+
+        answer = self.browse(cr, uid, ids)
+
+        for question_id in answer.question_id.next().walk_to():
+            v = {
+                'name': question.name,
+                'respondent_id': respondent_id,
+                'question_id': question_id,
+                'survey_id': survey_id,
+                'pollster_id': context.get('pollster_id', False),
+            }
+            new_answer_id = self.create(cr, uid, v)
+
+
+
         import pdb; pdb.set_trace()
         return {}
 
