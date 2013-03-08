@@ -128,8 +128,9 @@
                 <tree string="Answer"
                     editable="bottom"
                     colors="grey:state=='cancelled';blue:state in ('enabled',);black:state in ('disabled',); red:state in ()"
+                    toolbar="1"
                     >
-                    <field name="respondent_code" />
+                    <field name="code" />
                     <field name="name" />
                     <field name="input" attrs="{'readonly': [('state','!=','enabled')]}" on_change="onchange_input(input)"/>
                     <field name="message" />

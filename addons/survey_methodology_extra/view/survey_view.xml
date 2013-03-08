@@ -40,7 +40,7 @@
         </record>
 
         <!-- FORMVIEW -->
-        <record id="view_survey_methodology_survey_form" model="ir.ui.view">
+        <record id="survey_methodology.view_survey_methodology_survey_form" model="ir.ui.view">
             <field name="name">survey_methodology.survey.form</field>
             <field name="model">survey_methodology.survey</field>
             <field name="sequence">10</field>

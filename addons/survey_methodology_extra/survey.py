@@ -58,31 +58,29 @@ class survey(osv.osv):
 
         for survey in self.browse(cr, uid, ids, context):
             survey_id = survey.id
-            root_question_id = survey.question_id.id
             respondent_ids = context.get('respondent_ids', [ p.id for p in survey.respondent_ids ])
             for respondent_id in respondent_ids:
-                question = question_obj.read(cr, uid, root_question_id, ['name', 'initial_state'])
-
                 if answer_obj.search(cr, uid, [('respondent_id','=',respondent_id),
-                                               ('question_id','=',root_question_id),
                                                ('survey_id','=',survey_id),
                                               ]):
                     return False
 
-                for question_id in question_obj.walk_to(cr, uid, [root_question_id]):
-                    print "W:", question_id
-                    question = question_obj.browse(cr, uid, question_id)
+                for question_id in question_obj.search(cr, uid, [('survey_id','=',survey_id)]):
+                    question = question_obj.read(cr, uid, question_id,
+                                                 ['complete_name','question',
+                                                  'question_id','initial_state'])
                     v = {
-                        'code': question.complete_name,
-                        'name': question.question,
+                        'code': question['complete_name'],
+                        'name': question['question'],
                         'respondent_id': respondent_id,
-                        'question_id': question_id,
+                        'question_id': question['id'],
                         'survey_id': survey_id,
                         'pollster_id': context.get('pollster_id', False),
                     }
+                    print v
 
                     answer_id = answer_obj.create(cr, uid, v)
-                    answer_obj.write(cr, uid, answer_id, {'state': question.initial_state})
+                    answer_obj.write(cr, uid, answer_id, {'state': question['initial_state']})
                     wf_service = netsvc.LocalService("workflow")
                     wf_service.trg_write(uid, 'survey_methodology.answer', answer_id, cr)
         return True

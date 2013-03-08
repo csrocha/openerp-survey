@@ -51,26 +51,27 @@
                                 <label for="name"/>
                             </div>
                         </div>
-                        <h1>
-                            <field name="name" placeholder="Name"/>
+                        <h1 col="4">
+                            <field name="question" placeholder="Question" colspan="2"/>
+                            <field name="name" placeholder="Code"/>
                             <field name="category_ids" widget="many2many_tags"/>
                         </h1>
                         <group col="6">
-                            <field name="code" placeholder="Code"/>
                             <field name="type" on_change="onchange_type(type)"/>
                             <field name="parent_id"/>
                             <field name="initial_state"/>
                             <field name="validator_id"/>
                             <field name="caster_id"/>
+                            <field name="variable_name"/>
                             <label for="next_enable" colspan="6"/>
-                            <field name="next_enable" nolabel="1" colspan="6"/>
+                            <field name="next_enable" nolabel="1" colspan="6" placeholder="True:"/>
                         </group>
                         <notebook>
                             <page string="Questions"  attrs="{'invisible': [('type','!=','Group')]}">
                                 <field name="child_ids"/>
                             </page>
-                            <page string="Description">
-                                <field name="description" nolabel="1"/>
+                            <page string="Note">
+                                <field name="note" nolabel="1"/>
                             </page>
                         </notebook>
                     </sheet>
@@ -86,15 +87,11 @@
             <field name="arch" type="xml">
                 <tree string="Question"
                     >
-                    <field name="code"
+                    <field name="complete_name"
                         />
-                    <field name="name"
-                        />
-                    <field name="description"
+                    <field name="question"
                         />
                     <field name="type"
-                        />
-                    <field name="parent_id"
                         />
                 </tree>
             </field>
