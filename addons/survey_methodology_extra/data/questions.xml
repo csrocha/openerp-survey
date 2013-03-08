@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+##############################################################################
+#
+#    Survey Methodology
+#    Copyright (C) 2013 Coop. Trab. Moldeo Interactive Ltda.
+#    No email
+#
+#    This program is free software: you can redistribute it and/or modify
+#    it under the terms of the GNU Affero General Public License as
+#    published by the Free Software Foundation, either version 3 of the
+#    License, or (at your option) any later version.
+#
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU Affero General Public License for more details.
+#
+#    You should have received a copy of the GNU Affero General Public License
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#
+##############################################################################
+-->
+<openerp>
+    <data>
+
+        <record model="survey_methodology.question" id="EE12">
+            <field name="name">Encuesta Estructural a PyME industriales 2012</field>
+            <field name="code">EE12</field>
+            <field name="description">.</field>
+            <field name="type">Group</field>
+        </record>
+
+        <record model="survey_methodology.question" id="EE12_MIE">
+            <field name="name">Modificaciones en la Identificación de la Empresa</field>
+            <field name="code">MIE</field>
+            <field name="description">Llenar sólo los apartados que hayan cambiado respecto a los datos de la etiqueta</field>
+            <field name="type">Group</field>
+            <field name="parent_id" ref="EE12"/>
+        </record>
+
+        <record model="survey_methodology.question" id="EE12_MIE_RS">
+            <field name="name">Razón Social</field>
+            <field name="code">RS</field>
+            <field name="variable_name">RS</field>
+            <field name="description">Razón Social</field>
+            <field name="type">Char</field>
+            <field name="parent_id" ref="EE12_MIE"/>
+        </record>
+
+        <record model="survey_methodology.question" id="EE12_MIE_CR">
+            <field name="name">Calle/Ruta</field>
+            <field name="code">CR</field>
+            <field name="variable_name">CR</field>
+            <field name="description">Calle/Ruta</field>
+            <field name="type">Char</field>
+            <field name="parent_id" ref="EE12_MIE"/>
+        </record>
+
+        <record model="survey_methodology.question" id="EE12_MIE_NK">
+            <field name="name">Número/Km</field>
+            <field name="code">NK</field>
+            <field name="variable_name">NK</field>
+            <field name="description">Número/Km</field>
+            <field name="type">Char</field>
+            <field name="parent_id" ref="EE12_MIE"/>
+        </record>
+
+        <record model="survey_methodology.question" id="EE12_MIE_LOC">
+            <field name="name">Localidad</field>
+            <field name="code">LOC</field>
+            <field name="variable_name">LOC</field>
+            <field name="description">Localidad</field>
+            <field name="type">Char</field>
+            <field name="parent_id" ref="EE12_MIE"/>
+        </record>
+
+        <record model="survey_methodology.question" id="EE12_MIE_DP">
+            <field name="name">Departamento/Partido</field>
+            <field name="code">DP</field>
+            <field name="variable_name">DP</field>
+            <field name="description">Departamento/Partido</field>
+            <field name="type">Char</field>
+            <field name="parent_id" ref="EE12_MIE"/>
+        </record>
+
+        <record model="survey_methodology.question" id="EE12_MIE_CP">
+            <field name="name">Código Postal</field>
+            <field name="code">CP</field>
+            <field name="variable_name">CP</field>
+            <field name="description">Código Postal</field>
+            <field name="type">Char</field>
+            <field name="parent_id" ref="EE12_MIE"/>
+        </record>
+
+        <record model="survey_methodology.question" id="EE12_MIE_PROV">
+            <field name="name">Provincia</field>
+            <field name="code">PROV</field>
+            <field name="variable_name">PROV</field>
+            <field name="description">Provincia</field>
+            <field name="type">Char</field>
+            <field name="parent_id" ref="EE12_MIE"/>
+        </record>
+    </data>
+</openerp>
+<!-- vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4
+     -->

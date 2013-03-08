@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+##############################################################################
+#
+#    Survey Methodology
+#    Copyright (C) 2013 Coop. Trab. Moldeo Interactive Ltda.
+#    No email
+#
+#    This program is free software: you can redistribute it and/or modify
+#    it under the terms of the GNU Affero General Public License as
+#    published by the Free Software Foundation, either version 3 of the
+#    License, or (at your option) any later version.
+#
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU Affero General Public License for more details.
+#
+#    You should have received a copy of the GNU Affero General Public License
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#
+##############################################################################
+-->
+<openerp>
+    <data noupdate="1">
+
+        <record model="res.partner" id="sample_000">
+            <field name="name">Responder 00</field>
+            <field name="is_responder">1</field>
+            <field name="survey_code">000000</field>
+        </record>
+
+        <record model="res.partner" id="sample_001">
+            <field name="name">Responder 01</field>
+            <field name="is_responder">1</field>
+            <field name="survey_code">000001</field>
+        </record>
+
+        <record model="res.partner" id="sample_002">
+            <field name="name">Responder 02</field>
+            <field name="is_responder">1</field>
+            <field name="survey_code">000002</field>
+        </record>
+
+        <record model="res.partner" id="sample_003">
+            <field name="name">Responder 03</field>
+            <field name="is_responder">1</field>
+            <field name="survey_code">000003</field>
+        </record>
+
+        <record model="res.partner" id="sample_004">
+            <field name="name">Responder 04</field>
+            <field name="is_responder">1</field>
+            <field name="survey_code">000004</field>
+        </record>
+
+        <record model="res.partner" id="sample_005">
+            <field name="name">Responder 05</field>
+            <field name="is_responder">1</field>
+            <field name="survey_code">000005</field>
+        </record>
+
+        <record model="res.partner" id="sample_006">
+            <field name="name">L ÉPI S.R.L.</field>
+            <field name="street">Roseti 1769</field>
+            <field name="street2">Villa Ortuza, CABA</field>
+            <field name="zip">1427</field>
+            <field name="is_responder">1</field>
+            <field name="survey_code">000005</field>
+        </record>
+
+    </data>
+</openerp>
+<!-- vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4
+     -->

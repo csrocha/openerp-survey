@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+##############################################################################
+#
+#    Survey Methodology
+#    Copyright (C) 2013 Coop. Trab. Moldeo Interactive Ltda.
+#    No email
+#
+#    This program is free software: you can redistribute it and/or modify
+#    it under the terms of the GNU Affero General Public License as
+#    published by the Free Software Foundation, either version 3 of the
+#    License, or (at your option) any later version.
+#
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU Affero General Public License for more details.
+#
+#    You should have received a copy of the GNU Affero General Public License
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#
+##############################################################################
+-->
+<!-- survey_methodology.validator -->
+<!-- survey_methodology.validator -->
+<!-- survey_methodology.validator -->
+<openerp>
+    <data>
+
+        <!-- SEARCHVIEW -->
+        <record id="view_survey_methodology_validator_filter" model="ir.ui.view">
+            <field name="name">survey_methodology.validator.select</field>
+            <field name="model">survey_methodology.validator</field>
+            <field name="arch" type="xml">
+                <search string="Validator" version="7.0">
+                </search>
+            </field>
+        </record>
+
+        <!-- FORMVIEW -->
+        <record id="view_survey_methodology_validator_form" model="ir.ui.view">
+            <field name="name">survey_methodology.validator.form</field>
+            <field name="model">survey_methodology.validator</field>
+            <field name="arch" type="xml">
+                <form string="Validator" version="7.0">
+                    <header>
+                    </header>
+                    <sheet string="Validator">
+                     <group>
+                        <field name="name"
+                            />
+                        <field name="code"
+                            on_change="onchange_code(code, input_test_ids)"
+                            />
+                        <field name="code_error"
+                            />
+                        <field name="is_valid"
+                            />
+                    <field name="input_test_ids"
+                            />
+                     </group>
+                    </sheet>
+
+                </form>
+            </field>
+        </record>
+
+        <!-- TREEVIEW -->
+
+        <record id="view_survey_methodology_validator_tree" model="ir.ui.view">
+            <field name="name">survey_methodology.validator.tree</field>
+            <field name="model">survey_methodology.validator</field>
+            <field name="arch" type="xml">
+                <tree string="Validator"
+                    >
+                    <field name="name"
+                        />
+                    <field name="is_valid"
+                        />
+                </tree>
+            </field>
+        </record>
+
+    </data>
+</openerp>
+<!-- vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4
+     -->
