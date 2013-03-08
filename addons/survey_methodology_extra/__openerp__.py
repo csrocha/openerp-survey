@@ -43,6 +43,7 @@
 #       u'security/survey_methodology_group.xml',
 #       u'view/category_view.xml',
         u'view/question_view.xml',
+        u'view/partner_view.xml',
 #       u'view/survey_view.xml',
 #       u'view/answer_view.xml',
 #       u'view/answer_text_view.xml',

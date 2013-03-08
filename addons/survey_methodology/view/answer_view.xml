@@ -27,14 +27,18 @@
 <openerp>
     <data>
 
-        <!-- SEARCHVIEW -->
+        <!-- SEARCH VIEW -->
         <record id="view_survey_methodology_answer_filter" model="ir.ui.view">
             <field name="name">survey_methodology.answer.select</field>
             <field name="model">survey_methodology.answer</field>
             <field name="arch" type="xml">
                 <search string="Answer" version="7.0">
-                        <field name="survey_code"
+                    <group string="By Attribute">
+                    </group>
+                    <group string="By object">
+                    <field name="respondent_code" string="Respondent Code"
                             />
+                    </group>
                 </search>
             </field>
         </record>
@@ -67,9 +71,9 @@
                      <group>
                         <field name="name"
                             />
-                        <field name="responder_id"
+                        <field name="respondent_id"
                             />
-                        <field name="surveyor_id"
+                        <field name="pollster_id"
                             />
                         <field name="progress"
                             />
@@ -89,7 +93,7 @@
                             />
                     <field name="survey_id"
                             />
-                    <field name="survey_code"
+                    <field name="respondent_code"
                             />
                      </group>
                     </sheet>
@@ -109,15 +113,11 @@
                     >
                     <field name="name"
                         />
-                    <field name="responder_id"
-                        />
                     <field name="input"
                         />
-                    <field name="question_id"
+                    <field name="message"
                         />
-                    <field name="survey_id"
-                        />
-                    <field name="survey_code"
+                    <field name="respondent_code"
                         />
                     <field name="state" readonly='True'/>
                 </tree>
@@ -134,15 +134,11 @@
                     >
                     <field name="name"
                         />
-                    <field name="responder_id"
-                        />
                     <field name="input"
                         />
-                    <field name="question_id"
+                    <field name="message"
                         />
-                    <field name="survey_id"
-                        />
-                    <field name="survey_code"
+                    <field name="respondent_code"
                         />
                     <field name="state" readonly='True'/>
                 </tree>

@@ -1,4 +1,5 @@
-# -*- coding: utf-8 -*-
+<?xml version="1.0" encoding="utf-8"?>
+<!--
 ##############################################################################
 #
 #    Survey Methodology
@@ -19,32 +20,26 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
+-->
+<!-- survey_methodology.partner -->
+<!-- res.partner -->
+<!-- res.partner -->
+<openerp>
+    <data>
 
+        <!-- INHERITED SEARCH -->
+        <record id="view_survey_methodology_partner_filter" model="ir.ui.view">
+            <field name="name">survey_methodology.partner.select</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_res_partner_filter"/>
+            <field name="arch" type="xml">
+                <filter string="Companies" position="before">
+                    <filter string="Respondent" name="type_respondent" icon="terp-personal" domain="[('is_respondent','=',1)]"/>
+                </filter>
+            </field>
+        </record>
 
-import re
-import netsvc
-from osv import osv, fields
-
-class partner(osv.osv):
-    """"""
-    _name = 'res.partner'
-    _inherits = {  }
-    _inherit = [ 'res.partner' ]
-
-    _states_ = [
-    ]
-
-    _columns = {
-        'is_respondent': fields.boolean(string='is responder?'),
-        'is_surveyor': fields.boolean(string='is surveyor?'),
-        'respondent_code': fields.char(string='respondent_code'),
-        'answer_id': fields.many2many('survey_methodology.answer', 'survey_methodology___respondent_code_rel', 'answer_id', 'respondent_code', string='&lt;no label&gt;'), 
-    }
-
-    _defaults = {
-    }
-
-
-partner()
-
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
+    </data>
+</openerp>
+<!-- vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4
+     -->

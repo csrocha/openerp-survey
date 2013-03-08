@@ -40,9 +40,9 @@ class survey(osv.osv):
         for survey in self.browse(cr, uid, ids, context):
             sample_size = survey.sample_size
             sample_filter = survey.sample_filter and eval(survey.sample_filter) or []
-            responder_ids = partner_obj.search(cr, uid, [('is_responder','=',True)] + sample_filter)
-            sample_ids = random.sample(responder_ids, sample_size)
-            self.write(cr, uid, survey.id, {'responder_ids': [(6,0,sample_ids)] })
+            respondent_ids = partner_obj.search(cr, uid, [('is_respondent','=',True)] + sample_filter)
+            sample_ids = random.sample(respondent_ids, sample_size)
+            self.write(cr, uid, survey.id, {'respondent_ids': [(6,0,sample_ids)] })
 
         return True
 
@@ -57,20 +57,21 @@ class survey(osv.osv):
         for survey in self.browse(cr, uid, ids, context):
             survey_id = survey.id
             root_question_id = survey.question_id.id
-            question_ids  = [root_question_id] + survey.question_id.get_childs()[root_question_id]
-            responder_ids = [ p.id for p in survey.responder_ids ] or partner_obj.search(cr, uid, [('is_responder','=',True)])
-            surveyor_ids  = [ p.id for p in survey.surveyor_ids ] or user_obj.search(cr, uid, [])
-            if len(surveyor_ids) == 0:
-                osv.except_osv('No exists surveyor', 'Please create surveyors first')
+            respondent_ids = [ p.id for p in survey.respondent_ids ] or partner_obj.search(cr, uid, [('is_respondent','=',True)])
+            pollster_ids  = [ p.id for p in survey.pollster_ids ] or user_obj.search(cr, uid, [])
+            if len(pollster_ids) == 0:
+                osv.except_osv('No exists pollster', 'Please create pollsters first')
             s_i = 0
-            s_s = len(surveyor_ids)
-            for question_id, responder_id in itertools.product(question_ids, responder_ids):
+            s_s = len(pollster_ids)
+            for respondent_id in respondent_ids:
+                question = question_obj.read(cr, uid, root_question_id, ['name', 'initial_state'])
                 v = {
-                    'name': question_obj.browse(cr, uid, question_id).name,
-                    'responder_id': responder_id,
-                    'question_id': question_id,
+                    'name': question['name'],
+                    'respondent_id': respondent_id,
+                    'question_id': root_question_id,
                     'survey_id': survey_id,
-                    'surveyor_id': surveyor_ids[s_i],
+                    'pollster_id': False,
+                    'state': question['initial_state'],
                 }
                 answer_obj.create(cr, uid, v)
                 s_i = (s_i + 1) % s_s

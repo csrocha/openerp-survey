@@ -27,12 +27,16 @@
 <openerp>
     <data>
 
-        <!-- SEARCHVIEW -->
+        <!-- SEARCH VIEW -->
         <record id="view_survey_methodology_question_filter" model="ir.ui.view">
             <field name="name">survey_methodology.question.select</field>
             <field name="model">survey_methodology.question</field>
             <field name="arch" type="xml">
                 <search string="Question" version="7.0">
+                    <group string="By Attribute">
+                    </group>
+                    <group string="By object">
+                    </group>
                 </search>
             </field>
         </record>
@@ -60,6 +64,10 @@
                         <field name="caster_id"
                             />
                         <field name="variable_name"
+                            />
+                        <field name="initial_state"
+                            />
+                        <field name="next_enable"
                             />
                     <field name="survey_ids"
                             />

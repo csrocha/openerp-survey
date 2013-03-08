@@ -45,11 +45,11 @@
             <field name="inherit_id" ref="base.view_partner_form"/>
             <field name="arch" type="xml">
                 <group position="inside">
-                        <field name="is_responder"
+                        <field name="is_respondent"
                             />
                         <field name="is_surveyor"
                             />
-                        <field name="survey_code"
+                        <field name="respondent_code"
                             />
                 </group>
             </field>
@@ -62,7 +62,7 @@
             <field name="inherit_id" ref="base.view_partner_tree"/>
             <field name="arch" type="xml">
                 <tree position="inside">
-                    <field name="is_responder"/>
+                    <field name="is_respondent"/>
                 </tree>
             </field>
         </record>

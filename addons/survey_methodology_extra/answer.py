@@ -25,26 +25,32 @@ import re
 import netsvc
 from osv import osv, fields
 
-class partner(osv.osv):
+class answer(osv.osv):
     """"""
-    _name = 'res.partner'
-    _inherits = {  }
-    _inherit = [ 'res.partner' ]
+    _name = 'survey_methodology.answer'
+    _inherit = [ _name ]
 
-    _states_ = [
-    ]
+    def _get_progress(self, cr, uid, ids, name, attrs, context=None):
+        """"""
+        r = {}
+        for i in ids:
+            r[i] = 0
+        return r
 
     _columns = {
-        'is_respondent': fields.boolean(string='is responder?'),
-        'is_surveyor': fields.boolean(string='is surveyor?'),
-        'respondent_code': fields.char(string='respondent_code'),
-        'answer_id': fields.many2many('survey_methodology.answer', 'survey_methodology___respondent_code_rel', 'answer_id', 'respondent_code', string='&lt;no label&gt;'), 
+        'progress': fields.function(_get_progress, type='float', arg=None, fnct_inv_arg=None, obj=None, string='progress', readonly=True),
     }
 
-    _defaults = {
-    }
+    def is_valid(self, cr, uid, ids, context=None):
+        """"""
+        import pdb; pdb.set_trace()
+        return {}
 
+    def onchange_input(self, cr, uid, ids, input, context=None):
+        """"""
+        import pdb; pdb.set_trace()
+        return {}
 
-partner()
+answer()
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

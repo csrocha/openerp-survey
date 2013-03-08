@@ -42,27 +42,27 @@ class answer(osv.osv):
     ]
 
     _columns = {
-        'name': fields.char(string='name', readonly=True, required=True),
-        'responder_id': fields.many2one('res.partner', string='responder_id', readonly=True, required=True),
-        'surveyor_id': fields.many2one('res.users', string='surveyor_id', readonly=True),
-        'progress': fields.float(string='progress', readonly=True),
+        'name': fields.char(string='Question', readonly=True, required=True),
+        'respondent_id': fields.many2one('res.partner', string='Respondent', readonly=True, required=True),
+        'pollster_id': fields.many2one('res.users', string='Pollster', readonly=True),
+        'progress': fields.function(_get_progress, type='float', arg=None, fnct_inv_arg=None, obj=None, string='Progress', readonly=True),
         'input': fields.char(string='Input', readonly=True, states={'enabled':[('readonly',False)]}),
-        'input_as_integer': fields.integer(string='as integer number'),
-        'input_as_char': fields.char(string='as text'),
-        'input_as_boolean': fields.boolean(string='as boolean'),
-        'input_as_float': fields.float(string='as real number'),
-        'validator_id': fields.many2one('survey_methodology.validator', string='validator_id', readonly=True),
-        'caster_id': fields.many2one('survey_methodology.caster', string='caster_id', readonly=True),
-        'message': fields.char(string='message', readonly=True),
+        'input_as_integer': fields.integer(string='As integer number'),
+        'input_as_char': fields.char(string='As text'),
+        'input_as_boolean': fields.boolean(string='As boolean'),
+        'input_as_float': fields.float(string='As real number'),
+        'validator_id': fields.many2one('survey_methodology.validator', string='Validator', readonly=True),
+        'caster_id': fields.many2one('survey_methodology.caster', string='Caster function', readonly=True),
+        'message': fields.char(string='Message', readonly=True),
         'state': fields.selection(_states_, "State"),
         'question_id': fields.many2one('survey_methodology.question', string='Question', readonly=True, required=True), 
         'survey_id': fields.many2one('survey_methodology.survey', string='Survey', readonly=True, required=True), 
-        'survey_code': fields.related(
-                    'responder_id',
-                    'survey_code',
-                    type='integer',
+        'respondent_code': fields.related(
+                    'respondent_id',
+                    'respondent_code',
+                    type='char',
                     relation='res.partner',
-                    string='survey_code', readonly=True
+                    string='Respondent Code', readonly=True, store=True
                     ),
     }
 
@@ -71,6 +71,10 @@ class answer(osv.osv):
     }
 
     def is_valid(self, cr, uid, ids, context=None):
+        """"""
+        raise NotImplementedError
+
+    def onchange_input(self, cr, uid, ids, input, context=None):
         """"""
         raise NotImplementedError
 

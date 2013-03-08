@@ -27,12 +27,16 @@
 <openerp>
     <data>
 
-        <!-- SEARCHVIEW -->
+        <!-- SEARCH VIEW -->
         <record id="view_survey_methodology_survey_filter" model="ir.ui.view">
             <field name="name">survey_methodology.survey.select</field>
             <field name="model">survey_methodology.survey</field>
             <field name="arch" type="xml">
                 <search string="Survey" version="7.0">
+                    <group string="By Attribute">
+                    </group>
+                    <group string="By object">
+                    </group>
                 </search>
             </field>
         </record>
@@ -94,10 +98,10 @@
                             />
                     <field name="question_id"
                             />
-                    <field name="responder_ids"
+                    <field name="respondent_ids"
                             domain="[('is_responder','=',True)]"
                             />
-                    <field name="surveyor_ids"
+                    <field name="pollster_ids"
                             />
                      </group>
                     </sheet>

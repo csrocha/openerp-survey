@@ -174,7 +174,7 @@
         self.generate_sample(cr, uid, [ref('survey_01')])
 
 - !assert { model: survey_methodology.survey, id: survey_01 }:
-        - len(responder_ids) == 4
+        - len(respondent_ids) == 4
 
 - !workflow { model: survey_methodology.survey, action: sgn_accept, ref: survey_01 }
 

@@ -43,8 +43,6 @@
             <field name="model">survey_methodology.question</field>
             <field name="arch" type="xml">
                 <form string="Question" version="7.0">
-
-                    <form string="Question" version="7.0">
                     <header>
                     </header>
                     <sheet string="Question">
@@ -55,32 +53,27 @@
                         </div>
                         <h1>
                             <field name="name" placeholder="Name"/>
-                    <field name="category_ids" widget="many2many_tags"/>
+                            <field name="category_ids" widget="many2many_tags"/>
                         </h1>
-
-
-                     <group>
-<field name="code" placeholder="Code"/>
-                        <field name="type" on_change="onchange_type(type)"/>
-                    <field name="parent_id"/>
-    <field name="validator_id"/>
-    <field name="caster_id"/>
-</group>
-
-<notebook>
-<page string="Questions"  attrs="{'invisible': [('type','!=','Group')]}">
-    <field name="child_ids"/>
-</page>
-<page string="Description">
-                        <field name="description" nolabel="1"/>
-</page>
-</notebook>
-                     
+                        <group col="6">
+                            <field name="code" placeholder="Code"/>
+                            <field name="type" on_change="onchange_type(type)"/>
+                            <field name="parent_id"/>
+                            <field name="initial_state"/>
+                            <field name="validator_id"/>
+                            <field name="caster_id"/>
+                            <label for="next_enable" colspan="6"/>
+                            <field name="next_enable" nolabel="1" colspan="6"/>
+                        </group>
+                        <notebook>
+                            <page string="Questions"  attrs="{'invisible': [('type','!=','Group')]}">
+                                <field name="child_ids"/>
+                            </page>
+                            <page string="Description">
+                                <field name="description" nolabel="1"/>
+                            </page>
+                        </notebook>
                     </sheet>
-
-                </form>
-
-
                 </form>
             </field>
         </record>

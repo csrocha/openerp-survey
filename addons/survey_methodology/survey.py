@@ -52,8 +52,8 @@ class survey(osv.osv):
         'state': fields.selection(_states_, "State"),
         'question_id': fields.many2one('survey_methodology.question', string='Question', readonly=True, states={'draft':[('readonly',False)]}, required=True), 
         'answer_ids': fields.one2many('survey_methodology.answer', 'survey_id', string='Answers', readonly=True), 
-        'responder_ids': fields.many2many('res.partner', 'survey_methodology_respond_ids_responder_ids_rel', 'responder_ids', 'respond_ids', string='Responders', readonly=True, states={'draft':[('readonly',False)]}), 
-        'surveyor_ids': fields.many2many('res.users', 'survey_methodology_work_ids_surveyor_ids_rel', 'surveyor_ids', 'work_ids', string='Surveyors', readonly=True, states={'draft':[('readonly',False)]}), 
+        'respondent_ids': fields.many2many('res.partner', 'survey_methodology_respond_ids_respondent_ids_rel', 'respondent_ids', 'respond_ids', string='Responders', readonly=True, states={'draft':[('readonly',False)]}), 
+        'pollster_ids': fields.many2many('res.users', 'survey_methodology_work_ids_pollster_ids_rel', 'pollster_ids', 'work_ids', string='Surveyors', readonly=True, states={'draft':[('readonly',False)]}), 
     }
 
     _defaults = {

@@ -41,6 +41,8 @@ class question(osv.osv):
         'validator_id': fields.many2one('survey_methodology.validator', string='Validator'),
         'caster_id': fields.many2one('survey_methodology.caster', string='Caster'),
         'variable_name': fields.char(string='variable_name'),
+        'initial_state': fields.selection([(u'closed', 'closed'), (u'disabled', 'disabled'), (u'enabled', 'enabled')], string='Initial state', required=True),
+        'next_enable': fields.text(string='Next enable rules'),
         'survey_ids': fields.one2many('survey_methodology.survey', 'question_id', string='Surveis'), 
         'answers_ids': fields.one2many('survey_methodology.answer', 'question_id', string='Answers'), 
         'parent_id': fields.many2one('survey_methodology.question', string='Parent'), 
@@ -49,7 +51,9 @@ class question(osv.osv):
     }
 
     _defaults = {
+        'next_enable': '',
         'type': 'Group',
+        'initial_state': 'closed',
         'parent_id': lambda self, cr, uid, context=None: context and context.get('parent_id', False),
     }
 

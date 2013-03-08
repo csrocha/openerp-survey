@@ -21,9 +21,10 @@
 ##############################################################################
 
 
+import answer
+import caster
 import question
 import survey
-import caster
 import validator
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

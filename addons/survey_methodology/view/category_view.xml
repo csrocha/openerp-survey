@@ -27,12 +27,16 @@
 <openerp>
     <data>
 
-        <!-- SEARCHVIEW -->
+        <!-- SEARCH VIEW -->
         <record id="view_survey_methodology_category_filter" model="ir.ui.view">
             <field name="name">survey_methodology.category.select</field>
             <field name="model">survey_methodology.category</field>
             <field name="arch" type="xml">
                 <search string="Question Category" version="7.0">
+                    <group string="By Attribute">
+                    </group>
+                    <group string="By object">
+                    </group>
                 </search>
             </field>
         </record>

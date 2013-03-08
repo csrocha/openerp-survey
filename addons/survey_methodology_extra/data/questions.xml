@@ -29,6 +29,7 @@
             <field name="code">EE12</field>
             <field name="description">.</field>
             <field name="type">Group</field>
+            <field name="initial_state">closed</field>
         </record>
 
         <record model="survey_methodology.question" id="EE12_MIE">
@@ -37,6 +38,7 @@
             <field name="description">Llenar sólo los apartados que hayan cambiado respecto a los datos de la etiqueta</field>
             <field name="type">Group</field>
             <field name="parent_id" ref="EE12"/>
+            <field name="initial_state">closed</field>
         </record>
 
         <record model="survey_methodology.question" id="EE12_MIE_RS">
@@ -46,6 +48,8 @@
             <field name="description">Razón Social</field>
             <field name="type">Char</field>
             <field name="parent_id" ref="EE12_MIE"/>
+            <field name="initial_state">enabled</field>
+            <field name="next_enable">True:EE12_MIE_CR</field>
         </record>
 
         <record model="survey_methodology.question" id="EE12_MIE_CR">
@@ -55,6 +59,8 @@
             <field name="description">Calle/Ruta</field>
             <field name="type">Char</field>
             <field name="parent_id" ref="EE12_MIE"/>
+            <field name="initial_state">disabled</field>
+            <field name="next_enable">True:EE12_MIE_NK</field>
         </record>
 
         <record model="survey_methodology.question" id="EE12_MIE_NK">
@@ -64,6 +70,8 @@
             <field name="description">Número/Km</field>
             <field name="type">Char</field>
             <field name="parent_id" ref="EE12_MIE"/>
+            <field name="initial_state">disabled</field>
+            <field name="next_enable">True:EE12_MIE_LOC</field>
         </record>
 
         <record model="survey_methodology.question" id="EE12_MIE_LOC">
@@ -73,6 +81,8 @@
             <field name="description">Localidad</field>
             <field name="type">Char</field>
             <field name="parent_id" ref="EE12_MIE"/>
+            <field name="initial_state">disabled</field>
+            <field name="next_enable">True:EE12_MIE_DP</field>
         </record>
 
         <record model="survey_methodology.question" id="EE12_MIE_DP">
@@ -82,6 +92,8 @@
             <field name="description">Departamento/Partido</field>
             <field name="type">Char</field>
             <field name="parent_id" ref="EE12_MIE"/>
+            <field name="initial_state">disabled</field>
+            <field name="next_enable">True:EE12_MIE_CP</field>
         </record>
 
         <record model="survey_methodology.question" id="EE12_MIE_CP">
@@ -91,6 +103,8 @@
             <field name="description">Código Postal</field>
             <field name="type">Char</field>
             <field name="parent_id" ref="EE12_MIE"/>
+            <field name="initial_state">disabled</field>
+            <field name="next_enable">True:EE12_MIE_PROV</field>
         </record>
 
         <record model="survey_methodology.question" id="EE12_MIE_PROV">
@@ -100,9 +114,8 @@
             <field name="description">Provincia</field>
             <field name="type">Char</field>
             <field name="parent_id" ref="EE12_MIE"/>
+            <field name="initial_state">disabled</field>
         </record>
-        
-        <!--hecho por javiera-->
         
         <record model="survey_methodology.question" id="EE12_A">
             <field name="name">Características generales de la empresa</field>
@@ -111,6 +124,7 @@
             <field name="description">Características generales de la empresa</field>
             <field name="type">Group</field>
             <field name="parent_id" ref="EE12"/>
+            <field name="initial_state">disabled</field>
         </record>
         
         <record model="survey_methodology.question" id="EE12_A_1">
@@ -282,7 +296,7 @@
             <field name="code">EE12_A_4_6</field>
             <field name="variable_name">.</field>
             <field name="description">Otra </field>
-            <field name="type">boolean</field>
+            <field name="type">Boolean</field>
             <field name="parent_id" ref="EE12_A_4_6"/> <!--fijate que esta tiene el mismo field name que la anterior-->
         </record>
          <record model="survey_methodology.question" id="EE12_A_5">
@@ -553,7 +567,7 @@ Si su respuesta es sí, ¿Cuántos?</field>
             
             <record model="survey_methodology.question" id="EE12_B_9_5">
             <field name="name">Disminución de la rentabilidad </field>
-            <field name="code">EE12_B_9_5/field>
+            <field name="code">EE12_B_9_5</field>
             <field name="variable_name">.</field>
             <field name="description">Disminución de la rentabilidad</field>
             <field name="type">Integer</field>
@@ -563,7 +577,7 @@ Si su respuesta es sí, ¿Cuántos?</field>
             
             <record model="survey_methodology.question" id="EE12_B_9_6">
             <field name="name">Retraso en los pagos de los clientes </field>
-            <field name="code">EE12_B_9_6/field>
+            <field name="code">EE12_B_9_6</field>
             <field name="variable_name">.</field>
             <field name="description">Retraso en los pagos de los clientes</field>
             <field name="type">Integer</field>
@@ -572,7 +586,7 @@ Si su respuesta es sí, ¿Cuántos?</field>
             
             <record model="survey_methodology.question" id="EE12_B_9_7">
             <field name="name">Aumento de los costos directos de producción (mano de obra, materias primas, insumos, etc.)</field>
-            <field name="code">EE12_B_9_7/field>
+            <field name="code">EE12_B_9_7</field>
             <field name="variable_name">.</field>
             <field name="description">Aumento de los costos directos de producción (mano de obra, materias primas, insumos, etc.)</field>
             <field name="type">Integer</field>
@@ -581,7 +595,7 @@ Si su respuesta es sí, ¿Cuántos?</field>
             
             <record model="survey_methodology.question" id="EE12_B_9_8">
             <field name="name">Fuerte competencia en el mercado interno</field>
-            <field name="code">EE12_B_9_8/field>
+            <field name="code">EE12_B_9_8</field>
             <field name="variable_name">.</field>
             <field name="description">Fuerte competencia en el mercado interno</field>
             <field name="type">Integer</field>
@@ -590,7 +604,7 @@ Si su respuesta es sí, ¿Cuántos?</field>
             
             <record model="survey_methodology.question" id="EE12_B_9_9">
             <field name="name">Fuerte competencia en los mercados internacionales</field>
-            <field name="code">EE12_B_9_9/field>
+            <field name="code">EE12_B_9_9</field>
             <field name="variable_name">.</field>
             <field name="description">Fuerte competencia en los mercados internacionales</field>
             <field name="type">Integer</field>
@@ -599,7 +613,7 @@ Si su respuesta es sí, ¿Cuántos?</field>
             
             <record model="survey_methodology.question" id="EE12_B_9_10">
             <field name="name">Elevados costos financieros</field>
-            <field name="code">EE12_B_9_10/field>
+            <field name="code">EE12_B_9_10</field>
             <field name="variable_name">.</field>
             <field name="description">Elevados costos financieros</field>
             <field name="type">Integer</field>
@@ -608,7 +622,7 @@ Si su respuesta es sí, ¿Cuántos?</field>
             
             <record model="survey_methodology.question" id="EE12_B_9_11">
             <field name="name">Alto grado de evasión de los productores locales con los que compite</field>
-            <field name="code">EE12_B_9_11/field>
+            <field name="code">EE12_B_9_11</field>
             <field name="variable_name">.</field>
             <field name="description">Alto grado de evasión de los productores locales con los que compite </field>
             <field name="type">Integer</field>
@@ -617,7 +631,7 @@ Si su respuesta es sí, ¿Cuántos?</field>
             
             <record model="survey_methodology.question" id="EE12_B_9_12">
             <field name="name">Dificultades en el suministro de energía (electricidad, gas natural y/o combustible líquido) </field>
-            <field name="code">EE12_B_9_12/field>
+            <field name="code">EE12_B_9_12</field>
             <field name="variable_name">.</field>
             <field name="description">Dificultades en el suministro de energía (electricidad, gas natural y/o combustible líquido)</field>
             <field name="type">Integer</field>
@@ -626,7 +640,7 @@ Si su respuesta es sí, ¿Cuántos?</field>
             
             <record model="survey_methodology.question" id="EE12_B_9_13">
             <field name="name">Elevados costos de logística </field>
-            <field name="code">EE12_B_9_13/field>
+            <field name="code">EE12_B_9_13</field>
             <field name="variable_name">.</field>
             <field name="description">Elevados costos de logística</field>
             <field name="type">Integer</field>
@@ -635,7 +649,7 @@ Si su respuesta es sí, ¿Cuántos?</field>
             
             <record model="survey_methodology.question" id="EE12_B_9_14">
             <field name="name">Otros</field>
-            <field name="code">EE12_B_9_14/field>
+            <field name="code">EE12_B_9_14</field>
             <field name="variable_name">.</field>
             <field name="description">Otros </field>
             <field name="type">Group</field>
@@ -644,7 +658,7 @@ Si su respuesta es sí, ¿Cuántos?</field>
             
             <record model="survey_methodology.question" id="EE12_B_9_14_a">
             <field name="name">Otros</field>
-            <field name="code">EE12_B_9_14_a/field>
+            <field name="code">EE12_B_9_14_a</field>
             <field name="variable_name">.</field>
             <field name="description">Otros </field>
             <field name="type">Char</field>
@@ -653,7 +667,7 @@ Si su respuesta es sí, ¿Cuántos?</field>
             
             <record model="survey_methodology.question" id="EE12_B_9_14_b">
             <field name="name">Otros</field>
-            <field name="code">EE12_B_9_14_b/field>
+            <field name="code">EE12_B_9_14_b</field>
             <field name="variable_name">.</field>
             <field name="description">Otros </field>
             <field name="type">Boolean</field>
@@ -662,7 +676,7 @@ Si su respuesta es sí, ¿Cuántos?</field>
             
             <record model="survey_methodology.question" id="EE12_B_10">
             <field name="name">Otros</field>
-            <field name="code">EE12_B_10/field>
+            <field name="code">EE12_B_10</field>
             <field name="variable_name">.</field>
             <field name="description">Otros </field>
             <field name="type">Group</field>
@@ -671,7 +685,7 @@ Si su respuesta es sí, ¿Cuántos?</field>
             
             <record model="survey_methodology.question" id="EE12_B_10">
             <field name="name">¿Cómo espera que evolucionen los siguientes ítems en la empresa durante el próximo año?</field>
-            <field name="code">EE12_B_10/field>
+            <field name="code">EE12_B_10</field>
             <field name="variable_name">.</field>
             <field name="description">¿Cómo espera que evolucionen los siguientes ítems en la empresa durante el próximo año? </field>
             <field name="type">Group</field>
@@ -681,7 +695,7 @@ Si su respuesta es sí, ¿Cuántos?</field>
             <record model="survey_methodology.question" id="EE12_B_10_1">
             <field name="name">Ventas al mercado interno 
 </field>
-            <field name="code">EE12_B_10_1/field>
+            <field name="code">EE12_B_10_1</field>
             <field name="variable_name">.</field>
             <field name="description">Ventas al mercado interno 
  </field>
@@ -691,7 +705,7 @@ Si su respuesta es sí, ¿Cuántos?</field>
             
             <record model="survey_methodology.question" id="EE12_B_10_1_a">
             <field name="name">Aumentarán</field>
-            <field name="code">EE12_B_10_1_a/field>
+            <field name="code">EE12_B_10_1_a</field>
             <field name="variable_name">.</field>
             <field name="description">Aumentarán</field>
             <field name="type">Boolean</field>
@@ -700,7 +714,7 @@ Si su respuesta es sí, ¿Cuántos?</field>
             
             <record model="survey_methodology.question" id="EE12_B_10_1_b">
             <field name="name">No variarán</field>
-            <field name="code">EE12_B_10_1_b/field>
+            <field name="code">EE12_B_10_1_b</field>
             <field name="variable_name">.</field>
             <field name="description">No variarán</field>
             <field name="type">Boolean</field>
@@ -709,7 +723,7 @@ Si su respuesta es sí, ¿Cuántos?</field>
             
             <record model="survey_methodology.question" id="EE12_B_10_1_c">
             <field name="name">Disminuirán</field>
-            <field name="code">EE12_B_10_1_c/field>
+            <field name="code">EE12_B_10_1_c</field>
             <field name="variable_name">.</field>
             <field name="description">Disminuirán</field>
             <field name="type">Boolean</field>
@@ -718,7 +732,7 @@ Si su respuesta es sí, ¿Cuántos?</field>
             
             <record model="survey_methodology.question" id="EE12_B_10_2">
             <field name="name">Cantidad total de ocupados </field>
-            <field name="code">EE12_B_10_2/field>
+            <field name="code">EE12_B_10_2</field>
             <field name="variable_name">.</field>
             <field name="description">Cantidad total de ocupados </field>
             <field name="type">Group</field>
@@ -727,7 +741,7 @@ Si su respuesta es sí, ¿Cuántos?</field>
             
             <record model="survey_methodology.question" id="EE12_B_10_2_a">
             <field name="name">Aumentarán</field>
-            <field name="code">EE12_B_10_2_a/field>
+            <field name="code">EE12_B_10_2_a</field>
             <field name="variable_name">.</field>
             <field name="description">Aumentarán</field>
             <field name="type">Boolean</field>
@@ -736,7 +750,7 @@ Si su respuesta es sí, ¿Cuántos?</field>
             
             <record model="survey_methodology.question" id="EE12_B_10_2_b">
             <field name="name">No variarán</field>
-            <field name="code">EE12_B_10_2_b/field>
+            <field name="code">EE12_B_10_2_b</field>
             <field name="variable_name">.</field>
             <field name="description">No variarán</field>
             <field name="type">Boolean</field>
@@ -745,7 +759,7 @@ Si su respuesta es sí, ¿Cuántos?</field>
             
             <record model="survey_methodology.question" id="EE12_B_10_2_c">
             <field name="name">Disminuirán</field>
-            <field name="code">EE12_B_10_2_c/field>
+            <field name="code">EE12_B_10_2_c</field>
             <field name="variable_name">.</field>
             <field name="description">Disminuirán</field>
             <field name="type">Boolean</field>
@@ -754,7 +768,7 @@ Si su respuesta es sí, ¿Cuántos?</field>
             
             <record model="survey_methodology.question" id="EE12_B_10_3">
             <field name="name">Exportaciones </field>
-            <field name="code">EE12_B_10_3/field>
+            <field name="code">EE12_B_10_3</field>
             <field name="variable_name">.</field>
             <field name="description">Exportaciones </field>
             <field name="type">Group</field>
@@ -763,7 +777,7 @@ Si su respuesta es sí, ¿Cuántos?</field>
             
             <record model="survey_methodology.question" id="EE12_B_10_3_a">
             <field name="name">Aumentarán</field>
-            <field name="code">EE12_B_10_3_a/field>
+            <field name="code">EE12_B_10_3_a</field>
             <field name="variable_name">.</field>
             <field name="description">Aumentarán</field>
             <field name="type">Boolean</field>
@@ -772,7 +786,7 @@ Si su respuesta es sí, ¿Cuántos?</field>
             
             <record model="survey_methodology.question" id="EE12_B_10_3_b">
             <field name="name">No variarán</field>
-            <field name="code">EE12_B_10_3_b/field>
+            <field name="code">EE12_B_10_3_b</field>
             <field name="variable_name">.</field>
             <field name="description">No variarán</field>
             <field name="type">Boolean</field>
@@ -781,7 +795,7 @@ Si su respuesta es sí, ¿Cuántos?</field>
             
             <record model="survey_methodology.question" id="EE12_B_10_3_c">
             <field name="name">Disminuirán</field>
-            <field name="code">EE12_B_10_3_c/field>
+            <field name="code">EE12_B_10_3_c</field>
             <field name="variable_name">.</field>
             <field name="description">Disminuirán</field>
             <field name="type">Boolean</field>
@@ -790,7 +804,7 @@ Si su respuesta es sí, ¿Cuántos?</field>
             
             <record model="survey_methodology.question" id="EE12_B_10_3_d">
             <field name="name">No exportó este año   ni lo hará el próximo </field>
-            <field name="code">EE12_B_10_3_d/field>
+            <field name="code">EE12_B_10_3_d</field>
             <field name="variable_name">.</field>
             <field name="description">No exportó este año   ni lo hará el próximo </field>
             <field name="type">Boolean</field>
@@ -799,7 +813,7 @@ Si su respuesta es sí, ¿Cuántos?</field>
             
             <record model="survey_methodology.question" id="EE12_B_10_4">
             <field name="name">Inversiones </field>
-            <field name="code">EE12_B_10_4/field>
+            <field name="code">EE12_B_10_4</field>
             <field name="variable_name">.</field>
             <field name="description">Inversiones </field>
             <field name="type">Group</field>
@@ -808,7 +822,7 @@ Si su respuesta es sí, ¿Cuántos?</field>
             
             <record model="survey_methodology.question" id="EE12_B_10_4_a">
             <field name="name">Aumentarán</field>
-            <field name="code">EE12_B_10_4_a/field>
+            <field name="code">EE12_B_10_4_a</field>
             <field name="variable_name">.</field>
             <field name="description">Aumentarán</field>
             <field name="type">Boolean</field>
@@ -817,7 +831,7 @@ Si su respuesta es sí, ¿Cuántos?</field>
             
             <record model="survey_methodology.question" id="EE12_B_10_4_b">
             <field name="name">No variarán</field>
-            <field name="code">EE12_B_10_4_b/field>
+            <field name="code">EE12_B_10_4_b</field>
             <field name="variable_name">.</field>
             <field name="description">No variarán</field>
             <field name="type">Boolean</field>
@@ -826,7 +840,7 @@ Si su respuesta es sí, ¿Cuántos?</field>
             
             <record model="survey_methodology.question" id="EE12_B_10_4_c">
             <field name="name">Disminuirán</field>
-            <field name="code">EE12_B_10_4_c/field>
+            <field name="code">EE12_B_10_4_c</field>
             <field name="variable_name">.</field>
             <field name="description">Disminuirán</field>
             <field name="type">Boolean</field>
@@ -835,7 +849,7 @@ Si su respuesta es sí, ¿Cuántos?</field>
             
             <record model="survey_methodology.question" id="EE12_B_10_4_d">
             <field name="name">No invirtió este año  ni lo hará el próximo  </field>
-            <field name="code">EE12_B_10_4_d/field>
+            <field name="code">EE12_B_10_4_d</field>
             <field name="variable_name">.</field>
             <field name="description">No invirtió este año  ni lo hará el próximo  </field>
             <field name="type">Boolean</field>
@@ -846,7 +860,7 @@ Si su respuesta es sí, ¿Cuántos?</field>
            
             <record model="survey_methodology.question" id="EE12_C">
             <field name="name">Inversiones</field>
-            <field name="code">EE12_C/field>
+            <field name="code">EE12_C</field>
             <field name="variable_name">.</field>
             <field name="description">Inversiones</field>
             <field name="type">Group</field>
@@ -855,7 +869,7 @@ Si su respuesta es sí, ¿Cuántos?</field>
             
             <record model="survey_methodology.question" id="EE12_C_11">
             <field name="name">¿Realizó inversiones durante 2011?</field>
-            <field name="code">EE12_C_11/field>
+            <field name="code">EE12_C_11</field>
             <field name="variable_name">.</field>
             <field name="description">¿Realizó inversiones durante 2011?</field>
             <field name="type">Group</field>
@@ -864,7 +878,7 @@ Si su respuesta es sí, ¿Cuántos?</field>
             
             <record model="survey_methodology.question" id="EE12_C_11_a">
             <field name="name">Si</field>
-            <field name="code">EE12_C_11_a/field>
+            <field name="code">EE12_C_11_a</field>
             <field name="variable_name">.</field>
             <field name="description">Si</field>
             <field name="type">Boolean</field>
@@ -873,7 +887,7 @@ Si su respuesta es sí, ¿Cuántos?</field>
             
             <record model="survey_methodology.question" id="EE12_C_11_b">
             <field name="name">No</field>
-            <field name="code">EE12_C_11_b/field>
+            <field name="code">EE12_C_11_b</field>
             <field name="variable_name">.</field>
             <field name="description">No</field>
             <field name="type">Boolean</field>
@@ -882,7 +896,7 @@ Si su respuesta es sí, ¿Cuántos?</field>
             
             <record model="survey_methodology.question" id="EE12_C_11_1">
             <field name="name">Indique para el año 2011 qué proporción de sus ventas (facturación sin IVA) representaron las inversiones totales</field>
-            <field name="code">EE12_C_11_b/field>
+            <field name="code">EE12_C_11_b</field>
             <field name="variable_name">.</field>
             <field name="description">Indique para el año 2011 qué proporción de sus ventas (facturación sin IVA) representaron las inversiones totales</field>
             <field name="type">Float</field> <!--me parece que es float no?-->
@@ -892,7 +906,7 @@ Si su respuesta es sí, ¿Cuántos?</field>
             <record model="survey_methodology.question" id="EE12_C_11_2">
             <field name="name">Indique para el año 2011 qué proporción de sus ventas (facturación sin IVA) representaron las inversiones sólo en 	
 			 maquinaria y equipo</field>
-            <field name="code">EE12_C_11_2/field>
+            <field name="code">EE12_C_11_2</field>
             <field name="variable_name">.</field>
             <field name="description">Indique para el año 2011 qué proporción de sus ventas (facturación sin IVA) representaron las inversiones sólo en 	
 			 maquinaria y equipo</field>
@@ -902,7 +916,7 @@ Si su respuesta es sí, ¿Cuántos?</field>
             
             <record model="survey_methodology.question" id="EE12_C_12">
             <field name="name">¿Realizó o tiene previsto realizar inversiones durante 2012?</field>
-            <field name="code">EE12_C_12/field>
+            <field name="code">EE12_C_12</field>
             <field name="variable_name">.</field>
             <field name="description">¿Realizó o tiene previsto realizar inversiones durante 2012?</field>
             <field name="type">Group</field>
@@ -912,7 +926,7 @@ Si su respuesta es sí, ¿Cuántos?</field>
             
             <record model="survey_methodology.question" id="EE12_C_12_a">
             <field name="name">Si</field>
-            <field name="code">EE12_C_12_a/field>
+            <field name="code">EE12_C_12_a</field>
             <field name="variable_name">.</field>
             <field name="description">Si</field>
             <field name="type">Boolean</field>
@@ -921,7 +935,7 @@ Si su respuesta es sí, ¿Cuántos?</field>
             
             <record model="survey_methodology.question" id="EE12_C_12_b">
             <field name="name">No</field>
-            <field name="code">EE12_C_12_b/field>
+            <field name="code">EE12_C_12_b</field>
             <field name="variable_name">.</field>
             <field name="description">No</field>
             <field name="type">Boolean</field>
@@ -930,7 +944,7 @@ Si su respuesta es sí, ¿Cuántos?</field>
             
             <record model="survey_methodology.question" id="EE12_C_12_1">
             <field name="name">Para el año 2012, ¿cómo fueron / serán financiadas sus inversiones y en qué proporción?</field>
-            <field name="code">EE12_C_12_1/field>
+            <field name="code">EE12_C_12_1</field>
             <field name="variable_name">.</field>
             <field name="description">Para el año 2012, ¿cómo fueron / serán financiadas sus inversiones y en qué proporción?</field>
             <field name="type">Group</field>
@@ -1028,7 +1042,7 @@ Si su respuesta es sí, ¿Cuántos?</field>
             <field name="variable_name">.</field>
             <field name="description">Financiamiento vía el mercado de capitales  </field>
             <field name="type">Float</field>
-            <field name="parent_id" ref="EE12_C_12_1_8"/>         
+            <field name="parent_id" ref="EE12_C_12_1"/>         
             </record>
             
             <record model="survey_methodology.question" id="EE12_C_12_1_9">
@@ -1037,7 +1051,7 @@ Si su respuesta es sí, ¿Cuántos?</field>
             <field name="variable_name">.</field>
             <field name="description">Otros (especificar)</field>
             <field name="type">Group</field>
-            <field name="parent_id" ref="EE12_C_12_1_9"/>       
+            <field name="parent_id" ref="EE12_C_12_1"/>       
             </record>
             
             <record model="survey_methodology.question" id="EE12_C_12_1_9_a">
@@ -1055,8 +1069,7 @@ Si su respuesta es sí, ¿Cuántos?</field>
             <field name="variable_name">.</field>
             <field name="description">Otros (especificar)</field>
             <field name="type">Boolean</field>
-            <field name="parent_id" ref="EE12_C_12_1_9"/>  <!--de nuevo quedan las uktimas tres con el mismo field name pues son esas preguntas que tiene especificar mas un verdadero falso
-            y que descompongo en un char y un boolean y no se bien como nombralas-->      
+            <field name="parent_id" ref="EE12_C_12_1_9"/> <!--de nuevo quedan las uktimas tres con el mismo field name pues son esas preguntas que tiene especificar mas un verdadero falso y que descompongo en un char y un boolean y no se bien como nombralas-->      
             </record>
             
             <record model="survey_methodology.question" id="EE12_C_12_2">
@@ -2131,7 +2144,7 @@ Si su respuesta es sí, ¿Cuántos?</field>
             <field name="variable_name">.</field>
             <field name="description">Otro (especificar):   </field>
             <field name="type">Group</field> 
-            <field name="parent_id" ref="EE12_E_22_9"/>        
+            <field name="parent_id" ref="EE12_E_22_1_9"/>        
             </record>
             
             
@@ -2438,11 +2451,11 @@ Si su respuesta es sí, ¿Cuántos?</field>
             
             <record model="survey_methodology.question" id="EE12_E_24_2">
             <field name="name">¿La empresa usa actualmente la DEJUAUTO (utilización de créditos fiscales) para financiar los derechos de exportación? </field>
-            <field name="code">EE12_E_24_2_d</field>
+            <field name="code">EE12_E_24_2</field>
             <field name="variable_name">.</field>
             <field name="description">¿La empresa usa actualmente la DEJUAUTO (utilización de créditos fiscales) para financiar los derechos de exportación? </field>
             <field name="type">Group</field> 
-            <field name="parent_id" ref="EE12_E_24_2"/>        
+            <field name="parent_id" ref="EE12_E_24"/>
             </record>
             
              <record model="survey_methodology.question" id="EE12_E_24_2_1">

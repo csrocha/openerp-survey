@@ -22,42 +22,42 @@
 ##############################################################################
 -->
 <openerp>
-    <data noupdate="1">
+    <data noupdate="0">
 
         <record model="res.partner" id="sample_000">
             <field name="name">Responder 00</field>
-            <field name="is_responder">1</field>
-            <field name="survey_code">000000</field>
+            <field name="is_respondent">1</field>
+            <field name="respondent_code">000000</field>
         </record>
 
         <record model="res.partner" id="sample_001">
             <field name="name">Responder 01</field>
-            <field name="is_responder">1</field>
-            <field name="survey_code">000001</field>
+            <field name="is_respondent">1</field>
+            <field name="respondent_code">000001</field>
         </record>
 
         <record model="res.partner" id="sample_002">
             <field name="name">Responder 02</field>
-            <field name="is_responder">1</field>
-            <field name="survey_code">000002</field>
+            <field name="is_respondent">1</field>
+            <field name="respondent_code">000002</field>
         </record>
 
         <record model="res.partner" id="sample_003">
             <field name="name">Responder 03</field>
-            <field name="is_responder">1</field>
-            <field name="survey_code">000003</field>
+            <field name="is_respondent">1</field>
+            <field name="respondent_code">000003</field>
         </record>
 
         <record model="res.partner" id="sample_004">
             <field name="name">Responder 04</field>
-            <field name="is_responder">1</field>
-            <field name="survey_code">000004</field>
+            <field name="is_respondent">1</field>
+            <field name="respondent_code">000004</field>
         </record>
 
         <record model="res.partner" id="sample_005">
             <field name="name">Responder 05</field>
-            <field name="is_responder">1</field>
-            <field name="survey_code">000005</field>
+            <field name="is_respondent">1</field>
+            <field name="respondent_code">000005</field>
         </record>
 
         <record model="res.partner" id="sample_006">
@@ -65,8 +65,8 @@
             <field name="street">Roseti 1769</field>
             <field name="street2">Villa Ortuza, CABA</field>
             <field name="zip">1427</field>
-            <field name="is_responder">1</field>
-            <field name="survey_code">000005</field>
+            <field name="is_respondent">1</field>
+            <field name="respondent_code">000005</field>
         </record>
 
     </data>
