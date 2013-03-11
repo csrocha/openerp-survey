@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+##############################################################################
+#
+#    Survey Methodology
+#    Copyright (C) 2013 Coop. Trab. Moldeo Interactive Ltda.
+#    No email
+#
+#    This program is free software: you can redistribute it and/or modify
+#    it under the terms of the GNU Affero General Public License as
+#    published by the Free Software Foundation, either version 3 of the
+#    License, or (at your option) any later version.
+#
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU Affero General Public License for more details.
+#
+#    You should have received a copy of the GNU Affero General Public License
+#    along with this program.  If not, see<http://www.gnu.org/licenses/>.
+#
+##############################################################################
+-->
+<openerp>
+    <data>
+        <record model="survey_methodology.format" id="format_Boolean">
+            <field name="name">Boolean</field>
+            <field name="validation">imatch(r'1|0|x|\+|true|false|yes|no|si', input)</field>
+            <field name="formating">imatch(r'1|x|\+|true|yes|si', input) and 'True' or 'False'</field>
+        </record>
+            <record model="survey_methodology.message" id="message_no_boolean">
+                <field name="name">Not is bolean</field>
+                <field name="condition">not imatch(r'1|0|x|\+|true|false|yes|no|si', input)</field>
+                <field name="format_id" ref="format_Boolean"/>
+            </record>
+
+        <record model="survey_methodology.format" id="format_Integer">
+            <field name="name">Integer</field>
+            <field name="validation">match(r'\d+', input)</field>
+            <field name="formating">match(r'\d+', input) and ("%i" % int(input)) or 'Nan'</field>
+        </record>
+            <record model="survey_methodology.message" id="message_no_integer">
+                <field name="name">Not is integer number</field>
+                <field name="condition">not match(r'\d+', input)</field>
+                <field name="format_id" ref="format_Integer"/>
+            </record>
+
+        <record model="survey_methodology.format" id="format_Float">
+            <field name="name">Float</field>
+            <field name="validation">match(r'[-+]?[0-9]\d{0,2}(\.\d{1,2})?%?', input)</field>
+            <field name="formating">match(r'[-+]?[0-9]\d{0,2}(\.\d{1,2})?%?', input) and ("%f" % float(input)) or 'Nan'</field>
+        </record>
+            <record model="survey_methodology.message" id="message_no_float">
+                <field name="name">Not is real number</field>
+                <field name="condition">not match(r'[-+]?[0-9]\d{0,2}(\.\d{1,2})?%?', input)</field>
+                <field name="format_id" ref="format_Float"/>
+            </record>
+
+        <record model="survey_methodology.format" id="format_Char">
+            <field name="name">Char</field>
+            <field name="validation">input.strip() and True else False</field>
+            <field name="formating">input.strip()</field>
+        </record>
+
+        <record model="survey_methodology.format" id="format_Text">
+            <field name="name">Text</field>
+            <field name="validation">input.strip() and True else False</field>
+            <field name="formating">input.strip()</field>
+        </record>
+
+        <record model="survey_methodology.format" id="format_Group">
+            <field name="name">Group</field>
+        </record>
+
+        <record model="survey_methodology.format" id="format_SelectOne">
+            <field name="name">Select one</field>
+            <field name="validation">input and input.strip() in [ c.name for c in self.child_ids ]</field>
+            <field name="formating">input and input.strip() or 'Null'</field>
+        </record>
+            <record model="survey_methodology.message" id="message_no_option">
+                <field name="name">Not in options</field>
+                <field name="condition">input and input.strip() not in [ c.name for c in self.child_ids ]</field>
+                <field name="format_id" ref="format_SelectOne"/>
+            </record>
+            <record model="survey_methodology.message" id="message_no_null">
+                <field name="name">Is a Null value</field>
+                <field name="condition">(not input) or input.strip() == ''</field>
+                <field name="format_id" ref="format_SelectOne"/>
+            </record>
+
+        <record model="survey_methodology.format" id="format_Year">
+            <field name="name">Year</field>
+            <field name="validation">match(r'^\d{2}\d{2}?$', input)</field>
+            <field name="formating">((match(r'^\d{2}$', input) and ((inrange(int(input), 0, 14) and '20%s' % sinput) or (inrange(int(input), 14, 100) and '19%s' % sinput))) or (match(r'^\d{4}$', input) and sinput)</field>
+        </record>
+            <record model="survey_methodology.message" id="message_no_option">
+                <field name="name">Año ambiguo</field>
+                <field name="condition">match(r'^\d{2}$', input) and int(input)</field>
+                <field name="format_id" ref="format_Year"/>
+            </record>
+    </data>
+</openerp>
+<!-- vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4
+     -->
