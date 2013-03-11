@@ -32,6 +32,29 @@ class questionnaire(osv.osv):
     _name = 'survey_methodology.questionnaire'
     _inherit = [ _name ]
 
+    def onchange_input(self, cr, uid, ids, input, fields):
+        value={}
+        complete_place = False
+        question_obj = self.pool.get('survey_methodology.question')
+        question_ids = question_obj.search(cr, uid, [('complete_place','=',fields)])
+        for question in question_obj.browse(cr, uid, question_ids):
+            for lines in question.next_enable.split('\n'):
+                if lines.strip():
+                    condition, next_enable = lines.split(':')
+                    next_q = question_obj.search(cr, uid, [
+                        ('survey_id','=',question.survey_id.id),
+                        ('complete_name', '=', next_enable)
+                    ])
+                    next_field_code = question_obj.read(cr, uid, next_q, ['complete_place'])
+                    if next_field_code:
+                        complete_place = next_field_code[0]['complete_place']
+                        value['sta_%s' % complete_place] = 'enabled'
+
+        r = { 'value': value }
+        if complete_place:
+            r.update(grab_focus='inp_%s' % complete_place)
+        return r
+
     def fields_get(self, cr, uid, fields=None, context=None):
         res = super(questionnaire, self).fields_get(cr, uid, fields, context)
         #import pdb; pdb.set_trace()
@@ -39,7 +62,7 @@ class questionnaire(osv.osv):
         qaire_ids = self.search(cr, uid, [])
         for qaire in self.browse(cr, uid, qaire_ids):
             for question in qaire.survey_id.question_ids:
-                res["var_%s" % question.complete_place] = {
+                res["inp_%s" % question.complete_place] = {
                     'selectable': False,
                     'readonly': question.type != 'Variable',
                     'type': 'char',
@@ -51,9 +74,13 @@ class questionnaire(osv.osv):
                     'type': 'char',
                     'string': 'Message',
                 }
+                res["sta_%s" % question.complete_place] = {
+                    'selectable': False,
+                    'readonly': False,
+                    'type': 'char',
+                    'string': 'Status',
+                }
 
-
-        print "FIELDS GET CONTEXT:", context
         return res
 
     def fields_view_get(self, cr, uid, view_id=None, view_type=None, context=None, toolbar=False, submenu=False):
@@ -180,27 +207,35 @@ class questionnaire(osv.osv):
 
             return source
 
-        print "FIELDS VIEW GET CONTEXT:", context
-
         res = super(questionnaire, self).fields_view_get(cr, uid, view_id, view_type, context, toolbar=toolbar, submenu=submenu)
         if view_type == "form":
             qaire_ids = self.search(cr, uid, [])
-            view_item = ['<group colspan="4" col="6">']
+            view_item = ['<group colspan="4" col="5">']
             for qaire in self.browse(cr, uid, qaire_ids):
                 level = 1
                 for question in qaire.survey_id.question_ids:
                     new_level = len(question.complete_place)/2
                     if level < new_level:
-                        view_item.append('<newline/>')
+                        #view_item.append('<newline colspan="5"/>')
                         level = new_level 
                     #elif level > new_level:
                     #    view_item.append('</group>')
                     #    level = new_level 
                     view_item.append(
-                        '<label string="%s" colspan="1"/><label string="%s" colspan="2"/><field name="var_%s" modifiers="{&quot;readonly&quot;: %s}" nolabel="1" colspan="1"/><field name="msg_%s" modifiers="{&quot;readonly&quot;: true}" nolabel="1" colspan="2"/>' %
-                        (question.complete_name.replace(' ',''), question.question, question.complete_place, question.type=="Variable" and "false" or "true", question.complete_place)
+                        '<label string="%(complete_name)s" colspan="1"/>'
+                        '<label string="%(question)s" colspan="1"/>'
+                        '<field name="inp_%(complete_place)s" on_change="onchange_input(inp_%(complete_place)s, \'%(complete_place)s\')"'
+                        ' modifiers="{&quot;readonly&quot;: [[&quot;sta_%(complete_place)s&quot;, &quot;not in&quot;, [&quot;enabled&quot;]]]}"'
+                        ' nolabel="1" colspan="1"/>'
+                        '<field name="msg_%(complete_place)s" modifiers="{&quot;readonly&quot;: true}" nolabel="1" colspan="1"/>'
+                        '<field name="sta_%(complete_place)s" modifiers="{&quot;invisible&quot;: true}" nolabel="1" colspan="1"/>' % {
+                            'complete_name': question.complete_name.replace(' ',''),
+                            'complete_place': question.complete_place,
+                            'question': question.question,
+                            'readonly': question.type=="Variable" and question.initial_state=="enabled" and "false" or "true",
+                        }
                     )
-                    res['fields']['var_%s' % question.complete_place] = {
+                    res['fields']['inp_%s' % question.complete_place] = {
                         'selectable': False,
                         'readonly': question.type != 'Variable',
                         'type': 'char',
@@ -211,6 +246,12 @@ class questionnaire(osv.osv):
                         'readonly': True,
                         'type': 'char',
                         'string': 'Message',
+                    }
+                    res['fields']['sta_%s' % question.complete_place] = {
+                        'selectable': False,
+                        'readonly': True,
+                        'type': 'char',
+                        'string': 'Status',
                     }
             view_item.append('</group>')
 
@@ -223,21 +264,68 @@ class questionnaire(osv.osv):
         return res
 
     def read(self, cr, uid, ids, fields=None, context=None, load='_classic_read'):
+        answer_obj = self.pool.get('survey_methodology.answer')
         question_obj = self.pool.get('survey_methodology.question')
+
         res = super(questionnaire, self).read(cr, uid, ids, fields=fields, context=context, load=load)
+
         for r in res:
             if 'survey_id' not in r:
                 continue
+
             survey_id = r['survey_id']
             survey_id = survey_id if type(survey_id) is int else survey_id[0]
-            q_ids = question_obj.search(cr, uid, [('survey_id','=',survey_id)])
-            for question in question_obj.browse(cr, uid, q_ids):
-                r['var_%s' % question.complete_place]=u''
-                r['msg_%s' % question.complete_place]=u''
-            #import pdb; pdb.set_trace()
-        print "READING:", res
+
+            a_ids = answer_obj.search(cr, uid, [ ('questionnaire_id','=',r['id']) ])
+            # Creamos las preguntas si no existen.
+            if a_ids == []:
+                q_ids = question_obj.search(cr, uid, [('survey_id','=',survey_id)])
+                for question in question_obj.browse(cr, uid, q_ids):
+                    v = {
+                        'name': question.question,
+                        'complete_place': question.complete_place,
+                        'code': question.name,
+                        'input': False,
+                        'formated': False,
+                        'message': False,
+                        'valid': False,
+                        'questionnaire_id': r['id'],
+                        'question_id': question.id,
+                    #    'state': question.initial_state,
+                    }
+                    a_ids.append(answer_obj.create(cr, uid, v))
+                    answer_obj.write(cr, uid, a_ids[-1], {'state': question.initial_state})
+                    #r = wf_service.trg_validate(uid, 'survey_methodology.ans', next_ans[0], 'sgn_enable', cr)
+                print "CREATED QUESTIONS!"
+            # Leemos las preguntas.
+            for answer in answer_obj.browse(cr, uid, a_ids):
+                r['inp_%s' % answer.complete_place]=answer.input
+                r['msg_%s' % answer.complete_place]=answer.message
+                r['sta_%s' % answer.complete_place]=answer.state
         return res
 
+    def write(self, cr, uid, ids, values, context=None):
+        answer_obj = self.pool.get('survey_methodology.answer')
+        question_obj = self.pool.get('survey_methodology.question')
+
+        res = super(questionnaire, self).write(cr, uid, ids, values, context=context)
+
+        answer_ids = answer_obj.search(cr, uid, [
+            ('questionnaire_id','in',ids),
+            ('complete_place','in',[key[4:] for key in values.keys() if key[3]=="_"])
+        ])
+
+        for answer in answer_obj.read(cr, uid, answer_ids, ['complete_place']):
+            complete_place = answer['complete_place']
+            v = {}
+            print values
+            if 'msg_%s' % complete_place in values: v.update(message=values['msg_%s' % complete_place])
+            if 'sta_%s' % complete_place in values: v.update(status=values['sta_%s' % complete_place])
+            if 'inp_%s' % complete_place in values: v.update(input=values['inp_%s' % complete_place])
+            
+            answer_obj.write(cr, uid, answer['id'], v)
+
+        return True
 
 questionnaire()
 

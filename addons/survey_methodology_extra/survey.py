@@ -56,15 +56,17 @@ class survey(osv.osv):
         question_obj = self.pool.get('survey_methodology.question')
         questionnaire_obj = self.pool.get('survey_methodology.questionnaire')
         answer_obj = self.pool.get('survey_methodology.answer')
+        q_ids = []
 
         for survey in self.browse(cr, uid, ids, context):
             survey_id = survey.id
             respondent_ids = context.get('respondent_ids', [ p.id for p in survey.respondent_ids ])
             for respondent_id in respondent_ids:
-                if questionnaire_obj.search(cr, uid, [
+                q_ids = questionnaire_obj.search(cr, uid, [
                     ('respondent_id','=',respondent_id),
                     ('survey_id','=',survey_id)
-                ]):
+                ])
+                if q_ids:
                     continue
 
                 v = {
@@ -73,9 +75,9 @@ class survey(osv.osv):
                     'pollster_id': context.get('pollster_id', False),
                     'survey_id': survey_id,
                 }
-                q_id = questionnaire_obj.create(cr, uid, v);
+                q_ids.append(questionnaire_obj.create(cr, uid, v));
 
-        return True
+        return q_ids
 
 survey()
 

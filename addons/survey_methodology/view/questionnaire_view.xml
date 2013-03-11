@@ -59,10 +59,10 @@
                             />
                         <field name="pollster_id"
                             />
-                    <field name="survey_id"
-                            />
-                    <field name="respondent_code"
-                            />
+                        <field name="survey_id"
+                                />
+                        <field name="respondent_code"
+                                />
                      </group>
                     </sheet>
 

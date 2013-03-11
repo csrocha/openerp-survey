@@ -47,15 +47,15 @@ class partner(osv.osv):
             raise osv.except_osv(_('Error'), _('You can load answer in published state, not in other'))
 
         r = survey_obj.generate_questions(cr, uid, [survey_id], {'respondent_ids': ids, 'pollster_id': uid})
+        r = r[0] if r else False;
 
         return {
             'type': 'ir.actions.act_window',
-            'name': 'Load Answers',
-            'view_type': 'form',
-            'view_mode': 'tree',
-            'res_model': 'survey_methodology.answer',
-            'view_id': model_obj.get_object_reference(cr, uid, 'survey_methodology', 'view_survey_methodology_answer_tree_edit')[1],
-            'domain': [('respondent_id','in',ids),('pollster_id','=',uid),('survey_id','=',survey_id)],
+            'name': 'Open Questionnaire',
+            'view_type': 'form,tree',
+            'view_mode': 'form',
+            'res_model': 'survey_methodology.questionnaire',
+            'res_id': r,
             'context': context,
         }
 

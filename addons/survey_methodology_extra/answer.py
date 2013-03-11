@@ -46,20 +46,20 @@ class answer(osv.osv):
         import pdb; pdb.set_trace()
         return {}
 
+    """
     def write(self, cr, uid, ids, values, context=None):
         question_obj = self.pool.get('survey_methodology.question')
         wf_service = netsvc.LocalService("workflow")
 
         if 'input' in values:
+            import pdb; pdb.set_trace()
             for ans in self.browse(cr, uid, ids):
                 if ans.question_id.next_enable:
                     # Actualizamos los estados de las nuevas preguntas.
                     for lines in ans.question_id.next_enable.split('\n'):
                         condition, next_enable = lines.split(':')
                         next_ans = self.search(cr, uid, [
-                            ('survey_id','=',ans.survey_id.id),
-                            ('pollster_id','=',ans.pollster_id.id),
-                            ('respondent_id','=',ans.respondent_id.id),
+                            ('questionnaire_id','=',ans.questionnaire_id.id),
                             ('code', '=', next_enable)
                         ])
                         if next_ans and eval(condition, { 'self': next_ans[0] }):
@@ -71,6 +71,7 @@ class answer(osv.osv):
                     # Aqui validariamos
 
         return super(answer, self).write(cr, uid, ids, values, context=context)
+    """
 
     def onchange_input(self, cr, uid, ids, input, context=None):
         """"""
