@@ -36,8 +36,6 @@
                     <group string="By Attribute">
                     </group>
                     <group string="By object">
-                    <field name="respondent_code" string="Respondent Code"
-                            />
                     </group>
                 </search>
             </field>
@@ -59,9 +57,18 @@
                             states="disabled"
                             string="Enable"
                             />
+                        <button name="action_wfk_set_enabled"
+                            type="object"
+                            states="cancelled"
+                            string="Re enable"
+                            />
                         <button name="sgn_close"
                             states="disabled"
                             string="Close"
+                            />
+                        <button name="sgn_cancel"
+                            states="closed,disabled,enabled"
+                            string="Cancel"
                             />
                         <field name="state" widget="statusbar"
                             statusbar_colors='{}'
@@ -69,33 +76,19 @@
                     </header>
                     <sheet string="Answer">
                      <group>
-                        <field name="code"
-                            />
                         <field name="name"
                             />
-                        <field name="respondent_id"
-                            />
-                        <field name="pollster_id"
-                            />
-                        <field name="progress"
+                        <field name="code"
                             />
                         <field name="input"
                             />
-                        <field name="input_as_integer"
-                            />
-                        <field name="input_as_char"
-                            />
-                        <field name="input_as_boolean"
-                            />
-                        <field name="input_as_float"
+                        <field name="formated"
                             />
                         <field name="message"
                             />
+                        <field name="valid"
+                            />
                     <field name="question_id"
-                            />
-                    <field name="survey_id"
-                            />
-                    <field name="respondent_code"
                             />
                      </group>
                     </sheet>
@@ -111,17 +104,17 @@
             <field name="model">survey_methodology.answer</field>
             <field name="arch" type="xml">
                 <tree string="Answer"
-                    colors="grey:state=='cancelled';blue:state in ('enabled',);black:state in ('disabled',); red:state in ()"
+                    colors="grey:state=='cancelled';blue:state in ('enabled',);black:state in ('disabled', 'closed'); red:state in ()"
                     >
-                    <field name="code"
-                        />
                     <field name="name"
+                        />
+                    <field name="code"
                         />
                     <field name="input"
                         />
                     <field name="message"
                         />
-                    <field name="respondent_code"
+                    <field name="valid"
                         />
                     <field name="state" readonly='True'/>
                 </tree>
@@ -134,17 +127,17 @@
             <field name="arch" type="xml">
                 <tree string="Answer"
                     editable="bottom"
-                    colors="grey:state=='cancelled';blue:state in ('enabled',);black:state in ('disabled',); red:state in ()"
+                    colors="grey:state=='cancelled';blue:state in ('enabled',);black:state in ('disabled', 'closed'); red:state in ()"
                     >
-                    <field name="code"
-                        />
                     <field name="name"
+                        />
+                    <field name="code"
                         />
                     <field name="input"
                         />
                     <field name="message"
                         />
-                    <field name="respondent_code"
+                    <field name="valid"
                         />
                     <field name="state" readonly='True'/>
                 </tree>

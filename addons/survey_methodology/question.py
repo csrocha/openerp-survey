@@ -59,20 +59,25 @@ class question(osv.osv):
     _name = 'survey_methodology.question'
     _description = 'question'
 
+    def _place_get_fnc(self, cr, uid, ids, name, args, context=None):
+        """"""
+        raise NotImplementedError
+
     _states_ = [
     ]
 
     _columns = {
         'complete_name': fields.function(_name_get_fnc, type="char", string='Name', store=True),
         'name': fields.char(string='Code', required=True),
+        'place': fields.integer(string='Place', required=True),
         'question': fields.char(string='Question', required=True),
-        'note': fields.text(string='Description'),
-        'type': fields.selection([(u'Group', 'Group'), (u'Integer', 'Integer'), (u'Text', 'Text'), (u'Char', 'Char'), (u'Float', 'Float'), (u'Boolean', 'Boolean')], string='Type', required=True),
-        'validator_id': fields.many2one('survey_methodology.validator', string='Validator'),
-        'caster_id': fields.many2one('survey_methodology.caster', string='Caster'),
+        'type': fields.selection([(u'View', 'View'), (u'Variable', 'Variable'), (u'Null', 'Null')], string='Type', required=True),
         'variable_name': fields.char(string='Variable name'),
+        'format_id': fields.many2one('survey_methodology.format', string='Format'),
         'initial_state': fields.selection([(u'closed', 'closed'), (u'disabled', 'disabled'), (u'enabled', 'enabled')], string='Initial state', required=True),
         'next_enable': fields.text(string='Next enable rules'),
+        'note': fields.text(string='Description'),
+        'complete_place': fields.function(_place_get_fnc, type='char', arg=None, fnct_inv_arg=None, obj=None, string='complete_place', store=True),
         'survey_id': fields.many2one('survey_methodology.survey', string='Surveis', ondelete='cascade', required=True), 
         'answers_ids': fields.one2many('survey_methodology.answer', 'question_id', string='Answers'), 
         'parent_id': fields.many2one('survey_methodology.question', string='Parent'), 
@@ -82,18 +87,27 @@ class question(osv.osv):
 
     _defaults = {
         'next_enable': '',
-        'type': 'Group',
-        'initial_state': 'closed',
+        'type': 'View',
+        'initial_state': 'disabled',
+        'survey_id': lambda self, cr, uid, context=None: context and context.get('survey_id', False),
         'parent_id': lambda self, cr, uid, context=None: context and context.get('parent_id', False),
     }
 
-    _order = "survey_id, parent_id, complete_name"
+    _order = "survey_id, complete_place, name"
 
     _constraints = [
         (_check_recursion, 'Error ! You cannot create recursive question.', ['parent_id'])
     ]
 
-    _sql_constraints = [ ('unique_question', 'unique(survey_id, parent_id, complete_name)','Not repeat codes in the same survey') ]
+    _sql_constraints = [ ('unique_question', 'unique(survey_id, parent_id, place, name)','Not repeat questions in the same survey, parent, order and code'), ('unique_question', 'unique(complete_name)','Not repeat code in the same parent.') ]
+
+    def next_place(self, cr, uid, ids, context=None):
+        """"""
+        raise NotImplementedError
+
+    def onchange_parent_id(self, cr, uid, ids, parent_id, context=None):
+        """"""
+        raise NotImplementedError
 
 
 

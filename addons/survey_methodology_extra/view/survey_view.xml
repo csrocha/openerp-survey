@@ -43,7 +43,7 @@
         <record id="survey_methodology.view_survey_methodology_survey_form" model="ir.ui.view">
             <field name="name">survey_methodology.survey.form</field>
             <field name="model">survey_methodology.survey</field>
-            <field name="sequence">10</field>
+            <field name="priority">10</field>
             <field name="arch" type="xml">
                 <form string="Survey" version="7.0">
                     <header>
@@ -86,11 +86,9 @@
                         <field name="close_dt" />
                         <field name="automatic" />
                         <field name="message" />
+                        <button name="survey_methodology_extra.action_question_editor" string="Edit Questions" type="action"/>
                     </group>
                     <notebook>
-                        <page string="Questions">
-                            <field name="question_ids" nolabel="1"/>
-                        </page>
                         <page string="Respondent">
                             <field name="respondent_ids" domain="[('is_respondent','=',True)]"
                                 context="{'survey_id': id, 'survey_state': state}"

@@ -67,17 +67,17 @@ class survey(osv.osv):
 
                 for question_id in question_obj.search(cr, uid, [('survey_id','=',survey_id)]):
                     question = question_obj.read(cr, uid, question_id,
-                                                 ['complete_name','question',
+                                                 ['complete_name','complete_place','question',
                                                   'question_id','initial_state'])
                     v = {
                         'code': question['complete_name'],
+                        'complete_place': question['complete_place'],
                         'name': question['question'],
                         'respondent_id': respondent_id,
                         'question_id': question['id'],
                         'survey_id': survey_id,
                         'pollster_id': context.get('pollster_id', False),
                     }
-                    print v
 
                     answer_id = answer_obj.create(cr, uid, v)
                     answer_obj.write(cr, uid, answer_id, {'state': question['initial_state']})

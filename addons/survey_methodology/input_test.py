@@ -36,15 +36,10 @@ class input_test(osv.osv):
 
     _columns = {
         'name': fields.char(string='Name'),
-        'input': fields.text(string='Input'),
-        'as_integer': fields.integer(string='As integer'),
-        'as_char': fields.char(string='As character'),
-        'as_text': fields.text(string='As text'),
-        'as_boolean': fields.boolean(string='As boolean'),
-        'as_float': fields.float(string='As float'),
-        'is_valid': fields.boolean(string='Is Valid'),
-        'validator_id': fields.many2one('survey_methodology.validator', string='Validator'), 
-        'caster_id': fields.many2one('survey_methodology.caster', string='Caster'), 
+        'formated': fields.text(string='Formated'),
+        'valid': fields.boolean(string='Validation expected'),
+        'question_id': fields.many2one('survey_methodology.question', string='question_id'),
+        'format_id': fields.many2one('survey_methodology.format', string='format_id', ondelete='cascade'), 
     }
 
     _defaults = {

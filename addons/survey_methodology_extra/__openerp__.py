@@ -21,6 +21,7 @@
 ##############################################################################
 
 {   'active': False,
+    'auto_install': True,
     'author': u'Coop. Trab. Moldeo Interactive Ltda.',
     'category': 'base.module_category_hidden',
     'demo_xml': [],
@@ -39,13 +40,17 @@
         u'data/surveyors.xml',
         u'data/responders.xml',
         u'data/survey.xml',
+        u'data/formats.xml',
         u'data/questions.xml',
 #       u'security/survey_methodology_group.xml',
 #       u'view/category_view.xml',
+        u'view/questionnaire_view.xml',
+        u'view/question_editor.xml',
         u'view/question_view.xml',
         u'view/partner_view.xml',
         u'view/survey_view.xml',
         u'view/answer_view.xml',
+        u'view/format_view.xml',
 #       u'view/answer_text_view.xml',
 #       u'view/answer_integer_view.xml',
 #       u'view/answer_selection_view.xml',
@@ -61,6 +66,10 @@
 #       u'data/options_properties.xml',
 #       u'workflow/survey_workflow.xml',
 #       u'security/ir.model.access.csv'
+    ],
+    'css' : [
+        'static/src/css/survey.css',
+        'static/src/css/question.css',
     ],
     'version': u'1.0',
     'website': 'http://business.moldeo.coop/'}

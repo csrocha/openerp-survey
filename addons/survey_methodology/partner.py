@@ -39,7 +39,7 @@ class partner(osv.osv):
         'is_respondent': fields.boolean(string='is responder?'),
         'is_surveyor': fields.boolean(string='is surveyor?'),
         'respondent_code': fields.char(string='Respondent code'),
-        'answer_id': fields.many2many('survey_methodology.answer', 'survey_methodology___respondent_code_rel', 'answer_id', 'respondent_code', string='&lt;no label&gt;'), 
+        'questionnaire_id': fields.many2many('survey_methodology.questionnaire', 'survey_methodology_respondent_code___rel', 'questionnaire_id', 'respondent_code', string='&lt;no label&gt;'), 
     }
 
     _defaults = {

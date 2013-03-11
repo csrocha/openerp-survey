@@ -40,44 +40,32 @@ class answer(osv.osv):
         ('enabled','enabled'),
         ('disabled','disabled'),
         ('closed','closed'),
+        ('cancelled','cancelled'),
     ]
 
     _columns = {
-        'code': fields.char(string='Code', readonly=True, required=True),
         'name': fields.char(string='Question', readonly=True, required=True),
-        'respondent_id': fields.many2one('res.partner', string='Respondent', readonly=True, required=True),
-        'pollster_id': fields.many2one('res.users', string='Pollster', readonly=True),
-        'progress': fields.function(_get_progress, type='float', arg=None, fnct_inv_arg=None, obj=None, string='Progress', readonly=True),
+        'complete_place': fields.char(string='complete_place', readonly=True),
+        'code': fields.char(string='Code', readonly=True, required=True),
         'input': fields.char(string='Input', readonly=True, states={'enabled':[('readonly',False)]}),
-        'input_as_integer': fields.integer(string='As integer number'),
-        'input_as_char': fields.char(string='As text'),
-        'input_as_boolean': fields.boolean(string='As boolean'),
-        'input_as_float': fields.float(string='As real number'),
-        'validator_id': fields.many2one('survey_methodology.validator', string='Validator', readonly=True),
-        'caster_id': fields.many2one('survey_methodology.caster', string='Caster function', readonly=True),
+        'formated': fields.char(string='As integer number'),
         'message': fields.char(string='Message', readonly=True),
+        'valid': fields.boolean(string='is Valid?', readonly=True),
         'state': fields.selection(_states_, "State"),
         'question_id': fields.many2one('survey_methodology.question', string='Question', readonly=True, required=True), 
-        'survey_id': fields.many2one('survey_methodology.survey', string='Survey', readonly=True, ondelete='cascade', required=True), 
-        'respondent_code': fields.related(
-                    'respondent_id',
-                    'respondent_code',
-                    type='char',
-                    relation='res.partner',
-                    string='Respondent Code', readonly=True, store=True
-                    ),
+        'questionnaire_id': fields.many2one('survey_methodology.questionnaire', string='questionnaire_id', ondelete='cascade', required=True), 
     }
 
     _defaults = {
         'state': 'enabled',
     }
 
-    _order = "survey_id, pollster_id, respondent_id, code"
+    _order = "questionnaire_id, complete_place"
 
     _constraints = [
     ]
 
-    _sql_constraints = [ ('unique_answer','unique(survey_id,pollster_id,respondent_id,code)','Not repeat answers.') ]
+    _sql_constraints = [ ('unique_answer','unique(questionnaire_id,complete_place)','Not repeat answers.') ]
 
     def is_valid(self, cr, uid, ids, context=None):
         """"""

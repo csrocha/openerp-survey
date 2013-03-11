@@ -30,8 +30,6 @@ class answer(osv.osv):
     _name = 'survey_methodology.answer'
     _inherit = [ _name ]
 
-    _sql_constraints = [('respondent_question_survey_uniq','unique(respondent_id, question_id, survey_id)', 'Answer must be unique!')]
-
     def _get_progress(self, cr, uid, ids, name, attrs, context=None):
         """"""
         r = {}
@@ -48,26 +46,35 @@ class answer(osv.osv):
         import pdb; pdb.set_trace()
         return {}
 
+    def write(self, cr, uid, ids, values, context=None):
+        question_obj = self.pool.get('survey_methodology.question')
+        wf_service = netsvc.LocalService("workflow")
+
+        if 'input' in values:
+            for ans in self.browse(cr, uid, ids):
+                if ans.question_id.next_enable:
+                    # Actualizamos los estados de las nuevas preguntas.
+                    for lines in ans.question_id.next_enable.split('\n'):
+                        condition, next_enable = lines.split(':')
+                        next_ans = self.search(cr, uid, [
+                            ('survey_id','=',ans.survey_id.id),
+                            ('pollster_id','=',ans.pollster_id.id),
+                            ('respondent_id','=',ans.respondent_id.id),
+                            ('code', '=', next_enable)
+                        ])
+                        if next_ans and eval(condition, { 'self': next_ans[0] }):
+                            self.write(cr, uid, next_ans, {'state': 'enabled'})
+                            #print self.read(cr, uid, next_ans, ['state'])
+                            #import pdb; pdb.set_trace()
+                            #r = wf_service.trg_validate(uid, 'survey_methodology.ans', next_ans[0], 'sgn_enable', cr)
+                            #print self.read(cr, uid, next_ans, ['state'])
+                    # Aqui validariamos
+
+        return super(answer, self).write(cr, uid, ids, values, context=context)
+
     def onchange_input(self, cr, uid, ids, input, context=None):
         """"""
-        question_obj = self.pool.get('survey_methodology.question')
-
-        answer = self.browse(cr, uid, ids)
-
-        for question_id in answer.question_id.next().walk_to():
-            v = {
-                'name': question.name,
-                'respondent_id': respondent_id,
-                'question_id': question_id,
-                'survey_id': survey_id,
-                'pollster_id': context.get('pollster_id', False),
-            }
-            new_answer_id = self.create(cr, uid, v)
-
-
-
-        import pdb; pdb.set_trace()
-        return {}
+        return {'input': input}
 
 answer()
 

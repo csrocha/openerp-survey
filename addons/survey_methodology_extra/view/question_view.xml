@@ -33,9 +33,43 @@
             <field name="model">survey_methodology.question</field>
             <field name="arch" type="xml">
                 <search string="Question" version="7.0">
+                    <group string="Search by">
+                        <field name="question" string="Question" />
+                        <field name="name" string="Code" />
+                        <field name="complete_name" string="Large Code" />
+                    </group>
+                    <group string="Type">
+                        <filter string="Variable" domain="[('type','=','Variable')]"/>
+                        <filter string="View" domain="[('type','=','View')]"/>
+                        <filter string="Null" domain="[('type','=','Null')]"/>
+                    </group>
+                    <group string="Variable">
+                        <filter string="Variable" domain="[]" context="{'group_by': 'variable_id'}"/>
+                    </group>
                 </search>
             </field>
         </record>
+
+        
+        <!--record id="action_outlook_installer" model="ir.actions.act_window">
+            <field name="name">Install Outlook Plug-In</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">outlook.installer</field>
+            <field name="view_id" ref="view_outlook_installer"/>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record-->
+
+        <act_window 
+           domain="[('id','=',active_id)]"
+           id="act_open_question" 
+           name="Open Question"
+           view_id="survey_methodology.view_survey_methodology_question_form"
+           view_type="form"
+           view_mode="form"
+           res_model="survey_methodology.question" 
+           src_model="survey_methodology.question"/>
 
         <!-- FORMVIEW -->
         <record id="survey_methodology.view_survey_methodology_question_form" model="ir.ui.view">
@@ -46,29 +80,46 @@
                     <header>
                     </header>
                     <sheet string="Question">
-                        <div class="oe_title">
-                            <div class="oe_edit_only">
-                                <label for="name"/>
-                            </div>
-                        </div>
-                        <h1 col="4">
-                            <field name="question" placeholder="Question" colspan="2"/>
-                            <field name="name" placeholder="Code"/>
-                            <field name="category_ids" widget="many2many_tags"/>
+                        <div class="oe_title"> <div class="oe_edit_only"> <label for="name"/> </div> </div>
+                        <h1>
+                            <field name="question" placeholder="Question"/>
                         </h1>
-                        <group col="6">
-                            <field name="type" on_change="onchange_type(type)"/>
-                            <field name="parent_id"/>
-                            <field name="initial_state"/>
-                            <field name="validator_id"/>
-                            <field name="caster_id"/>
+                        <group col="8">
+                            <div class="oe_title"> <div class="oe_edit_only"> <label for="parent_id" colspan="2"/> </div> </div>
+                            <div class="oe_title"> <div class="oe_edit_only"> <label for="name"      colspan="2"/> </div> </div>
+                            <div class="oe_title"> <div class="oe_edit_only"> <label for="place"     colspan="2"/> </div> </div>
+                            <div class="oe_title"> <div class="oe_edit_only"> <label for="type"      colspan="2"/> </div> </div>
+                        </group>
+                        <h2>
+                            <group col="8">
+                                <field name="parent_id" placeholder="Root" colspan="2" nolabel="1"/>
+                                <field name="place"     placeholder="0"    colspan="2" nolabel="1"/>
+                                <field name="name"      placeholder="Code" colspan="2" nolabel="1"/>
+                                <field name="type"      placeholder="None" colspan="2" nolabel="1"/>
+                            </group>
+                        </h2>
+                        <div class="oe_title"> <div class="oe_edit_only"> <label for="category_ids"/> </div> </div>
+                        <field name="category_ids" widget="many2many_tags" placeholder="Root" colspan="2" nolabel="1"/>
+                        <group col="4">
                             <field name="variable_name"/>
-                            <label for="next_enable" colspan="6"/>
-                            <field name="next_enable" nolabel="1" colspan="6" placeholder="True:"/>
+                            <field name="format_id"/>
+                            <field name="initial_state"/>
                         </group>
                         <notebook>
-                            <page string="Questions"  attrs="{'invisible': [('type','!=','Group')]}">
-                                <field name="child_ids"/>
+                            <page string="Questions"  attrs="{'invisible': [('type','not in',('View','Variable'))]}">
+                                <field name="child_ids">
+                                    <tree string="Child Questions" editable="bottom">
+                                        <field name="place"/>
+                                        <field name="name"/>
+                                        <field name="question"/>
+                                        <field name="type"/>
+                                        <field name="format_id"/>
+                                        <button name="open_question" icon="gtk-jump-to" type="object"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page string="Enable next">
+                                <field name="next_enable" nolabel="1" colspan="6" placeholder="True:"/>
                             </page>
                             <page string="Note">
                                 <field name="note" nolabel="1"/>
@@ -85,14 +136,11 @@
             <field name="name">survey_methodology.question.tree</field>
             <field name="model">survey_methodology.question</field>
             <field name="arch" type="xml">
-                <tree string="Question"
-                    >
-                    <field name="complete_name"
-                        />
-                    <field name="question"
-                        />
-                    <field name="type"
-                        />
+                <tree string="Question" >
+                    <field name="complete_name" />
+                    <field name="question" />
+                    <field name="type" />
+                    <field name="format_id" />
                 </tree>
             </field>
         </record>

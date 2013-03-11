@@ -31,7 +31,7 @@
         <record id="view_survey_methodology_partner_filter" model="ir.ui.view">
             <field name="name">survey_methodology.partner.select</field>
             <field name="model">res.partner</field>
-            <field name="sequence">10</field>
+            <field name="priority">10</field>
             <field name="inherit_id" ref="base.view_res_partner_filter"/>
             <field name="arch" type="xml">
                 <filter string="Companies" position="before">

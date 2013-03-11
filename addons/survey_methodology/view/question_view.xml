@@ -53,25 +53,26 @@
                      <group>
                         <field name="name"
                             />
-                        <field name="question"
+                        <field name="place"
                             />
-                        <field name="note"
+                        <field name="question"
                             />
                         <field name="type"
                             />
-                        <field name="validator_id"
-                            />
-                        <field name="caster_id"
-                            />
                         <field name="variable_name"
+                            />
+                        <field name="format_id"
                             />
                         <field name="initial_state"
                             />
                         <field name="next_enable"
                             />
+                        <field name="note"
+                            />
                     <field name="survey_id"
                             />
                     <field name="parent_id"
+                            on_change="onchange_parent_id(parent_id)"
                             />
                     <field name="child_ids"
                             />
@@ -98,9 +99,9 @@
                         />
                     <field name="question"
                         />
-                    <field name="note"
-                        />
                     <field name="type"
+                        />
+                    <field name="note"
                         />
                     <field name="parent_id"
                        />
@@ -120,9 +121,9 @@
                         />
                     <field name="question"
                         />
-                    <field name="note"
-                        />
                     <field name="type"
+                        />
+                    <field name="note"
                         />
                     <field name="parent_id"
                        />

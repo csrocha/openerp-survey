@@ -53,23 +53,11 @@
                      <group>
                         <field name="name"
                             />
-                        <field name="input"
+                        <field name="formated"
                             />
-                        <field name="as_integer"
+                        <field name="valid"
                             />
-                        <field name="as_char"
-                            />
-                        <field name="as_text"
-                            />
-                        <field name="as_boolean"
-                            />
-                        <field name="as_float"
-                            />
-                        <field name="is_valid"
-                            />
-                    <field name="validator_id"
-                            />
-                    <field name="caster_id"
+                        <field name="question_id"
                             />
                      </group>
                     </sheet>
@@ -87,6 +75,12 @@
                 <tree string="Input Test"
                     >
                     <field name="name"
+                        />
+                    <field name="formated"
+                        />
+                    <field name="valid"
+                        />
+                    <field name="question_id"
                         />
                 </tree>
             </field>

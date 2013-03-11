@@ -28,16 +28,24 @@
     <data>
 
         <!-- SEARCH VIEW -->
-        <record id="view_survey_methodology_answer_filter" model="ir.ui.view">
+        <record id="survey_methodology.view_survey_methodology_answer_filter" model="ir.ui.view">
             <field name="name">survey_methodology.answer.select</field>
             <field name="model">survey_methodology.answer</field>
+            <field name="priority">10</field>
             <field name="arch" type="xml">
                 <search string="Answer" version="7.0">
-                    <group string="By Attribute">
+                    <group string="Search by">
+                        <field name="name" string="Question" />
+                        <field name="code" string="Code" />
+                        <field name="input" string="Input" />
+                        <field name="message" string="Message" />
                     </group>
-                    <group string="By object">
-                    <field name="respondent_code" string="Respondent Code"
-                            />
+                    <group string="State">
+                        <filter string="Enabled" context="[('state','=','enabled')]"/>
+                        <filter string="Disabled" context="[('state','=','disabled')]"/>
+                        <filter string="Closed" context="[('state','=','closed')]"/>
+                        <filter string="Valid" context="[('Valid','=',True)]"/>
+                        <filter string="Invalid" context="[('Valid','=',False)]"/>
                     </group>
                 </search>
             </field>
@@ -71,29 +79,15 @@
                      <group>
                         <field name="name"
                             />
-                        <field name="respondent_id"
-                            />
-                        <field name="pollster_id"
-                            />
-                        <field name="progress"
-                            />
                         <field name="input"
                             />
-                        <field name="input_as_integer"
-                            />
-                        <field name="input_as_char"
-                            />
-                        <field name="input_as_boolean"
-                            />
-                        <field name="input_as_float"
+                        <field name="formated"
                             />
                         <field name="message"
                             />
-                    <field name="question_id"
+                        <field name="question_id"
                             />
-                    <field name="survey_id"
-                            />
-                    <field name="respondent_code"
+                        <field name="questionnaire_id"
                             />
                      </group>
                     </sheet>
@@ -111,7 +105,6 @@
                 <tree string="Answer"
                     colors="grey:state=='cancelled';blue:state in ('enabled',);black:state in ('disabled',); red:state in ()"
                     >
-                    <field name="respondent_code" />
                     <field name="name" />
                     <field name="input" />
                     <field name="message" />
@@ -123,7 +116,7 @@
         <record id="survey_methodology.view_survey_methodology_answer_tree_edit" model="ir.ui.view">
             <field name="name">survey_methodology.answer.tree_edit</field>
             <field name="model">survey_methodology.answer</field>
-            <field name="sequence">10</field>
+            <field name="priority">10</field>
             <field name="arch" type="xml">
                 <tree string="Answer"
                     editable="bottom"
@@ -132,7 +125,7 @@
                     >
                     <field name="code" />
                     <field name="name" />
-                    <field name="input" attrs="{'readonly': [('state','!=','enabled')]}" on_change="onchange_input(input)"/>
+                    <field name="input" />
                     <field name="message" />
                     <field name="state" readonly='True' invisible='1'/>
                 </tree>

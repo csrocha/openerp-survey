@@ -52,7 +52,7 @@ class survey(osv.osv):
         'sample_filter': fields.char(string='Filter for the Sample', help=u"""Context filter for partner. This help to select partners to create the sample. For example: [(&quot;is_company&quot;,&quot;=&quot;,True)] Only select companies.""", readonly=True, size=512, states={'draft':[('readonly',False)]}),
         'state': fields.selection(_states_, "State"),
         'question_ids': fields.one2many('survey_methodology.question', 'survey_id', string='Questions', readonly=True, states={'draft':[('readonly',False)]}), 
-        'answer_ids': fields.one2many('survey_methodology.answer', 'survey_id', string='Answers', readonly=True), 
+        'questionnaire_ids': fields.one2many('survey_methodology.questionnaire', 'survey_id', string='Answers', readonly=True), 
         'respondent_ids': fields.many2many('res.partner', 'survey_methodology_respond_ids_respondent_ids_rel', 'respondent_ids', 'respond_ids', string='Responders', readonly=True, states={'draft':[('readonly',False)], 'published':[('readonly',False)],}), 
         'pollster_ids': fields.many2many('res.users', 'survey_methodology_work_ids_pollster_ids_rel', 'pollster_ids', 'work_ids', string='Surveyors', readonly=True, states={'draft':[('readonly',False)]}), 
     }
