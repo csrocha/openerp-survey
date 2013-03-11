@@ -70,7 +70,7 @@ class question(osv.osv):
     def _set_place(self, cr, uid, ids, field, value, args, context=None):
         if value:
             cr.execute("update survey_methodology_question set place=%s where id=%s", (value, ids))
-            ids, complete_place = self.place_get(cr, uid, ids)
+            ids, complete_place = self.place_get(cr, uid, ids)[0]
             cr.execute("update survey_methodology_question set complete_place=%s where id=%s", (complete_place, ids))
         del value
 

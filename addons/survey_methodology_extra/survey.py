@@ -54,35 +54,27 @@ class survey(osv.osv):
         partner_obj = self.pool.get('res.partner')
         user_obj = self.pool.get('res.partner')
         question_obj = self.pool.get('survey_methodology.question')
+        questionnaire_obj = self.pool.get('survey_methodology.questionnaire')
         answer_obj = self.pool.get('survey_methodology.answer')
 
         for survey in self.browse(cr, uid, ids, context):
             survey_id = survey.id
             respondent_ids = context.get('respondent_ids', [ p.id for p in survey.respondent_ids ])
             for respondent_id in respondent_ids:
-                if answer_obj.search(cr, uid, [('respondent_id','=',respondent_id),
-                                               ('survey_id','=',survey_id),
-                                              ]):
-                    return False
+                if questionnaire_obj.search(cr, uid, [
+                    ('respondent_id','=',respondent_id),
+                    ('survey_id','=',survey_id)
+                ]):
+                    continue
 
-                for question_id in question_obj.search(cr, uid, [('survey_id','=',survey_id)]):
-                    question = question_obj.read(cr, uid, question_id,
-                                                 ['complete_name','complete_place','question',
-                                                  'question_id','initial_state'])
-                    v = {
-                        'code': question['complete_name'],
-                        'complete_place': question['complete_place'],
-                        'name': question['question'],
-                        'respondent_id': respondent_id,
-                        'question_id': question['id'],
-                        'survey_id': survey_id,
-                        'pollster_id': context.get('pollster_id', False),
-                    }
+                v = {
+                    'name': survey.name,
+                    'respondent_id': respondent_id,
+                    'pollster_id': context.get('pollster_id', False),
+                    'survey_id': survey_id,
+                }
+                q_id = questionnaire_obj.create(cr, uid, v);
 
-                    answer_id = answer_obj.create(cr, uid, v)
-                    answer_obj.write(cr, uid, answer_id, {'state': question['initial_state']})
-                    wf_service = netsvc.LocalService("workflow")
-                    wf_service.trg_write(uid, 'survey_methodology.answer', answer_id, cr)
         return True
 
 survey()

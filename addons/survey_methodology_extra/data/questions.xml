@@ -73,6 +73,7 @@
               <field name="name">NK</field>
               <field name="variable_name">NK</field>
               <field name="note">Número/Km</field>
+              <field name="type">Variable</field>
               <field name="format_id" ref="format_Char"/>
               <field name="parent_id" ref="EE12_MIE"/>
               <field name="next_enable">True:EE12 / MIE / LOC</field>
@@ -83,6 +84,7 @@
               <field name="name">LOC</field>
               <field name="variable_name">LOC</field>
               <field name="note">Localidad</field>
+              <field name="type">Variable</field>
               <field name="format_id" ref="format_Char"/>
               <field name="parent_id" ref="EE12_MIE"/>
               <field name="next_enable">True:EE12 / MIE / DP</field>
@@ -95,6 +97,7 @@
               <field name="note">Departamento/Partido</field>
               <field name="format_id" ref="format_Char"/>
               <field name="parent_id" ref="EE12_MIE"/>
+              <field name="type">Variable</field>
               <field name="next_enable">True:EE12 / MIE / CP</field>
               <field name="survey_id" ref="survey_EE12"/>
             </record>
@@ -105,6 +108,7 @@
               <field name="note">Código Postal</field>
               <field name="format_id" ref="format_Char"/>
               <field name="parent_id" ref="EE12_MIE"/>
+              <field name="type">Variable</field>
               <field name="next_enable">True:EE12 / MIE / PROV</field>
               <field name="survey_id" ref="survey_EE12"/>
             </record>
@@ -113,6 +117,7 @@
               <field name="name">PROV</field>
               <field name="variable_name">PROV</field>
               <field name="note">Provincia</field>
+              <field name="type">Variable</field>
               <field name="format_id" ref="format_Char"/>
               <field name="parent_id" ref="EE12_MIE"/>
               <field name="next_enable">True:EE12 / ISC / SE</field>
@@ -123,7 +128,8 @@
           <field name="name">ISC</field>
           <field name="variable_name">EE12_ISC</field>
           <field name="note"></field>
-          <field name="format_id" ref="format_Group"/>
+          <field name="type">View</field>
+          <field name="format_id" eval="False"/>
           <field name="parent_id" ref="EE12"/>
           <field name="initial_state">closed</field>
           <field name="survey_id" ref="survey_EE12"/>
@@ -132,6 +138,7 @@
               <field name="question">Su encuestador</field>
               <field name="name">SE</field>
               <field name="variable_name">EE12_ISC_SE</field>
+              <field name="type">Variable</field>
               <field name="note"></field>
               <field name="format_id" ref="format_Char"/>
               <field name="parent_id" ref="EE12_ISC"/>
@@ -142,6 +149,7 @@
               <field name="question">Teléfono</field>
               <field name="name">TEL</field>
               <field name="variable_name">EE12_ISC_TEL</field>
+              <field name="type">Variable</field>
               <field name="note"></field>
               <field name="format_id" ref="format_Char"/>
               <field name="parent_id" ref="EE12_ISC"/>
@@ -152,6 +160,7 @@
               <field name="question">Correo Electrónico</field>
               <field name="name">EMAIL</field>
               <field name="variable_name">EE12_ISC_EMAIL</field>
+              <field name="type">Variable</field>
               <field name="note"></field>
               <field name="format_id" ref="format_Char"/>
               <field name="parent_id" ref="EE12_ISC"/>
@@ -162,6 +171,7 @@
               <field name="question">Fecha de Entrega</field>
               <field name="name">DATE</field>
               <field name="variable_name">EE12_ISC_DATE</field>
+              <field name="type">Variable</field>
               <field name="note"></field>
               <field name="format_id" ref="format_Char"/>
               <field name="parent_id" ref="EE12_ISC"/>
@@ -173,7 +183,8 @@
           <field name="name">A</field>
           <field name="variable_name">EE12_A</field>
           <field name="note">Características generales de la empresa</field>
-          <field name="format_id" ref="format_Group"/>
+          <field name="type">View</field>
+          <field name="format_id" eval="False"/>
           <field name="parent_id" ref="EE12"/>
           <field name="initial_state">disabled</field>
           <field name="survey_id" ref="survey_EE12"/>
@@ -183,6 +194,7 @@
               <field name="name">1</field>
               <field name="variable_name">EE12_A_1</field>
               <field name="note">Sobre la base de las ventas de la empresa, la actividad principal de la empresa es</field>
+              <field name="type">Variable</field>
               <field name="format_id" ref="format_SelectOne"/>
               <field name="parent_id" ref="EE12_A"/>
               <field name="next_enable">True:EE12 / A / 2</field>
@@ -193,6 +205,7 @@
                   <field name="name">1</field>
                   <field name="variable_name">EE12_A_1_1</field>
                   <field name="note">la venta de bienes y/o productos elaborados o transformados por la firma</field>
+                  <field name="type">Null</field>
                   <field name="format_id" eval="False"/>
                   <field name="parent_id" ref="EE12_A_1"/>
                   <field name="initial_state">closed</field>
@@ -203,6 +216,7 @@
                   <field name="name">2</field>
                   <field name="variable_name">EE12_A_1_2</field>
                   <field name="note">la reparación de maquinarias</field>
+                  <field name="type">Null</field>
                   <field name="format_id" eval="False"/>
                   <field name="parent_id" ref="EE12_A_1"/>
                   <field name="initial_state">closed</field>
@@ -212,13 +226,14 @@
                   <field name="question">la reventa de productos en el mismo estado en que fueron adquiridos, la venta de servicios, u otra actividad</field>
                   <field name="name">3</field>
                   <field name="variable_name">EE12_A_1_3</field>
-                  <field name="note">.la reventa de productos en el mismo estado en que fueron adquiridos, la venta de servicios, u otra actividad</field>
+                  <field name="type">Null</field>
+                  <field name="note">la reventa de productos en el mismo estado en que fueron adquiridos, la venta de servicios, u otra actividad</field>
                   <field name="format_id" eval="False"/>
                   <field name="parent_id" ref="EE12_A_1"/>
                   <field name="initial_state">closed</field>
                   <field name="survey_id" ref="survey_EE12"/>
                 </record>
-            <record model="survey_methodology.question" id="EE12_A_2">
+            <!--record model="survey_methodology.question" id="EE12_A_2">
               <field name="question">Sobre la base de las ventas de la empresa, indique cuál es el principal producto elaborado o reparado y la materia prima	básica utilizada por la empresa para su elaboración o reparación</field>
               <field name="name">2</field>
               <field name="variable_name">EE12_A_2</field>
@@ -406,7 +421,7 @@
                           <field name="note">No</field>
                           <field name="format_id" ref="format_Boolean"/>
                           <field name="parent_id" ref="EE12_A_5_1_1"/>
-                          <!--con estas hijas de la 5.1 me entra la duda en el ID-->
+                          < ! - - con estas hijas de la 5.1 me entra la duda en el ID - - >
                           <field name="survey_id" ref="survey_EE12"/>
                         </record>
             <record model="survey_methodology.question" id="EE12_A_6">
@@ -451,7 +466,7 @@
                   <field name="variable_name">EE12_A_6_4</field>
                   <field name="note">Para uso interno</field>
                   <field name="format_id" ref="format_Char"/>
-                  <!--aki no estoy segura si en Char-->
+                  <! - - aki no estoy segura si en Char - - >
                   <field name="parent_id" ref="EE12_A_6"/>
                   <field name="survey_id" ref="survey_EE12"/>
                 </record>
@@ -461,7 +476,7 @@
               <field name="variable_name">EE12_A_7</field>
               <field name="note">Indique si la empresa cuenta o no con alguna de las siguientes Tecnologías de la Información y de las Comunicaciones (TIC’s)</field>
               <field name="format_id" ref="format_Group"/>
-              <!--aki no estoy segura si es Char-->
+              <! - - aki no estoy segura si es Char - - >
               <field name="parent_id" ref="EE12_A"/>
               <field name="survey_id" ref="survey_EE12"/>
             </record>
@@ -535,7 +550,7 @@
                   <field name="variable_name">EE12_A_7_8</field>
                   <field name="note">Puestos de trabajo con computadora (PC, notebook). Si su respuesta es sí, ¿Cuántos?</field>
                   <field name="format_id" ref="format_Char"/>
-                  <!--este es Char o Boolean??-->
+                  <! - - este es Char o Boolean?? - - >
                   <field name="parent_id" ref="EE12_A_7"/>
                   <field name="survey_id" ref="survey_EE12"/>
                 </record>
@@ -545,7 +560,7 @@
               <field name="variable_name">EE12_A_8</field>
               <field name="note">¿La empresa desarrolla acciones o iniciativas de Responsabilidad Social Empresaria (RSE)*?</field>
               <field name="format_id" ref="format_Group"/>
-              <!--este es Char o Boolean??-->
+              < ! - - este es Char o Boolean?? - - >
               <field name="parent_id" ref="EE12_A"/>
               <field name="survey_id" ref="survey_EE12"/>
             </record>
@@ -555,7 +570,7 @@
                   <field name="variable_name">EE12_A_8_1</field>
                   <field name="note">Si</field>
                   <field name="format_id" ref="format_Char"/>
-                  <!--este es Char o Boolean??-->
+                  < ! - - este es Char o Boolean?? - - >
                   <field name="parent_id" ref="EE12_A_8"/>
                   <field name="survey_id" ref="survey_EE12"/>
                 </record>
@@ -565,11 +580,11 @@
                   <field name="variable_name">EE12_A_8_2</field>
                   <field name="note">Si</field>
                   <field name="format_id" ref="format_Boolean"/>
-                  <!--este es Char o Boolean??-->
+                  < ! - -este es Char o Boolean??- - >
                   <field name="parent_id" ref="EE12_A_8"/>
                   <field name="survey_id" ref="survey_EE12"/>
                 </record>
-        <!--seccion B-->
+        < ! - -seccion B- - >
         <record model="survey_methodology.question" id="EE12_B">
           <field name="question">Problemas y expectativas</field>
           <field name="name">B</field>
@@ -730,7 +745,7 @@
                       <field name="note">Otros</field>
                       <field name="format_id" ref="format_Boolean"/>
                       <field name="parent_id" ref="EE12_B_9_14"/>
-                      <!--nuevamente deje estas dos ultimos records con el mismo field name, asi ke fijate-->
+                      < ! - -nuevamente deje estas dos ultimos records con el mismo field name, asi ke fijate- - >
                       <field name="survey_id" ref="survey_EE12"/>
                     </record>
         <record model="survey_methodology.question" id="EE12_B_10">
@@ -957,7 +972,7 @@
           <field name="variable_name">EE12_C_11_1</field>
           <field name="note">Indique para el año 2011 qué proporción de sus ventas (facturación sin IVA) representaron las inversiones totales</field>
           <field name="format_id" ref="format_Float"/>
-          <!--me parece que es float no?-->
+          < ! - -me parece que es float no?- - >
           <field name="parent_id" ref="EE12_C_11"/>
           <field name="survey_id" ref="survey_EE12"/>
         </record>
@@ -1089,7 +1104,7 @@
           <field name="note">Programas Públicos (especificar)</field>
           <field name="format_id" ref="format_Char"/>
           <field name="parent_id" ref="EE12_C_12_1_7"/>
-          <!-- estos ultimos tres records tienes el mismo field name-->
+          < ! - - estos ultimos tres records tienes el mismo field name- - >
           <field name="survey_id" ref="survey_EE12"/>
         </record>
         <record model="survey_methodology.question" id="EE12_C_12_1_8">
@@ -1126,7 +1141,7 @@
           <field name="note">Otros (especificar)</field>
           <field name="format_id" ref="format_Boolean"/>
           <field name="parent_id" ref="EE12_C_12_1_9"/>
-          <!--de nuevo quedan las uktimas tres con el mismo field name pues son esas preguntas que tiene especificar mas un verdadero falso y que descompongo en un char y un boolean y no se bien como nombralas-->
+          < ! - -de nuevo quedan las uktimas tres con el mismo field name pues son esas preguntas que tiene especificar mas un verdadero falso y que descompongo en un char y un boolean y no se bien como nombralas- - >
           <field name="survey_id" ref="survey_EE12"/>
         </record>
         <record model="survey_methodology.question" id="EE12_C_12_2">
@@ -1345,7 +1360,7 @@
           <field name="parent_id" ref="EE12_C_12_3_7"/>
           <field name="survey_id" ref="survey_EE12"/>
         </record>
-        <!--este me salta la duda si esta bien-->
+        < ! - -este me salta la duda si esta bien- - >
         <record model="survey_methodology.question" id="EE12_C_12_3_7_a">
           <field name="question">Si</field>
           <field name="name">a</field>
@@ -1703,7 +1718,7 @@
           <field name="variable_name">EE12_E_18_1</field>
           <field name="note">año 2012? (estimado)</field>
           <field name="format_id" ref="format_Float"/>
-          <!-- es Float -->
+          < ! - - es Float - - >
           <field name="parent_id" ref="EE12_E_18"/>
           <field name="survey_id" ref="survey_EE12"/>
         </record>
@@ -1713,7 +1728,7 @@
           <field name="variable_name">EE12_E_18_2</field>
           <field name="note">año 2011? (estimado)</field>
           <field name="format_id" ref="format_Float"/>
-          <!-- es Float -->
+          < ! - - es Float - - >
           <field name="parent_id" ref="EE12_E_18"/>
           <field name="survey_id" ref="survey_EE12"/>
         </record>
@@ -2537,7 +2552,7 @@
           <field name="format_id" ref="format_Boolean"/>
           <field name="parent_id" ref="EE12_E_24_2"/>
           <field name="survey_id" ref="survey_EE12"/>
-        </record>
+        </record-->
   </data>
 </openerp>
 <!-- vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4
