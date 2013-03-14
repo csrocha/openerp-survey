@@ -46,10 +46,12 @@ class questionnaire(osv.osv):
                     relation='res.partner',
                     string='Respondent Code', readonly=True, store=True
                     ),
-        'answer_ids': fields.one2many('survey_methodology.answer', 'questionnaire_id', string='answer_ids'), 
+        'answer_ids': fields.one2many('survey_methodology.answer', 'questionnaire_id', string='answer_ids', select=True), 
     }
 
     _defaults = {
+        'respondent_id': lambda self, cr, uid, context=None: context and context.get('respondent_id', False),
+        'pollster_id': lambda self, cr, uid, context=None: context and context.get('pollster_id', False),
     }
 
 

@@ -54,8 +54,8 @@
                             <field name="name" />
                         </h1>
                         <group>
-                            <field name="validation"/>
-                            <field name="formating"/>
+                            <field name="validation" string="Validation"/>
+                            <field name="formating" string="Formating"/>
                             <field name="message_ids">
                                 <tree editable="bottom">
                                     <field name="name"/>

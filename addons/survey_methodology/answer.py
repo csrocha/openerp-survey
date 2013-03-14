@@ -45,19 +45,21 @@ class answer(osv.osv):
 
     _columns = {
         'name': fields.char(string='Question', readonly=True, required=True),
-        'complete_place': fields.char(string='complete_place', readonly=True),
+        'complete_place': fields.char(string='complete_place', readonly=True, required=True, select=True),
         'code': fields.char(string='Code', readonly=True, required=True),
         'input': fields.char(string='Input', readonly=True, states={'enabled':[('readonly',False)]}),
         'formated': fields.char(string='As integer number'),
         'message': fields.char(string='Message', readonly=True),
         'valid': fields.boolean(string='is Valid?', readonly=True),
+        'state': fields.selection([(u'closed', 'closed'), (u'disabled', 'disabled'), (u'enabled', 'enabled')], string='state', required=True),
         'state': fields.selection(_states_, "State"),
-        'question_id': fields.many2one('survey_methodology.question', string='Question', readonly=True, required=True), 
-        'questionnaire_id': fields.many2one('survey_methodology.questionnaire', string='questionnaire_id', ondelete='cascade', required=True), 
+        'question_id': fields.many2one('survey_methodology.question', string='Question', readonly=True, select=True, required=True), 
+        'questionnaire_id': fields.many2one('survey_methodology.questionnaire', string='questionnaire_id', select=True, ondelete='cascade', required=True), 
     }
 
     _defaults = {
         'state': 'enabled',
+        'state': 'disabled',
     }
 
     _order = "questionnaire_id, complete_place"

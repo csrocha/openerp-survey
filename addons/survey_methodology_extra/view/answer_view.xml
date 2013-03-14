@@ -41,11 +41,11 @@
                         <field name="message" string="Message" />
                     </group>
                     <group string="State">
-                        <filter string="Enabled" context="[('state','=','enabled')]"/>
+                        <filter string="Enabled"  context="[('state','=','enabled')]"/>
                         <filter string="Disabled" context="[('state','=','disabled')]"/>
-                        <filter string="Closed" context="[('state','=','closed')]"/>
-                        <filter string="Valid" context="[('Valid','=',True)]"/>
-                        <filter string="Invalid" context="[('Valid','=',False)]"/>
+                        <filter string="Closed"   context="[('state','=','closed')]"/>
+                        <filter string="Valid"    context="[('Valid','=',True)]"/>
+                        <filter string="Invalid"  context="[('Valid','=',False)]"/>
                     </group>
                 </search>
             </field>

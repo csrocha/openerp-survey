@@ -40,8 +40,8 @@ class format(osv.osv):
         'formating': fields.text(string=''),
         'tests_result': fields.boolean(string='Test result', readonly=True),
         'compile_message': fields.html(string='Compile message', readonly=True),
-        'input_test_ids': fields.one2many('survey_methodology.input_test', 'format_id', string='Test inputs'), 
-        'message_ids': fields.one2many('survey_methodology.message', 'format_id', string='Messages'), 
+        'input_test_ids': fields.one2many('survey_methodology.input_test', 'format_id', string='Test inputs', select=True), 
+        'message_ids': fields.one2many('survey_methodology.message', 'format_id', string='Messages', select=True), 
     }
 
     _defaults = {

@@ -23,6 +23,7 @@
 
 import re
 import netsvc
+import tools
 from osv import osv, fields
 
 class format(osv.osv):
@@ -30,37 +31,40 @@ class format(osv.osv):
     _name = 'survey_methodology.format'
     _inherit = [ _name ]
 
-    def evaluate(self, cr, uid, ids, input_text, question_id, context=None):
-        import pdb; pdb.set_trace()
+    def evaluate(self, cr, uid, ids, input_text, question=None, context=None):
+        def norm(validation):
+            return "((%s))" % ") or\n (".join([ l.strip() for l in validation.strip().split("\n") if l.strip() != ''])
+        local_dict = tools.local_dict(input_text, question)
+        r = {}
+        for f in self.browse(cr, uid, ids):
+            r[f.id] = dict(
+                valid = eval(norm(f.validation), local_dict),
+                formated = eval(norm(f.formating), local_dict),
+                message = ';'.join([ m.name for m in f.message_ids if eval(norm(m.condition), local_dict)]),
+            )
+        return r
 
     def evaluation_test(self, cr, uid, ids, context=None):
         input_test_obj = self.pool.get('survey_methodology.input_test')
         question_obj = self.pool.get('survey_methodology.question')
         message_obj = self.pool.get('survey_methodology.message')
-        fs = self.read(cr, uid, ids, ['validation', 'formating', 'message_ids', 'input_test_ids'])
+        fs = self.read(cr, uid, ids, ['input_test_ids'])
         for f in fs:
             its = input_test_obj.read(cr, uid, f['input_test_ids'], ['name', 'question_id', 'formated', 'valid'])
             r = []
-            v = True
+            vt = True
             for it in its:
                 question = question_obj.browse(cr, uid, it['question_id'][0]) if it['question_id'] else None
                 r.append("<h2>Testing: %s</h2>" % it['name'])
-                local_dict = {
-                    'input': it['name'],
-                    'linput': it['name'].lower(),
-                    'uinput': it['name'].upper(),
-                    'sinput': it['name'].strip(),
-                    'slinput': it['name'].strip().lower(),
-                    'suinput': it['name'].strip().upper(),
-                    'inrange': lambda v, _min=None, _max=None: _min <= v and v < _max,
-                    'self': question,
-                    're': re,
-                    'match': lambda regexp, _input: _input and re.match(regexp, _input.strip()) is not None,
-                    'imatch': lambda regexp, _input: _input and re.match(regexp, _input.strip(), re.I) is not None,
-                }
+                f_id = f['id']
+                v = True
                 try:
-                    val_result = eval(f['validation'], local_dict)
-                    for_result = eval(f['formating'], local_dict)
+                    er = self.evaluate(cr, uid, [f_id], it['name'], question)
+                    val_result = er[f_id]['valid']
+                    for_result = er[f_id]['formated']
+                    msg_result = er[f_id]['message']
+
+                    """
                     for msg in message_obj.read(cr, uid, f['message_ids'], ['name', 'condition']):
                         msg_result = eval(msg['condition'], local_dict)
                         if not type(msg_result) is bool:
@@ -69,6 +73,8 @@ class format(osv.osv):
                                      type(val_result))
                         elif msg_result:
                             r.append("<p><b>Message raised:</b> %s</p>" % msg['name'])
+                    """
+
                     if not type(val_result) is bool:
                         v = False
                         r.append("<p><b>TypeError:</b> Expected Boolean result for validation.</p><p><b>Returned value is:</b> %s</p>" %
@@ -77,6 +83,9 @@ class format(osv.osv):
                         v = False
                         r.append("<p><b>TypeError:</b> String result for format.</p><p><b>Returned value is:</b> %s</p>" %
                                  type(for_result))
+
+                    r.append("<p><b>Message raised:</b> %s</p>" % msg_result)
+
                 except SyntaxError as e:
                     r.append("<p><b>Syntax Error</b>: %s</p>\n<p><b>line:</b> %i, <b>character:</b> %i</p><p><b>code:</b> %s</p>" %
                              (e.args[0], e.args[1][1], e.args[1][2], e.args[1][3]))
@@ -102,7 +111,8 @@ class format(osv.osv):
                     else:
                         r.append("<h3 style='color: red'>Test end with errors</h3>")
                 r.append('<hr/>')
-            self.write(cr, uid, f['id'], { 'compile_message': '</br>'.join(r), 'tests_result': v, })
+                vt = vt and v
+            self.write(cr, uid, f['id'], { 'compile_message': '</br>'.join(r), 'tests_result': vt, })
             return True
 
     def onchange_code(self, cr, uid, ids, validation, formating, message_ids, input_test_ids, context=None):

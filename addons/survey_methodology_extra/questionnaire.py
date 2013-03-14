@@ -26,38 +26,120 @@ import netsvc
 from osv import osv, fields
 from lxml import etree
 from openerp.tools import SKIPPED_ELEMENT_TYPES
+import tools
+import time
+
+# Codigo JavaScript que permite Cambiar de <input/> con la tecla Enter.
+_enter_js = """
+<html>
+<script type="text/javascript">
+    $(document).ready(function(){
+      (function(){
+        var keyup_orig = openerp.instances.instance0.web.form.FieldChar.prototype.events.keyup;
+        openerp.instances.instance0.web.form.FieldChar.prototype.events.keyup = function(e) {
+            if (e.which === $.ui.keyCode.ENTER) {
+                    textboxes = $("input:visible");
+                    currentBoxNumber = textboxes.index(e.target);
+                    if (textboxes[currentBoxNumber + 1] != null) {
+                            nextBox = textboxes[currentBoxNumber + 1];
+                            nextBox.focus();
+                            nextBox.select();
+                            e.preventDefault();
+                            return false;
+                    }
+            }
+        }
+      })();
+    });
+</script>
+</html>
+"""
 
 class questionnaire(osv.osv):
-    """"""
+    """
+    Este objeto presenta las preguntas de un cuestionario para un encuestado.
+    """
     _name = 'survey_methodology.questionnaire'
     _inherit = [ _name ]
 
-    def onchange_input(self, cr, uid, ids, input, fields):
+    def onchange_input(self, cr, uid, ids, input_text, fields):
+        """
+        Esta función toma el cambio que ocurre en una celda input y
+        actualiza el estado del próximo campo según lo que indique las
+        condiciones del "next_enable" o próximo campo a habilitar.
+        También verifica que mensaje tiene que enviarse al dataentry.
+        """
         value={}
         complete_place = False
+        print "1.", time.time()
+
         question_obj = self.pool.get('survey_methodology.question')
         question_ids = question_obj.search(cr, uid, [('complete_place','=',fields)])
+
         for question in question_obj.browse(cr, uid, question_ids):
+
+            print "1.1.", time.time()
+
+            # Habilitación o deshabilitación de preguntas.
             for lines in question.next_enable.split('\n'):
                 if lines.strip():
-                    condition, next_enable = lines.split(':')
-                    next_q = question_obj.search(cr, uid, [
-                        ('survey_id','=',question.survey_id.id),
-                        ('complete_name', '=', next_enable)
-                    ])
-                    next_field_code = question_obj.read(cr, uid, next_q, ['complete_place'])
-                    if next_field_code:
-                        complete_place = next_field_code[0]['complete_place']
-                        value['sta_%s' % complete_place] = 'enabled'
+                    parsed = re.search(r'(?P<condition>[^:]*):(?P<to_enable>[^:]*)(:(?P<to_disable>.*))?', lines).groupdict()
+                    if parsed['condition'] and eval(parsed['condition'], tools.local_dict(input_text, question)):
+                        to_enable = filter(lambda i: i!='', (parsed['to_enable'] or '').split(','))
+                        to_disable = filter(lambda i: i!='', (parsed['to_disable'] or '').split(','))
+                        print "------------------------"
+                        print lines
+                        print parsed
+                        print to_enable
+                        print to_disable
+                        next_dict = dict(
+                            [ (qid, 'enabled') for qid in question_obj.search(cr, uid, [
+                                ('survey_id','=',question.survey_id.id),
+                                ('complete_name', 'in', to_enable)
+                            ]) ] +
+                            [ (qid, 'disabled') for qid in question_obj.search(cr, uid, [
+                                ('survey_id','=',question.survey_id.id),
+                                ('complete_name', 'in', to_disable)
+                            ]) ])
+                        next_field_code = question_obj.read(cr, uid, next_dict.keys(), ['complete_place', 'complete_name'])
+                        print next_dict, next_field_code
+                        for item in next_field_code:
+                            complete_place = item['complete_place']
+                            value['sta_%s' % complete_place] = next_dict[item['id']]
+                            print 'sta_%s' % complete_place, value['sta_%s' % complete_place]
+
+            print "1.2.", time.time()
+
+            # Evaluamos el formato
+            format_obj = question.format_id
+            format_res = format_obj.evaluate(input_text, question)[format_obj.id]
+
+            print "1.3.", time.time()
+
+            # Mensajes según pregunta.
+            value['msg_%s' % fields] = format_res['message']
+            value['vms_%s' % fields] = format_res['message']
+            value['for_%s' % fields] = format_res['formated']
+            value['vfo_%s' % fields] = format_res['formated']
+            value['val_%s' % fields] = format_res['valid']
+
+            print "1.4.", time.time()
+
+        print "2.", time.time()
 
         r = { 'value': value }
         if complete_place:
             r.update(grab_focus='inp_%s' % complete_place)
+
+        print "3.", time.time()
+
         return r
 
     def fields_get(self, cr, uid, fields=None, context=None):
+        """
+        Genera la lista de campos que se necesita para responder la encuesta.
+        """
         res = super(questionnaire, self).fields_get(cr, uid, fields, context)
-        #import pdb; pdb.set_trace()
 
         qaire_ids = self.search(cr, uid, [])
         for qaire in self.browse(cr, uid, qaire_ids):
@@ -72,6 +154,12 @@ class questionnaire(osv.osv):
                     'selectable': False,
                     'readonly': False,
                     'type': 'char',
+                    'string': 'Invisible Message',
+                }
+                res["vms_%s" % question.complete_place] = {
+                    'selectable': False,
+                    'readonly': False,
+                    'type': 'char',
                     'string': 'Message',
                 }
                 res["sta_%s" % question.complete_place] = {
@@ -80,13 +168,34 @@ class questionnaire(osv.osv):
                     'type': 'char',
                     'string': 'Status',
                 }
-
+                res["for_%s" % question.complete_place] = {
+                    'selectable': False,
+                    'readonly': True,
+                    'type': 'char',
+                    'string': 'Invisible Formated',
+                }
+                res["vfo_%s" % question.complete_place] = {
+                    'selectable': False,
+                    'readonly': True,
+                    'type': 'char',
+                    'string': 'Formated',
+                }
+                res["val_%s" % question.complete_place] = {
+                    'selectable': False,
+                    'readonly': True,
+                    'type': 'boolean',
+                    'string': 'Valid',
+                }
         return res
 
     def fields_view_get(self, cr, uid, view_id=None, view_type=None, context=None, toolbar=False, submenu=False):
+        """
+        Genera la vista dinámicamente, según las preguntas de la encuesta.
+        """
         if context is None:
             context = {}
 
+        # ---- Codigo de orm.py : AQUI EMPIEZA. Permite generar vista por herencia. ----
         def encode(s):
             if isinstance(s, unicode):
                 return s.encode('utf8')
@@ -206,29 +315,37 @@ class questionnaire(osv.osv):
                     raise_view_error("Element '%s' not found in parent view '%%(parent_xml_id)s'" % tag, inherit_id)
 
             return source
+        # ---- Codigo de orm.py : AQUI TERMINA ----
 
         res = super(questionnaire, self).fields_view_get(cr, uid, view_id, view_type, context, toolbar=toolbar, submenu=submenu)
         if view_type == "form":
-            qaire_ids = self.search(cr, uid, [])
+            qaire_ids = self.search(cr, uid, [])[:1] # TODO: Identificar que cuestionario esta consultando esto.
             view_item = ['<group colspan="4" col="5">']
+
             for qaire in self.browse(cr, uid, qaire_ids):
                 level = 1
                 for question in qaire.survey_id.question_ids:
                     new_level = len(question.complete_place)/2
                     if level < new_level:
-                        #view_item.append('<newline colspan="5"/>')
+                        #view_item.append('<button type="button" class="oe_button oe_form_button_save oe_highlight" accesskey="S">Save</button>')
+                        #view_item.append('<div colspan="4" col="5">')
                         level = new_level 
-                    #elif level > new_level:
-                    #    view_item.append('</group>')
-                    #    level = new_level 
+                    elif level > new_level:
+                        #view_item.append('</div>')
+                        level = new_level 
                     view_item.append(
                         '<label string="%(complete_name)s" colspan="1"/>'
                         '<label string="%(question)s" colspan="1"/>'
                         '<field name="inp_%(complete_place)s" on_change="onchange_input(inp_%(complete_place)s, \'%(complete_place)s\')"'
                         ' modifiers="{&quot;readonly&quot;: [[&quot;sta_%(complete_place)s&quot;, &quot;not in&quot;, [&quot;enabled&quot;]]]}"'
                         ' nolabel="1" colspan="1"/>'
-                        '<field name="msg_%(complete_place)s" modifiers="{&quot;readonly&quot;: true}" nolabel="1" colspan="1"/>'
-                        '<field name="sta_%(complete_place)s" modifiers="{&quot;invisible&quot;: true}" nolabel="1" colspan="1"/>' % {
+                        '<field name="vms_%(complete_place)s" modifiers="{&quot;readonly&quot;: true}" nolabel="1" colspan="1"/>'
+                        '<field name="vfo_%(complete_place)s" modifiers="{&quot;readonly&quot;: true}" nolabel="1" colspan="1"/>'
+                        '<field name="sta_%(complete_place)s" modifiers="{&quot;invisible&quot;: true}" nolabel="1" colspan="1"/>'
+                        '<field name="msg_%(complete_place)s" modifiers="{&quot;readonly&quot;: false,&quot;invisible&quot;: true}"/>'
+                        '<field name="val_%(complete_place)s" modifiers="{&quot;readonly&quot;: false,&quot;invisible&quot;: true}"/>'
+                        '<field name="for_%(complete_place)s" modifiers="{&quot;readonly&quot;: false,&quot;invisible&quot;: true}"/>'
+                        '<newline/>'% {
                             'complete_name': question.complete_name.replace(' ',''),
                             'complete_place': question.complete_place,
                             'question': question.question,
@@ -245,6 +362,12 @@ class questionnaire(osv.osv):
                         'selectable': False,
                         'readonly': True,
                         'type': 'char',
+                        'string': 'Invisible Message',
+                    }
+                    res['fields']['vms_%s' % question.complete_place] = {
+                        'selectable': False,
+                        'readonly': True,
+                        'type': 'char',
                         'string': 'Message',
                     }
                     res['fields']['sta_%s' % question.complete_place] = {
@@ -253,7 +376,28 @@ class questionnaire(osv.osv):
                         'type': 'char',
                         'string': 'Status',
                     }
+                    res['fields']['for_%s' % question.complete_place] = {
+                        'selectable': False,
+                        'readonly': True,
+                        'type': 'char',
+                        'string': 'Invisible Formated',
+                    }
+                    res['fields']['vfo_%s' % question.complete_place] = {
+                        'selectable': False,
+                        'readonly': True,
+                        'type': 'char',
+                        'string': 'Formated',
+                    }
+                    res['fields']['val_%s' % question.complete_place] = {
+                        'selectable': False,
+                        'readonly': True,
+                        'type': 'boolean',
+                        'string': 'Valid',
+                    }
+                #for i in range(level-1):
+                #    view_item.append('</sheet>')
             view_item.append('</group>')
+            view_item.append(_enter_js)
 
             insert_view = """<group position="after"> <separator string="Questions"/> %s </group>""" % ' '.join(view_item)
             source = etree.fromstring(encode(res['arch']))
@@ -264,6 +408,9 @@ class questionnaire(osv.osv):
         return res
 
     def read(self, cr, uid, ids, fields=None, context=None, load='_classic_read'):
+        """
+        Lee los campos a partir de las asnwer asociadas.
+        """
         answer_obj = self.pool.get('survey_methodology.answer')
         question_obj = self.pool.get('survey_methodology.question')
 
@@ -295,16 +442,21 @@ class questionnaire(osv.osv):
                     }
                     a_ids.append(answer_obj.create(cr, uid, v))
                     answer_obj.write(cr, uid, a_ids[-1], {'state': question.initial_state})
-                    #r = wf_service.trg_validate(uid, 'survey_methodology.ans', next_ans[0], 'sgn_enable', cr)
-                print "CREATED QUESTIONS!"
             # Leemos las preguntas.
             for answer in answer_obj.browse(cr, uid, a_ids):
                 r['inp_%s' % answer.complete_place]=answer.input
                 r['msg_%s' % answer.complete_place]=answer.message
+                r['vms_%s' % answer.complete_place]=answer.message
                 r['sta_%s' % answer.complete_place]=answer.state
+                r['for_%s' % answer.complete_place]=answer.formated
+                r['vfo_%s' % answer.complete_place]=answer.formated
+                r['val_%s' % answer.complete_place]=answer.valid
         return res
 
     def write(self, cr, uid, ids, values, context=None):
+        """
+        Escribe los campos a las answers asociadas.
+        """
         answer_obj = self.pool.get('survey_methodology.answer')
         question_obj = self.pool.get('survey_methodology.question')
 
@@ -318,10 +470,12 @@ class questionnaire(osv.osv):
         for answer in answer_obj.read(cr, uid, answer_ids, ['complete_place']):
             complete_place = answer['complete_place']
             v = {}
-            print values
+
             if 'msg_%s' % complete_place in values: v.update(message=values['msg_%s' % complete_place])
-            if 'sta_%s' % complete_place in values: v.update(status=values['sta_%s' % complete_place])
+            if 'sta_%s' % complete_place in values: v.update(state=values['sta_%s' % complete_place])
             if 'inp_%s' % complete_place in values: v.update(input=values['inp_%s' % complete_place])
+            if 'for_%s' % complete_place in values: v.update(formated=values['for_%s' % complete_place])
+            if 'val_%s' % complete_place in values: v.update(valid=values['val_%s' % complete_place])
             
             answer_obj.write(cr, uid, answer['id'], v)
 

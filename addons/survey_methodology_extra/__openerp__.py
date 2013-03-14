@@ -41,6 +41,7 @@
         u'data/responders.xml',
         u'data/survey.xml',
         u'data/formats.xml',
+        u'data/survey_methodology.input_test.csv',
         u'data/questions.xml',
 #       u'security/survey_methodology_group.xml',
 #       u'view/category_view.xml',

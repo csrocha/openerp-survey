@@ -173,7 +173,7 @@
               <field name="variable_name">EE12_ISC_DATE</field>
               <field name="type">Variable</field>
               <field name="note"></field>
-              <field name="format_id" ref="format_Char"/>
+              <field name="format_id" ref="format_Date"/>
               <field name="parent_id" ref="EE12_ISC"/>
               <field name="next_enable">True:EE12 / A / 1</field>
               <field name="survey_id" ref="survey_EE12"/>
@@ -197,7 +197,7 @@
               <field name="type">Variable</field>
               <field name="format_id" ref="format_SelectOne"/>
               <field name="parent_id" ref="EE12_A"/>
-              <field name="next_enable">True:EE12 / A / 2</field>
+              <field name="next_enable">True:EE12 / A / 2 / 1</field>
               <field name="survey_id" ref="survey_EE12"/>
             </record>
                 <record model="survey_methodology.question" id="EE12_A_1_1">
@@ -233,66 +233,82 @@
                   <field name="initial_state">closed</field>
                   <field name="survey_id" ref="survey_EE12"/>
                 </record>
-            <!--record model="survey_methodology.question" id="EE12_A_2">
+            <record model="survey_methodology.question" id="EE12_A_2">
               <field name="question">Sobre la base de las ventas de la empresa, indique cuál es el principal producto elaborado o reparado y la materia prima	básica utilizada por la empresa para su elaboración o reparación</field>
               <field name="name">2</field>
               <field name="variable_name">EE12_A_2</field>
               <field name="note">Sobre la base de las ventas de la empresa, indique cuál es el principal producto elaborado o reparado y la materia prima básica utilizada por la empresa para su elaboración o reparación</field>
-              <field name="format_id" ref="format_Group"/>
+              <field name="format_id" eval="False"/>
               <field name="parent_id" ref="EE12_A"/>
               <field name="survey_id" ref="survey_EE12"/>
+              <field name="initial_state">closed</field>
             </record>
                 <record model="survey_methodology.question" id="EE12_A_2_1">
                   <field name="question">Principal producto</field>
                   <field name="name">1</field>
                   <field name="variable_name">EE12_A_2_1</field>
                   <field name="note">Principal producto</field>
+                  <field name="next_enable">True:EE12 / A / 2 / 2</field>
                   <field name="format_id" ref="format_Char"/>
                   <field name="parent_id" ref="EE12_A_2"/>
                   <field name="survey_id" ref="survey_EE12"/>
+                  <field name="type">Variable</field>
                 </record>
                 <record model="survey_methodology.question" id="EE12_A_2_2">
                   <field name="question">Materia prima básica del producto</field>
                   <field name="name">2</field>
                   <field name="variable_name">EE12_A_2_2</field>
                   <field name="note">Materia prima básica del producto</field>
-                  <field name="format_id" ref="format_Group"/>
+                  <field name="next_enable">True:EE12 / A / 2 / 3</field>
+                  <field name="format_id" ref="format_Char"/>
                   <field name="parent_id" ref="EE12_A_2"/>
                   <field name="survey_id" ref="survey_EE12"/>
+                  <field name="type">Variable</field>
                 </record>
                 <record model="survey_methodology.question" id="EE12_A_2_3">
                   <field name="question">Para uso interno</field>
                   <field name="name">3</field>
                   <field name="variable_name">EE12_A_2_3</field>
                   <field name="note">Para uso interno</field>
+                  <field name="next_enable">True:EE12 / A / 3 / 1</field>
                   <field name="format_id" ref="format_Integer"/>
                   <field name="parent_id" ref="EE12_A_2"/>
                   <field name="survey_id" ref="survey_EE12"/>
+                  <field name="type">Variable</field>
                 </record>
             <record model="survey_methodology.question" id="EE12_A_3">
               <field name="question">En qué año comenzó a operar la empresa con la actual razón social</field>
               <field name="name">3</field>
               <field name="variable_name">EE12_A_3</field>
               <field name="note">En qué año comenzó a operar la empresa con la actual razón social</field>
-              <field name="format_id" ref="format_Group"/>
+              <field name="format_id" eval="False"/>
               <field name="parent_id" ref="EE12_A"/>
               <field name="survey_id" ref="survey_EE12"/>
+              <field name="initial_state">closed</field>
+              <field name="type">Null</field>
             </record>
                 <record model="survey_methodology.question" id="EE12_A_3_1">
                   <field name="question">Año</field>
                   <field name="name">1</field>
                   <field name="variable_name">EE12_A_3_1</field>
                   <field name="note">Año</field>
+                  <field name="next_enable">True:EE12 / A / 4</field>
                   <field name="format_id" ref="format_Year"/>
                   <field name="parent_id" ref="EE12_A_3"/>
                   <field name="survey_id" ref="survey_EE12"/>
+                  <field name="type">Variable</field>
                 </record>
             <record model="survey_methodology.question" id="EE12_A_4">
               <field name="question">La forma jurídica actual de la empresa es</field>
               <field name="name">4</field>
               <field name="variable_name">EE12_A_4</field>
               <field name="note">La forma jurídica actual de la empresa es</field>
-              <field name="format_id" ref="format_Group"/>
+              <field name="next_enable">
+                  input=='6':EE12 / A / 4o:
+                  input!='6':EE12 / A / 5a:EE12 / A / 4o
+              </field>
+              <field name="type">Variable</field>
+              <field name="format_id" ref="format_SelectOne"/>
               <field name="parent_id" ref="EE12_A"/>
               <field name="survey_id" ref="survey_EE12"/>
             </record>
@@ -301,135 +317,153 @@
                   <field name="name">1</field>
                   <field name="variable_name">EE12_A_4_1</field>
                   <field name="note">Unipersonal</field>
-                  <field name="format_id" ref="format_Boolean"/>
+                  <field name="format_id" eval="False"/>
                   <field name="parent_id" ref="EE12_A_4"/>
                   <field name="survey_id" ref="survey_EE12"/>
+                  <field name="initial_state">closed</field>
+                  <field name="type">Null</field>
                 </record>
                 <record model="survey_methodology.question" id="EE12_A_4_2">
                   <field name="question">Sociedad no constituida regularmente</field>
                   <field name="name">2</field>
                   <field name="variable_name">EE12_A_4_2</field>
                   <field name="note">Sociedad no constituida regularmente</field>
-                  <field name="format_id" ref="format_Boolean"/>
+                  <field name="format_id" eval="False"/>
                   <field name="parent_id" ref="EE12_A_4"/>
                   <field name="survey_id" ref="survey_EE12"/>
+                  <field name="initial_state">closed</field>
+                  <field name="type">Null</field>
                 </record>
                 <record model="survey_methodology.question" id="EE12_A_4_3">
                   <field name="question">Sociedad Anónima</field>
                   <field name="name">3</field>
                   <field name="variable_name">EE12_A_4_3</field>
                   <field name="note">Sociedad Anónima</field>
-                  <field name="format_id" ref="format_Boolean"/>
+                  <field name="format_id" eval="False"/>
                   <field name="parent_id" ref="EE12_A_4"/>
                   <field name="survey_id" ref="survey_EE12"/>
+                  <field name="initial_state">closed</field>
+                  <field name="type">Null</field>
                 </record>
                 <record model="survey_methodology.question" id="EE12_A_4_4">
                   <field name="question">Sociedad de Responsabilidad Limitada</field>
                   <field name="name">4</field>
                   <field name="variable_name">EE12_A_4_4</field>
                   <field name="note">Sociedad de Responsabilidad Limitada</field>
-                  <field name="format_id" ref="format_Boolean"/>
+                  <field name="format_id" eval="False"/>
                   <field name="parent_id" ref="EE12_A_4"/>
                   <field name="survey_id" ref="survey_EE12"/>
+                  <field name="initial_state">closed</field>
+                  <field name="type">Null</field>
                 </record>
                 <record model="survey_methodology.question" id="EE12_A_4_5">
                   <field name="question">Sociedad cooperativa</field>
                   <field name="name">5</field>
                   <field name="variable_name">EE12_A_4_5</field>
                   <field name="note">Sociedad cooperativa</field>
-                  <field name="format_id" ref="format_Boolean"/>
+                  <field name="format_id" eval="False"/>
                   <field name="parent_id" ref="EE12_A_4"/>
                   <field name="survey_id" ref="survey_EE12"/>
+                  <field name="initial_state">closed</field>
+                  <field name="type">Null</field>
                 </record>
                 <record model="survey_methodology.question" id="EE12_A_4_6">
                   <field name="question">Otra</field>
                   <field name="name">6</field>
                   <field name="variable_name">EE12_A_4_6</field>
                   <field name="note">Otra</field>
-                  <field name="format_id" ref="format_Boolean"/>
+                  <field name="format_id" eval="False"/>
                   <field name="parent_id" ref="EE12_A_4"/>
                   <field name="survey_id" ref="survey_EE12"/>
+                  <field name="initial_state">closed</field>
+                  <field name="type">Null</field>
                 </record>
             <record model="survey_methodology.question" id="EE12_A_4o">
               <field name="question">Especifique</field>
-              <field name="name">a</field>
+              <field name="name">4o</field>
               <field name="variable_name">EE12_A_4o</field>
               <field name="note"></field>
+              <field name="type">Variable</field>
+              <field name="next_enable">True:EE12 / A / 5</field>
               <field name="format_id" ref="format_Char"/>
               <field name="parent_id" ref="EE12_A"/>
               <field name="survey_id" ref="survey_EE12"/>
             </record>
-
-                    <record model="survey_methodology.question" id="EE12_A_4_6_b">
-                      <field name="question">Otra</field>
-                      <field name="name">6</field>
-                      <field name="variable_name">EE12_A_4_6</field>
-                      <field name="note">Otra</field>
-                      <field name="format_id" ref="format_Boolean"/>
-                      <field name="parent_id" ref="EE12_A_4_6"/>
-                      <field name="survey_id" ref="survey_EE12"/>
-                    </record>
-            <record model="survey_methodology.question" id="EE12_A_5">
+            <record model="survey_methodology.question" id="EE12_A_5a">
               <field name="question">La empresa, ¿forma parte de un conjunto de empresas controladas directa o indirectamente por una misma firma?</field>
-              <field name="name">5</field>
-              <field name="variable_name">EE12_A_5</field>
+              <field name="name">5a</field>
+              <field name="variable_name">EE12_A_5a</field>
               <field name="note">La empresa, ¿forma parte de un conjunto de empresas controladas directa o indirectamente por una misma firma?</field>
-              <field name="format_id" ref="format_Group"/>
+              <field name="format_id" ref="format_SelectOne"/>
+              <field name="type">Variable</field>
+              <field name="next_enable">
+                  2:EE12 / A / 6 / 1
+                  True:EE12 / A / 5b
+              </field>
               <field name="parent_id" ref="EE12_A"/>
               <field name="survey_id" ref="survey_EE12"/>
             </record>
-                <record model="survey_methodology.question" id="EE12_A_5_1">
+                <record model="survey_methodology.question" id="EE12_A_5a_1">
                   <field name="question">Si</field>
                   <field name="name">1</field>
-                  <field name="variable_name">EE12_A_5_1</field>
+                  <field name="variable_name">EE12_A_5a_1</field>
                   <field name="note">Si</field>
-                  <field name="format_id" ref="format_Boolean"/>
-                  <field name="parent_id" ref="EE12_A_5"/>
+                  <field name="format_id" eval="False"/>
+                  <field name="parent_id" ref="EE12_A_5a"/>
                   <field name="survey_id" ref="survey_EE12"/>
+                  <field name="initial_state">closed</field>
+                  <field name="type">Null</field>
                 </record>
-                <record model="survey_methodology.question" id="EE12_A_5_2">
+                <record model="survey_methodology.question" id="EE12_A_5a_2">
                   <field name="question">No</field>
                   <field name="name">2</field>
-                  <field name="variable_name">EE12_A_5_2</field>
+                  <field name="variable_name">EE12_A_5a_2</field>
                   <field name="note">No</field>
-                  <field name="format_id" ref="format_Boolean"/>
-                  <field name="parent_id" ref="EE12_A_5"/>
+                  <field name="format_id" eval="False"/>
+                  <field name="parent_id" ref="EE12_A_5a"/>
                   <field name="survey_id" ref="survey_EE12"/>
+                  <field name="initial_state">closed</field>
+                  <field name="type">Null</field>
                 </record>
-                    <record model="survey_methodology.question" id="EE12_A_5_1_1">
-                      <field name="question">En su conjunto, ¿todas las empresas del grupo sumadas ocupan a más de 250 personas?</field>
-                      <field name="name">1</field>
-                      <field name="variable_name">EE12_A_5_1_1</field>
-                      <field name="note">En su conjunto, ¿todas las empresas del grupo sumadas ocupan a más de 250 personas?</field>
-                      <field name="format_id" ref="format_Boolean"/>
-                      <field name="parent_id" ref="EE12_A_5_1"/>
-                      <field name="survey_id" ref="survey_EE12"/>
-                    </record>
-                        <record model="survey_methodology.question" id="EE12_A_5_1_1_1">
-                          <field name="question">Si</field>
-                          <field name="name">1</field>
-                          <field name="variable_name">EE12_A_5_1_1_1</field>
-                          <field name="note">Si</field>
-                          <field name="format_id" ref="format_Boolean"/>
-                          <field name="parent_id" ref="EE12_A_5_1_1"/>
-                          <field name="survey_id" ref="survey_EE12"/>
-                        </record>
-                        <record model="survey_methodology.question" id="EE12_A_5_1_1_2">
-                          <field name="question">No</field>
-                          <field name="name">2</field>
-                          <field name="variable_name">EE12_A_5_1_1_2</field>
-                          <field name="note">No</field>
-                          <field name="format_id" ref="format_Boolean"/>
-                          <field name="parent_id" ref="EE12_A_5_1_1"/>
-                          < ! - - con estas hijas de la 5.1 me entra la duda en el ID - - >
-                          <field name="survey_id" ref="survey_EE12"/>
-                        </record>
+            <record model="survey_methodology.question" id="EE12_A_5b">
+              <field name="question">En su conjunto, ¿todas las empresas del grupo sumadas ocupan a más de 250 personas?</field>
+              <field name="name">5b</field>
+              <field name="variable_name">EE12_A_5b</field>
+              <field name="note">En su conjunto, ¿todas las empresas del grupo sumadas ocupan a más de 250 personas?</field>
+              <field name="format_id" ref="format_SelectOne"/>
+              <field name="parent_id" ref="EE12_A"/>
+              <field name="survey_id" ref="survey_EE12"/>
+              <field name="type">Variable</field>
+            </record>
+                <record model="survey_methodology.question" id="EE12_A_5b_1">
+                  <field name="question">Si</field>
+                  <field name="name">1</field>
+                  <field name="variable_name">EE12_A_5b_1</field>
+                  <field name="note">Si</field>
+                  <field name="format_id" eval="False"/>
+                  <field name="parent_id" ref="EE12_A_5b"/>
+                  <field name="survey_id" ref="survey_EE12"/>
+                  <field name="initial_state">closed</field>
+                  <field name="type">Null</field>
+                </record>
+                <record model="survey_methodology.question" id="EE12_A_5b_2">
+                  <field name="question">No</field>
+                  <field name="name">2</field>
+                  <field name="variable_name">EE12_A_5b_2</field>
+                  <field name="note">No</field>
+                  <field name="format_id" eval="False"/>
+                  <field name="parent_id" ref="EE12_A_5b"/>
+                  <field name="survey_id" ref="survey_EE12"/>
+                  <field name="initial_state">closed</field>
+                  <field name="type">Null</field>
+                </record>
             <record model="survey_methodology.question" id="EE12_A_6">
               <field name="question">Considerando la cantidad total de ocupados de la empresa, ¿dónde está localizado el principal local industrial o taller de reparación de maquinarias de la empresa?</field>
               <field name="name">6</field>
               <field name="variable_name">EE12_A_6</field>
               <field name="note">Considerando la cantidad total de ocupados de la empresa, ¿dónde está localizado el principal local industrial o taller de reparación de maquinarias de la empresa?</field>
-              <field name="format_id" ref="format_Group"/>
+              <field name="format_id" eval="False"/>
+              <field name="type">View</field>
               <field name="parent_id" ref="EE12_A"/>
               <field name="survey_id" ref="survey_EE12"/>
             </record>
@@ -439,6 +473,7 @@
                   <field name="variable_name">EE12_A_6_1</field>
                   <field name="note">Localidad</field>
                   <field name="format_id" ref="format_Char"/>
+                  <field name="type">View</field>
                   <field name="parent_id" ref="EE12_A_6"/>
                   <field name="survey_id" ref="survey_EE12"/>
                 </record>
@@ -448,6 +483,7 @@
                   <field name="variable_name">EE12_A_6_2</field>
                   <field name="note">Departamento / Partido</field>
                   <field name="format_id" ref="format_Char"/>
+                  <field name="type">View</field>
                   <field name="parent_id" ref="EE12_A_6"/>
                   <field name="survey_id" ref="survey_EE12"/>
                 </record>
@@ -457,6 +493,7 @@
                   <field name="variable_name">EE12_A_6_3</field>
                   <field name="note">Provincia</field>
                   <field name="format_id" ref="format_Char"/>
+                  <field name="type">View</field>
                   <field name="parent_id" ref="EE12_A_6"/>
                   <field name="survey_id" ref="survey_EE12"/>
                 </record>
@@ -466,7 +503,7 @@
                   <field name="variable_name">EE12_A_6_4</field>
                   <field name="note">Para uso interno</field>
                   <field name="format_id" ref="format_Char"/>
-                  <! - - aki no estoy segura si en Char - - >
+                  <field name="type">View</field>
                   <field name="parent_id" ref="EE12_A_6"/>
                   <field name="survey_id" ref="survey_EE12"/>
                 </record>
@@ -476,7 +513,6 @@
               <field name="variable_name">EE12_A_7</field>
               <field name="note">Indique si la empresa cuenta o no con alguna de las siguientes Tecnologías de la Información y de las Comunicaciones (TIC’s)</field>
               <field name="format_id" ref="format_Group"/>
-              <! - - aki no estoy segura si es Char - - >
               <field name="parent_id" ref="EE12_A"/>
               <field name="survey_id" ref="survey_EE12"/>
             </record>
@@ -550,7 +586,6 @@
                   <field name="variable_name">EE12_A_7_8</field>
                   <field name="note">Puestos de trabajo con computadora (PC, notebook). Si su respuesta es sí, ¿Cuántos?</field>
                   <field name="format_id" ref="format_Char"/>
-                  <! - - este es Char o Boolean?? - - >
                   <field name="parent_id" ref="EE12_A_7"/>
                   <field name="survey_id" ref="survey_EE12"/>
                 </record>
@@ -560,7 +595,6 @@
               <field name="variable_name">EE12_A_8</field>
               <field name="note">¿La empresa desarrolla acciones o iniciativas de Responsabilidad Social Empresaria (RSE)*?</field>
               <field name="format_id" ref="format_Group"/>
-              < ! - - este es Char o Boolean?? - - >
               <field name="parent_id" ref="EE12_A"/>
               <field name="survey_id" ref="survey_EE12"/>
             </record>
@@ -570,7 +604,6 @@
                   <field name="variable_name">EE12_A_8_1</field>
                   <field name="note">Si</field>
                   <field name="format_id" ref="format_Char"/>
-                  < ! - - este es Char o Boolean?? - - >
                   <field name="parent_id" ref="EE12_A_8"/>
                   <field name="survey_id" ref="survey_EE12"/>
                 </record>
@@ -580,11 +613,10 @@
                   <field name="variable_name">EE12_A_8_2</field>
                   <field name="note">Si</field>
                   <field name="format_id" ref="format_Boolean"/>
-                  < ! - -este es Char o Boolean??- - >
                   <field name="parent_id" ref="EE12_A_8"/>
                   <field name="survey_id" ref="survey_EE12"/>
                 </record>
-        < ! - -seccion B- - >
+        <!--seccion B-->
         <record model="survey_methodology.question" id="EE12_B">
           <field name="question">Problemas y expectativas</field>
           <field name="name">B</field>
@@ -745,7 +777,6 @@
                       <field name="note">Otros</field>
                       <field name="format_id" ref="format_Boolean"/>
                       <field name="parent_id" ref="EE12_B_9_14"/>
-                      < ! - -nuevamente deje estas dos ultimos records con el mismo field name, asi ke fijate- - >
                       <field name="survey_id" ref="survey_EE12"/>
                     </record>
         <record model="survey_methodology.question" id="EE12_B_10">
@@ -930,6 +961,7 @@
           <field name="parent_id" ref="EE12_B_10_4"/>
           <field name="survey_id" ref="survey_EE12"/>
         </record>
+        <!-- Sección B -->
         <record model="survey_methodology.question" id="EE12_C">
           <field name="question">Inversiones</field>
           <field name="name">C</field>
@@ -972,7 +1004,6 @@
           <field name="variable_name">EE12_C_11_1</field>
           <field name="note">Indique para el año 2011 qué proporción de sus ventas (facturación sin IVA) representaron las inversiones totales</field>
           <field name="format_id" ref="format_Float"/>
-          < ! - -me parece que es float no?- - >
           <field name="parent_id" ref="EE12_C_11"/>
           <field name="survey_id" ref="survey_EE12"/>
         </record>
@@ -1104,7 +1135,6 @@
           <field name="note">Programas Públicos (especificar)</field>
           <field name="format_id" ref="format_Char"/>
           <field name="parent_id" ref="EE12_C_12_1_7"/>
-          < ! - - estos ultimos tres records tienes el mismo field name- - >
           <field name="survey_id" ref="survey_EE12"/>
         </record>
         <record model="survey_methodology.question" id="EE12_C_12_1_8">
@@ -1141,7 +1171,6 @@
           <field name="note">Otros (especificar)</field>
           <field name="format_id" ref="format_Boolean"/>
           <field name="parent_id" ref="EE12_C_12_1_9"/>
-          < ! - -de nuevo quedan las uktimas tres con el mismo field name pues son esas preguntas que tiene especificar mas un verdadero falso y que descompongo en un char y un boolean y no se bien como nombralas- - >
           <field name="survey_id" ref="survey_EE12"/>
         </record>
         <record model="survey_methodology.question" id="EE12_C_12_2">
@@ -1360,7 +1389,6 @@
           <field name="parent_id" ref="EE12_C_12_3_7"/>
           <field name="survey_id" ref="survey_EE12"/>
         </record>
-        < ! - -este me salta la duda si esta bien- - >
         <record model="survey_methodology.question" id="EE12_C_12_3_7_a">
           <field name="question">Si</field>
           <field name="name">a</field>
@@ -1718,7 +1746,6 @@
           <field name="variable_name">EE12_E_18_1</field>
           <field name="note">año 2012? (estimado)</field>
           <field name="format_id" ref="format_Float"/>
-          < ! - - es Float - - >
           <field name="parent_id" ref="EE12_E_18"/>
           <field name="survey_id" ref="survey_EE12"/>
         </record>
@@ -1728,7 +1755,6 @@
           <field name="variable_name">EE12_E_18_2</field>
           <field name="note">año 2011? (estimado)</field>
           <field name="format_id" ref="format_Float"/>
-          < ! - - es Float - - >
           <field name="parent_id" ref="EE12_E_18"/>
           <field name="survey_id" ref="survey_EE12"/>
         </record>
@@ -2552,7 +2578,2067 @@
           <field name="format_id" ref="format_Boolean"/>
           <field name="parent_id" ref="EE12_E_24_2"/>
           <field name="survey_id" ref="survey_EE12"/>
-        </record-->
+        </record>
+            
+             <record model="survey_methodology.question" id="EE12_E_25">
+             <field name="name">¿Por qué motivos no exportó ni exportará durante 2012?</field>
+            <field name="question">¿Por qué motivos no exportó ni exportará durante 2012? (por favor, lea todos los motivos y marque una opción por fila)</field>
+            <field name="code">EE12_E_25</field>
+            <field name="variable_name">.</field>
+            <field name="description">¿Por qué motivos no exportó ni exportará durante 2012? (por favor, lea todos los motivos y marque una opción por fila)</field>
+            <field name="type">View</field> 
+            <field name="parent_id" ref="EE12_E"/>        
+          <field name="survey_id" ref="survey_EE12"/>
+            </record>
+            
+            <record model="survey_methodology.question" id="EE12_E_25_1">
+            <field name="name">No existe la infraestructura necesaria para la logística en la región (deficiencia o falta de vías férreas, rutas, puertos, etc.)</field>
+            <field name="question">No existe la infraestructura necesaria para la logística en la región (deficiencia o falta de vías férreas, rutas, puertos, etc.)</field>
+            <field name="code">EE12_E_25_1</field>
+            <field name="variable_name">.</field>
+            <field name="description">No existe la infraestructura necesaria para la logística en la región (deficiencia o falta de vías férreas, rutas, puertos, etc.)</field>
+            <field name="type">View</field> 
+            <field name="parent_id" ref="EE12_E_25"/>        
+          <field name="survey_id" ref="survey_EE12"/>
+            </record>
+            
+             <record model="survey_methodology.question" id="EE12_E_25_1_a">
+            <field name="name">Si</field>
+            <field name="question">Si</field>
+            <field name="code">EE12_E_25_1_a</field>
+            <field name="variable_name">.</field>
+            <field name="description">Si</field>
+            <field name="type">Variable</field>
+<field name="format_id" ref="format_Boolean"/> 
+            <field name="parent_id" ref="EE12_E_25_1"/>        
+            <field name="survey_id" ref="survey_EE12"/>
+</record>
+            
+            <record model="survey_methodology.question" id="EE12_E_25_1_b">
+            <field name="name">No</field>
+            <field name="question">No</field>
+            <field name="code">EE12_E_25_1_b</field>
+            <field name="variable_name">.</field>
+            <field name="description">No</field>
+            <field name="type">Variable</field>
+<field name="format_id" ref="format_Boolean"/> 
+            <field name="parent_id" ref="EE12_E_25_1"/>        
+            <field name="survey_id" ref="survey_EE12"/>
+</record>
+            
+            <record model="survey_methodology.question" id="EE12_E_25_2">
+            <field name="name">Los costos de logística que implica la exportación son elevados </field>
+            <field name="question">Los costos de logística que implica la exportación son elevados </field>
+            <field name="code">EE12_E_25_2</field>
+            <field name="variable_name">.</field>
+            <field name="description">Los costos de logística que implica la exportación son elevados </field>
+            <field name="type">View</field> 
+            <field name="parent_id" ref="EE12_E_25"/>        
+            <field name="survey_id" ref="survey_EE12"/>
+</record>
+            
+             <record model="survey_methodology.question" id="EE12_E_25_2_a">
+            <field name="name">Si</field>
+            <field name="code">EE12_E_25_2_a</field>
+            <field name="variable_name">.</field>
+            <field name="description">Si</field>
+            <field name="type">Variable</field>
+<field name="format_id" ref="format_Boolean"/> 
+            <field name="parent_id" ref="EE12_E_25_2"/>        
+            <field name="survey_id" ref="survey_EE12"/>
+</record>
+            
+            <record model="survey_methodology.question" id="EE12_E_25_2_b">
+            <field name="name">No</field>
+            <field name="code">EE12_E_25_2_b</field>
+            <field name="variable_name">.</field>
+            <field name="description">No</field>
+            <field name="type">Variable</field>
+<field name="format_id" ref="format_Boolean"/> 
+            <field name="parent_id" ref="EE12_E_25_2"/>        
+            <field name="survey_id" ref="survey_EE12"/>
+</record>
+            
+            <record model="survey_methodology.question" id="EE12_E_25_3">
+            <field name="name">No puede acceder al financiamiento necesario para exportar  </field>
+            <field name="code">EE12_E_25_3</field>
+            <field name="variable_name">.</field>
+            <field name="description">No puede acceder al financiamiento necesario para exportar  </field>
+            <field name="type">View</field> 
+            <field name="parent_id" ref="EE12_E_25"/>        
+            <field name="survey_id" ref="survey_EE12"/>
+</record>
+            
+             <record model="survey_methodology.question" id="EE12_E_25_3_a">
+            <field name="name">Si</field>
+            <field name="code">EE12_E_25_3_a</field>
+            <field name="variable_name">.</field>
+            <field name="description">Si</field>
+            <field name="type">Variable</field>
+<field name="format_id" ref="format_Boolean"/> 
+            <field name="parent_id" ref="EE12_E_25_3"/>        
+            <field name="survey_id" ref="survey_EE12"/>
+</record>
+            
+            <record model="survey_methodology.question" id="EE12_E_25_3_b">
+            <field name="name">No</field>
+            <field name="code">EE12_E_25_3_b</field>
+            <field name="variable_name">.</field>
+            <field name="description">No</field>
+            <field name="type">Variable</field>
+<field name="format_id" ref="format_Boolean"/> 
+            <field name="parent_id" ref="EE12_E_25_3"/>        
+            <field name="survey_id" ref="survey_EE12"/>
+</record>
+            
+            <record model="survey_methodology.question" id="EE12_E_25_4">
+            <field name="name">Los costos de producción superan el precio internacional, por lo que no es 	rentable exportar </field>
+            <field name="code">EE12_E_25_4</field>
+            <field name="variable_name">.</field>
+            <field name="description">Los costos de producción superan el precio internacional, por lo que no es rentable exportar </field>
+            <field name="type">View</field> 
+            <field name="parent_id" ref="EE12_E_25"/>        
+            <field name="survey_id" ref="survey_EE12"/>
+</record>
+            
+            <record model="survey_methodology.question" id="EE12_E_25_4_a">
+            <field name="name">Si</field>
+            <field name="code">EE12_E_25_4_a</field>
+            <field name="variable_name">.</field>
+            <field name="description">Si</field>
+            <field name="type">Variable</field>
+<field name="format_id" ref="format_Boolean"/> 
+            <field name="parent_id" ref="EE12_E_25_4"/>        
+            <field name="survey_id" ref="survey_EE12"/>
+</record>
+            
+            <record model="survey_methodology.question" id="EE12_E_25_4_b">
+            <field name="name">No</field>
+            <field name="code">EE12_E_25_4_b</field>
+            <field name="variable_name">.</field>
+            <field name="description">No</field>
+            <field name="type">Variable</field>
+<field name="format_id" ref="format_Boolean"/> 
+            <field name="parent_id" ref="EE12_E_25_4"/>        
+            <field name="survey_id" ref="survey_EE12"/>
+</record>
+            
+            <record model="survey_methodology.question" id="EE12_E_25_5">
+            <field name="name">No hay demanda para su producto en el mercado externo </field>
+            <field name="code">EE12_E_25_5</field>
+            <field name="variable_name">.</field>
+            <field name="description">No hay demanda para su producto en el mercado externo </field>
+            <field name="type">View</field> 
+            <field name="parent_id" ref="EE12_E_25"/>        
+            <field name="survey_id" ref="survey_EE12"/>
+</record>
+            
+             <record model="survey_methodology.question" id="EE12_E_25_5_a">
+            <field name="name">Si</field>
+            <field name="code">EE12_E_25_5_a</field>
+            <field name="variable_name">.</field>
+            <field name="description">Si</field>
+            <field name="type">Variable</field>
+<field name="format_id" ref="format_Boolean"/> 
+            <field name="parent_id" ref="EE12_E_25_5"/>        
+            <field name="survey_id" ref="survey_EE12"/>
+</record>
+            
+            <record model="survey_methodology.question" id="EE12_E_25_5_b">
+            <field name="name">No</field>
+            <field name="code">EE12_E_25_5_b</field>
+            <field name="variable_name">.</field>
+            <field name="description">No</field>
+            <field name="type">Variable</field>
+<field name="format_id" ref="format_Boolean"/> 
+            <field name="parent_id" ref="EE12_E_25_5"/>        
+            <field name="survey_id" ref="survey_EE12"/>
+</record>
+            
+            <record model="survey_methodology.question" id="EE12_E_25_6">
+            <field name="name">No puede cumplir con los estándares requeridos en mercados internacionales (normas o exigencias de mercados internacionales) </field>
+            <field name="code">EE12_E_25_6</field>
+            <field name="variable_name">.</field>
+            <field name="description">No puede cumplir con los estándares requeridos en mercados internacionales (normas o exigencias de mercados internacionales) </field>
+            <field name="type">View</field> 
+            <field name="parent_id" ref="EE12_E_25"/>        
+            <field name="survey_id" ref="survey_EE12"/>
+</record>
+            
+             <record model="survey_methodology.question" id="EE12_E_25_6_a">
+            <field name="name">Si</field>
+            <field name="code">EE12_E_25_6_a</field>
+            <field name="variable_name">.</field>
+            <field name="description">Si</field>
+            <field name="type">Variable</field>
+<field name="format_id" ref="format_Boolean"/> 
+            <field name="parent_id" ref="EE12_E_25_6"/>        
+            <field name="survey_id" ref="survey_EE12"/>
+</record>
+            
+            <record model="survey_methodology.question" id="EE12_E_25_6_b">
+            <field name="name">No</field>
+            <field name="code">EE12_E_25_6_b</field>
+            <field name="variable_name">.</field>
+            <field name="description">No</field>
+            <field name="type">Variable</field>
+<field name="format_id" ref="format_Boolean"/> 
+            <field name="parent_id" ref="EE12_E_25_6"/>        
+            <field name="survey_id" ref="survey_EE12"/>
+</record>
+            
+            <record model="survey_methodology.question" id="EE12_E_25_7">
+            <field name="name">La burocracia aduanera y los procedimientos administrativos para exportar son complejos </field>
+            <field name="code">EE12_E_25_7</field>
+            <field name="variable_name">.</field>
+            <field name="description">La burocracia aduanera y los procedimientos administrativos para exportar son complejos </field>
+            <field name="type">View</field> 
+            <field name="parent_id" ref="EE12_E_25"/>        
+            <field name="survey_id" ref="survey_EE12"/>
+</record>
+            
+             <record model="survey_methodology.question" id="EE12_E_25_7_a">
+            <field name="name">Si</field>
+            <field name="code">EE12_E_25_7_a</field>
+            <field name="variable_name">.</field>
+            <field name="description">Si</field>
+            <field name="type">Variable</field>
+<field name="format_id" ref="format_Boolean"/> 
+            <field name="parent_id" ref="EE12_E_25_7"/>        
+            <field name="survey_id" ref="survey_EE12"/>
+</record>
+            
+            <record model="survey_methodology.question" id="EE12_E_25_7_b">
+            <field name="name">No"</field>
+            <field name="code">EE12_E_25_7_b</field>
+            <field name="variable_name">.</field>
+            <field name="description">No</field>
+            <field name="type">Variable</field>
+<field name="format_id" ref="format_Boolean"/> 
+            <field name="parent_id" ref="EE12_E_25_7"/>        
+            <field name="survey_id" ref="survey_EE12"/>
+</record>
+            
+             <record model="survey_methodology.question" id="EE12_E_25_8">
+            <field name="name">Existen barreras arancelarias y/o no arancelarias en mercados internacionales 
+            que le impiden exportar (cupos, certificaciones, etc.) </field>
+            <field name="code">EE12_E_25_8</field>
+            <field name="variable_name">.</field>
+            <field name="description">Existen barreras arancelarias y/o no arancelarias en mercados internacionales
+            que le impiden exportar (cupos, certificaciones, etc.) </field>
+            <field name="type">View</field> 
+            <field name="parent_id" ref="EE12_E_25"/>        
+            <field name="survey_id" ref="survey_EE12"/>
+</record>
+            
+             <record model="survey_methodology.question" id="EE12_E_25_8_a">
+            <field name="name">Si</field>
+            <field name="code">EE12_E_25_8_a</field>
+            <field name="variable_name">.</field>
+            <field name="description">Si</field>
+            <field name="type">Variable</field>
+<field name="format_id" ref="format_Boolean"/> 
+            <field name="parent_id" ref="EE12_E_25_8"/>        
+            <field name="survey_id" ref="survey_EE12"/>
+</record>
+            
+            <record model="survey_methodology.question" id="EE12_E_25_8_b">
+            <field name="name">No"</field>
+            <field name="code">EE12_E_25_8_b</field>
+            <field name="variable_name">.</field>
+            <field name="description">No</field>
+            <field name="type">Variable</field>
+<field name="format_id" ref="format_Boolean"/> 
+            <field name="parent_id" ref="EE12_E_25_8"/>        
+            <field name="survey_id" ref="survey_EE12"/>
+</record>
+           
+           
+           <record model="survey_methodology.question" id="EE12_E_25_9">
+            <field name="name">La escala de producción de la empresa es insuficiente para exportar </field>
+            <field name="code">EE12_E_25_9</field>
+            <field name="variable_name">.</field>
+            <field name="description">La escala de producción de la empresa es insuficiente para exportar </field>
+            <field name="type">View</field> 
+            <field name="parent_id" ref="EE12_E_25"/>        
+            <field name="survey_id" ref="survey_EE12"/>
+</record>
+            
+             <record model="survey_methodology.question" id="EE12_E_25_9_a">
+            <field name="name">Si</field>
+            <field name="code">EE12_E_25_9_a</field>
+            <field name="variable_name">.</field>
+            <field name="description">Si</field>
+            <field name="type">Variable</field>
+<field name="format_id" ref="format_Boolean"/> 
+            <field name="parent_id" ref="EE12_E_25_9"/>        
+            <field name="survey_id" ref="survey_EE12"/>
+</record>
+            
+            <record model="survey_methodology.question" id="EE12_E_25_9_b">
+            <field name="name">No"</field>
+            <field name="code">EE12_E_25_9_b</field>
+            <field name="variable_name">.</field>
+            <field name="description">No</field>
+            <field name="type">Variable</field>
+<field name="format_id" ref="format_Boolean"/> 
+            <field name="parent_id" ref="EE12_E_25_9"/>        
+            <field name="survey_id" ref="survey_EE12"/>
+</record>
+            
+            <record model="survey_methodology.question" id="EE12_E_25_10">
+            <field name="name">Los costos de llevar a cabo una política de desarrollo comercial para exportar 
+            son elevados (plan de marketing, publicidad, comercialización, etc.) </field>
+            <field name="code">EE12_E_25_10</field>
+            <field name="variable_name">.</field>
+            <field name="description">Los costos de llevar a cabo una política de desarrollo comercial para exportar 
+            son elevados (plan de marketing, publicidad, comercialización, etc.) </field>
+            <field name="type">View</field> 
+            <field name="parent_id" ref="EE12_E_25"/>        
+            <field name="survey_id" ref="survey_EE12"/>
+</record>
+            
+             <record model="survey_methodology.question" id="EE12_E_25_10_a">
+            <field name="name">Si</field>
+            <field name="code">EE12_E_25_10_a</field>
+            <field name="variable_name">.</field>
+            <field name="description">Si</field>
+            <field name="type">Variable</field>
+<field name="format_id" ref="format_Boolean"/> 
+            <field name="parent_id" ref="EE12_E_25_10"/>        
+            <field name="survey_id" ref="survey_EE12"/>
+</record>
+            
+            <record model="survey_methodology.question" id="EE12_E_25_10_b">
+            <field name="name">No"</field>
+            <field name="code">EE12_E_25_10_b</field>
+            <field name="variable_name">.</field>
+            <field name="description">No</field>
+            <field name="type">Variable</field>
+<field name="format_id" ref="format_Boolean"/> 
+            <field name="parent_id" ref="EE12_E_25_10"/>        
+            <field name="survey_id" ref="survey_EE12"/>
+</record>
+            
+            <record model="survey_methodology.question" id="EE12_E_25_11">
+            <field name="name">No está interesado en exportar  </field>
+            <field name="code">EE12_E_25_11</field>
+            <field name="variable_name">.</field>
+            <field name="description">No está interesado en exportar </field>
+            <field name="type">View</field> 
+            <field name="parent_id" ref="EE12_E_25"/>        
+            <field name="survey_id" ref="survey_EE12"/>
+</record>
+            
+             <record model="survey_methodology.question" id="EE12_E_25_11_a">
+            <field name="name">Si</field>
+            <field name="code">EE12_E_25_11_a</field>
+            <field name="variable_name">.</field>
+            <field name="description">Si</field>
+            <field name="type">Variable</field>
+<field name="format_id" ref="format_Boolean"/> 
+            <field name="parent_id" ref="EE12_E_25_11"/>        
+            <field name="survey_id" ref="survey_EE12"/>
+</record>
+            
+            <record model="survey_methodology.question" id="EE12_E_25_11_b">
+            <field name="name">No"</field>
+            <field name="code">EE12_E_25_11_b</field>
+            <field name="variable_name">.</field>
+            <field name="description">No</field>
+            <field name="type">Variable</field>
+<field name="format_id" ref="format_Boolean"/> 
+            <field name="parent_id" ref="EE12_E_25_11"/>        
+            <field name="survey_id" ref="survey_EE12"/>
+</record>
+           
+           
+            <record model="survey_methodology.question" id="EE12_E_25_12">
+            <field name="name">Otro motivo (especificar): 
+  </field>
+            <field name="code">EE12_E_25_12</field>
+            <field name="variable_name">.</field>
+            <field name="description">Otro motivo (especificar): 
+ </field>
+            <field name="type">View</field> 
+            <field name="parent_id" ref="EE12_E_25"/>                    
+            <field name="survey_id" ref="survey_EE12"/>
+</record>
+            
+            
+             <record model="survey_methodology.question" id="EE12_E_25_12_1">
+            <field name="name">No está interesado en exportar  </field>
+            <field name="code">EE12_E_25_12_1</field>
+            <field name="variable_name">.</field>
+            <field name="description">No está interesado en exportar </field>
+            <field name="type">Variable</field>
+<field name="format_id" ref="format_Char"/> <!--esta quedo con el mismo field name que la anterior-->
+            <field name="parent_id" ref="EE12_E_25_12"/>                    
+            <field name="survey_id" ref="survey_EE12"/>
+</record>
+            
+            
+             <record model="survey_methodology.question" id="EE12_E_25_12_a">
+            <field name="name">Si</field>
+            <field name="code">EE12_E_25_12_a</field>
+            <field name="variable_name">.</field>
+            <field name="description">Si</field>
+            <field name="type">Variable</field>
+<field name="format_id" ref="format_Boolean"/> 
+            <field name="parent_id" ref="EE12_E_25_12"/>        
+            <field name="survey_id" ref="survey_EE12"/>
+</record>
+            
+            <record model="survey_methodology.question" id="EE12_E_25_12_b">
+            <field name="name">No"</field>
+            <field name="code">EE12_E_25_12_b</field>
+            <field name="variable_name">.</field>
+            <field name="description">No</field>
+            <field name="type">Variable</field>
+<field name="format_id" ref="format_Boolean"/> 
+            <field name="parent_id" ref="EE12_E_25_12"/>        
+            <field name="survey_id" ref="survey_EE12"/>
+</record>
+            
+             <record model="survey_methodology.question" id="EE12_E_26">
+            <field name="name">¿Cuán relevantes considera los siguientes instrumentos públicos para el fomento de la exportación?, considerando “1” 	
+	como Nada relevante y “10” como Muy relevante."</field>
+            <field name="code">EE12_E_26</field>
+            <field name="variable_name">.</field>
+            <field name="description">¿Cuán relevantes considera los siguientes instrumentos públicos para el fomento de la exportación?, considerando “1” 	
+	como Nada relevante y “10” como Muy relevante.</field>
+            <field name="type">View</field> 
+            <field name="parent_id" ref="EE12_E"/>        
+            <field name="survey_id" ref="survey_EE12"/>
+</record>
+            
+             <record model="survey_methodology.question" id="EE12_E_26_1">
+            <field name="name">Incentivos fiscales</field>
+            <field name="code">EE12_E_26_1</field>
+            <field name="variable_name">.</field>
+            <field name="description">Incentivos fiscales </field>
+            <field name="type">Integer</field> 
+            <field name="parent_id" ref="EE12_E_26"/>        
+            <field name="survey_id" ref="survey_EE12"/>
+</record>
+            
+            <record model="survey_methodology.question" id="EE12_E_26_2">
+            <field name="name">Programas de subsidios/financiamiento para la realización 
+             de exportaciones </field>
+            <field name="code">EE12_E_26_2</field>
+            <field name="variable_name">.</field>
+            <field name="description">Programas de subsidios/financiamiento para la realización 
+             de exportaciones </field>
+            <field name="type">Integer</field> 
+            <field name="parent_id" ref="EE12_E_26"/>        
+            <field name="survey_id" ref="survey_EE12"/>
+</record>
+            
+            <record model="survey_methodology.question" id="EE12_E_26_3">
+            <field name="name">Programas de asistencia técnica para exportar </field>
+            <field name="code">EE12_E_26_3</field>
+            <field name="variable_name">.</field>
+            <field name="description">Programas de asistencia técnica para exportar  </field>
+            <field name="type">Integer</field> 
+            <field name="parent_id" ref="EE12_E_26"/>        
+            <field name="survey_id" ref="survey_EE12"/>
+</record>
+            
+            <record model="survey_methodology.question" id="EE12_E_26_4">
+            <field name="name">Otros (especificar)</field>
+            <field name="code">EE12_E_26_4</field>
+            <field name="variable_name">.</field>
+            <field name="description">Otros (especificar) </field>
+            <field name="type">Variable</field>
+<field name="format_id" ref="format_Char"/> 
+            <field name="parent_id" ref="EE12_E_26"/>        
+            <field name="survey_id" ref="survey_EE12"/>
+</record>
+            
+            <record model="survey_methodology.question" id="EE12_E_26_4">
+            <field name="name">Otros (especificar)</field>
+            <field name="code">EE12_E_26_4</field>
+            <field name="variable_name">.</field>
+            <field name="description">Otros (especificar) </field>
+            <field name="type">Integer</field> 
+            <field name="parent_id" ref="EE12_E_26"/>        
+            <field name="survey_id" ref="survey_EE12"/>
+</record>
+            
+             <record model="survey_methodology.question" id="EE12_E_27">
+            <field name="name">Para los años 2011 y 2012, ¿qué porcentaje del gasto total en insumos y bienes intermedios(*) utilizados para la producción...
+	(la suma de cada columna debe ser 100%)</field>
+            <field name="code">EE12_E_27</field>
+            <field name="variable_name">.</field>
+            <field name="description">Para los años 2011 y 2012, ¿qué porcentaje del gasto total en insumos y bienes intermedios(*) utilizados para la producción...
+(la suma de cada columna debe ser 100%) </field>
+            <field name="type">View</field> 
+            <field name="parent_id" ref="EE12_E"/>        
+            <field name="survey_id" ref="survey_EE12"/>
+</record>
+            
+            <record model="survey_methodology.question" id="EE12_E_27_1">
+            <field name="name">son producidos en el país? </field>
+            <field name="code">EE12_E_27_1</field>
+            <field name="variable_name">.</field>
+            <field name="description">son producidos en el país?</field>
+            <field name="type">View</field> 
+            <field name="parent_id" ref="EE12_E_27"/>        
+            <field name="survey_id" ref="survey_EE12"/>
+</record>
+            
+            <record model="survey_methodology.question" id="EE12_E_27_1_a">
+            <field name="name">Año 2012 (estimado) </field>
+            <field name="code">EE12_E_27_1_a</field>
+            <field name="variable_name">.</field>
+            <field name="description">Año 2012 (estimado)</field>
+            <field name="type">Integer</field> 
+            <field name="parent_id" ref="EE12_E_27_1"/>        
+            <field name="survey_id" ref="survey_EE12"/>
+</record>
+            
+            <record model="survey_methodology.question" id="EE12_E_27_1_b">
+            <field name="name">Año 2011 </field>
+            <field name="code">EE12_E_27_1_b</field>
+            <field name="variable_name">.</field>
+            <field name="description">Año 2011</field>
+            <field name="type">Integer</field> 
+            <field name="parent_id" ref="EE12_E_27_1"/>        
+            <field name="survey_id" ref="survey_EE12"/>
+</record>
+            
+            <record model="survey_methodology.question" id="EE12_E_27_2">
+            <field name="name">NO son producidos en el país?  </field>
+            <field name="code">EE12_E_27_2</field>
+            <field name="variable_name">.</field>
+            <field name="description">NO son producidos en el país? </field>
+            <field name="type">View</field> 
+            <field name="parent_id" ref="EE12_E_27"/>        
+            <field name="survey_id" ref="survey_EE12"/>
+</record>
+            
+            <record model="survey_methodology.question" id="EE12_E_27_2_a">
+            <field name="name">Año 2012 (estimado) </field>
+            <field name="code">EE12_E_27_2_a</field>
+            <field name="variable_name">.</field>
+            <field name="description">Año 2012 (estimado)</field>
+            <field name="type">Integer</field> 
+            <field name="parent_id" ref="EE12_E_27_2"/>        
+            <field name="survey_id" ref="survey_EE12"/>
+</record>
+            
+            <record model="survey_methodology.question" id="EE12_E_27_2_b">
+            <field name="name">Año 2011 </field>
+            <field name="code">EE12_E_27_2_b</field>
+            <field name="variable_name">.</field>
+            <field name="description">Año 2011</field>
+            <field name="type">Integer</field> 
+            <field name="parent_id" ref="EE12_E_27_2"/>        
+            <field name="survey_id" ref="survey_EE12"/>
+</record>
+            
+            <record model="survey_methodology.question" id="EE12_E_28">
+            <field name="name">¿De cuáles de las siguientes áreas geográficas y en qué porcentaje provienen los insumos y bienes intermedios de producción 	
+producidos en el exterior utilizados por la empresa, en el año 2012 (estimado)?(la suma de los porcentajes debe ser igual a 100%) </field>
+            <field name="code">EE12_E_28</field>
+            <field name="variable_name">.</field>
+            <field name="description">¿De cuáles de las siguientes áreas geográficas y en qué porcentaje provienen los insumos y bienes intermedios de producción 	
+producidos en el exterior utilizados por la empresa, en el año 2012 (estimado)?(la suma de los porcentajes debe ser igual a 100%)</field>
+            <field name="type">View</field> 
+            <field name="parent_id" ref="EE12_E"/>        
+            <field name="survey_id" ref="survey_EE12"/>
+</record>
+            
+            <record model="survey_methodology.question" id="EE12_E_28_1">
+            <field name="name">Brasil </field>
+            <field name="code">EE12_E_28_1</field>
+            <field name="variable_name">.</field>
+            <field name="description">Brasil</field>
+            <field name="type">Float</field> 
+            <field name="parent_id" ref="EE12_E_28"/>        
+            <field name="survey_id" ref="survey_EE12"/>
+</record>
+            
+            <record model="survey_methodology.question" id="EE12_E_28_2">
+            <field name="name">Uruguay  </field>
+            <field name="code">EE12_E_28_2</field>
+            <field name="variable_name">.</field>
+            <field name="description">Uruguay </field>
+            <field name="type">Float</field> 
+            <field name="parent_id" ref="EE12_E_28"/>        
+            <field name="survey_id" ref="survey_EE12"/>
+</record>
+            
+            <record model="survey_methodology.question" id="EE12_E_28_3">
+            <field name="name">Paraguay  </field>
+            <field name="code">EE12_E_28_3</field>
+            <field name="variable_name">.</field>
+            <field name="description">Paraguay </field>
+            <field name="type">Float</field> 
+            <field name="parent_id" ref="EE12_E_28"/>        
+            <field name="survey_id" ref="survey_EE12"/>
+</record>
+            
+            <record model="survey_methodology.question" id="EE12_E_28_4">
+            <field name="name">Chile  </field>
+            <field name="code">EE12_E_28_4</field>
+            <field name="variable_name">.</field>
+            <field name="description">Chile </field>
+            <field name="type">Float</field> 
+            <field name="parent_id" ref="EE12_E_28"/>        
+            <field name="survey_id" ref="survey_EE12"/>
+</record>
+            
+            <record model="survey_methodology.question" id="EE12_E_28_5">
+            <field name="name">México  </field>
+            <field name="code">EE12_E_28_5</field>
+            <field name="variable_name">.</field>
+            <field name="description">México </field>
+            <field name="type">Float</field> 
+            <field name="parent_id" ref="EE12_E_28"/>        
+            <field name="survey_id" ref="survey_EE12"/>
+</record>
+            
+            <record model="survey_methodology.question" id="EE12_E_28_6">
+            <field name="name">Resto de América Latina y el Caribe  </field>
+            <field name="code">EE12_E_28_6</field>
+            <field name="variable_name">.</field>
+            <field name="description">Resto de América Latina y el Caribe </field>
+            <field name="type">Float</field> 
+            <field name="parent_id" ref="EE12_E_28"/>        
+            <field name="survey_id" ref="survey_EE12"/>
+</record>
+            
+            <record model="survey_methodology.question" id="EE12_E_28_7">
+            <field name="name">Unión Europea (*)  </field>
+            <field name="code">EE12_E_28_7</field>
+            <field name="variable_name">.</field>
+            <field name="description">Unión Europea (*) </field>
+            <field name="type">Float</field> 
+            <field name="parent_id" ref="EE12_E_28"/>        
+            <field name="survey_id" ref="survey_EE12"/>
+</record>
+            
+            <record model="survey_methodology.question" id="EE12_E_28_8">
+            <field name="name">Estados Unidos y Canadá l </field>
+            <field name="code">EE12_E_28_8</field>
+            <field name="variable_name">.</field>
+            <field name="description">Estados Unidos y Canadá </field>
+            <field name="type">Float</field> 
+            <field name="parent_id" ref="EE12_E_28"/>        
+            <field name="survey_id" ref="survey_EE12"/>
+</record>
+
+<record model="survey_methodology.question" id="EE12_E_28_9">
+            <field name="name">China  </field>
+            <field name="code">EE12_E_28_9</field>
+            <field name="variable_name">.</field>
+            <field name="description">China </field>
+            <field name="type">Float</field> 
+            <field name="parent_id" ref="EE12_E_28"/>        
+            <field name="survey_id" ref="survey_EE12"/>
+</record>
+            
+            <record model="survey_methodology.question" id="EE12_E_28_10">
+            <field name="name">India  </field>
+            <field name="code">EE12_E_28_10</field>
+            <field name="variable_name">.</field>
+            <field name="description">India </field>
+            <field name="type">Float</field> 
+            <field name="parent_id" ref="EE12_E_28"/>        
+            <field name="survey_id" ref="survey_EE12"/>
+</record>
+            
+            <record model="survey_methodology.question" id="EE12_E_28_11">
+            <field name="name">Sudeste Asiático (Filipinas, Indonesia, Malasia y Tailandia) </field>
+            <field name="code">EE12_E_28_11</field>
+            <field name="variable_name">.</field>
+            <field name="description">Sudeste Asiático (Filipinas, Indonesia, Malasia y Tailandia)</field>
+            <field name="type">Float</field> 
+            <field name="parent_id" ref="EE12_E_28"/>        
+            <field name="survey_id" ref="survey_EE12"/>
+</record>
+            
+            <record model="survey_methodology.question" id="EE12_E_28_12">
+            <field name="name">Resto de Asia  </field>
+            <field name="code">EE12_E_28_12</field>
+            <field name="variable_name">.</field>
+            <field name="description">Resto de Asia </field>
+            <field name="type">Float</field> 
+            <field name="parent_id" ref="EE12_E_28"/>        
+            <field name="survey_id" ref="survey_EE12"/>
+</record>
+            
+            <record model="survey_methodology.question" id="EE12_E_28_13">
+            <field name="name">Otros destinos (especificar) </field>
+            <field name="code">EE12_E_28_13</field>
+            <field name="variable_name">.</field>
+            <field name="description">Otros destinos (especificar)</field>
+            <field name="type">Variable</field>
+<field name="format_id" ref="format_Char"/> 
+            <field name="parent_id" ref="EE12_E_28"/>        
+            <field name="survey_id" ref="survey_EE12"/>
+</record>
+            
+            <record model="survey_methodology.question" id="EE12_E_28_13">
+            <field name="name">Otros destinos (especificar) </field> <!--esta tiene el mismo field name que la anterior-->
+            <field name="code">EE12_E_28_13</field>
+            <field name="variable_name">.</field>
+            <field name="description">Otros destinos (especificar)</field>
+            <field name="type">Float</field> 
+            <field name="parent_id" ref="EE12_E_28"/>        
+            <field name="survey_id" ref="survey_EE12"/>
+</record>
+            
+             <record model="survey_methodology.question" id="EE12_E_29">
+            <field name="name">¿Cómo evolucionó el precio (en dólares) del principal insumo o bien intermedio de producción importado por la empresa 	
+en el año 2012 (estimado) respecto a 2011? </field> 
+            <field name="code">EE12_E_29</field>
+            <field name="variable_name">.</field>
+            <field name="description">¿Cómo evolucionó el precio (en dólares) del principal insumo o bien intermedio de producción importado por la empresa 	
+en el año 2012 (estimado) respecto a 2011?</field>
+            <field name="type">View</field> 
+            <field name="parent_id" ref="EE12_E"/>        
+            <field name="survey_id" ref="survey_EE12"/>
+</record>
+            
+            <record model="survey_methodology.question" id="EE12_E_29_a">
+            <field name="name">Aumentó</field> 
+            <field name="code">EE12_E_29_a</field>
+            <field name="variable_name">.</field>
+            <field name="description">Aumentó</field>
+            <field name="type">Variable</field>
+<field name="format_id" ref="format_Boolean"/> 
+            <field name="parent_id" ref="EE12_E_29"/>        
+            <field name="survey_id" ref="survey_EE12"/>
+</record>
+            
+            <record model="survey_methodology.question" id="EE12_E_29_b">
+            <field name="name">No varió</field> 
+            <field name="code">EE12_E_29_b</field>
+            <field name="variable_name">.</field>
+            <field name="description">No varió</field>
+            <field name="type">Variable</field>
+<field name="format_id" ref="format_Boolean"/> 
+            <field name="parent_id" ref="EE12_E_29"/>        
+            <field name="survey_id" ref="survey_EE12"/>
+</record>
+            
+            <record model="survey_methodology.question" id="EE12_E_29_c">
+            <field name="name">Disminuyó</field> 
+            <field name="code">EE12_E_29_c</field>
+            <field name="variable_name">.</field>
+            <field name="description">Disminuyó</field>
+            <field name="type">Variable</field>
+<field name="format_id" ref="format_Boolean"/> 
+            <field name="parent_id" ref="EE12_E_29"/>        
+            <field name="survey_id" ref="survey_EE12"/>
+</record>
+            
+            <record model="survey_methodology.question" id="EE12_E_29_1">
+            <field name="name">¿En qué porcentaje?</field> 
+            <field name="code">EE12_E_29_1</field>
+            <field name="variable_name">.</field>
+            <field name="description">¿En qué porcentaje?</field>
+            <field name="type">Float</field> 
+            <field name="parent_id" ref="EE12_E_29"/>        
+            <field name="survey_id" ref="survey_EE12"/>
+</record>
+            
+             <record model="survey_methodology.question" id="EE12_E_30">
+            <field name="name">En el caso de que no pudiera abastecerse de su principal insumo o bien intermedio de producción importado, ¿Ud. podría...
+(por favor, marque una opción por fila)</field> 
+            <field name="code">EE12_E_30</field>
+            <field name="variable_name">.</field>
+            <field name="description">En el caso de que no pudiera abastecerse de su principal insumo o bien intermedio de producción importado, ¿Ud. podría...
+(por favor, marque una opción por fila)</field>
+            <field name="type">View</field> 
+            <field name="parent_id" ref="EE12_E"/>        
+            <field name="survey_id" ref="survey_EE12"/>
+</record>
+            
+             <record model="survey_methodology.question" id="EE12_E_30_1">
+            <field name="name">adquirirlo en el mercado interno (excluye a su empresa)? </field> 
+            <field name="code">EE12_E_30_1</field>
+            <field name="variable_name">.</field>
+            <field name="description">adquirirlo en el mercado interno (excluye a su empresa)? </field>
+            <field name="type">View</field> 
+            <field name="parent_id" ref="EE12_E_30"/>        
+            <field name="survey_id" ref="survey_EE12"/>
+</record>
+            
+             <record model="survey_methodology.question" id="EE12_E_30_1_1">
+            <field name="name">Si </field> 
+            <field name="code">EE12_E_30_1_1</field>
+            <field name="variable_name">.</field>
+            <field name="description">Si</field>
+            <field name="type">Variable</field>
+<field name="format_id" ref="format_Boolean"/> 
+            <field name="parent_id" ref="EE12_E_30_1"/>        
+            <field name="survey_id" ref="survey_EE12"/>
+</record>
+            
+             <record model="survey_methodology.question" id="EE12_E_30_1_2">
+            <field name="name">No </field> 
+            <field name="code">EE12_E_30_1_2</field>
+            <field name="variable_name">.</field>
+            <field name="description">No </field>
+            <field name="type">Float</field> 
+            <field name="parent_id" ref="EE12_E_30_1"/>        
+            <field name="survey_id" ref="survey_EE12"/>
+</record>
+            
+             <record model="survey_methodology.question" id="EE12_E_31">
+            <field name="name">Para los años 2011 y 2012, ¿qué porcentaje de la inversión total realizada por la empresa en bienes de capital... (incluye sus 	
+partes y componentes) (la suma de cada columna debe ser 100%; si no invirtió poner 0% en cada casillero de la columna) </field> 
+            <field name="code">EE12_E_31</field>
+            <field name="variable_name">.</field>
+            <field name="description">Para los años 2011 y 2012, ¿qué porcentaje de la inversión total realizada por la empresa en bienes de capital... (incluye sus 	
+partes y componentes)(la suma de cada columna debe ser 100%; si no invirtió poner 0% en cada casillero de la columna) </field>
+            <field name="type">View</field> 
+            <field name="parent_id" ref="EE12_E"/>        
+            <field name="survey_id" ref="survey_EE12"/>
+</record>
+            
+            <record model="survey_methodology.question" id="EE12_E_31_1">
+            <field name="name">son producidos en el país? </field> 
+            <field name="code">EE12_E_31_1</field>
+            <field name="variable_name">.</field>
+            <field name="description">son producidos en el país?</field>
+            <field name="type">View</field> 
+            <field name="parent_id" ref="EE12_E_31"/>        
+            <field name="survey_id" ref="survey_EE12"/>
+</record>
+            
+            <record model="survey_methodology.question" id="EE12_E_31_1_1">
+            <field name="name">Año 2012 (estimado) </field> 
+            <field name="code">EE12_E_31_1_1</field>
+            <field name="variable_name">.</field>
+            <field name="description">Año 2012 (estimado)</field>
+            <field name="type">Float</field> 
+            <field name="parent_id" ref="EE12_E_31_1"/>        
+            <field name="survey_id" ref="survey_EE12"/>
+</record>
+            
+            <record model="survey_methodology.question" id="EE12_E_31_1_2">
+            <field name="name">Año 2011) </field> 
+            <field name="code">EE12_E_31_1_2</field>
+            <field name="variable_name">.</field>
+            <field name="description">Año 2011</field>
+            <field name="type">Float</field> 
+            <field name="parent_id" ref="EE12_E_31_1"/>        
+            <field name="survey_id" ref="survey_EE12"/>
+</record>
+            
+            <record model="survey_methodology.question" id="EE12_E_31_1">
+            <field name="name">NO son producidos en el país? </field> 
+            <field name="code">EE12_E_31_1</field>
+            <field name="variable_name">.</field>
+            <field name="description">NO son producidos en el país?</field>
+            <field name="type">View</field> 
+            <field name="parent_id" ref="EE12_E_31"/>        
+            <field name="survey_id" ref="survey_EE12"/>
+</record>
+            
+            <record model="survey_methodology.question" id="EE12_E_31_1_1">
+            <field name="name">Año 2012 (estimado) </field> 
+            <field name="code">EE12_E_31_1_1</field>
+            <field name="variable_name">.</field>
+            <field name="description">Año 2012 (estimado)</field>
+            <field name="type">Float</field> 
+            <field name="parent_id" ref="EE12_E_31_1"/>        
+            <field name="survey_id" ref="survey_EE12"/>
+</record>
+            
+            <record model="survey_methodology.question" id="EE12_E_31_1_2">
+            <field name="name">Año 2011</field> 
+            <field name="code">EE12_E_31_1_2</field>
+            <field name="variable_name">.</field>
+            <field name="description">Año 2011</field>
+            <field name="type">Float</field> 
+            <field name="parent_id" ref="EE12_E_31_1"/>        
+            <field name="survey_id" ref="survey_EE12"/>
+</record>
+            
+            <record model="survey_methodology.question" id="EE12_E_32">
+            <field name="name">En el caso de que no pudiera abastecerse de bienes de capital, y/o sus partes y componentes importados, ¿Ud. podría...
+(por favor, marque una opción por fila)</field> 
+            <field name="code">EE12_E_32</field>
+            <field name="variable_name">.</field>
+            <field name="description">En el caso de que no pudiera abastecerse de bienes de capital, y/o sus partes y componentes importados, ¿Ud. podría...
+(por favor, marque una opción por fila)</field>
+            <field name="type">View</field> 
+            <field name="parent_id" ref="EE12_E"/>        
+            <field name="survey_id" ref="survey_EE12"/>
+</record>
+            
+            <record model="survey_methodology.question" id="EE12_E_32_1">
+            <field name="name">adquirirlos en el mercado interno (excluye a su empresa)?</field> 
+            <field name="code">EE12_E_32_1</field>
+            <field name="variable_name">.</field>
+            <field name="description">adquirirlos en el mercado interno (excluye a su empresa)?</field>
+            <field name="type">View</field> 
+            <field name="parent_id" ref="EE12_E_32"/>        
+            <field name="survey_id" ref="survey_EE12"/>
+</record>
+            
+            <record model="survey_methodology.question" id="EE12_E_32_1_1">
+            <field name="name">Si</field> 
+            <field name="code">EE12_E_32_1_1</field>
+            <field name="variable_name">.</field>
+            <field name="description">Si</field>
+            <field name="type">Variable</field>
+<field name="format_id" ref="format_Boolean"/> 
+            <field name="parent_id" ref="EE12_E_1"/>        
+            <field name="survey_id" ref="survey_EE12"/>
+</record>
+            
+            <record model="survey_methodology.question" id="EE12_E_32_1_2">
+            <field name="name">No</field> 
+            <field name="code">EE12_E_32_1_2</field>
+            <field name="variable_name">.</field>
+            <field name="description">No</field>
+            <field name="type">Variable</field>
+<field name="format_id" ref="format_Boolean"/> 
+            <field name="parent_id" ref="EE12_E_1"/>        
+            <field name="survey_id" ref="survey_EE12"/>
+</record>
+            
+            <record model="survey_methodology.question" id="EE12_E_32_2">
+            <field name="name">producirlos en su propia empresa? </field> 
+            <field name="code">EE12_E_32_2</field>
+            <field name="variable_name">.</field>
+            <field name="description">producirlos en su propia empresa? </field>
+            <field name="type">View</field> 
+            <field name="parent_id" ref="EE12_E_32"/>        
+            <field name="survey_id" ref="survey_EE12"/>
+</record>
+            
+            <record model="survey_methodology.question" id="EE12_E_32_2_1">
+            <field name="name">Si</field> 
+            <field name="code">EE12_E_32_2_1</field>
+            <field name="variable_name">.</field>
+            <field name="description">Si</field>
+            <field name="type">Variable</field>
+<field name="format_id" ref="format_Boolean"/> 
+            <field name="parent_id" ref="EE12_E_2"/>        
+            <field name="survey_id" ref="survey_EE12"/>
+</record>
+            
+            <record model="survey_methodology.question" id="EE12_E_32_2_2">
+            <field name="name">No</field> 
+            <field name="code">EE12_E_32_2_2</field>
+            <field name="variable_name">.</field>
+            <field name="description">No</field>
+            <field name="type">Variable</field>
+<field name="format_id" ref="format_Boolean"/> 
+            <field name="parent_id" ref="EE12_E_2"/>        
+            <field name="survey_id" ref="survey_EE12"/>
+</record>
+            
+             <record model="survey_methodology.question" id="EE12_E_33">
+            <field name="name">¿Cómo influye en la empresa el nuevo Sistema de Control de Importaciones que entró en vigencia el 1° de febrero último?
+(por favor, lea todas las opciones y marque una opción por fila)</field> 
+            <field name="code">EE12_E_33</field>
+            <field name="variable_name">.</field>
+            <field name="description">¿Cómo influye en la empresa el nuevo Sistema de Control de Importaciones que entró en vigencia el 1° de febrero último?
+(por favor, lea todas las opciones y marque una opción por fila)</field>
+            <field name="type">View</field> 
+            <field name="parent_id" ref="EE12_E"/>        
+            <field name="survey_id" ref="survey_EE12"/>
+</record>
+            
+             <record model="survey_methodology.question" id="EE12_E_33_1">
+            <field name="name">Protege a la empresa de la competencia externa</field> 
+            <field name="code">EE12_E_33_1</field>
+            <field name="variable_name">.</field>
+            <field name="description">Protege a la empresa de la competencia externa</field>
+            <field name="type">View</field> 
+            <field name="parent_id" ref="EE12_E_33"/>        
+            <field name="survey_id" ref="survey_EE12"/>
+</record>
+            
+             <record model="survey_methodology.question" id="EE12_E_33_1_1">
+            <field name="name">Si</field> 
+            <field name="code">EE12_E_33_1_1</field>
+            <field name="variable_name">.</field>
+            <field name="description">Si</field>
+            <field name="type">Variable</field>
+<field name="format_id" ref="format_Boolean"/> 
+            <field name="parent_id" ref="EE12_E_33_1"/>        
+            <field name="survey_id" ref="survey_EE12"/>
+</record>
+            
+             <record model="survey_methodology.question" id="EE12_E_33_1_2">
+            <field name="name">No</field> 
+            <field name="code">EE12_E_33_1_2</field>
+            <field name="variable_name">.</field>
+            <field name="description">No</field>
+            <field name="type">Variable</field>
+<field name="format_id" ref="format_Boolean"/> 
+            <field name="parent_id" ref="EE12_E_33_1"/>        
+            <field name="survey_id" ref="survey_EE12"/>
+</record>
+            
+             <record model="survey_methodology.question" id="EE12_E_33_2">
+            <field name="name">Dificulta la importación de insumos de producción. ¿Qué insumo?:</field> 
+            <field name="code">EE12_E_33_2</field>
+            <field name="variable_name">.</field>
+            <field name="description">Dificulta la importación de insumos de producción. ¿Qué insumo?:</field>
+            <field name="type">View</field> 
+            <field name="parent_id" ref="EE12_E_33"/>        
+            <field name="survey_id" ref="survey_EE12"/>
+</record>
+            
+             <record model="survey_methodology.question" id="EE12_E_33_2_1">
+            <field name="name">Si</field> 
+            <field name="code">EE12_E_33_2_1</field>
+            <field name="variable_name">.</field>
+            <field name="description">Si</field>
+            <field name="type">Variable</field>
+<field name="format_id" ref="format_Boolean"/> 
+            <field name="parent_id" ref="EE12_E_33_2"/>        
+            <field name="survey_id" ref="survey_EE12"/>
+</record>
+            
+             <record model="survey_methodology.question" id="EE12_E_33_2_2">
+            <field name="name">No</field> 
+            <field name="code">EE12_E_33_2_2</field>
+            <field name="variable_name">.</field>
+            <field name="description">No</field>
+            <field name="type">Variable</field>
+<field name="format_id" ref="format_Boolean"/> 
+            <field name="parent_id" ref="EE12_E_33_2"/>        
+            <field name="survey_id" ref="survey_EE12"/>
+</record>
+            
+            <record model="survey_methodology.question" id="EE12_E_33_3">
+            <field name="name"> Dificulta la importación de bienes de capital utilizados en los procesos productivos					
+(maquinaria y equipo de producción, o sus repuestos, partes y componentes)</field> 
+            <field name="code">EE12_E_33_3</field>
+            <field name="variable_name">.</field>
+            <field name="description"> Dificulta la importación de bienes de capital utilizados en los procesos productivos					
+(maquinaria y equipo de producción, o sus repuestos, partes y componentes)</field>
+            <field name="type">View</field> 
+            <field name="parent_id" ref="EE12_E_33"/>        
+            <field name="survey_id" ref="survey_EE12"/>
+</record>
+            
+             <record model="survey_methodology.question" id="EE12_E_33_3_1">
+            <field name="name">Si</field> 
+            <field name="code">EE12_E_33_3_1</field>
+            <field name="variable_name">.</field>
+            <field name="description">Si</field>
+            <field name="type">Variable</field>
+<field name="format_id" ref="format_Boolean"/> 
+            <field name="parent_id" ref="EE12_E_33_3"/>        
+            <field name="survey_id" ref="survey_EE12"/>
+</record>
+            
+             <record model="survey_methodology.question" id="EE12_E_33_3_2">
+            <field name="name">No</field> 
+            <field name="code">EE12_E_33_3_2</field>
+            <field name="variable_name">.</field>
+            <field name="description">No</field>
+            <field name="type">Variable</field>
+<field name="format_id" ref="format_Boolean"/> 
+            <field name="parent_id" ref="EE12_E_33_3"/>        
+            <field name="survey_id" ref="survey_EE12"/>
+</record>
+            
+            <record model="survey_methodology.question" id="EE12_E_33_4">
+            <field name="name"> Otra (especificar)</field> 
+            <field name="code">EE12_E_33_4</field>
+            <field name="variable_name">.</field>
+            <field name="description"> Otra (especificar))</field>
+            <field name="type">View</field> 
+            <field name="parent_id" ref="EE12_E_33"/>        
+            <field name="survey_id" ref="survey_EE12"/>
+</record>
+            
+            <record model="survey_methodology.question" id="EE12_E_33_4_a">
+            <field name="name"> Otra (especificar)</field> 
+            <field name="code">EE12_E_33_4_a</field>
+            <field name="variable_name">.</field>
+            <field name="description"> Otra (especificar))</field>
+            <field name="type">Variable</field>
+<field name="format_id" ref="format_Char"/> 
+            <field name="parent_id" ref="EE12_E_33"/>        
+            <field name="survey_id" ref="survey_EE12"/>
+</record>
+            
+             <record model="survey_methodology.question" id="EE12_E_33_4_1">
+            <field name="name">Si</field> 
+            <field name="code">EE12_E_33_4_1</field>
+            <field name="variable_name">.</field>
+            <field name="description">Si</field>
+            <field name="type">Variable</field>
+<field name="format_id" ref="format_Boolean"/> 
+            <field name="parent_id" ref="EE12_E_33_4"/>        
+            <field name="survey_id" ref="survey_EE12"/>
+</record>
+            
+             <record model="survey_methodology.question" id="EE12_E_33_4_2">
+            <field name="name">No</field> 
+            <field name="code">EE12_E_33_4_2</field>
+            <field name="variable_name">.</field>
+            <field name="description">No</field>
+            <field name="type">Variable</field>
+<field name="format_id" ref="format_Boolean"/> 
+            <field name="parent_id" ref="EE12_E_33_4"/>        
+            <field name="survey_id" ref="survey_EE12"/>
+</record>
+            
+             <record model="survey_methodology.question" id="EE12_E_33_5">
+            <field name="name"> No tiene ninguna influencia (esta respuesta es excluyente de todas las anteriores) </field> 
+            <field name="code">EE12_E_33_5</field>
+            <field name="variable_name">.</field>
+            <field name="description"> No tiene ninguna influencia (esta respuesta es excluyente de todas las anteriores) </field>
+            <field name="type">View</field> 
+            <field name="parent_id" ref="EE12_E_33"/>        
+            <field name="survey_id" ref="survey_EE12"/>
+</record>
+            
+             <record model="survey_methodology.question" id="EE12_E_33_5_1">
+            <field name="name">Si</field> 
+            <field name="code">EE12_E_33_5_1</field>
+            <field name="variable_name">.</field>
+            <field name="description">Si</field>
+            <field name="type">Variable</field>
+<field name="format_id" ref="format_Boolean"/> 
+            <field name="parent_id" ref="EE12_E_33_5"/>        
+            <field name="survey_id" ref="survey_EE12"/>
+</record>
+            
+             <record model="survey_methodology.question" id="EE12_E_33_5_2">
+            <field name="name">No</field> 
+            <field name="code">EE12_E_33_5_2</field>
+            <field name="variable_name">.</field>
+            <field name="description">No</field>
+            <field name="type">Variable</field>
+<field name="format_id" ref="format_Boolean"/> 
+            <field name="parent_id" ref="EE12_E_33_5"/>        
+            <field name="survey_id" ref="survey_EE12"/>
+</record>
+            
+             <record model="survey_methodology.question" id="EE12_E_34">
+            <field name="name">Actualmente, ¿cuál es la participación de los distintos tipos de clientes en el monto total de ventas de la empresa?
+(la suma de los porcentajes debe ser igual a 100%)</field> 
+            <field name="code">EE12_E_34</field>
+            <field name="variable_name">.</field>
+            <field name="description">Actualmente, ¿cuál es la participación de los distintos tipos de clientes en el monto total de ventas de la empresa?
+(la suma de los porcentajes debe ser igual a 100%)</field>
+            <field name="type">View</field> 
+            <field name="parent_id" ref="EE12_E"/>        
+            <field name="survey_id" ref="survey_EE12"/>
+</record>
+            
+            <record model="survey_methodology.question" id="EE12_E_34_1">
+            <field name="name">Venta directa al público </field> 
+            <field name="code">EE12_E_34_1</field>
+            <field name="variable_name">.</field>
+            <field name="description">Venta directa al público</field>
+            <field name="type">Float</field> 
+            <field name="parent_id" ref="EE12_E_34"/>        
+            <field name="survey_id" ref="survey_EE12"/>
+</record>
+            
+            <record model="survey_methodology.question" id="EE12_E_34_2">
+            <field name="name">Comercio minorista  </field> 
+            <field name="code">EE12_E_34_2</field>
+            <field name="variable_name">.</field>
+            <field name="description">Comercio minorista </field>
+            <field name="type">Float</field> 
+            <field name="parent_id" ref="EE12_E_34"/>        
+            <field name="survey_id" ref="survey_EE12"/>
+</record>
+            
+            <record model="survey_methodology.question" id="EE12_E_34_3">
+            <field name="name">Comercio mayorista  </field> 
+            <field name="code">EE12_E_34_3</field>
+            <field name="variable_name">.</field>
+            <field name="description">Comercio mayorista  </field>
+            <field name="type">Float</field> 
+            <field name="parent_id" ref="EE12_E_34"/>        
+            <field name="survey_id" ref="survey_EE12"/>
+</record>
+            
+            <record model="survey_methodology.question" id="EE12_E_34_4">
+            <field name="name">Empresas industriales   </field> 
+            <field name="code">EE12_E_34_4</field>
+            <field name="variable_name">.</field>
+            <field name="description">Empresas industriales   </field>
+            <field name="type">Float</field> 
+            <field name="parent_id" ref="EE12_E_34"/>        
+            <field name="survey_id" ref="survey_EE12"/>
+</record>
+            
+            <record model="survey_methodology.question" id="EE12_E_34_5">
+            <field name="name">Empresas de servicios  </field> 
+            <field name="code">EE12_E_34_5</field>
+            <field name="variable_name">.</field>
+            <field name="description">Empresas de servicios  </field>
+            <field name="type">Float</field> 
+            <field name="parent_id" ref="EE12_E_34"/>        
+            <field name="survey_id" ref="survey_EE12"/>
+</record>
+            
+             <record model="survey_methodology.question" id="EE12_E_34_6">
+            <field name="name">Sector público   </field> 
+            <field name="code">EE12_E_34_6</field>
+            <field name="variable_name">.</field>
+            <field name="description">Sector público   </field>
+            <field name="type">Float</field> 
+            <field name="parent_id" ref="EE12_E_34"/>        
+            <field name="survey_id" ref="survey_EE12"/>
+</record>
+            
+             <record model="survey_methodology.question" id="EE12_E_34_7">
+            <field name="name">Empresas agropecuarias   </field> 
+            <field name="code">EE12_E_34_7</field>
+            <field name="variable_name">.</field>
+            <field name="description">Empresas agropecuarias   </field>
+            <field name="type">Float</field> 
+            <field name="parent_id" ref="EE12_E_34"/>        
+            <field name="survey_id" ref="survey_EE12"/>
+</record>
+            
+             <record model="survey_methodology.question" id="EE12_E_34_8">
+            <field name="name">Empresas de la industria de la construcción </field> 
+            <field name="code">EE12_E_34_8</field>
+            <field name="variable_name">.</field>
+            <field name="description">Empresas de la industria de la construcción </field>
+            <field name="type">Float</field> 
+            <field name="parent_id" ref="EE12_E_34"/>        
+            <field name="survey_id" ref="survey_EE12"/>
+</record>
+            
+            <record model="survey_methodology.question" id="EE12_E_34_9">
+            <field name="name">Otro tipo de cliente (especificar)</field> 
+            <field name="code">EE12_E_34_9</field>
+            <field name="variable_name">.</field>
+            <field name="description">Otro tipo de cliente (especificar) </field>
+            <field name="type">Variable</field>
+<field name="format_id" ref="format_Char"/> 
+            <field name="parent_id" ref="EE12_E_34"/>        
+            <field name="survey_id" ref="survey_EE12"/>
+</record>
+            
+             <record model="survey_methodology.question" id="EE12_E_34_9">
+            <field name="name">Otro tipo de cliente (especificar)</field> <!--tiene el mismo field name que el anterior record-->
+            <field name="code">EE12_E_34_9</field>
+            <field name="variable_name">.</field>
+            <field name="description">Otro tipo de cliente (especificar) </field>
+            <field name="type">Float</field> 
+            <field name="parent_id" ref="EE12_E_34"/>        
+            <field name="survey_id" ref="survey_EE12"/>
+</record>
+            
+             <record model="survey_methodology.question" id="EE12_E_35">
+            <field name="name">¿Qué porcentaje de las ventas anuales (facturación sin IVA) de la empresa representa el principal cliente?</field> 
+            <field name="code">EE12_E_35</field>
+            <field name="variable_name">.</field>
+            <field name="description">¿Qué porcentaje de las ventas anuales (facturación sin IVA) de la empresa representa el principal cliente?</field>
+            <field name="type">Float</field> 
+            <field name="parent_id" ref="EE12_E"/>        
+            <field name="survey_id" ref="survey_EE12"/>
+</record>
+            
+            <record model="survey_methodology.question" id="EE12_E_36">
+            <field name="name">El principal cliente de la empresa es...(por favor, marque una sola opción)</field> 
+            <field name="code">EE12_E_36</field>
+            <field name="variable_name">.</field>
+            <field name="description">El principal cliente de la empresa es...(por favor, marque una sola opción)</field>
+            <field name="type">View</field> 
+            <field name="parent_id" ref="EE12_E"/>        
+            <field name="survey_id" ref="survey_EE12"/>
+</record>
+            
+            <record model="survey_methodology.question" id="EE12_E_36_1">
+            <field name="name">consumidor final</field> 
+            <field name="code">EE12_E_36_1</field>
+            <field name="variable_name">.</field>
+            <field name="description">consumidor final </field>
+            <field name="type">Variable</field>
+<field name="format_id" ref="format_Boolean"/> 
+            <field name="parent_id" ref="EE12_E_36"/>        
+            <field name="survey_id" ref="survey_EE12"/>
+</record>
+            
+            <record model="survey_methodology.question" id="EE12_E_36_2">
+            <field name="name">empresa con menos de 10 ocupados </field> 
+            <field name="code">EE12_E_36_2</field>
+            <field name="variable_name">.</field>
+            <field name="description">empresa con menos de 10 ocupados </field> 
+            <field name="type">Variable</field>
+<field name="format_id" ref="format_Boolean"/> 
+            <field name="parent_id" ref="EE12_E_36"/>        
+            <field name="survey_id" ref="survey_EE12"/>
+</record>
+            
+            <record model="survey_methodology.question" id="EE12_E_36_3">
+            <field name="name">empresa con 10 a 50 ocupados  </field> 
+            <field name="code">EE12_E_36_3</field>
+            <field name="variable_name">.</field>
+            <field name="description">empresa con 10 a 50 ocupados </field> 
+            <field name="type">Variable</field>
+<field name="format_id" ref="format_Boolean"/> 
+            <field name="parent_id" ref="EE12_E_36"/>        
+            <field name="survey_id" ref="survey_EE12"/>
+</record>
+            
+            <record model="survey_methodology.question" id="EE12_E_36_4">
+            <field name="name">empresa con 51 a 200 ocupados  </field> 
+            <field name="code">EE12_E_36_4</field>
+            <field name="variable_name">.</field>
+            <field name="description">empresa con 51 a 200 ocupados </field> 
+            <field name="type">Variable</field>
+<field name="format_id" ref="format_Boolean"/> 
+            <field name="parent_id" ref="EE12_E_36"/>        
+            <field name="survey_id" ref="survey_EE12"/>
+</record>
+            
+             <record model="survey_methodology.question" id="EE12_E_36_5">
+            <field name="name">empresa con más de 200 ocupados  </field> 
+            <field name="code">EE12_E_36_5</field>
+            <field name="variable_name">.</field>
+            <field name="description">empresa con más de 200 ocupados </field> 
+            <field name="type">Variable</field>
+<field name="format_id" ref="format_Boolean"/> 
+            <field name="parent_id" ref="EE12_E_36"/>        
+            <field name="survey_id" ref="survey_EE12"/>
+</record>
+            
+            <record model="survey_methodology.question" id="EE12_E_36_6">
+            <field name="name">Estado municipal/provincial/nacional </field> 
+            <field name="code">EE12_E_36_6</field>
+            <field name="variable_name">.</field>
+            <field name="description">Estado municipal/provincial/nacional </field> 
+            <field name="type">Variable</field>
+<field name="format_id" ref="format_Boolean"/> 
+            <field name="parent_id" ref="EE12_E_36"/>        
+            <field name="survey_id" ref="survey_EE12"/>
+</record>
+            
+            <record model="survey_methodology.question" id="EE12_E_37">
+            <field name="name">¿En qué país se localiza el principal cliente? Si es en Argentina: ¿a qué distancia aproximada de la empresa se encuentra?
+(si tiene dificultades para precisar los kilómetros, indique la provincia y la localidad)</field> 
+            <field name="code">EE12_E_37</field>
+            <field name="variable_name">.</field>
+            <field name="description">¿En qué país se localiza el principal cliente? Si es en Argentina: ¿a qué distancia aproximada de la empresa se encuentra?
+(si tiene dificultades para precisar los kilómetros, indique la provincia y la localidad) </field> 
+            <field name="type">Variable</field>
+<field name="format_id" ref="format_Char"/> 
+            <field name="parent_id" ref="EE12_E"/>        
+            <field name="survey_id" ref="survey_EE12"/>
+</record>
+            
+            <record model="survey_methodology.question" id="EE12_E_37_1">
+            <field name="name">País </field> 
+            <field name="code">EE12_E_37_1</field>
+            <field name="variable_name">.</field>
+            <field name="description">País </field> 
+            <field name="type">Variable</field>
+<field name="format_id" ref="format_Char"/> 
+            <field name="parent_id" ref="EE12_E_37"/>        
+            <field name="survey_id" ref="survey_EE12"/>
+</record>
+            
+            <record model="survey_methodology.question" id="EE12_E_37_2">
+            <field name="name">Kilómetros (sólo para Argentina) </field> 
+            <field name="code">EE12_E_37_2</field>
+            <field name="variable_name">.</field>
+            <field name="description">Kilómetros (sólo para Argentina) </field> 
+            <field name="type">Variable</field>
+<field name="format_id" ref="format_Char"/> 
+            <field name="parent_id" ref="EE12_E_37"/>        
+            <field name="survey_id" ref="survey_EE12"/>
+</record>
+            
+            <record model="survey_methodology.question" id="EE12_E_38">
+            <field name="name">¿Cuál es actualmente la participación de los distintos tipos de proveedores en el monto total de compras de la empresa?
+(la suma de los porcentajes debe ser igual a 100%) </field> 
+            <field name="code">EE12_E_38</field>
+            <field name="variable_name">.</field>
+            <field name="description">¿Cuál es actualmente la participación de los distintos tipos de proveedores en el monto total de compras de la empresa?
+(la suma de los porcentajes debe ser igual a 100%) </field> 
+            <field name="type">View</field> 
+            <field name="parent_id" ref="EE12_E"/>        
+            <field name="survey_id" ref="survey_EE12"/>
+</record>
+            
+            <record model="survey_methodology.question" id="EE12_E_38_1">
+            <field name="name">Comercio mayorista </field> 
+            <field name="code">EE12_E_38_1</field>
+            <field name="variable_name">.</field>
+            <field name="description">Comercio mayorista </field> 
+            <field name="type">Float</field> 
+            <field name="parent_id" ref="EE12_E_38"/>        
+            <field name="survey_id" ref="survey_EE12"/>
+</record>
+            
+            <record model="survey_methodology.question" id="EE12_E_38_2">
+            <field name="name">Empresas industriales  </field> 
+            <field name="code">EE12_E_38_2</field>
+            <field name="variable_name">.</field>
+            <field name="description">Empresas industriales  </field> 
+            <field name="type">Float</field> 
+            <field name="parent_id" ref="EE12_E_38"/>        
+            <field name="survey_id" ref="survey_EE12"/>
+</record>
+            
+            <record model="survey_methodology.question" id="EE12_E_38_3">
+            <field name="name">Empresas de servicios  </field> 
+            <field name="code">EE12_E_38_3</field>
+            <field name="variable_name">.</field>
+            <field name="description">Empresas de servicios  </field> 
+            <field name="type">Float</field> 
+            <field name="parent_id" ref="EE12_E_38"/>        
+            <field name="survey_id" ref="survey_EE12"/>
+</record>
+            
+            <record model="survey_methodology.question" id="EE12_E_38_4">
+            <field name="name">Empresas agropecuarias  </field> 
+            <field name="code">EE12_E_38_4</field>
+            <field name="variable_name">.</field>
+            <field name="description">Empresas agropecuarias  </field> 
+            <field name="type">Float</field> 
+            <field name="parent_id" ref="EE12_E_38"/>        
+            <field name="survey_id" ref="survey_EE12"/>
+</record>
+            
+            <record model="survey_methodology.question" id="EE12_E_38_5">
+            <field name="name">Otro tipo de proveedor (especificar)</field> 
+            <field name="code">EE12_E_38_5</field>
+            <field name="variable_name">.</field>
+            <field name="description">Otro tipo de proveedor (especificar)</field> 
+            <field name="type">Variable</field>
+<field name="format_id" ref="format_Char"/> 
+            <field name="parent_id" ref="EE12_E_38"/>        
+            <field name="survey_id" ref="survey_EE12"/>
+</record>
+            
+            <record model="survey_methodology.question" id="EE12_E_38_5">
+            <field name="name">Otro tipo de proveedor (especificar)</field> <!--tiene el mismo field name que el record anterior-->
+            <field name="code">EE12_E_38_5</field>
+            <field name="variable_name">.</field>
+            <field name="description">Otro tipo de proveedor (especificar)</field> 
+            <field name="type">Float</field> 
+            <field name="parent_id" ref="EE12_E_38"/>        
+            <field name="survey_id" ref="survey_EE12"/>
+</record>
+            
+           <record model="survey_methodology.question" id="EE12_E_39">
+            <field name="name">Qué porcentaje del gasto total en insumos y bienes intermedios utilizados en la producción industrial de la empresa
+representa el principal proveedor de los mismos?</field> 
+            <field name="code">EE12_E_39</field>
+            <field name="variable_name">.</field>
+            <field name="description">Qué porcentaje del gasto total en insumos y bienes intermedios utilizados en la producción industrial de la empresa
+representa el principal proveedor de los mismos?</field> 
+            <field name="type">Float</field> 
+            <field name="parent_id" ref="EE12_E"/>        
+            <field name="survey_id" ref="survey_EE12"/>
+</record>
+            
+            <record model="survey_methodology.question" id="EE12_E_40">
+            <field name="name">El principal proveedor en la empresa es...(por favor, marque una sola opción)</field> 
+            <field name="code">EE12_E_40</field>
+            <field name="variable_name">.</field>
+            <field name="description">El principal proveedor en la empresa es...(por favor, marque una sola opción)</field> 
+            <field name="type">View</field> 
+            <field name="parent_id" ref="EE12_E"/>        
+            <field name="survey_id" ref="survey_EE12"/>
+</record>
+            
+            <record model="survey_methodology.question" id="EE12_E_40_1">
+            <field name="name">empresa con menos de 10 ocupados </field> 
+            <field name="code">EE12_E_40_1</field>
+            <field name="variable_name">.</field>
+            <field name="description">empresa con menos de 10 ocupados </field> 
+            <field name="type">Variable</field>
+<field name="format_id" ref="format_Boolean"/> 
+            <field name="parent_id" ref="EE12_E_40"/>        
+            <field name="survey_id" ref="survey_EE12"/>
+</record>
+            
+            <record model="survey_methodology.question" id="EE12_E_40_2">
+            <field name="name">empresa con 10 a 50 ocupados  </field> 
+            <field name="code">EE12_E_40_2</field>
+            <field name="variable_name">.</field>
+            <field name="description">empresa con 10 a 50 ocupados  </field> 
+            <field name="type">Variable</field>
+<field name="format_id" ref="format_Boolean"/> 
+            <field name="parent_id" ref="EE12_E_40"/>        
+            <field name="survey_id" ref="survey_EE12"/>
+</record>
+            
+            <record model="survey_methodology.question" id="EE12_E_40_3">
+            <field name="name">empresa con 51 a 200 ocupados  </field> 
+            <field name="code">EE12_E_40_3</field>
+            <field name="variable_name">.</field>
+            <field name="description">empresa con 51 a 200 ocupados  </field> 
+            <field name="type">Variable</field>
+<field name="format_id" ref="format_Boolean"/> 
+            <field name="parent_id" ref="EE12_E_40"/>        
+            <field name="survey_id" ref="survey_EE12"/>
+</record>
+            
+            <record model="survey_methodology.question" id="EE12_E_40_4">
+            <field name="name">empresa con más de 200 ocupados  </field> 
+            <field name="code">EE12_E_40_4</field>
+            <field name="variable_name">.</field>
+            <field name="description">empresa con más de 200 ocupados </field> 
+            <field name="type">Variable</field>
+<field name="format_id" ref="format_Boolean"/> 
+            <field name="parent_id" ref="EE12_E_40"/>        
+            <field name="survey_id" ref="survey_EE12"/>
+</record>
+            
+            <record model="survey_methodology.question" id="EE12_E_41">
+            <field name="name">En qué país se localiza el principal proveedor? Si es en Argentina: ¿a qué distancia aproximada de la empresa se encuentra?
+(si tiene dificultades para precisar los kilómetros, indique la provincia y la localidad)  </field> 
+            <field name="code">EE12_E_41</field>
+            <field name="variable_name">.</field>
+            <field name="description">En qué país se localiza el principal proveedor? Si es en Argentina: ¿a qué distancia aproximada de la empresa se encuentra?
+(si tiene dificultades para precisar los kilómetros, indique la provincia y la localidad) </field> 
+            <field name="type">Variable</field>
+<field name="format_id" ref="format_Char"/> 
+            <field name="parent_id" ref="EE12_E"/>        
+            <field name="survey_id" ref="survey_EE12"/>
+</record>
+            
+             <record model="survey_methodology.question" id="EE12_E_41_1">
+            <field name="name">País  </field> 
+            <field name="code">EE12_E_41_1</field>
+            <field name="variable_name">.</field>
+            <field name="description">País </field> 
+            <field name="type">Variable</field>
+<field name="format_id" ref="format_Char"/> 
+            <field name="parent_id" ref="EE12_E_41"/>        
+            <field name="survey_id" ref="survey_EE12"/>
+</record>
+            
+            <record model="survey_methodology.question" id="EE12_E_41_2">
+            <field name="name">Kilómetros (sólo para Argentina) </field> 
+            <field name="code">EE12_E_41_2</field>
+            <field name="variable_name">.</field>
+            <field name="description">Kilómetros (sólo para Argentina) </field> 
+            <field name="type">Variable</field>
+<field name="format_id" ref="format_Char"/> 
+            <field name="parent_id" ref="EE12_E_41"/>        
+            <field name="survey_id" ref="survey_EE12"/>
+</record>
+            
+            <record model="survey_methodology.question" id="EE12_G">
+                <field name="name">Recursos humanos</field>
+            <field name="code">EE12_G</field>          
+            <field name="variable_name">.</field>
+            <field name="description">Recursos humanos</field> 
+            <field name="type">View</field> 
+            <field name="parent_id" ref="EE12"/>        
+            <field name="survey_id" ref="survey_EE12"/>
+</record>
+            
+            <record model="survey_methodology.question" id="EE12_G_42">
+            <field name="name"> Actualmente, ¿busca contratar personal para las siguientes categorías? Si lo hace, indique el grado de dificultad para
+		 contratar trabajadores afectados al proceso productivo:
+		 (por favor, marque una opción por fila)</field>
+            <field name="code">EE12_G_42</field>
+            <field name="variable_name">.</field>
+            <field name="description"> Actualmente, ¿busca contratar personal para las siguientes categorías? Si lo hace, indique el grado de dificultad para
+		 contratar trabajadores afectados al proceso productivo:
+		 (por favor, marque una opción por fila)</field> 
+            <field name="type">View</field> 
+            <field name="parent_id" ref="EE12_G"/>        
+            <field name="survey_id" ref="survey_EE12"/>
+</record>
+            
+            
+            <record model="survey_methodology.question" id="EE12_G_42_1">
+            <field name="name"> Operarios no calificados</field>
+            <field name="code">EE12_G_42_1</field>
+            <field name="variable_name">.</field>
+            <field name="description"> Operarios no calificados</field> 
+            <field name="type">View</field> 
+            <field name="parent_id" ref="EE12_G_42"/>        
+            <field name="survey_id" ref="survey_EE12"/>
+</record>
+            
+            <record model="survey_methodology.question" id="EE12_G_42_1_1">
+            <field name="name"> No busca contratar personal con estas características</field>
+            <field name="code">EE12_G_42_1_1</field>
+            <field name="variable_name">.</field>
+            <field name="description"> No busca contratar personal con estas características</field> 
+            <field name="type">Variable</field>
+<field name="format_id" ref="format_Boolean"/> 
+            <field name="parent_id" ref="EE12_G_42_1"/>        
+            <field name="survey_id" ref="survey_EE12"/>
+</record>
+            
+            <record model="survey_methodology.question" id="EE12_G_42_1_2">
+            <field name="name"> No tiene dificultad</field>
+            <field name="code">EE12_G_42_1_2</field>
+            <field name="variable_name">.</field>
+            <field name="description"> No tiene dificultad</field> 
+            <field name="type">Variable</field>
+<field name="format_id" ref="format_Boolean"/> 
+            <field name="parent_id" ref="EE12_G_42_1"/>        
+            <field name="survey_id" ref="survey_EE12"/>
+</record>
+            
+            
+            <record model="survey_methodology.question" id="EE12_G_42_1_3">
+            <field name="name"> Tiene dificultad baja</field>
+            <field name="code">EE12_G_42_1_3</field>
+            <field name="variable_name">.</field>
+            <field name="description"> Tiene dificultad baja</field> 
+            <field name="type">Variable</field>
+<field name="format_id" ref="format_Boolean"/> 
+            <field name="parent_id" ref="EE12_G_42_1"/>        
+            <field name="survey_id" ref="survey_EE12"/>
+</record>
+            
+            <record model="survey_methodology.question" id="EE12_G_42_1_4">
+            <field name="name"> Tiene dificultad media</field>
+            <field name="code">EE12_G_42_1_4</field>
+            <field name="variable_name">.</field>
+            <field name="description"> Tiene dificultad media</field> 
+            <field name="type">Variable</field>
+<field name="format_id" ref="format_Boolean"/> 
+            <field name="parent_id" ref="EE12_G_42_1"/>        
+            <field name="survey_id" ref="survey_EE12"/>
+</record>
+            
+            <record model="survey_methodology.question" id="EE12_G_42_1_4">
+            <field name="name"> Tiene dificultad alta</field>
+            <field name="code">EE12_G_42_1_4</field>
+            <field name="variable_name">.</field>
+            <field name="description"> Tiene dificultad alta</field> 
+            <field name="type">Variable</field>
+<field name="format_id" ref="format_Boolean"/> 
+            <field name="parent_id" ref="EE12_G_42_1"/>        
+            <field name="survey_id" ref="survey_EE12"/>
+</record>
+            
+            <record model="survey_methodology.question" id="EE12_G_43">
+            <field name="name"> ¿Cuál es la remuneración bruta mensual (especificar monto promedio por persona) del personal afectado al proceso 	
+		 productivo en el......</field>
+            <field name="code">EE12_G_43</field>
+            <field name="variable_name">.</field>
+            <field name="description"> ¿Cuál es la remuneración bruta mensual (especificar monto promedio por persona) del personal afectado al proceso 	
+		 productivo en el......</field> 
+            <field name="type">View</field> 
+            <field name="parent_id" ref="EE12_G"/>        
+            <field name="survey_id" ref="survey_EE12"/>
+</record>
+            
+            <record model="survey_methodology.question" id="EE12_G_43_1">
+            <field name="name"> año 2012?</field>
+            <field name="code">EE12_G_43_1</field>
+            <field name="variable_name">.</field>
+            <field name="description"> año 2012?</field> 
+            <field name="type">Integer</field> 
+            <field name="parent_id" ref="EE12_G_43"/>        
+            <field name="survey_id" ref="survey_EE12"/>
+</record>
+            
+            <record model="survey_methodology.question" id="EE12_G_43_2">
+            <field name="name"> año 2011?</field>
+            <field name="code">EE12_G_43_2</field>
+            <field name="variable_name">.</field>
+            <field name="description"> año 2011?</field> 
+            <field name="type">Integer</field> 
+            <field name="parent_id" ref="EE12_G_43"/>        
+            <field name="survey_id" ref="survey_EE12"/>
+</record>
+            
+            <record model="survey_methodology.question" id="EE12_H">
+            <field name="name"> año 2011?</field>
+            <field name="code">EE12_H</field>
+            <field name="variable_name">.</field>
+            <field name="description"> año 2011?</field> 
+            <field name="type">View</field> 
+            <field name="parent_id" ref="EE12"/>        
+            <field name="survey_id" ref="survey_EE12"/>
+</record>
+            
+            <record model="survey_methodology.question" id="EE12_H_44">
+            <field name="name"> Habitualmente, ¿a cuántos días le cobra a sus principales clientes y le paga a sus principales proveedores?</field>
+            <field name="code">EE12_H_44</field>
+            <field name="variable_name">.</field>
+            <field name="description"> Habitualmente, ¿a cuántos días le cobra a sus principales clientes y le paga a sus principales proveedores?</field> 
+            <field name="type">View</field> 
+            <field name="parent_id" ref="EE12_H"/>        
+            <field name="survey_id" ref="survey_EE12"/>
+</record>
+            
+            <record model="survey_methodology.question" id="EE12_H_44_1">
+            <field name="name"> Cobro a clientes</field>
+            <field name="code">EE12_H_44_1</field>
+            <field name="variable_name">.</field>
+            <field name="description">Cobro a clientes</field> 
+            <field name="type">integer</field> 
+            <field name="parent_id" ref="EE12_H_44"/>        
+            <field name="survey_id" ref="survey_EE12"/>
+</record>
+            
+            <record model="survey_methodology.question" id="EE12_H_44_2">
+            <field name="name"> Pago a proveedores</field>
+            <field name="code">EE12_H_44_2</field>
+            <field name="variable_name">.</field>
+            <field name="description">Pago a proveedores</field> 
+            <field name="type">integer</field> 
+            <field name="parent_id" ref="EE12_H_44"/>        
+            <field name="survey_id" ref="survey_EE12"/>
+</record>
+            
+            
+            <record model="survey_methodology.question" id="EE12_H_45">
+            <field name="name">  ¿Tiene algún proyecto de inversión frenado por falta de financiamiento bancario?</field>
+            <field name="code">EE12_H_45</field>
+            <field name="variable_name">.</field>
+            <field name="description"> ¿Tiene algún proyecto de inversión frenado por falta de financiamiento bancario?</field> 
+            <field name="type">View</field> 
+            <field name="parent_id" ref="EE12_H"/>        
+            <field name="survey_id" ref="survey_EE12"/>
+</record>
+            
+            <record model="survey_methodology.question" id="EE12_H_45_a">
+            <field name="name"> Si</field>
+            <field name="code">EE12_H_45_a</field>
+            <field name="variable_name">.</field>
+            <field name="description">Si</field> 
+            <field name="type">Variable</field>
+<field name="format_id" ref="format_Boolean"/> 
+            <field name="parent_id" ref="EE12_H_45"/>        
+            <field name="survey_id" ref="survey_EE12"/>
+</record>
+            
+            <record model="survey_methodology.question" id="EE12_H_45_b">
+            <field name="name"> No</field>
+            <field name="code">EE12_H_45_b</field>
+            <field name="variable_name">.</field>
+            <field name="description">No</field> 
+            <field name="type">Variable</field>
+<field name="format_id" ref="format_Boolean"/> 
+            <field name="parent_id" ref="EE12_H_45"/>        
+            <field name="survey_id" ref="survey_EE12"/>
+</record>
+            
+            <record model="survey_methodology.question" id="EE12_H_46">
+            <field name="name"> En el último año, ¿solicitó la empresa a las entidades bancarias...
+		 (por favor, marque una opción por fila)</field>
+            <field name="code">EE12_H_46</field>
+            <field name="variable_name">.</field>
+            <field name="description">En el último año, ¿solicitó la empresa a las entidades bancarias...
+		 (por favor, marque una opción por fila)</field> 
+            <field name="type">Grupo</field> 
+            <field name="parent_id" ref="EE12_H"/>        
+            <field name="survey_id" ref="survey_EE12"/>
+</record>
+            
+            <record model="survey_methodology.question" id="EE12_H_46_1">
+            <field name="name"> descubierto en cuenta corriente?  </field>
+            <field name="code">EE12_H_46_1</field>
+            <field name="variable_name">.</field>
+            <field name="description">descubierto en cuenta corriente? </field> 
+            <field name="type">Grupo</field> 
+            <field name="parent_id" ref="EE12_H_46"/>        
+            <field name="survey_id" ref="survey_EE12"/>
+</record>
+            
+             <record model="survey_methodology.question" id="EE12_H_46_1_1">
+            <field name="name"> Solicitó y le fue otorgado </field>
+            <field name="code">EE12_H_46_1_1</field>
+            <field name="variable_name">.</field>
+            <field name="description">Solicitó y le fue otorgado</field> 
+            <field name="type">Variable</field>
+<field name="format_id" ref="format_Boolean"/> 
+            <field name="parent_id" ref="EE12_H_46_1"/>        
+            <field name="survey_id" ref="survey_EE12"/>
+</record>
+            
+             <record model="survey_methodology.question" id="EE12_H_46_1_2">
+            <field name="name"> Solicitó y no le fue otorgado </field>
+            <field name="code">EE12_H_46_1_2</field>
+            <field name="variable_name">.</field>
+            <field name="description">Solicitó y no le fue otorgado</field> 
+            <field name="type">Variable</field>
+<field name="format_id" ref="format_Boolean"/> 
+            <field name="parent_id" ref="EE12_H_46_1"/>        
+            <field name="survey_id" ref="survey_EE12"/>
+</record>
+            
+             <record model="survey_methodology.question" id="EE12_H_46_1_3">
+            <field name="name"> No solicitó </field>
+            <field name="code">EE12_H_46_1_3</field>
+            <field name="variable_name">.</field>
+            <field name="description">No solicitó</field> 
+            <field name="type">Variable</field>
+<field name="format_id" ref="format_Boolean"/> 
+            <field name="parent_id" ref="EE12_H_46_1"/>        
+            <field name="survey_id" ref="survey_EE12"/>
+</record>
+            
+            <record model="survey_methodology.question" id="EE12_H_46_2">
+            <field name="name"> leasing ?  </field>
+            <field name="code">EE12_H_46_2</field>
+            <field name="variable_name">.</field>
+            <field name="description">leasing ? </field> 
+            <field name="type">Grupo</field> 
+            <field name="parent_id" ref="EE12_H_46"/>        
+            <field name="survey_id" ref="survey_EE12"/>
+</record>
+            
+             <record model="survey_methodology.question" id="EE12_H_46_2_1">
+            <field name="name"> Solicitó y le fue otorgado </field>
+            <field name="code">EE12_H_46_2_1</field>
+            <field name="variable_name">.</field>
+            <field name="description">Solicitó y le fue otorgado</field> 
+            <field name="type">Variable</field>
+<field name="format_id" ref="format_Boolean"/> 
+            <field name="parent_id" ref="EE12_H_46_2"/>        
+            <field name="survey_id" ref="survey_EE12"/>
+</record>
+            
+             <record model="survey_methodology.question" id="EE12_H_46_2_2">
+            <field name="name"> Solicitó y no le fue otorgado </field>
+            <field name="code">EE12_H_46_2_2</field>
+            <field name="variable_name">.</field>
+            <field name="description">Solicitó y no le fue otorgado</field> 
+            <field name="type">Variable</field>
+<field name="format_id" ref="format_Boolean"/> 
+            <field name="parent_id" ref="EE12_H_46_2"/>        
+            <field name="survey_id" ref="survey_EE12"/>
+</record>
+            
+             <record model="survey_methodology.question" id="EE12_H_46_1_3">
+            <field name="name"> No solicitó </field>
+            <field name="code">EE12_H_46_1_3</field>
+            <field name="variable_name">.</field>
+            <field name="description">No solicitó</field> 
+            <field name="type">Variable</field>
+<field name="format_id" ref="format_Boolean"/> 
+            <field name="parent_id" ref="EE12_H_46_1"/>        
+            <field name="survey_id" ref="survey_EE12"/>
+</record>
+            
+             <record model="survey_methodology.question" id="EE12_H_47">
+            <field name="name"> En el último año, ¿solicitó la empresa otro tipo de crédito bancario distinto a los anteriores? ¿Le fue otorgado?
+		 (por favor, marque solo una opción) </field>
+            <field name="code">EE12_H_47</field>
+            <field name="variable_name">.</field>
+            <field name="description">En el último año, ¿solicitó la empresa otro tipo de crédito bancario distinto a los anteriores? ¿Le fue otorgado?
+		 (por favor, marque solo una opción)</field> 
+            <field name="type">View</field> 
+            <field name="parent_id" ref="EE12_H"/>        
+            <field name="survey_id" ref="survey_EE12"/>
+</record>
+            
+             <record model="survey_methodology.question" id="EE12_H_47_1">
+            <field name="name"> Solicitó y le fue otorgado  </field>
+            <field name="code">EE12_H_47_1</field>
+            <field name="variable_name">.</field>
+            <field name="description">Solicitó y le fue otorgado </field> 
+            <field name="type">Variable</field>
+<field name="format_id" ref="format_Boolean"/> 
+            <field name="parent_id" ref="EE12_H_47"/>        
+            <field name="survey_id" ref="survey_EE12"/>
+</record>
+            
+            <record model="survey_methodology.question" id="EE12_H_47_1">
+            <field name="name"> Solicitó y no le fue otorgado   </field>
+            <field name="code">EE12_H_47_1</field>
+            <field name="variable_name">.</field>
+            <field name="description">Solicitó y no le fue otorgado </field> 
+            <field name="type">Variable</field>
+<field name="format_id" ref="format_Boolean"/> 
+            <field name="parent_id" ref="EE12_H_47"/>        
+            <field name="survey_id" ref="survey_EE12"/>
+</record>
+            
+            <record model="survey_methodology.question" id="EE12_H_47_1">
+            <field name="name"> No solicitó   </field>
+            <field name="code">EE12_H_47_1</field>
+            <field name="variable_name">.</field>
+            <field name="description">No solicitó </field> 
+            <field name="type">Variable</field>
+<field name="format_id" ref="format_Boolean"/> 
+            <field name="parent_id" ref="EE12_H_47"/>        
+            <field name="survey_id" ref="survey_EE12"/>
+</record>
+            
+            <record model="survey_methodology.question" id="EE12_H_48">
+            <field name="name"> La empresa, ¿lleva estados contables?   </field>
+            <field name="code">EE12_H_48</field>
+            <field name="variable_name">.</field>
+            <field name="description">La empresa, ¿lleva estados contables? </field> 
+            <field name="type">View</field> 
+            <field name="parent_id" ref="EE12_H"/>        
+            <field name="survey_id" ref="survey_EE12"/>
+</record>
+            
+            <record model="survey_methodology.question" id="EE12_H_48_1">
+            <field name="name">Si  </field>
+            <field name="code">EE12_H_48_1</field>
+            <field name="variable_name">.</field>
+            <field name="description">Si </field> 
+            <field name="type">Variable</field>
+<field name="format_id" ref="format_Boolean"/> 
+            <field name="parent_id" ref="EE12_H_48"/>        
+            <field name="survey_id" ref="survey_EE12"/>
+</record>
+            
+            <record model="survey_methodology.question" id="EE12_H_48_2">
+            <field name="name">No  </field>
+            <field name="code">EE12_H_48_2</field>
+            <field name="variable_name">.</field>
+            <field name="description">No </field> 
+            <field name="type">Variable</field>
+<field name="format_id" ref="format_Boolean"/> 
+            <field name="parent_id" ref="EE12_H_48"/>        
+            <field name="survey_id" ref="survey_EE12"/>
+</record>
+            
+            
+            
+           
+            
+            
+            
+            
+            
+            
+            
+            
+            
+              
+            
+            
+             
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+           
+           
+            
+
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+      
+
+            
+            
+        
+          
+        <!-- hasta aqui-->
+        
+         <record model="survey_methodology.question" id="EE12_A_4">
+            <field name="name">la reventa de productos en el mismo estado en que fueron adquiridos, 
+la venta de servicios, u otra actividad 
+ </field>
+            <field name="code">EE12_A_4</field>
+            <field name="variable_name">.</field>
+            <field name="description">la reventa de productos en el mismo estado en que fueron adquiridos, 
+la venta de servicios, u otra actividad 
+</field>
+            <field name="type">Variable</field>
+<field name="format_id" ref="format_Boolean"/>
+            <field name="parent_id" ref="EE12_A"/>
+        <field name="survey_id" ref="survey_EE12"/>
+</record>
+        
+        
+        
+        
+        <!-- Javiera: Esto se carga de la siguiente manera.
+
+             La estructura del cuestionario es Jerarquica. Eso significa que vas a tener distintos niveles.
+
+             Cada pregunta va a tener una pregunta padre. Esas relaciones se resuelven con el id y el campo parent_id.
+
+             Si una pregunta es padre de otra entonces es de tipo "Group".
+
+             Si una pregunta es final(hoja) va a ser de tipo Boolean, Char, Text, Integer, Float.
+
+             Los códigos de las preguntas vas a poder deducirlo por el número de pregunta del cuestionario.
+             Si el número de la pregunta es 4.1.2, el código será P1.4.2.
+             Hay preguntas que ni tiene código: mira la pregunta 4 del cuestionario.
+
+             La pregunta 4 es un grupo de 7 preguntas hojas. Entonces las preguntas serán:
+
+                4.   Group
+                4.1. Boolean
+                4.2. Boolean
+                4.3. Boolean
+                4.4. Boolean
+                4.5. Boolean
+                4.6.1 Boolean
+                4.6.2 Char     (Esta corresponde a la entrada de especificación)
+
+            Has la carga lo más rápida posible de todas las preguntas. Luego vamos a ir cambiando algunas cosas.
+
+             -->
+        <!-- El id se asigna jerarquicamente. Fijate que cada nivel se separa por '_' -->
+        <record model="survey_methodology.question" id="EE12_MIE_PROV">
+            <!-- Pregunta del cuestionario -->
+            <field name="name">Provincia</field>
+            <!-- Código. Casi siempre es Pn, donde n es el código de la pregunta.
+                 Fijate que está asociado con los números de la pregunta -->
+            <field name="code">PROV</field>
+            <!-- Ponele el mismo valor que el código -->
+            <field name="variable_name">PROV</field>
+            <!-- Dejalo en blanco por ahora -->
+            <field name="description">Provincia</field>
+            <!-- Si se responde en una casilla cuadrada pon Boolean.
+                 Si se responde en una linea, pon Char.
+                 Si es un porcentual pon Float.
+                 Si es un número entero pon Integer.
+                 Si es un texto largo pon Text.
+                 Si agrupa preguntas, pon Group. -->
+            <field name="type">Variable</field>
+<field name="format_id" ref="format_Char"/>
+            <!-- referencia al id padre de la pregunta -->
+            <field name="parent_id" ref="EE12_MIE"/>
+        <field name="survey_id" ref="survey_EE12"/>
+</record>
+
+
+
+
+
   </data>
 </openerp>
 <!-- vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4
