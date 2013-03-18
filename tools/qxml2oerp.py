@@ -74,6 +74,8 @@ def translate(in_root):
                         values['type'].text = 'Null'
                         values['initial_state'].text = 'closed'
 
+                if ele_question.attrib['id'] == "EE12_E_32_1_1":
+                        import pdb; pdb.set_trace()
                 parent=ele_question.find('../[@id]')
                 if parent is not None:
                         values['parent_id'].attrib['ref'] = parent.attrib['id']

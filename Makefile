@@ -7,6 +7,8 @@ all: addons
 
 addons: ${TARGETS}
 
+questionnaire: addons/survey_methodology_extra/data/questions.xml
+
 %.db: design/%.uml
 	xmi2oerp -i $< -d $@
 
@@ -39,5 +41,10 @@ question.dot: addons/survey_methodology_extra/data/questions.xml
 
 dot: question.svg
 	rsvg-view-3 $<
+
+addons/survey_methodology_extra/data/questions.xml: data/questionnaires.xml
+	./tools/qxml2oerp.py $< > $$.xml
+	xmllint --format $$.xml > $@
+	rm $$.xml
 
 
