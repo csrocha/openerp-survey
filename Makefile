@@ -30,3 +30,14 @@ migration_restore: migration/sgr.sql
 	-dropdb sgr
 	createdb sgr
 	psql sgr < migration/sgr.sql
+
+question.dot: addons/survey_methodology_extra/data/questions.xml
+	./tools/recover_questions.py
+
+%.svg: %.dot
+	dot -T svg -o $@ $<
+
+dot: question.svg
+	rsvg-view-3 $<
+
+
