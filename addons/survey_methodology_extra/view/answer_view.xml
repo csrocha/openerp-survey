@@ -89,14 +89,6 @@
                             />
                         <field name="questionnaire_id"
                             />
-                        <field name="answer_ids" nolabel="1" colspan="4">
-                            <tree editable="bottom">
-                                <field name="code"/>
-                                <field name="name"/>
-                                <field name="input" on_change="onchange_input(input)"/>
-                                <field name="state" invisible="1"/>
-                        </tree>
-                    </field>
                      </group>
                     </sheet>
 

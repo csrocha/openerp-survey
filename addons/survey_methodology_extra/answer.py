@@ -43,35 +43,7 @@ class answer(osv.osv):
 
     def is_valid(self, cr, uid, ids, context=None):
         """"""
-        import pdb; pdb.set_trace()
         return {}
-
-    """
-    def write(self, cr, uid, ids, values, context=None):
-        question_obj = self.pool.get('survey_methodology.question')
-        wf_service = netsvc.LocalService("workflow")
-
-        if 'input' in values:
-            import pdb; pdb.set_trace()
-            for ans in self.browse(cr, uid, ids):
-                if ans.question_id.next_enable:
-                    # Actualizamos los estados de las nuevas preguntas.
-                    for lines in ans.question_id.next_enable.split('\n'):
-                        condition, next_enable = lines.split(':')
-                        next_ans = self.search(cr, uid, [
-                            ('questionnaire_id','=',ans.questionnaire_id.id),
-                            ('code', '=', next_enable)
-                        ])
-                        if next_ans and eval(condition, { 'self': next_ans[0] }):
-                            self.write(cr, uid, next_ans, {'state': 'enabled'})
-                            #print self.read(cr, uid, next_ans, ['state'])
-                            #import pdb; pdb.set_trace()
-                            #r = wf_service.trg_validate(uid, 'survey_methodology.ans', next_ans[0], 'sgn_enable', cr)
-                            #print self.read(cr, uid, next_ans, ['state'])
-                    # Aqui validariamos
-
-        return super(answer, self).write(cr, uid, ids, values, context=context)
-    """
 
     def set_status(self, cr, uid, names, state):
         """
