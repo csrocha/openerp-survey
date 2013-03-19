@@ -38,20 +38,29 @@ def translate(in_root):
 
         co_id = 0
         field = {}
+        last_level = -1
+        place = [ 1 ] * 10
+
         for ele_question in in_root.iter('question'):
                 rec = ET.SubElement(DATA, 'record')
-                #rec.attrib['id'] = '_'.join(get_bread_crumb(ele_question))
                 rec.attrib['id'] = ele_question.attrib['id']
                 rec.attrib['model'] = 'survey_methodology.question'
                 values = dict( (name, ET.SubElement(rec, 'field'))
                               for name in ['name', 'question', 'variable_name', 'note', 'type', 'format_id',
-                                           'parent_id', 'survey_id', 'next_enable', 'page', 'initial_state'] )
+                                           'parent_id', 'survey_id', 'next_enable', 'page', 'initial_state',
+                                           'place'] )
                 for key, item in values.items():
                         item.attrib['name'] = key
                 values['name'].text = ele_question.find('name').text
                 values['question'].text = ele_question.find('text').text
                 values['survey_id'].attrib['ref'] = 'survey_EE12'
                 values['page'].text = ele_question.find('page').text
+                level = len(rec.attrib['id'].split('_'))
+                values['place'].text = "%i" % place[level]
+                if last_level < level:
+                        place[level] = 1
+                place[level] = place[level] + 1
+                last_level = level
 
                 variable_name = ele_question.find('variable')
                 if variable_name is not None:
@@ -74,9 +83,7 @@ def translate(in_root):
                         values['type'].text = 'Null'
                         values['initial_state'].text = 'closed'
 
-                if ele_question.attrib['id'] == "EE12_E_32_1_1":
-                        import pdb; pdb.set_trace()
-                parent=ele_question.find('../[@id]')
+                parent=ele_question.find('../..[@id]')
                 if parent is not None:
                         values['parent_id'].attrib['ref'] = parent.attrib['id']
 

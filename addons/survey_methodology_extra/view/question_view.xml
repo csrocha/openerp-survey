@@ -86,8 +86,8 @@
                         </h1>
                         <group col="8">
                             <div class="oe_title"> <div class="oe_edit_only"> <label for="parent_id" colspan="2"/> </div> </div>
-                            <div class="oe_title"> <div class="oe_edit_only"> <label for="name"      colspan="2"/> </div> </div>
                             <div class="oe_title"> <div class="oe_edit_only"> <label for="place"     colspan="2"/> </div> </div>
+                            <div class="oe_title"> <div class="oe_edit_only"> <label for="name"      colspan="2"/> </div> </div>
                             <div class="oe_title"> <div class="oe_edit_only"> <label for="type"      colspan="2"/> </div> </div>
                         </group>
                         <h2>
