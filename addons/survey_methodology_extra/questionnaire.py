@@ -135,7 +135,7 @@ class questionnaire(osv.osv):
 
         return r
 
-    def fields_get(self, cr, uid, fields=None, context=None):
+    def fields_get_(self, cr, uid, fields=None, context=None):
         """
         Genera la lista de campos que se necesita para responder la encuesta.
         """
@@ -188,7 +188,7 @@ class questionnaire(osv.osv):
                 }
         return res
 
-    def fields_view_get(self, cr, uid, view_id=None, view_type=None, context=None, toolbar=False, submenu=False):
+    def fields_view_get_(self, cr, uid, view_id=None, view_type=None, context=None, toolbar=False, submenu=False):
         """
         Genera la vista dinámicamente, según las preguntas de la encuesta.
         """
@@ -326,6 +326,8 @@ class questionnaire(osv.osv):
                 level = 1
                 for question in qaire.survey_id.question_ids:
                     new_level = len(question.complete_place)/2
+                    if question.page != 1:
+                        continue
                     if level < new_level:
                         #view_item.append('<button type="button" class="oe_button oe_form_button_save oe_highlight" accesskey="S">Save</button>')
                         #view_item.append('<div colspan="4" col="5">')
@@ -407,7 +409,7 @@ class questionnaire(osv.osv):
             )
         return res
 
-    def read(self, cr, uid, ids, fields=None, context=None, load='_classic_read'):
+    def read_(self, cr, uid, ids, fields=None, context=None, load='_classic_read'):
         """
         Lee los campos a partir de las asnwer asociadas.
         """
@@ -453,7 +455,7 @@ class questionnaire(osv.osv):
                 r['val_%s' % answer.complete_place]=answer.valid
         return res
 
-    def write(self, cr, uid, ids, values, context=None):
+    def write_(self, cr, uid, ids, values, context=None):
         """
         Escribe los campos a las answers asociadas.
         """

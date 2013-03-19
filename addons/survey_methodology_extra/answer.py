@@ -73,9 +73,31 @@ class answer(osv.osv):
         return super(answer, self).write(cr, uid, ids, values, context=context)
     """
 
+    def set_status(self, cr, uid, names, state):
+        """
+        """
+        question_obj = self.pool.get('survey_methodology.question')
+        complete_names = [ to if ' / ' in to else to.replace('_', ' / ') for to in names ]
+        q_ids = question_obj.search(cr, uid, [('complete_name','in',complete_names)])
+        a_ids = self.search(cr, uid, [('question_id','in',q_ids)])
+        self.write(cr, uid, a_ids, {'state': state})
+
     def onchange_input(self, cr, uid, ids, input, context=None):
         """"""
-        return {'input': input}
+        me = self.browse(cr, uid, ids)[0]
+        next_enable = me.question_id.next_enable
+        condition, nexts = next_enable.split(':',1)
+        if ':' in nexts:
+            to_enable, to_disable = nexts.split(':')
+            to_enable = to_enable.split(',')
+            to_disable = to_disable.split(',')
+        else:
+            to_enable, to_disable = nexts.split(','), []
+
+        self.set_status(cr, uid, to_enable, 'enabled')
+        self.set_status(cr, uid, to_disable, 'disabled')
+
+        return True
 
 answer()
 

@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <openerp>
-  <data>
+  <data noupdate="1">
     <record id="EE12" model="survey_methodology.question">
       <field name="name">EE12</field>
       <field name="question">Encuesta Estructural a PyME industriales 2012</field>
