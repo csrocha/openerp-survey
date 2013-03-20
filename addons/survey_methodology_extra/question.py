@@ -39,7 +39,7 @@ class question(osv.osv):
         reads = self.read(cr, uid, ids, ['place','parent_id'], context=context)
         res = []
         for record in reads:
-            name = "%02X" % record['place']
+            name = "%02X" % (record['place'] % 256)
             if record['parent_id']:
                 preads = self.read(cr, uid, record['parent_id'][0], ['complete_place'], context=context)
                 name = "%s%s" % (preads['complete_place'], name)
