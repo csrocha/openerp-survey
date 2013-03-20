@@ -66,7 +66,7 @@ class questionnaire(osv.osv):
         'actual_page': fields.integer('Actual Page', readonly=True),
     }
 
-    _default = {
+    _defaults = {
         'actual_page': 1,
     }
 
