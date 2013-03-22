@@ -353,6 +353,7 @@ class questionnaire(osv.osv):
                             '<label string="" colspan="1"/>'
                             '<label string="%(name)s" colspan="1"/>'
                             '<label string="%(question)s" colspan="3"/>'
+                            '<newline/>'
                             % item_map
                         )
                     if question.type=='View':
@@ -361,7 +362,7 @@ class questionnaire(osv.osv):
                             '<h3>'
                             '<label string="%(question)s" colspan="5"/>'
                             '</h3>'
-                            '</newline>'
+                            '<newline/>'
                             % item_map
                         )
                     if question.type=='Variable':
