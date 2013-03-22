@@ -40,7 +40,7 @@ _enter_js = """
 	{
 		var dt = new Date();
 		dt.setTime(dt.getTime() + ms);
-		while (new Date().getTime() &amp;lt\; dt.getTime());
+		while (max(new Date().getTime(), dt.getTime()) == dt.getTime());
 	};
     $(document).ready(function(){
       (function(){
