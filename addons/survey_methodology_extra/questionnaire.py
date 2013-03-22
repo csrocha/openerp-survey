@@ -341,11 +341,17 @@ class questionnaire(osv.osv):
                         level = new_level 
                     elif level > new_level:
                         level = new_level 
+                    item_map = {
+                        'complete_name': question.complete_name.replace(' ',''),
+                        'complete_place': question.complete_place,
+                        'question': question.question,
+                        'readonly': question.type=="Variable" and question.initial_state=="enabled" and "false" or "true",
+                    }
                     if question.type=='Null':
                         view_item.append(
                             '<label string="%(complete_name)s" colspan="1"/>'
                             '<label string="%(question)s" colspan="1"/>'
-                            '<newline/>'
+                            '<newline/>' % item_map
                         )
                     if question.type=='View':
                         view_item.append(
@@ -353,7 +359,7 @@ class questionnaire(osv.osv):
                             '<label string="%(complete_name)s" colspan="1"/>'
                             '<label string="%(question)s" colspan="1"/>'
                             '</h3>'
-                            '<newline/>'
+                            '<newline/>' % item_map
                         )
                     if question.type=='Variable':
                         view_item.append(
@@ -368,12 +374,7 @@ class questionnaire(osv.osv):
                             '<field name="msg_%(complete_place)s" modifiers="{&quot;readonly&quot;: false,&quot;invisible&quot;: true}"/>'
                             '<field name="val_%(complete_place)s" modifiers="{&quot;readonly&quot;: false,&quot;invisible&quot;: true}"/>'
                             '<field name="for_%(complete_place)s" modifiers="{&quot;readonly&quot;: false,&quot;invisible&quot;: true}"/>'
-                            '<newline/>'% {
-                                'complete_name': question.complete_name.replace(' ',''),
-                                'complete_place': question.complete_place,
-                                'question': question.question,
-                                'readonly': question.type=="Variable" and question.initial_state=="enabled" and "false" or "true",
-                            }
+                            '<newline/>'% item_map
                         )
                     res['fields']['inp_%s' % question.complete_place] = {
                         'selectable': False,
