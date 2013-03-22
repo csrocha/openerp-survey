@@ -57,7 +57,7 @@ _enter_js = """
                                 e.preventDefault();
                                 return false;
                         }
-                   }, 1000);
+                   }, 500);
             }
         }
       })();
