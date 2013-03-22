@@ -352,7 +352,7 @@ class questionnaire(osv.osv):
                             '<group colspan="5" col="2">'
                             '<label string="%(complete_name)s" colspan="1"/>'
                             '<label string="%(question)s" colspan="1"/>'
-                            '<group/>' % item_map
+                            '</group>' % item_map
                         )
                     if question.type=='View':
                         view_item.append(
@@ -361,7 +361,7 @@ class questionnaire(osv.osv):
                             '<label string="%(complete_name)s" colspan="1"/>'
                             '<label string="%(question)s" colspan="1"/>'
                             '</h3>'
-                            '<group/>' % item_map
+                            '</group>' % item_map
                         )
                     if question.type=='Variable':
                         view_item.append(
