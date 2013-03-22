@@ -342,6 +342,7 @@ class questionnaire(osv.osv):
                     elif level > new_level:
                         level = new_level 
                     item_map = {
+                        'name': question.name,
                         'complete_name': question.complete_name.replace(' ',''),
                         'complete_place': question.complete_place,
                         'question': question.question,
@@ -349,7 +350,8 @@ class questionnaire(osv.osv):
                     }
                     if question.type=='Null':
                         view_item.append(
-                            '<label string="%(name)s" colspan="2"/>'
+                            '<label string="" colspan="1"/>'
+                            '<label string="%(name)s" colspan="1"/>'
                             '<label string="%(question)s" colspan="3"/>'
                             % item_map
                         )
