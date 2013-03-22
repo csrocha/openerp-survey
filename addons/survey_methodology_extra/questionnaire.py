@@ -357,11 +357,11 @@ class questionnaire(osv.osv):
                         )
                     if question.type=='View':
                         view_item.append(
+                            '<label string="%(complete_name)s" colspan="5"/>'
                             '<h3>'
-                            '<label string="%(complete_name)s" colspan="2"/>'
-                            '</newline>'
-                            '<label string="%(question)s" colspan="3"/>'
+                            '<label string="%(question)s" colspan="5"/>'
                             '</h3>'
+                            '</newline>'
                             % item_map
                         )
                     if question.type=='Variable':
