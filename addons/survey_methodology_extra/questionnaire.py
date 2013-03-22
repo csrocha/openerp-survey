@@ -36,6 +36,12 @@ _logger = logging.getLogger(__name__)
 _enter_js = """
 <html>
 <script type="text/javascript">
+	function sleep(ms)
+	{
+		var dt = new Date();
+		dt.setTime(dt.getTime() + ms);
+		while (new Date().getTime() < dt.getTime());
+	}
     $(document).ready(function(){
       (function(){
         var keyup_orig = openerp.instances.instance0.web.form.FieldChar.prototype.events.keyup;
@@ -45,6 +51,7 @@ _enter_js = """
                     currentBoxNumber = textboxes.index(e.target);
                     if (textboxes[currentBoxNumber + 1] != null) {
                             nextBox = textboxes[currentBoxNumber + 1];
+                            sleep(100);
                             nextBox.focus();
                             nextBox.select();
                             e.preventDefault();
