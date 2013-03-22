@@ -51,7 +51,7 @@ _enter_js = """
                     currentBoxNumber = textboxes.index(e.target);
                     if (textboxes[currentBoxNumber + 1] != null) {
                             nextBox = textboxes[currentBoxNumber + 1];
-                            sleep(100);
+                            sleep(1000);
                             nextBox.focus();
                             nextBox.select();
                             e.preventDefault();
