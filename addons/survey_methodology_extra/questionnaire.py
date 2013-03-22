@@ -28,6 +28,9 @@ from lxml import etree
 from openerp.tools import SKIPPED_ELEMENT_TYPES
 import tools
 import time
+import logging
+
+_logger = logging.getLogger(__name__)
 
 # Codigo JavaScript que permite Cambiar de <input/> con la tecla Enter.
 _enter_js = """
@@ -80,8 +83,6 @@ class questionnaire(osv.osv):
         context = context or None
         value={}
         complete_place = False
-        print "onchange_input CONTEXT:", context
-        print "1.", time.time()
 
         answer_obj = self.pool.get('survey_methodology.answer')
         question_obj = self.pool.get('survey_methodology.question')
@@ -89,7 +90,9 @@ class questionnaire(osv.osv):
 
         for question in question_obj.browse(cr, uid, question_ids):
 
-            print "1.1.", time.time()
+            if question.next_enable == False:
+                _logger.warning('Question %s no enable any other question' % question.complete_name)
+                continue
 
             # Habilitación o deshabilitación de preguntas.
             for lines in question.next_enable.split('\n'):
@@ -100,11 +103,6 @@ class questionnaire(osv.osv):
                         to_disable = filter(lambda i: i!='', (parsed['to_disable'] or '').split(','))
                         to_enable = [ to if ' / ' in to else to.replace('_', ' / ') for to in to_enable ]
                         to_disable = [ to if ' / ' in to else to.replace('_', ' / ') for to in to_disable ]
-                        print "------------------------"
-                        print lines
-                        print parsed
-                        print to_enable
-                        print to_disable
                         next_dict = dict(
                             [ (qid, 'enabled') for qid in question_obj.search(cr, uid, [
                                 ('survey_id','=',question.survey_id.id),
@@ -115,21 +113,15 @@ class questionnaire(osv.osv):
                                 ('complete_name', 'in', to_disable)
                             ]) ])
                         next_field_code = question_obj.read(cr, uid, next_dict.keys(), ['complete_place', 'complete_name'])
-                        print next_dict, next_field_code
                         for item in next_field_code:
                             complete_place = item['complete_place']
                             value['sta_%s' % complete_place] = next_dict[item['id']]
-                            print 'sta_%s' % complete_place, value['sta_%s' % complete_place]
                             it_ids = answer_obj.search(cr, uid, [('complete_place','=',complete_place)])
                             answer_obj.write(cr, uid, it_ids, {'state': next_dict[item['id']]})
-
-            print "1.2.", time.time()
 
             # Evaluamos el formato
             format_obj = question.format_id
             format_res = format_obj.evaluate(input_text, question)[format_obj.id]
-
-            print "1.3.", time.time()
 
             # Mensajes según pregunta.
             value['msg_%s' % fields] = format_res['message']
@@ -138,15 +130,9 @@ class questionnaire(osv.osv):
             value['vfo_%s' % fields] = format_res['formated']
             value['val_%s' % fields] = format_res['valid']
 
-            print "1.4.", time.time()
-
-        print "2.", time.time()
-
         r = { 'value': value }
         if complete_place:
             r.update(grab_focus='inp_%s' % complete_place)
-
-        print "3.", time.time()
 
         return r
 
@@ -155,7 +141,6 @@ class questionnaire(osv.osv):
         Genera la lista de campos que se necesita para responder la encuesta.
         """
         context = context or {}
-        print "field_get CONTEXT:", context
         questionnaire_id = context.get('questionnaire_id', context.get('actual_id', None))
         actual_page = context.get('actual_page',1)
         res = super(questionnaire, self).fields_get(cr, uid, fields, context)
@@ -216,7 +201,6 @@ class questionnaire(osv.osv):
         """
         if context is None:
             context = {}
-        print "fields_view_get CONTEXT:", context
         questionnaire_id = context.get('questionnaire_id', context.get('actual_id', None))
         actual_page = context.get('actual_page',1)
 
@@ -357,25 +341,40 @@ class questionnaire(osv.osv):
                         level = new_level 
                     elif level > new_level:
                         level = new_level 
-                    view_item.append(
-                        '<label string="%(complete_name)s" colspan="1"/>'
-                        '<label string="%(question)s" colspan="1"/>'
-                        '<field name="inp_%(complete_place)s" on_change="onchange_input(inp_%(complete_place)s, \'%(complete_place)s\')"'
-                        ' modifiers="{&quot;readonly&quot;: [[&quot;sta_%(complete_place)s&quot;, &quot;not in&quot;, [&quot;enabled&quot;]]]}"'
-                        ' nolabel="1" colspan="1"/>'
-                        '<field name="vms_%(complete_place)s" modifiers="{&quot;readonly&quot;: true}" nolabel="1" colspan="1"/>'
-                        '<field name="vfo_%(complete_place)s" modifiers="{&quot;readonly&quot;: true}" nolabel="1" colspan="1"/>'
-                        '<field name="sta_%(complete_place)s" modifiers="{&quot;invisible&quot;: true}" nolabel="1" colspan="1"/>'
-                        '<field name="msg_%(complete_place)s" modifiers="{&quot;readonly&quot;: false,&quot;invisible&quot;: true}"/>'
-                        '<field name="val_%(complete_place)s" modifiers="{&quot;readonly&quot;: false,&quot;invisible&quot;: true}"/>'
-                        '<field name="for_%(complete_place)s" modifiers="{&quot;readonly&quot;: false,&quot;invisible&quot;: true}"/>'
-                        '<newline/>'% {
-                            'complete_name': question.complete_name.replace(' ',''),
-                            'complete_place': question.complete_place,
-                            'question': question.question,
-                            'readonly': question.type=="Variable" and question.initial_state=="enabled" and "false" or "true",
-                        }
-                    )
+                    if question.type=='Null':
+                        view_item.append(
+                            '<label string="%(complete_name)s" colspan="1"/>'
+                            '<label string="%(question)s" colspan="1"/>'
+                            '<newline/>'
+                        )
+                    if question.type=='View':
+                        view_item.append(
+                            '<h3>'
+                            '<label string="%(complete_name)s" colspan="1"/>'
+                            '<label string="%(question)s" colspan="1"/>'
+                            '</h3>'
+                            '<newline/>'
+                        )
+                    if question.type=='Variable':
+                        view_item.append(
+                            '<label string="%(complete_name)s" colspan="1"/>'
+                            '<label string="%(question)s" colspan="1"/>'
+                            '<field name="inp_%(complete_place)s" on_change="onchange_input(inp_%(complete_place)s, \'%(complete_place)s\')"'
+                            ' modifiers="{&quot;readonly&quot;: [[&quot;sta_%(complete_place)s&quot;, &quot;not in&quot;, [&quot;enabled&quot;]]]}"'
+                            ' nolabel="1" colspan="1"/>'
+                            '<field name="vms_%(complete_place)s" modifiers="{&quot;readonly&quot;: true}" nolabel="1" colspan="1"/>'
+                            '<field name="vfo_%(complete_place)s" modifiers="{&quot;readonly&quot;: true}" nolabel="1" colspan="1"/>'
+                            '<field name="sta_%(complete_place)s" modifiers="{&quot;invisible&quot;: true}" nolabel="1" colspan="1"/>'
+                            '<field name="msg_%(complete_place)s" modifiers="{&quot;readonly&quot;: false,&quot;invisible&quot;: true}"/>'
+                            '<field name="val_%(complete_place)s" modifiers="{&quot;readonly&quot;: false,&quot;invisible&quot;: true}"/>'
+                            '<field name="for_%(complete_place)s" modifiers="{&quot;readonly&quot;: false,&quot;invisible&quot;: true}"/>'
+                            '<newline/>'% {
+                                'complete_name': question.complete_name.replace(' ',''),
+                                'complete_place': question.complete_place,
+                                'question': question.question,
+                                'readonly': question.type=="Variable" and question.initial_state=="enabled" and "false" or "true",
+                            }
+                        )
                     res['fields']['inp_%s' % question.complete_place] = {
                         'selectable': False,
                         'readonly': question.type != 'Variable',

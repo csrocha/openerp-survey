@@ -92,6 +92,10 @@ class question(osv.osv):
             'context': context,
         }
 
+    def next(self, count=1, type='Variable'):
+
+        return {}
+
 question()
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
