@@ -47,17 +47,17 @@ _enter_js = """
         var keyup_orig = openerp.instances.instance0.web.form.FieldChar.prototype.events.keyup;
         openerp.instances.instance0.web.form.FieldChar.prototype.events.keyup = function(e) {
             if (e.which === $.ui.keyCode.ENTER) {
-                    textboxes = $("input:visible");
-                    currentBoxNumber = textboxes.index(e.target);
-                    if (textboxes[currentBoxNumber + 1] != null) {
-                            nextBox = textboxes[currentBoxNumber + 1];
-                            setTimeout(function() {
-                               nextBox.focus();
-                               nextBox.select();
-                               e.preventDefault();
-                               }, 1000);
-                            return false;
-                    }
+                    setTimeout(function() {
+                        textboxes = $("input:visible");
+                        currentBoxNumber = textboxes.index(e.target);
+                        if (textboxes[currentBoxNumber + 1] != null) {
+                                nextBox = textboxes[currentBoxNumber + 1];
+                                nextBox.focus();
+                                nextBox.select();
+                                e.preventDefault();
+                                return false;
+                        }
+                   }, 1000);
             }
         }
       })();
