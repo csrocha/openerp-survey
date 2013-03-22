@@ -40,8 +40,8 @@ _enter_js = """
 	{
 		var dt = new Date();
 		dt.setTime(dt.getTime() + ms);
-		while (new Date().getTime() < dt.getTime());
-	}
+		while (new Date().getTime() &lt; dt.getTime());
+	};
     $(document).ready(function(){
       (function(){
         var keyup_orig = openerp.instances.instance0.web.form.FieldChar.prototype.events.keyup;
