@@ -358,8 +358,8 @@ class questionnaire(osv.osv):
                         )
                     if question.type=='View':
                         view_item.append(
-                            '<label string="%(complete_name)s" colspan="5"/>'
-                            '<h3 colspan="5" col="1">'
+                            '<label string="%(complete_name)s" colspan="1"/>'
+                            '<h3 colspan="4" col="1">'
                             '<label string="%(question)s"/>'
                             '</h3>'
                             '<newline/>'
