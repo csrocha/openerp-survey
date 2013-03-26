@@ -107,6 +107,8 @@
                         </group>
                         <notebook>
                             <page string="Questions"  attrs="{'invisible': [('type','not in',('View','Variable'))]}">
+                                <button name="reordering" string="Reordering" type="object"/>
+                                <newline/>
                                 <field name="child_ids">
                                     <tree string="Child Questions" editable="bottom">
                                         <field name="place"/>

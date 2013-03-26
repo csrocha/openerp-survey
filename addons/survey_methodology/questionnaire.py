@@ -31,9 +31,6 @@ class questionnaire(osv.osv):
     _name = 'survey_methodology.questionnaire'
     _description = 'questionnaire'
 
-    _states_ = [
-    ]
-
     _columns = {
         'name': fields.char(string='Name', readonly=True),
         'respondent_id': fields.many2one('res.partner', string='Respondent', readonly=True),

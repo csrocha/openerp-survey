@@ -30,6 +30,8 @@ class survey(osv.osv):
     
     _name = 'survey_methodology.survey'
     _description = 'survey'
+    _inherits = {  }
+    _inherit = [ 'mail.thread' ]
 
     _states_ = [
         # State machine: untitle
@@ -39,7 +41,15 @@ class survey(osv.osv):
         ('close','Close'),
         ('cancelled','Cancelled'),
     ]
-
+    _track = {
+        'state': {
+            'survey_methodology.survey_draft': lambda self, cr, uid, obj, ctx=None: obj['state'] == 'draft',
+            'survey_methodology.survey_accepted': lambda self, cr, uid, obj, ctx=None: obj['state'] == 'accepted',
+            'survey_methodology.survey_published': lambda self, cr, uid, obj, ctx=None: obj['state'] == 'published',
+            'survey_methodology.survey_close': lambda self, cr, uid, obj, ctx=None: obj['state'] == 'close',
+            'survey_methodology.survey_cancelled': lambda self, cr, uid, obj, ctx=None: obj['state'] == 'cancelled',
+        },
+    }
     _columns = {
         'name': fields.char(string='Name', readonly=True, required=True, states={'draft':[('readonly',False)]}),
         'description': fields.text(string='Description', readonly=True, states={'draft':[('readonly',False)]}),
@@ -60,7 +70,7 @@ class survey(osv.osv):
     _defaults = {
         'state': 'draft',
         'sample_filter': [],
-        'manager_id': lambda cr, uid, id, context: id,
+        'manager_id': lambda cr, uid, *args, **argv: uid,
     }
 
 

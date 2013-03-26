@@ -92,9 +92,14 @@ class question(osv.osv):
             'context': context,
         }
 
-    def next(self, count=1, type='Variable'):
+    def reordering(self, cr, uid, ids, context=None):
+        context = context or {}
 
-        return {}
+        i = 1
+        for q in self.browse(cr, uid, ids, context=context):
+            self.write(cr, uid, q.id, { 'i': i*10 })
+            map(lambda obj: self.reordering(cr, uid, obj.id, context=context), q.child_id)
+            i = i + 1
 
 question()
 

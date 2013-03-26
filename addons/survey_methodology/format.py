@@ -31,9 +31,6 @@ class format(osv.osv):
     _name = 'survey_methodology.format'
     _description = 'format'
 
-    _states_ = [
-    ]
-
     _columns = {
         'name': fields.char(string='Name'),
         'validation': fields.text(string=''),

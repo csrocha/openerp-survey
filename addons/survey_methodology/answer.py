@@ -42,7 +42,6 @@ class answer(osv.osv):
         ('closed','closed'),
         ('cancelled','cancelled'),
     ]
-
     _columns = {
         'name': fields.char(string='Question', readonly=True, required=True),
         'complete_place': fields.char(string='complete_place', readonly=True, required=True, select=True),

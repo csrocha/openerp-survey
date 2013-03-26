@@ -34,6 +34,14 @@
             <field name="arch" type="xml">
                 <search string="Survey" version="7.0">
                     <group string="By Attribute">
+                    <field name="name" string="Name"
+                            />
+                    <field name="manager_id" string="Survey Manager"
+                            />
+                    <field name="open_dt" string="Open date"
+                            />
+                    <field name="close_dt" string="Close date"
+                            />
                     </group>
                     <group string="By object">
                     </group>
@@ -106,6 +114,10 @@
                      </group>
                     </sheet>
 
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
                 </form>
             </field>
         </record>

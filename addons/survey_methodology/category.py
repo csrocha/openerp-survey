@@ -31,9 +31,6 @@ class category(osv.osv):
     _name = 'survey_methodology.category'
     _description = 'category'
 
-    _states_ = [
-    ]
-
     _columns = {
         'name': fields.char(string='Name', required=True),
         'question_ids': fields.many2many('survey_methodology.question', 'survey_methodology_question_ids_category_ids_rel', 'question_ids', 'category_ids', string='Questions'), 

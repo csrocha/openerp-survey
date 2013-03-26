@@ -34,6 +34,16 @@
             <field name="arch" type="xml">
                 <search string="Question" version="7.0">
                     <group string="By Attribute">
+                    <field name="name" string="Code"
+                            />
+                    <field name="place" string="Place"
+                            />
+                    <field name="question" string="Question"
+                            />
+                    <field name="type" string="Type"
+                            />
+                    <field name="variable_name" string="Variable name"
+                            />
                     </group>
                     <group string="By object">
                     </group>

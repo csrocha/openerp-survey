@@ -64,7 +64,7 @@
             <field name="view_mode">tree,form</field>
             <field name="view_id" ref="view_survey_methodology_answer_tree"/>
             <field name="search_view_id" ref="view_survey_methodology_answer_filter"/>
-            <field name="domain">[            ]            </field>
+            <field name="domain">[]</field>
         </record>
 
         <menuitem
@@ -83,7 +83,7 @@
             <field name="view_mode">tree,form</field>
             <field name="view_id" ref="view_survey_methodology_category_tree_hier"/>
             <field name="search_view_id" ref="view_survey_methodology_category_filter"/>
-            <field name="domain">[            ('parent_id','=',False)]            </field>
+            <field name="domain">[('parent_id','=',False)]</field>
         </record>
 
         <menuitem
@@ -102,7 +102,7 @@
             <field name="view_mode">tree,form</field>
             <field name="view_id" ref="view_survey_methodology_format_tree"/>
             <field name="search_view_id" ref="view_survey_methodology_format_filter"/>
-            <field name="domain">[            ]            </field>
+            <field name="domain">[]</field>
         </record>
 
         <menuitem
@@ -120,7 +120,7 @@
             <field name="view_mode">tree,form</field>
             <field name="view_id" ref="view_survey_methodology_input_test_tree"/>
             <field name="search_view_id" ref="view_survey_methodology_input_test_filter"/>
-            <field name="domain">[            ]            </field>
+            <field name="domain">[]</field>
         </record>
 
         <menuitem
@@ -138,7 +138,7 @@
             <field name="view_mode">tree,form</field>
             <field name="view_id" ref="view_survey_methodology_answer_tree_edit"/>
             <field name="search_view_id" ref="view_survey_methodology_answer_filter"/>
-            <field name="domain">[            ]            </field>
+            <field name="domain">[]</field>
         </record>
 
         <menuitem
@@ -167,7 +167,7 @@
             <field name="view_mode">tree,form</field>
             <field name="view_id" ref="view_survey_methodology_survey_tree"/>
             <field name="search_view_id" ref="view_survey_methodology_survey_filter"/>
-            <field name="domain">[('state','=','published')            ]            </field>
+            <field name="domain">[('state','=','published')]</field>
         </record>
 
         <menuitem
@@ -186,7 +186,7 @@
             <field name="view_mode">tree,form</field>
             <field name="view_id" ref="view_survey_methodology_question_tree_hier"/>
             <field name="search_view_id" ref="view_survey_methodology_question_filter"/>
-            <field name="domain">[            ('parent_id','=',False)]            </field>
+            <field name="domain">[('parent_id','=',False)]</field>
         </record>
 
         <menuitem
@@ -205,7 +205,7 @@
             <field name="view_mode">tree,form</field>
             <field name="view_id" ref="view_survey_methodology_questionnaire_tree"/>
             <field name="search_view_id" ref="view_survey_methodology_questionnaire_filter"/>
-            <field name="domain">[            ]            </field>
+            <field name="domain">[]</field>
         </record>
 
         <menuitem
@@ -224,7 +224,7 @@
             <field name="view_mode">tree,form</field>
             <field name="view_id" ref="view_survey_methodology_question_tree"/>
             <field name="search_view_id" ref="view_survey_methodology_question_filter"/>
-            <field name="domain">[            ]            </field>
+            <field name="domain">[]</field>
         </record>
 
         <menuitem
@@ -243,7 +243,7 @@
             <field name="view_mode">tree,form</field>
             <field name="view_id" ref="view_survey_methodology_survey_tree"/>
             <field name="search_view_id" ref="view_survey_methodology_survey_filter"/>
-            <field name="domain">[            ]            </field>
+            <field name="domain">[]</field>
         </record>
 
         <menuitem

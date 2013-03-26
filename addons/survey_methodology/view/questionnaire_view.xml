@@ -34,6 +34,12 @@
             <field name="arch" type="xml">
                 <search string="questionnaire" version="7.0">
                     <group string="By Attribute">
+                    <field name="name" string="Name"
+                            />
+                    <field name="respondent_id" string="Respondent"
+                            />
+                    <field name="pollster_id" string="Pollster"
+                            />
                     </group>
                     <group string="By object">
                     <field name="respondent_code" string="Respondent Code"

@@ -1,4 +1,5 @@
-# -*- coding: utf-8 -*-
+<?xml version="1.0" encoding="utf-8"?>
+<!--
 ##############################################################################
 #
 #    Survey Methodology
@@ -19,36 +20,10 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-
-
-import re
-import netsvc
-from osv import osv, fields
-
-class input_test(osv.osv):
-    """"""
-    
-    _name = 'survey_methodology.input_test'
-    _description = 'input_test'
-
-    _columns = {
-        'name': fields.char(string='Name'),
-        'formated': fields.text(string='Formated'),
-        'valid': fields.boolean(string='Validation expected'),
-        'question_id': fields.many2one('survey_methodology.question', string='question_id'),
-        'format_id': fields.many2one('survey_methodology.format', string='format_id', ondelete='cascade'), 
-    }
-
-    _defaults = {
-    }
-
-
-    _constraints = [
-    ]
-
-
-
-
-input_test()
-
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
+-->
+<openerp>
+    <data>
+    </data>
+</openerp>
+<!-- vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4
+     -->

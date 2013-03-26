@@ -63,9 +63,6 @@ class question(osv.osv):
         """"""
         raise NotImplementedError
 
-    _states_ = [
-    ]
-
     _columns = {
         'complete_name': fields.function(_name_get_fnc, type="char", string='Name', store=True),
         'name': fields.char(string='Code', required=True),
