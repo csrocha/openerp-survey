@@ -95,10 +95,13 @@ class question(osv.osv):
     def reordering(self, cr, uid, ids, context=None):
         context = context or {}
 
+        if type(ids) is int:
+            ids = [ids]
+
         i = 1
-        for q in self.browse(cr, uid, ids, context=context):
-            self.write(cr, uid, q.id, { 'i': i*10 })
-            map(lambda obj: self.reordering(cr, uid, obj.id, context=context), q.child_id)
+        for q in self.read(cr, uid, ids, ['child_ids'], context=context):
+            self.write(cr, uid, q['id'], { 'place': i })
+            self.reordering(cr, uid, q['child_ids'], context=context)
             i = i + 1
 
 question()
