@@ -103,6 +103,7 @@ class questionnaire(osv.osv):
                 continue
 
             # Habilitación o deshabilitación de preguntas.
+            _logger.debug('Next enable: %s' % (question.next_enable))
             for lines in question.next_enable.split('\n'):
                 if lines.strip():
                     parsed = re.search(r'(?P<condition>[^:]*):(?P<to_enable>[^:]*)(:(?P<to_disable>.*))?', lines).groupdict()
@@ -111,6 +112,8 @@ class questionnaire(osv.osv):
                         to_disable = filter(lambda i: i!='', (parsed['to_disable'] or '').split(','))
                         to_enable = [ to if ' / ' in to else to.replace('_', ' / ') for to in to_enable ]
                         to_disable = [ to if ' / ' in to else to.replace('_', ' / ') for to in to_disable ]
+                        _logger.debug('Searching to enable: %s' % (','.join(to_enable)))
+                        _logger.debug('Searching to disable: %s' % (','.join(to_disable)))
                         next_dict = dict(
                             [ (qid, 'enabled') for qid in question_obj.search(cr, uid, [
                                 ('survey_id','=',question.survey_id.id),
@@ -120,12 +123,31 @@ class questionnaire(osv.osv):
                                 ('survey_id','=',question.survey_id.id),
                                 ('complete_name', 'in', to_disable)
                             ]) ])
+                        _logger.debug('Found: %s' % (next_dict))
                         next_field_code = question_obj.read(cr, uid, next_dict.keys(), ['complete_place', 'complete_name'])
                         for item in next_field_code:
                             complete_place = item['complete_place']
                             value['sta_%s' % complete_place] = next_dict[item['id']]
                             it_ids = answer_obj.search(cr, uid, [('complete_place','=',complete_place)])
+                            if it_ids == []:
+                                q_ids = question_obj.search(cr, uid, [('survey_id','=',question.survey_id.id),('complete_place','=',complete_place)])
+                                for nq in question_obj.browse(cr, uid, q_ids):
+                                    v = {
+                                        'name': nq.question,
+                                        'complete_place': nq.complete_place,
+                                        'code': nq.name,
+                                        'input': False,
+                                        'formated': False,
+                                        'message': False,
+                                        'valid': False,
+                                        'questionnaire_id': ids[0],
+                                        'question_id': nq.id,
+                                    }
+                                    it_ids.append(answer_obj.create(cr, uid, v))
+                                if it_ids == []:
+                                    raise osv.except_osv("Inestable Questionary", "Not answer associated to the next field. Communicate with the administrator.")
                             answer_obj.write(cr, uid, it_ids, {'state': next_dict[item['id']]})
+                            _logger.debug('Change %s(%s) to %s' % (complete_place, it_ids, next_dict[item['id']]))
 
             # Evaluamos el formato
             format_obj = question.format_id
@@ -521,7 +543,6 @@ class questionnaire(osv.osv):
                         'valid': False,
                         'questionnaire_id': r['id'],
                         'question_id': question.id,
-                    #    'state': question.initial_state,
                     }
                     a_ids.append(answer_obj.create(cr, uid, v))
                     answer_obj.write(cr, uid, a_ids[-1], {'state': question.initial_state})
