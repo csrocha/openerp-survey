@@ -466,7 +466,14 @@ class questionnaire(osv.osv):
     def prev_page(self, cr, uid, ids, context=None):
         context = context or {}
         for q in self.browse(cr, uid, ids, context=None):
-            actual_page = max(1, q.actual_page - 1)
+            cr.execute('SELECT MAX(Q.page) FROM survey_methodology_answer AS A '
+                       ' LEFT JOIN survey_methodology_question AS Q ON A.question_id=Q.id '
+                       'WHERE A.questionnaire_id = %s '
+                       '  AND Q.page < %s '
+                       '  AND A.state = \'enabled\'', (q.id, q.actual_page))
+            next_page = cr.fetchall()
+            if next_page and next_page > q.actual_page:
+            	actual_page = next_page[0][0]
             self.write(cr, uid, [q.id], {'actual_page': actual_page})
             context['questionnaire_id'] = q.id
             context['actual_page'] = actual_page
@@ -475,6 +482,7 @@ class questionnaire(osv.osv):
             'name': 'Questtionary. page %i' % actual_page,
             'view_type': 'form',
             'view_mode': 'form',
+            'target': 'inline',
             'res_model': 'survey_methodology.questionnaire',
             'res_id': context['questionnaire_id'],
             'context': context,
@@ -491,6 +499,7 @@ class questionnaire(osv.osv):
             'name': 'Questtionary. page %i' % q.actual_page,
             'view_type': 'form',
             'view_mode': 'form',
+            'target': 'inline',
             'res_model': 'survey_methodology.questionnaire',
             'res_id': context['questionnaire_id'],
             'context': context,
@@ -499,7 +508,14 @@ class questionnaire(osv.osv):
     def next_page(self, cr, uid, ids, context=None):
         context = context or {}
         for q in self.browse(cr, uid, ids, context=context):
-            actual_page = min(100, q.actual_page + 1)
+            cr.execute('SELECT MIN(Q.page) FROM survey_methodology_answer AS A '
+                       ' LEFT JOIN survey_methodology_question AS Q ON A.question_id=Q.id '
+                       'WHERE A.questionnaire_id = %s '
+                       '  AND Q.page > %s '
+                       '  AND A.state = \'enabled\'', (q.id, q.actual_page))
+            next_page = cr.fetchall()
+            if next_page and next_page > q.actual_page:
+            	actual_page = next_page[0][0]
             self.write(cr, uid, [q.id], {'actual_page': actual_page})
             context['questionnaire_id'] = q.id
             context['actual_page'] = actual_page
@@ -508,6 +524,7 @@ class questionnaire(osv.osv):
             'name': 'Questtionary. page %i' % q.actual_page,
             'view_type': 'form',
             'view_mode': 'form',
+            'target': 'inline',
             'res_model': 'survey_methodology.questionnaire',
             'res_id': context['questionnaire_id'],
             'context': context,
