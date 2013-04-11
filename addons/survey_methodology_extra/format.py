@@ -37,10 +37,15 @@ class format(osv.osv):
         local_dict = tools.local_dict(input_text, question)
         r = {}
         for f in self.browse(cr, uid, ids):
+            is_valid = eval(norm(f.validation), local_dict)
+            formated = eval(norm(f.formating), dict(local_dict, is_valid=is_valid))
+            message = ';'.join(
+                [ m.name for m in f.message_ids if eval(norm(m.condition), dict(local_dict, is_valid=is_valid, formated=formated))]
+            )
             r[f.id] = dict(
-                valid = eval(norm(f.validation), local_dict),
-                formated = eval(norm(f.formating), local_dict),
-                message = ';'.join([ m.name for m in f.message_ids if eval(norm(m.condition), local_dict)]),
+                is_valid = is_valid,
+                formated = formated,
+                message = message,
             )
         return r
 
@@ -60,7 +65,7 @@ class format(osv.osv):
                 v = True
                 try:
                     er = self.evaluate(cr, uid, [f_id], it['name'], question)
-                    val_result = er[f_id]['valid']
+                    val_result = er[f_id]['is_valid']
                     for_result = er[f_id]['formated']
                     msg_result = er[f_id]['message']
 
