@@ -35,17 +35,17 @@
 #        'test/partners.yml',
 #       'test/questions.yml',
 #       'test/survey001.yml',
-    ],
-    'update_xml': [
-        u'data/surveyors.xml',
-        u'data/responders.xml',
-        u'data/survey.xml',
-        u'data/formats.xml',
-        u'data/survey_methodology.input_test.csv',
-        u'data/survey_methodology.question.csv',
+#        u'data/surveyors.xml',
+#        u'data/responders.xml',
+#        u'data/survey.xml',
+#        u'data/survey_methodology.input_test.csv',
+#        u'data/survey_methodology.question.csv',
 #       u'data/questions.xml',
 #       u'security/survey_methodology_group.xml',
 #       u'view/category_view.xml',
+    ],
+    'update_xml': [
+        u'data/formats.xml',
         u'view/questionnaire_view.xml',
         u'view/question_editor.xml',
         u'view/question_view.xml',
@@ -72,6 +72,7 @@
     'css' : [
         'static/src/css/survey.css',
         'static/src/css/question.css',
+        'static/src/css/questionnaire.css',
     ],
     'version': u'1.0',
     'website': 'http://business.moldeo.coop/'}
