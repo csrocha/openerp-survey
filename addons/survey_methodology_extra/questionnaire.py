@@ -48,7 +48,7 @@ _enter_js = """
         openerp.instances.instance0.web.form.FieldChar.prototype.events.keyup = function(e) {
             if (e.which === $.ui.keyCode.ENTER) {
                     setTimeout(function() {
-                        textboxes = $("input:visible:enabled");
+                        textboxes = $("input:visible:enabled:not([id|=oe-field-input])");
                         currentBoxNumber = textboxes.index(e.target);
                         if (textboxes[currentBoxNumber + 1] != null) {
                                 nextBox = textboxes[currentBoxNumber + 1];
@@ -462,7 +462,10 @@ class questionnaire(osv.osv):
             view_item.append('</group>')
             view_item.append(_enter_js)
 
-            insert_view = """<group position="after"> <separator string="Page %i."/> %s </group>""" % (actual_page, ' '.join(view_item))
+            if actual_page:
+                insert_view = """<group position="after"> <separator string="Page %i."/> %s </group>""" % (actual_page, ' '.join(view_item))
+            else:
+                insert_view = """<group position="after"> <separator string="End Page"/></group>"""
             source = etree.fromstring(encode(res['arch']))
             source = apply_inheritance_specs(source, insert_view, view_id)
             res.update(
