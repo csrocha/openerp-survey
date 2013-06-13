@@ -1,0 +1,312 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+##############################################################################
+#
+#    Survey Methodology
+#    Copyright (C) 2013 Coop. Trab. Moldeo Interactive Ltda.
+#    No email
+#
+#    This program is free software: you can redistribute it and/or modify
+#    it under the terms of the GNU Affero General Public License as
+#    published by the Free Software Foundation, either version 3 of the
+#    License, or (at your option) any later version.
+#
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU Affero General Public License for more details.
+#
+#    You should have received a copy of the GNU Affero General Public License
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#
+##############################################################################
+
+-->
+<openerp>
+    <data>
+
+        <menuitem
+            name="Survery"
+            id="menu_survery"
+            sequence="100"
+            />
+
+
+        <menuitem
+            name="For Designers"
+            id="menu_for_designers"
+            sequence="100"
+            parent="menu_survery"
+            groups="group_designer"
+            />
+
+
+        <menuitem
+            name="For Developers"
+            id="menu_for_developers"
+            sequence="100"
+            parent="menu_survery"
+            groups="group_developer"
+            />
+
+
+        <menuitem
+            name="For Operators"
+            id="menu_for_operators"
+            sequence="100"
+            parent="menu_survery"
+            />
+
+
+        <menuitem
+            name="For Poolster"
+            id="menu_for_poolster"
+            sequence="100"
+            parent="menu_survery"
+            groups="group_poolster"
+            />
+
+
+        <menuitem
+            name="For Validators"
+            id="menu_for_validators"
+            sequence="100"
+            parent="menu_survery"
+            />
+
+        <record id="action_sondaggio_answer_answers" model="ir.actions.act_window">
+            <field name="name">Answers</field>
+            <field name="res_model">sondaggio.answer</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_sondaggio_answer_tree"/>
+            <field name="search_view_id" ref="view_sondaggio_answer_filter"/>
+            <field name="domain">[]</field>
+        </record>
+
+        <menuitem
+            name="Answers"
+            id="menu_answers"
+            sequence="100"
+            action="action_sondaggio_answer_answers"
+            parent="menu_for_designers"
+            groups="group_designer"
+            />
+
+        <record id="action_sondaggio_category_categories_hier" model="ir.actions.act_window">
+            <field name="name">Categories</field>
+            <field name="res_model">sondaggio.category</field>
+            <field name="view_type">tree</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_sondaggio_category_tree_hier"/>
+            <field name="search_view_id" ref="view_sondaggio_category_filter"/>
+            <field name="domain">[('parent_id','=',False)]</field>
+        </record>
+
+        <menuitem
+            name="Categories"
+            id="menu_categories"
+            sequence="100"
+            action="action_sondaggio_category_categories_hier"
+            parent="menu_for_designers"
+            groups="group_designer"
+            />
+
+        <record id="action_sondaggio_format_formats" model="ir.actions.act_window">
+            <field name="name">Formats</field>
+            <field name="res_model">sondaggio.format</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_sondaggio_format_tree"/>
+            <field name="search_view_id" ref="view_sondaggio_format_filter"/>
+            <field name="domain">[]</field>
+        </record>
+
+        <menuitem
+            name="Formats"
+            id="menu_formats"
+            sequence="100"
+            action="action_sondaggio_format_formats"
+            parent="menu_for_developers"
+            groups="group_developer"
+            />
+
+        <record id="action_sondaggio_input_test_input_tests" model="ir.actions.act_window">
+            <field name="name">Input Tests</field>
+            <field name="res_model">sondaggio.input_test</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_sondaggio_input_test_tree"/>
+            <field name="search_view_id" ref="view_sondaggio_input_test_filter"/>
+            <field name="domain">[]</field>
+        </record>
+
+        <menuitem
+            name="Input Tests"
+            id="menu_input_tests"
+            sequence="100"
+            action="action_sondaggio_input_test_input_tests"
+            parent="menu_for_developers"
+            groups="group_developer"
+            />
+
+        <record id="action_sondaggio_answer_load_answers_edit" model="ir.actions.act_window">
+            <field name="name">Load Answers</field>
+            <field name="res_model">sondaggio.answer</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_sondaggio_answer_tree_edit"/>
+            <field name="search_view_id" ref="view_sondaggio_answer_filter"/>
+            <field name="domain">[]</field>
+        </record>
+
+        <menuitem
+            name="Load Answers"
+            id="menu_load_answers"
+            sequence="100"
+            action="action_sondaggio_answer_load_answers_edit"
+            parent="menu_for_poolster"
+            groups="group_poolster"
+            />
+
+
+        <menuitem
+            name="Partners"
+            id="menu_partners"
+            sequence="100"
+            action="base.action_partner_form"
+            parent="menu_for_designers"
+            groups="group_designer"
+            />
+
+        <record id="action_sondaggio_survey_published_surveys" model="ir.actions.act_window">
+            <field name="name">Published Surveys</field>
+            <field name="res_model">sondaggio.survey</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_sondaggio_survey_tree"/>
+            <field name="search_view_id" ref="view_sondaggio_survey_filter"/>
+            <field name="domain">[('state','=','published')]</field>
+        </record>
+
+        <menuitem
+            name="Published Surveys"
+            id="menu_published_surveys"
+            sequence="100"
+            action="action_sondaggio_survey_published_surveys"
+            parent="menu_for_poolster"
+            groups="group_poolster"
+            />
+
+        <record id="action_sondaggio_node_question_organization_hier" model="ir.actions.act_window">
+            <field name="name">Question Organization</field>
+            <field name="res_model">sondaggio.node</field>
+            <field name="view_type">tree</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_sondaggio_node_tree_hier"/>
+            <field name="search_view_id" ref="view_sondaggio_node_filter"/>
+            <field name="domain">[('parent_id','=',False)]</field>
+        </record>
+
+        <menuitem
+            name="Question Organization"
+            id="menu_question_organization"
+            sequence="100"
+            action="action_sondaggio_node_question_organization_hier"
+            parent="menu_for_designers"
+            groups="group_designer"
+            />
+
+        <record id="action_sondaggio_questionnaire_questionnaires" model="ir.actions.act_window">
+            <field name="name">Questionnaires</field>
+            <field name="res_model">sondaggio.questionnaire</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_sondaggio_questionnaire_tree"/>
+            <field name="search_view_id" ref="view_sondaggio_questionnaire_filter"/>
+            <field name="domain">[]</field>
+        </record>
+
+        <menuitem
+            name="Questionnaires"
+            id="menu_questionnaires"
+            sequence="100"
+            action="action_sondaggio_questionnaire_questionnaires"
+            parent="menu_for_poolster"
+            groups="group_poolster"
+            />
+
+
+        <menuitem
+            name="Questionnaires in Draft"
+            id="menu_questionnaires_in_draft"
+            sequence="100"
+            parent="menu_for_operators"
+            />
+
+
+        <menuitem
+            name="Questionnaires in Progress"
+            id="menu_questionnaires_in_progress"
+            sequence="100"
+            parent="menu_for_operators"
+            />
+
+
+        <menuitem
+            name="Questionnaires in Validation"
+            id="menu_questionnaires_in_validation"
+            sequence="100"
+            parent="menu_for_validators"
+            />
+
+
+        <menuitem
+            name="Questionnaires to Validate"
+            id="menu_questionnaires_to_validate"
+            sequence="100"
+            parent="menu_for_validators"
+            />
+
+        <record id="action_sondaggio_node_questions" model="ir.actions.act_window">
+            <field name="name">Questions</field>
+            <field name="res_model">sondaggio.node</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_sondaggio_node_tree"/>
+            <field name="search_view_id" ref="view_sondaggio_node_filter"/>
+            <field name="domain">[]</field>
+        </record>
+
+        <menuitem
+            name="Questions"
+            id="menu_questions"
+            sequence="100"
+            action="action_sondaggio_node_questions"
+            parent="menu_for_designers"
+            groups="group_designer"
+            />
+
+        <record id="action_sondaggio_survey_surveys" model="ir.actions.act_window">
+            <field name="name">Surveys</field>
+            <field name="res_model">sondaggio.survey</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_sondaggio_survey_tree"/>
+            <field name="search_view_id" ref="view_sondaggio_survey_filter"/>
+            <field name="domain">[]</field>
+        </record>
+
+        <menuitem
+            name="Surveys"
+            id="menu_surveys"
+            sequence="100"
+            action="action_sondaggio_survey_surveys"
+            parent="menu_for_designers"
+            groups="group_designer"
+            />
+
+    </data>
+</openerp>
+<!-- vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4
+     -->

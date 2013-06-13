@@ -22,8 +22,8 @@
 
 
 import re
-import netsvc
-from osv import osv, fields
+from openerp import netsvc
+from openerp.osv import osv, fields
 
 class partner(osv.osv):
     """"""
@@ -36,7 +36,7 @@ class partner(osv.osv):
         'is_respondent': fields.boolean(string='is responder?'),
         'is_surveyor': fields.boolean(string='is surveyor?'),
         'respondent_code': fields.char(string='Respondent code'),
-        'questionnaire_id': fields.many2many('survey_methodology.questionnaire', 'survey_methodology_respondent_code___rel', 'questionnaire_id', 'respondent_code', string='&lt;no label&gt;'), 
+        'questionnaire_id': fields.many2many('survey_methodology.questionnaire', 'survey_methodology_respondent_code___rel', 'partner_id', 'questionnaire_id', string='&lt;no label&gt;'), 
     }
 
     _defaults = {

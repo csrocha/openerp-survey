@@ -22,8 +22,8 @@
 
 
 import re
-import netsvc
-from osv import osv, fields
+from openerp import netsvc
+from openerp.osv import osv, fields
 
 class question(osv.osv):
     """"""
@@ -80,7 +80,10 @@ class question(osv.osv):
         'answers_ids': fields.one2many('survey_methodology.answer', 'question_id', string='Answers'), 
         'parent_id': fields.many2one('survey_methodology.question', string='Parent'), 
         'child_ids': fields.one2many('survey_methodology.question', 'parent_id', string='Childs'), 
-        'category_ids': fields.many2many('survey_methodology.category', 'survey_methodology_question_ids_category_ids_rel', 'category_ids', 'question_ids', string='Categories'), 
+        'category_ids': fields.many2many('survey_methodology.category', 'survey_methodology_question_ids_category_ids_rel', 'question_id', 'category_id', string='Categories'), 
+        'jump_control_ids': fields.one2many('survey_methodology.jump_condition', 'question_id', string='jump_control_ids'), 
+        'enable_condition_ids': fields.many2many('survey_methodology.jump_condition', 'survey_methodology_enable_condition_ids_enable_question_ids_rel', 'question_id', 'jump_condition_id', string='enable_condition_ids'), 
+        'disable_condition_ids': fields.many2many('survey_methodology.jump_condition', 'survey_methodology_disable_condition_ids_disable_question_ids_rel', 'question_id', 'jump_condition_id', string='disable_condition_ids'), 
     }
 
     _defaults = {

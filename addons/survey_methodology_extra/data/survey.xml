@@ -22,7 +22,7 @@
 ##############################################################################
 -->
 <openerp>
-    <data>
+    <data noupdate="1">
 
         <record model="survey_methodology.survey" id="survey_EE12">
             <field name="name">Encuestia Estructural a PyME industriales 2012</field>

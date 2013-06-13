@@ -46,6 +46,7 @@
             id="menu_for_developers"
             sequence="100"
             parent="menu_survery"
+            groups="group_developer"
             />
 
 
@@ -111,6 +112,7 @@
             sequence="100"
             action="action_survey_methodology_format_formats"
             parent="menu_for_developers"
+            groups="group_developer"
             />
 
         <record id="action_survey_methodology_input_test_input_tests" model="ir.actions.act_window">
@@ -129,6 +131,7 @@
             sequence="100"
             action="action_survey_methodology_input_test_input_tests"
             parent="menu_for_developers"
+            groups="group_developer"
             />
 
         <record id="action_survey_methodology_answer_load_answers_edit" model="ir.actions.act_window">

@@ -1,0 +1,24 @@
+html body div.openerp table.oe_webclient tbody tr td.oe_application div div.oe_view_manager div.oe_view_manager_body div.oe_view_manager_view_list div.oe_list table.oe_list_content thead tr.oe_list_header_columns th.oe_list_header_many2one {
+	width: 100px !important;
+}
+
+html body div.openerp table.oe_webclient tbody tr td.oe_application div div.oe_view_manager div.oe_view_manager_body div.oe_view_manager_view_list div.oe_list table.oe_list_content thead tr.oe_list_header_columns th.oe_list_header_char[data-id=name] {
+	width: 50px !important;
+}
+
+html body div.openerp table.oe_webclient tbody tr td.oe_application div div.oe_view_manager div.oe_view_manager_body div.oe_view_manager_view_list div.oe_list table.oe_list_content thead tr.oe_list_header_columns th.oe_list_header_integer[data-id=sequence] {
+	width: 1px !important;
+}
+
+html body div.openerp table.oe_webclient tbody tr td.oe_application div div.oe_view_manager div.oe_view_manager_body div.oe_view_manager_view_list div.oe_list table.oe_list_content thead tr.oe_list_header_columns th.oe_list_header_char[data-id=question] {
+	width: 700px !important;
+}
+
+html body div.openerp table.oe_webclient tbody tr td.oe_application div div.oe_view_manager div.oe_view_manager_body div.oe_view_manager_view_list div.oe_list table.oe_list_content thead tr.oe_list_header_columns th.oe_list_header_char[data-id=variable_name] {
+	width: 80px !important;
+}
+
+html body div.openerp table.oe_webclient tbody tr td.oe_application div div.oe_view_manager div.oe_view_manager_body div.oe_view_manager_view_list div.oe_list table.oe_list_content thead tr.oe_list_header_columns th.oe_list_header_selection {
+	width: 40px !important;
+}
+

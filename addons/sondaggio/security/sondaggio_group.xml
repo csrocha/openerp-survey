@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+##############################################################################
+#
+#    Survey Methodology
+#    Copyright (C) 2013 Coop. Trab. Moldeo Interactive Ltda.
+#    No email
+#
+#    This program is free software: you can redistribute it and/or modify
+#    it under the terms of the GNU Affero General Public License as
+#    published by the Free Software Foundation, either version 3 of the
+#    License, or (at your option) any later version.
+#
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU Affero General Public License for more details.
+#
+#    You should have received a copy of the GNU Affero General Public License
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#
+##############################################################################
+
+-->
+<openerp>
+    <data>
+	<record model="ir.module.category" id="module_category_sondaggio">
+	    <field name="name">Survey Methodology</field>
+	    <field name="description">Survey Methodology</field>
+        <field name="sequence">1</field>
+        <field name="parent_id" ref="base.module_category_hidden"/>
+    </record>
+	<record id="group_developer" model="res.groups">
+        <field name="name">Developer</field>
+        <field name="users" eval="[(4, ref('base.user_root'))]"/>
+        <field name="category_id" ref="module_category_sondaggio"/>
+	</record>
+	<record id="group_operator" model="res.groups">
+        <field name="name">Operator</field>
+        <field name="users" eval="[(4, ref('base.user_root'))]"/>
+        <field name="category_id" ref="module_category_sondaggio"/>
+	</record>
+	<record id="group_designer" model="res.groups">
+        <field name="name">Designer</field>
+        <field name="users" eval="[(4, ref('base.user_root'))]"/>
+        <field name="category_id" ref="module_category_sondaggio"/>
+	</record>
+	<record id="group_validator" model="res.groups">
+        <field name="name">Validator</field>
+        <field name="users" eval="[(4, ref('base.user_root'))]"/>
+        <field name="category_id" ref="module_category_sondaggio"/>
+	</record>
+	<record id="group_poolster" model="res.groups">
+        <field name="name">Poolster</field>
+        <field name="users" eval="[(4, ref('base.user_root'))]"/>
+        <field name="category_id" ref="module_category_sondaggio"/>
+	</record>
+
+    </data>
+</openerp>
+<!-- vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4
+     -->

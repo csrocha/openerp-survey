@@ -22,8 +22,8 @@
 
 
 import re
-import netsvc
-from osv import osv, fields
+from openerp import netsvc
+from openerp.osv import osv, fields
 
 class survey(osv.osv):
     """"""
@@ -63,8 +63,8 @@ class survey(osv.osv):
         'state': fields.selection(_states_, "State"),
         'question_ids': fields.one2many('survey_methodology.question', 'survey_id', string='Questions', readonly=True, states={'draft':[('readonly',False)]}), 
         'questionnaire_ids': fields.one2many('survey_methodology.questionnaire', 'survey_id', string='Answers', readonly=True), 
-        'respondent_ids': fields.many2many('res.partner', 'survey_methodology_respond_ids_respondent_ids_rel', 'respondent_ids', 'respond_ids', string='Responders', readonly=True, states={'draft':[('readonly',False)], 'published':[('readonly',False)],}), 
-        'pollster_ids': fields.many2many('res.users', 'survey_methodology_work_ids_pollster_ids_rel', 'pollster_ids', 'work_ids', string='Surveyors', readonly=True, states={'draft':[('readonly',False)]}), 
+        'respondent_ids': fields.many2many('res.partner', 'survey_methodology_respond_ids_respondent_ids_rel', 'survey_id', 'partner_id', string='Responders', readonly=True, states={'draft':[('readonly',False)], 'published':[('readonly',False)],}), 
+        'pollster_ids': fields.many2many('res.users', 'survey_methodology_work_ids_pollster_ids_rel', 'survey_id', 'users_id', string='Surveyors', readonly=True, states={'draft':[('readonly',False)]}), 
     }
 
     _defaults = {

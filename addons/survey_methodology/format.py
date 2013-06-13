@@ -22,8 +22,8 @@
 
 
 import re
-import netsvc
-from osv import osv, fields
+from openerp import netsvc
+from openerp.osv import osv, fields
 
 class format(osv.osv):
     """"""
