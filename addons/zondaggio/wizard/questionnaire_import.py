@@ -38,26 +38,21 @@ class questionnaire_import(osv.osv_memory):
     _name = 'sondaggio.questionnaire_import'
     _inherit = [ _name ]
 
-    def take_names(self, cr, uid, ids, context=None):
-        """"""
-        raise NotImplementedError
-
     def do_load_file(self, cr, uid, ids, context=None):
         """"""
         # Fill list of columns.
         obj_import_file_column = self.pool.get('sondaggio.import_file_column')
         for w in self.browse(cr, uid, ids, context=context):
-            # Unlik columns if exists
-            #ifc_ids = [ i.id for i in w.import_file_column_ids ]
+            # Unlink columns if exists
+            w.write({ 'import_file_column_ids': [ (5,) ] })
+            # Remove all because before sentence don't look works.
             ifc_ids = obj_import_file_column.search(cr, uid, [])
             obj_import_file_column.unlink(cr, uid, ifc_ids)
             # Create columns from file
             data = StringIO.StringIO(base64.b64decode(w.in_file))
             rows = csv.reader(data)
             header = rows.next()
-            print header
-            for k in header:
-                obj_import_file_column.create(cr, uid, { 'name': k, 'questionnaire_import_id': w.id })
+            w.write({ 'import_file_column_ids': [ (0, 0, dict(name=k)) for k in header ] })
 
         self.write(cr, uid, ids, {'state': 'config'}, context=context)
         return {
@@ -75,10 +70,21 @@ class questionnaire_import(osv.osv_memory):
 
     def do_import(self, cr, uid, ids, context=None):
         """"""
+        obj_questionnaire = self.pool.get('sondaggio.questionnaire')
         for w in self.browse(cr, uid, ids, context=context):
             data = StringIO.StringIO(base64.b64decode(w.in_file))
-        #for qi in self.browse(cr, uid, ids, context=context):
-        #    self._import_binary(cr, uid, ids, binary=qi.in_file, survey_id=qi.survey_id, column_name=qi.name_field)
+            rows = csv.reader(data)
+            fields = rows.next()
+            column_name = w.selected_column_id.name
+            survey_id = w.survey_id.id
+            for r in rows:
+                rdict = dict(zip(fields, r))
+                dwrite = { 
+                    'name': rdict[column_name],
+                    'survey_id': survey_id,
+                    'parameter_ids': [ (0,0,{ 'name': k, 'value': v }) for k, v in rdict.items() if k != column_name ],
+                }
+                obj_questionnaire.create(cr, uid, dwrite)
 
         self.write(cr, uid, ids, {'state': 'done'}, context=context)
         return {
@@ -111,56 +117,6 @@ class questionnaire_import(osv.osv_memory):
             'target': False,
             'res_id': False,
         }
-
-    def _import_binary(self,cr,uid,ids,binary="",survey_id=None,column_name=None):
-        data = StringIO.StringIO(base64.b64decode(binary))
-        rows = csv.reader(data)
-        cantidad = 0
-        dict_values = {}
-        cabecera = []
-        for row in rows:
-            cadena = str(row).split('\\t')
-            cadena[0] = cadena[0].replace("['","")
-            cadena[len(cadena)-1] = cadena[len(cadena)-1].replace("']","")
-            if cantidad == 0:
-                for value_cadena in cadena:
-                    dict_values[value_cadena] = []
-                    cabecera.append(value_cadena)
-            else:
-                for index in range(len(cadena)):
-                    indice = cabecera[index]
-                    dict_values[indice].append(cadena[index])
-            cantidad = cantidad + 1
-            # creates questionaires
-        questionnaire_obj = self.pool.get('sondaggio.questionnaire')
-        parameter_obj = self.pool.get('sondaggio.parameter')
-        index = 0
-        for nombre in dict_values[column_name]:
-            vals_questionnaire = {'name': nombre, 'survey_id': survey_id}
-            questionnaire_id = questionnaire_obj.create(cr,uid,vals_questionnaire)
-            _logger.debug(str(questionnaire_id))    
-            index = index+1
-            for key in dict_values.keys():
-                if key <> column_name:
-                    try:
-                        vals_parameter = {'name': key,
-                                'questionnaire_id': questionnaire_id,
-                                'value': dict_values[key][index]}
-                        parameter_id = parameter_obj.create(cr,uid,vals_parameter)
-                        _logger.debug(str(parameter_id))
-                    except:
-                        pass
-
-    def _import_parameter_filename(self,cr,uid,ids=None,context=None):
-        sondaggio_ids = self.search(cr,uid,[('id','>',0)])
-        dict_sondaggio = {}
-        for sondaggio in sondaggio_obj.browse(cr,uid,sondaggio_ids):
-            self._import_filename(cr,uid,ids,sondaggio.filename,sondaggio.survey_id.id,sondaggio.column_name)
-            _logger.debug(sondaggio.filename)
-
-    def load_file(self, cr, uid, ids=None, context=None):
-        import pdb; pdb.set_trace()
-        return True
 
 questionnaire_import()
 
