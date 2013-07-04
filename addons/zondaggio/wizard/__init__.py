@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+# -*- coding: utf-8 -*-
 ##############################################################################
 #
 #    Survey Methodology
@@ -20,10 +19,7 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
--->
-<openerp>
-    <data>
-    </data>
-</openerp>
-<!-- vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4
-     -->
+
+import questionnaire_import
+
+# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

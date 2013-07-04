@@ -45,6 +45,22 @@
             </field>
             <field name="kind">function</field>
         </record>
+        <record id="a_0F17_24E7" model="workflow.activity">
+            <field name="wkf_id" ref="questionnaire_untitle_wkf"/>
+            <field name="name">Cancelled</field>
+            <field name="action">
+                write({'state':'cancelled'})
+            </field>
+            <field name="kind">function</field>
+        </record>
+        <record id="a_0F17_0F37" model="workflow.activity">
+            <field name="wkf_id" ref="questionnaire_untitle_wkf"/>
+            <field name="name">Waiting</field>
+            <field name="action">
+                write({'state':'waiting'})
+            </field>
+            <field name="kind">function</field>
+        </record>
         <record id="a_0F17_1F37" model="workflow.activity">
             <field name="wkf_id" ref="questionnaire_untitle_wkf"/>
             <field name="name">In Process</field>
@@ -84,21 +100,73 @@
         <record id="t_0F17_1F3A" model="workflow.transition">
             <field name="act_from" ref="a_0F17_1F36"/>
             <field name="act_to" ref="a_0F17_1F37"/>
+            <field name="signal">sgn_begin</field>
             <field name="condition">True</field>
         </record>
         <record id="t_0F17_1F3B" model="workflow.transition">
             <field name="act_from" ref="a_0F17_1F37"/>
             <field name="act_to" ref="a_0F17_1F38"/>
+            <field name="signal">sgn_end</field>
             <field name="condition">True</field>
         </record>
         <record id="t_0F17_1F3C" model="workflow.transition">
             <field name="act_from" ref="a_0F17_1F38"/>
             <field name="act_to" ref="a_0F17_1F3D"/>
+            <field name="signal">sgn_encode</field>
             <field name="condition">True</field>
         </record>
         <record id="t_0F17_1F3F" model="workflow.transition">
             <field name="act_from" ref="a_0F17_1F3D"/>
             <field name="act_to" ref="a_0F17_1F3E"/>
+            <field name="signal">sgn_validate</field>
+            <field name="condition">True</field>
+        </record>
+        <record id="t_0F17_24E8" model="workflow.transition">
+            <field name="act_from" ref="a_0F17_1F3E"/>
+            <field name="act_to" ref="a_0F17_24E7"/>
+            <field name="signal">sgn_cancel</field>
+            <field name="condition">True</field>
+        </record>
+        <record id="t_0F17_24E9" model="workflow.transition">
+            <field name="act_from" ref="a_0F17_1F3D"/>
+            <field name="act_to" ref="a_0F17_24E7"/>
+            <field name="signal">sgn_cancel</field>
+            <field name="condition">True</field>
+        </record>
+        <record id="t_0F17_24EA" model="workflow.transition">
+            <field name="act_from" ref="a_0F17_1F38"/>
+            <field name="act_to" ref="a_0F17_24E7"/>
+            <field name="signal">sgn_cancel</field>
+            <field name="condition">True</field>
+        </record>
+        <record id="t_0F17_24EB" model="workflow.transition">
+            <field name="act_from" ref="a_0F17_1F37"/>
+            <field name="act_to" ref="a_0F17_24E7"/>
+            <field name="signal">sgn_cancel</field>
+            <field name="condition">True</field>
+        </record>
+        <record id="t_0F17_24EC" model="workflow.transition">
+            <field name="act_from" ref="a_0F17_24E7"/>
+            <field name="act_to" ref="a_0F17_1F36"/>
+            <field name="signal">sgn_to_draft</field>
+            <field name="condition">True</field>
+        </record>
+        <record id="t_0F17_0F38" model="workflow.transition">
+            <field name="act_from" ref="a_0F17_1F37"/>
+            <field name="act_to" ref="a_0F17_0F37"/>
+            <field name="signal">sgn_wait</field>
+            <field name="condition">True</field>
+        </record>
+        <record id="t_0F17_0F3A" model="workflow.transition">
+            <field name="act_from" ref="a_0F17_0F37"/>
+            <field name="act_to" ref="a_0F17_1F37"/>
+            <field name="signal">sgn_continue</field>
+            <field name="condition">True</field>
+        </record>
+        <record id="t_0F17_0F3C" model="workflow.transition">
+            <field name="act_from" ref="a_0F17_0F37"/>
+            <field name="act_to" ref="a_0F17_24E7"/>
+            <field name="signal">sgn_cancel</field>
             <field name="condition">True</field>
         </record>
     </data>

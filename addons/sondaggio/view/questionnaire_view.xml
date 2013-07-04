@@ -21,9 +21,6 @@
 #
 ##############################################################################
 -->
-<!-- sondaggio.questionnaire -->
-<!-- sondaggio.questionnaire -->
-<!-- sondaggio.questionnaire -->
 <openerp>
     <data>
 
@@ -56,6 +53,45 @@
             <field name="arch" type="xml">
                 <form string="questionnaire" version="7.0">
                     <header>
+                        <button name="sgn_begin"
+                            states="draft"
+                            string="Begin"
+                            class="oe_highlight"
+                            />
+                        <button name="action_wfk_set_draft"
+                            type="object"
+                            states="cancelled"
+                            string="To Draft"
+                            />
+                        <button name="action_wfk_set_cancelled"
+                            type="object"
+                            states="complete,in_coding,in_process,validated,waiting"
+                            string="Cancel"
+                            />
+                        <button name="sgn_wait"
+                            states="in_process"
+                            string="Wait"
+                            />
+                        <button name="sgn_continue"
+                            states="waiting"
+                            string="Continue"
+                            class="oe_highlight"
+                            />
+                        <button name="sgn_end"
+                            states="in_process"
+                            string="End"
+                            class="oe_highlight"
+                            />
+                        <button name="sgn_encode"
+                            states="complete"
+                            string="Encode"
+                            class="oe_highlight"
+                            />
+                        <button name="sgn_validate"
+                            states="in_coding"
+                            string="Validate"
+                            class="oe_highlight"
+                            />
                         <field name="state" widget="statusbar"
                             statusbar_colors='{}'
                             />
@@ -92,7 +128,7 @@
             <field name="model">sondaggio.questionnaire</field>
             <field name="arch" type="xml">
                 <tree string="questionnaire"
-                    colors="grey:state=='cancelled';blue:state in ('draft',);black:state in ('in_coding', 'in_process', 'complete'); red:state in ()"
+                    colors="grey:state=='cancelled';blue:state in ('draft',);black:state in ('cancelled', 'waiting', 'in_coding', 'in_process', 'complete'); red:state in ()"
                     >
                     <field name="name"
                         />

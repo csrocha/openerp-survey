@@ -44,6 +44,28 @@
             groups="sondaggio.group_poolster"
             /-->
 
+        <!-- SEARCH VIEW -->
+        <record id="sondaggio.view_sondaggio_questionnaire_filter" model="ir.ui.view">
+            <field name="name">sondaggio.questionnaire.select</field>
+            <field name="model">sondaggio.questionnaire</field>
+            <field name="arch" type="xml">
+                <search string="questionnaire" version="7.0">
+                    <group string="By Attribute">
+                    <field name="name" string="Name"
+                            />
+                    <field name="respondent_id" string="Respondent"
+                            />
+                    <field name="pollster_id" string="Pollster"
+                            />
+                    <field name="state" string="State"
+                            />
+                    <field name="respondent_code" string="Respondent Code"
+                            />
+                    </group>
+                </search>
+            </field>
+        </record>
+
         <!-- FORMVIEW -->
         <record id="sondaggio.view_sondaggio_questionnaire_form" model="ir.ui.view">
             <field name="name">sondaggio.questionnaire.form</field>
@@ -51,32 +73,118 @@
             <field name="arch" type="xml">
                 <form string="questionnaire" version="7.0">
                     <header>
-                         <button name="prev_page" string="Prev Page" type="object"/>
-                         <button name="refresh_page" string="Refresh" type="object"/>
-                         <button name="next_page" string="Next Page" type="object"/>
+                        <button name="sgn_begin"
+                            states="draft"
+                            string="Begin"
+                            class="oe_highlight"
+                            />
+                        <button name="action_wfk_set_draft"
+                            type="object"
+                            states="cancelled"
+                            string="To Draft"
+                            />
+                        <button name="sgn_end"
+                            states="in_process"
+                            string="End"
+                            class="oe_highlight"
+                            />
+                        <button name="sgn_encode"
+                            states="complete"
+                            string="Encode"
+                            class="oe_highlight"
+                            />
+                        <button name="sgn_wait"
+                            states="in_process"
+                            string="Wait"
+                            />
+                        <button name="sgn_continue"
+                            states="waiting"
+                            string="Continue"
+                            />
+                        <button name="sgn_validate"
+                            states="in_coding"
+                            string="Validate"
+                            class="oe_highlight"
+                            />
+                        <button name="action_wfk_set_cancelled"
+                            type="object"
+                            states="complete,in_coding,in_process,validated,wainting"
+                            string="Cancel"
+                            />
+                        <field name="state" widget="statusbar"
+                            statusbar_colors='{}'
+                            />
                     </header>
                     <sheet string="questionnaire">
-                     <group>
-                         <field name="name" readonly="0" string="Codigo de Empresa" attrs="{'readonly':[('actual_page','!=',1)]}"/>
-                         <field name="survey_id" readonly="0" attrs="{'readonly':[('actual_page','!=',1)]}"/>
-                         <field name="parameter_ids" type="xml">
+                     <group id="main">
+                         <field name="name" readonly="0" string="Codigo de Empresa" attrs="{'readonly':['|',('actual_page','!=',1),('state','!=','draft')]}"/>
+                         <field name="survey_id" readonly="0" attrs="{'readonly':['|',('actual_page','!=',1),('state','!=','draft')]}"/>
+                         <field name="parameter_ids" type="xml" states="draft">
                              <tree editable="bottom">
                                  <field name="name"/>
                                  <field name="value"/>
                              </tree>
                          </field>
+                         <field name="actual_page" readonly="0" string="Page" states="in_process"/>
                      </group>
-                     <group col="8" colspan="4">
-                         <button name="prev_page" string="Prev Page" type="object"/>
-                         <button name="refresh_page" string="Refresh" type="object"/>
-                         <button name="next_page" string="Next Page" type="object"/>
+                     <group col="3" colspan="4" id="top">
+                         <button name="prev_page" string="Prev Page" type="object" states="in_process,in_coding,validated"/>
+                         <button name="refresh_page" string="Refresh" type="object" states="in_process,in_coding,validated"/>
+                         <button name="next_page" string="Next Page" type="object" states="in_process,in_coding,validated"/>
                      </group>
-                     <group col="4" colspan="8">
-                         <field name="actual_page" readonly="0" string="Page"/>
-                         <button name="refresh_page" string="Set Page" type="object"/>
+                     <group col="6" colspan="4" id="body">
+                     </group>
+                     <group col="3" colspan="4" id="bottom">
+                         <button name="prev_page" string="Prev Page" type="object" states="in_process,in_coding,validated"/>
+                         <button name="refresh_page" string="Refresh" type="object" states="in_process,in_coding,validated"/>
+                         <button name="next_page" string="Next Page" type="object" states="in_process,in_coding,validated"/>
                      </group>
                     </sheet>
-
+                    <footer>
+                        <button name="sgn_begin"
+                            states="draft"
+                            string="Begin"
+                            class="oe_highlight"
+                            />
+                        <button name="action_wfk_set_draft"
+                            type="object"
+                            states="cancelled"
+                            string="To Draft"
+                            />
+                        <button name="sgn_end"
+                            states="in_process"
+                            string="End"
+                            class="oe_highlight"
+                            />
+                        <button name="sgn_encode"
+                            states="complete"
+                            string="Encode"
+                            class="oe_highlight"
+                            />
+                        <button name="sgn_wait"
+                            states="in_process"
+                            string="Wait"
+                            class="oe_highlight"
+                            />
+                        <button name="sgn_continue"
+                            states="wainting"
+                            string="Continue"
+                            />
+                        <button name="sgn_validate"
+                            states="in_coding"
+                            string="Validate"
+                            class="oe_highlight"
+                            />
+                        <button name="action_wfk_set_cancelled"
+                            type="object"
+                            states="complete,in_coding,in_process,validated,wainting"
+                            string="Cancel"
+                            />
+                    </footer>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
                 </form>
             </field>
         </record>

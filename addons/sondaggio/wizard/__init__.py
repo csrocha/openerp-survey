@@ -21,6 +21,7 @@
 ##############################################################################
 
 
-
+import questionnaire_import
+import import_file_column
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

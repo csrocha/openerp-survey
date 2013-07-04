@@ -31,6 +31,8 @@ class format(osv.osv):
     _name = 'sondaggio.format'
     _description = 'format'
 
+
+
     _columns = {
         'name': fields.char(string='Name'),
         'validation': fields.text(string=''),

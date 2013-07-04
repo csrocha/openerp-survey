@@ -73,7 +73,10 @@
                       u'workflow/survey_workflow.xml',
                       u'workflow/answer_workflow.xml',
                       u'workflow/questionnaire_workflow.xml',
-                      'security/ir.model.access.csv'],
+                      'security/ir.model.access.csv',
+                      u'wizard/questionnaire_import_view.xml',
+                      u'wizard/import_file_column_view.xml',
+                      u'wizard/questionnaire_import_workflow.xml'],
     'version': u'1.0',
     'website': ''}
 

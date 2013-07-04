@@ -25,23 +25,30 @@ import re
 from openerp import netsvc
 from openerp.osv import osv, fields
 
-class input_test(osv.osv):
+class questionnaire_import(osv.TransientModel):
     """"""
     
-    _name = 'sondaggio.input_test'
-    _description = 'input_test'
+    _name = 'sondaggio.questionnaire_import'
+    _description = 'questionnaire_import'
 
+    _states_ = [
+        # State machine: untitle
+        ('init','Select Import File'),
+        ('config','Select Name Field'),
+        ('done','Ready'),
+    ]
 
 
     _columns = {
-        'name': fields.char(string='Name'),
-        'formated': fields.text(string='Formated'),
-        'valid': fields.boolean(string='Validation expected'),
-        'question_id': fields.many2one('sondaggio.node', string='question_id'),
-        'format_id': fields.many2one('sondaggio.format', string='format_id', ondelete='cascade'), 
+        'in_file': fields.binary(string='Import file', states={'selectfile': [('invisible', False)]}),
+        'survey_id': fields.many2one('sondaggio.survey', string='Survey', states={'selectfile': [('invisible', True)]}),
+        'selected_column_id': fields.many2one('sondaggio.import_file_column', string='selected_column_id'),
+        'state': fields.selection(_states_, "State"),
+        'import_file_column_ids': fields.one2many('sondaggio.import_file_column', 'questionnaire_import_id', string='import_file_column_ids'), 
     }
 
     _defaults = {
+        'state': 'init',
     }
 
 
@@ -49,8 +56,20 @@ class input_test(osv.osv):
     ]
 
 
+    def do_load_file(self, cr, uid, ids, context=None):
+        """"""
+        raise NotImplementedError
+
+    def do_import(self, cr, uid, ids, context=None):
+        """"""
+        raise NotImplementedError
+
+    def do_continue(self, cr, uid, ids, context=None):
+        """"""
+        raise NotImplementedError
 
 
-input_test()
+
+questionnaire_import()
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

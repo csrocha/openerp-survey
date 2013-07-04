@@ -25,17 +25,17 @@ import re
 from openerp import netsvc
 from openerp.osv import osv, fields
 
-class jump_condition(osv.osv):
+class import_file_column(osv.TransientModel):
     """"""
     
-    _name = 'sondaggio.jump_condition'
-    _description = 'jump_condition'
+    _name = 'sondaggio.import_file_column'
+    _description = 'import_file_column'
+
+
 
     _columns = {
-        'condition': fields.char(string='condition'),
-        'node_id': fields.many2one('sondaggio.node', string='&lt;no label&gt;', ondelete='cascade'), 
-        'enable_question_ids': fields.many2many('sondaggio.node', 'sondaggio_enable_condition_ids_enable_question_ids_rel', 'jump_condition_id', 'node_id', string='enable_question_ids'), 
-        'disable_question_ids': fields.many2many('sondaggio.node', 'sondaggio_disable_condition_ids_disable_question_ids_rel', 'jump_condition_id', 'node_id', string='disable_question_ids'), 
+        'name': fields.char(string='name'),
+        'questionnaire_import_id': fields.many2one('sondaggio.questionnaire_import', string='&lt;no label&gt;', ondelete='cascade', required=True), 
     }
 
     _defaults = {
@@ -48,6 +48,6 @@ class jump_condition(osv.osv):
 
 
 
-jump_condition()
+import_file_column()
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

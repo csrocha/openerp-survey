@@ -63,6 +63,8 @@ class node(osv.osv):
         """"""
         raise NotImplementedError
 
+
+
     _columns = {
         'complete_name': fields.function(_name_get_fnc, type="char", string='Name', store=True),
         'name': fields.char(string='Code', required=True),
@@ -76,6 +78,7 @@ class node(osv.osv):
         'note': fields.text(string='Description'),
         'complete_place': fields.function(_place_get_fnc, type='char', arg=None, fnct_inv_arg=None, obj=None, string='Complete place', select=True, store=True),
         'page': fields.integer(string='Page'),
+        'enable_in': fields.selection([(u'in_process', u'In Process'), (u'in_coding', u'In Coding')], string='Enable question in state'),
         'survey_id': fields.many2one('sondaggio.survey', string='Surveis', ondelete='cascade', required=True), 
         'answers_ids': fields.one2many('sondaggio.answer', 'question_id', string='Answers'), 
         'parent_id': fields.many2one('sondaggio.node', string='Parent'), 

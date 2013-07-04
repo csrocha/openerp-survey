@@ -131,6 +131,25 @@
             groups="group_developer"
             />
 
+        <record id="action_sondaggio_questionnaire_import_import_questionnaires" model="ir.actions.act_window">
+            <field name="name">Import Questionnaires</field>
+            <field name="res_model">sondaggio.questionnaire_import</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_sondaggio_questionnaire_import_form"/>
+            <field name="target">new</field>
+            <field name="domain">[]</field>
+        </record>
+
+        <menuitem
+            name="Import Questionnaires"
+            id="menu_import_questionnaires"
+            sequence="100"
+            action="action_sondaggio_questionnaire_import_import_questionnaires"
+            parent="menu_for_designers"
+            groups="group_designer"
+            />
+
         <record id="action_sondaggio_input_test_input_tests" model="ir.actions.act_window">
             <field name="name">Input Tests</field>
             <field name="res_model">sondaggio.input_test</field>

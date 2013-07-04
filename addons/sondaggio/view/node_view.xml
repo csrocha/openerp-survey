@@ -21,9 +21,6 @@
 #
 ##############################################################################
 -->
-<!-- sondaggio.node -->
-<!-- sondaggio.node -->
-<!-- sondaggio.node -->
 <openerp>
     <data>
 
@@ -80,6 +77,8 @@
                         <field name="note"
                             />
                         <field name="page"
+                            />
+                        <field name="enable_in"
                             />
                     <field name="survey_id"
                             />

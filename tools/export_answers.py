@@ -23,7 +23,7 @@ def list_variables(cur):
         cur.execute(_q_variables)
         return [ i[0] for i in cur.fetchall() ]
 
-def iter_dump(iterator, out_csv):
+def iter_dump(iterator, out_csv, keys):
         out_csv.writeheader()
 
         row = None
@@ -36,7 +36,7 @@ def iter_dump(iterator, out_csv):
                                 out_csv.writerow(row)
                         row = dict( (k,None) for k in keys )
                         row['questionaire'] = questionaire
-                row[i[1]] = i[2:]
+                row[i[1]] = i[3] #i[2:]
         out_csv.writerow(row)
  
 def dump_inputs(db_name, out_filename):
@@ -48,11 +48,11 @@ def dump_inputs(db_name, out_filename):
         out_file = open(out_filename, 'w')
         out_csv = csv.DictWriter(out_file, fieldnames=keys)
 
-        iter_dump(list_inputs(cur), out_csv)
+        iter_dump(list_inputs(cur), out_csv, keys)
 
 if __name__ == "__main__":
         db_name = "fop_v7_0"
-        dump_inputs(db_name, 'inputs.csv')
+        dump_inputs(db_name, 'input.utf8.csv')
                                 
 
 

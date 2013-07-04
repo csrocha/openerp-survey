@@ -1,4 +1,5 @@
-# -*- coding: utf-8 -*-
+<?xml version="1.0" encoding="utf-8"?>
+<!--
 ##############################################################################
 #
 #    Survey Methodology
@@ -20,37 +21,24 @@
 #
 ##############################################################################
 
+-->
+<openerp>
+    <data>
+        <!-- FORMVIEW -->
+        <record id="view_sondaggio_import_file_column_form" model="ir.ui.view">
+            <field name="name">sondaggio.import_file_column.form</field>
+            <field name="model">sondaggio.import_file_column</field>
+            <field name="arch" type="xml">
+                <form string="import_file_column" version="7.0">
+                    <header>
+                    </header>
+                    <sheet string="import_file_column">
+                     <group>
+                     </group>
+                    </sheet>
 
-import re
-from openerp import netsvc
-from openerp.osv import osv, fields
-
-class input_test(osv.osv):
-    """"""
-    
-    _name = 'sondaggio.input_test'
-    _description = 'input_test'
-
-
-
-    _columns = {
-        'name': fields.char(string='Name'),
-        'formated': fields.text(string='Formated'),
-        'valid': fields.boolean(string='Validation expected'),
-        'question_id': fields.many2one('sondaggio.node', string='question_id'),
-        'format_id': fields.many2one('sondaggio.format', string='format_id', ondelete='cascade'), 
-    }
-
-    _defaults = {
-    }
-
-
-    _constraints = [
-    ]
-
-
-
-
-input_test()
-
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
+                </form>
+            </field>
+        </record>
+    </data>
+</openerp>

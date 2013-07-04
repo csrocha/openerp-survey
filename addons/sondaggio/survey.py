@@ -50,6 +50,8 @@ class survey(osv.osv):
             'sondaggio.survey_cancelled': lambda self, cr, uid, obj, ctx=None: obj['state'] == 'cancelled',
         },
     }
+
+
     _columns = {
         'name': fields.char(string='Name', readonly=True, required=True, states={'draft':[('readonly',False)]}),
         'description': fields.text(string='Description', readonly=True, states={'draft':[('readonly',False)]}),

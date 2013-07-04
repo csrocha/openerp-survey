@@ -31,6 +31,8 @@ class parameter(osv.osv):
     _name = 'sondaggio.parameter'
     _description = 'parameter'
 
+
+
     _columns = {
         'name': fields.char(string='name'),
         'value': fields.char(string='value'),

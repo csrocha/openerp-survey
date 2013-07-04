@@ -104,6 +104,9 @@ class question(osv.osv):
             self.reordering(cr, uid, q['child_ids'], context=context)
             i = i + 1
 
+    def answer_is_valid(self, cr, uid, ids, values, context=None):
+        pass
+
 question()
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

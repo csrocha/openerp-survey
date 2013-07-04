@@ -29,6 +29,18 @@
             <field name="default" eval="True"/>
 	    <field name="description">Draft</field>
         </record>
+        <record id="sondaggio.questionnaire_cancelled" model="mail.message.subtype">
+	    <field name="name">Cancelled</field>
+	    <field name="res_model">sondaggio.questionnaire</field>
+            <field name="default" eval="True"/>
+	    <field name="description">Cancelled</field>
+        </record>
+        <record id="sondaggio.questionnaire_waiting" model="mail.message.subtype">
+	    <field name="name">Waiting</field>
+	    <field name="res_model">sondaggio.questionnaire</field>
+            <field name="default" eval="True"/>
+	    <field name="description">Waiting</field>
+        </record>
         <record id="sondaggio.questionnaire_in_process" model="mail.message.subtype">
 	    <field name="name">In Process</field>
 	    <field name="res_model">sondaggio.questionnaire</field>

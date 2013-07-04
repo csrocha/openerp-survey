@@ -30,6 +30,8 @@ import tools
 import time
 import logging
 
+from openerp.osv.orm import setup_modifiers
+
 _logger = logging.getLogger(__name__)
 
 # ---- Codigo de orm.py : AQUI EMPIEZA. Permite generar vista por herencia. ----
@@ -81,6 +83,16 @@ def locate(source, spec):
                 return None
             return node
     return None
+
+def intercalate(a, L):
+    """
+    Intercalate a beetween elements of L
+    """
+    if len(L)>0:
+        for j in L[:-1]:
+            yield j
+            yield a
+        yield L[-1]
 
 def apply_inheritance_specs(source, specs_arch, inherit_id=None):
     """ Apply an inheriting view.
@@ -194,6 +206,7 @@ _enter_js = """
 </script>
 </html>
 """
+_enter_js = ""
 
 class questionnaire(osv.osv):
     """
@@ -364,10 +377,9 @@ class questionnaire(osv.osv):
         return res
 
     def _get_tracked_fields(self, cr, uid, updated_fields, context=None):
-        updated_fields = [ f for f in updated_fields if '_' not in f ]
         r = super(questionnaire, self)._get_tracked_fields(cr, uid, updated_fields, context=context)
-        import pdb; pdb.set_trace()
-        return r
+        ks = [ k for k in r.keys() if k[3] != '_' ]
+        return dict( (k,v) for k,v in r.items() if k in ks )
    
     def fields_view_get_dataentry(self, cr, uid, questionnaire_id, actual_page):
         qaire_ids = self.search(cr, uid, [('id','=',questionnaire_id)])[:1]
@@ -483,7 +495,7 @@ class questionnaire(osv.osv):
             parameters = dict((p.name, p.value) for p in qaire.parameter_ids)
             for question in qaire.survey_id.question_ids:
                 new_level = len(question.complete_place)/2
-                if question.page != actual_page: 
+                if actual_page is None or question.page != actual_page: 
                     continue
                 if level < new_level:
                     level = new_level 
@@ -498,42 +510,48 @@ class questionnaire(osv.osv):
                 }
                 if question.type=='View':
                     view_item.append(
-                        '<label string="%(complete_name)s" colspan="1" class="sm_view"/>'
+                        #'<label string="%(complete_name)s" colspan="1" class="sm_view"/>'
                         '<label string="%(question)s" class="sm_view" colspan="4"/>'
                         '<newline/>'
                         % item_map
                     )
                 if question.type=='Null':
                     view_item.append(
-                        '<label string="" colspan="1" class="sm_null"/>'
-                        '<label string="%(name)s" colspan="1" class="sm_null"/>'
-                        '<label string="%(question)s" colspan="3" class="sm_null"/>'
+                        #'<label string="" colspan="1" class="sm_null"/>'
+                        #'<label string="%(name)s" colspan="1" class="sm_null"/>'
+                        '<label string="%(question)s" colspan="1" class="sm_null"/>'
                         '<newline/>'
                         % item_map
                     )
                 if question.type=='Variable':
-                    # Armo las condiciones de control
-                    enable_conditions = [ ['inp_{0}'.format(c.operated_node_id.complete_place), c.operator.encode('utf8'), JavaScript(c.value)] for c in question.enable_condition_ids ]
-                    rep_enable_conditions = repr(enable_conditions).replace('\'','&quot;')
-                    item_map['enable_condition'] = ' modifiers="{{&quot;readonly&quot;: {!s}}}"'.format(rep_enable_conditions) if enable_conditions else ""
+                    enable_conditions = []
+                    # Indico en que estado debe estar habilitada la entrada.
+                    if question.enable_in:
+                        enable_conditions.append('|')
+                        enable_conditions.append([ 'state', '!=', question.enable_in.encode('ascii')])
+                    # Armo las condiciones de control.
+                    if question.enable_condition_ids:
+                        for c in question.enable_condition_ids[:-1]:
+                            enable_conditions.append('&amp;')
+                            enable_conditions.append(['inp_{0}'.format(c.operated_node_id.complete_place), c.operator.encode('utf8'), JavaScript(c.value)])
+                        c = question.enable_condition_ids[-1]
+                        enable_conditions.append(['inp_{0}'.format(c.operated_node_id.complete_place), c.operator.encode('utf8'), JavaScript(c.value)])
+                    else:
+                        # Le quito la operación OR que es una operación binaria.
+                        enable_conditions = enable_conditions[1:]
+                    # Compilo las condiciones.
+                    rep_enable_conditions = repr(enable_conditions).replace('\'','&quot;').replace('"','&quot;')
+                    item_map['enable_condition'] = 'modifiers="{{&quot;readonly&quot;: {!s}}}"'.format(rep_enable_conditions) if enable_conditions else ""
                     view_item.append(
-                        '<label string="%(complete_name)s" colspan="1" class="sm_complete_name"/>'
-                        '<label for="inp_%(complete_place)s" colspan="5" class="sm_complete_name"/>'
-                        '<label string="" colspan="1"/>'
-                        '<field name="inp_%(complete_place)s" colspan="5" class="sm_input" nolabel="1"%(enable_condition)s />'
+                       # '<label string="%(complete_name)s" colspan="1" class="sm_complete_name"/>'
+                        '<label for="inp_%(complete_place)s" colspan="3" class="sm_complete_name"/>'
+                       # '<label string="" colspan="1"/>'
+                        '<field name="inp_%(complete_place)s"'
+                        '       colspan="3"'
+                        '       class="sm_input"'
+                        '       nolabel="1"'
+                        '       %(enable_condition)s/>'
                         % item_map
-                    )
-                    a = (
-                        '<field name="inp_%(complete_place)s" on_change="onchange_input(inp_%(complete_place)s, \'%(complete_place)s\')"'
-                        ' modifiers="{&quot;readonly&quot;: [[&quot;sta_%(complete_place)s&quot;, &quot;not in&quot;, [&quot;enabled&quot;]]]}"'
-                        ' nolabel="1" colspan="1" class="sm_input"/>'
-                        '<field name="vms_%(complete_place)s" modifiers="{&quot;readonly&quot;: true}" nolabel="1" colspan="1" widget="text_html" class="sm_message"/>'
-                        '<field name="vfo_%(complete_place)s" modifiers="{&quot;readonly&quot;: true}" nolabel="1" colspan="1" class="sm_formated"/>'
-                        '<field name="val_%(complete_place)s" nolabel="1" modifiers="{&quot;readonly&quot;: [[&quot;vms_%(complete_place)s&quot;, &quot;in&quot;, [false, &quot;&quot;]]], &quot;invisible&quot;: false }" colspan="1"/>'
-                        '<field name="sta_%(complete_place)s" modifiers="{&quot;invisible&quot;: true}" nolabel="1" colspan="1"/>'
-                        '<field name="msg_%(complete_place)s" modifiers="{&quot;readonly&quot;: false,&quot;invisible&quot;: true}"/>'
-                        '<field name="for_%(complete_place)s" modifiers="{&quot;readonly&quot;: false,&quot;invisible&quot;: true}"/>'
-                        '<newline/>'% item_map
                     )
                     # Si no todos los parámetros fueron resueltos no
                     # se resuelven todos los parámetros.
@@ -552,50 +570,11 @@ class questionnaire(osv.osv):
                     # Si es de tipo selection agrego las opciones
                     if types.get(question.format_id.name, 'char') == 'selection':
                         fields['inp_%s' % question.complete_place]['selection'] = [ (q.name, q.question) for q in question.child_ids if q.type == 'Null' ]
-
-                    """
-                    fields['msg_%s' % question.complete_place] = {
-                        'selectable': False,
-                        'readonly': True,
-                        'type': 'char',
-                        'string': 'Invisible Message',
-                    }
-                    fields['vms_%s' % question.complete_place] = {
-                        'selectable': False,
-                        'readonly': True,
-                        'type': 'char',
-                        'string': 'Message',
-                    }
-                    fields['sta_%s' % question.complete_place] = {
-                        'selectable': False,
-                        'readonly': True,
-                        'type': 'char',
-                        'string': 'Status',
-                    }
-                    fields['for_%s' % question.complete_place] = {
-                        'selectable': False,
-                        'readonly': True,
-                        'type': 'char',
-                        'string': 'Invisible Formated',
-                    }
-                    fields['vfo_%s' % question.complete_place] = {
-                        'selectable': False,
-                        'readonly': True,
-                        'type': 'char',
-                        'string': 'Formated',
-                    }
-                    fields['val_%s' % question.complete_place] = {
-                        'selectable': False,
-                        'readonly': True,
-                        'type': 'boolean',
-                        'string': 'Valid',
-                    }
-                    """
         view_item.append('</group>')
         view_item.append(_enter_js)
 
-        view = """<group position="after"> <separator string="Page %i."/> %s </group>""" % (actual_page, '\n'.join(view_item))
-        import pdb; pdb.set_trace()
+        view = """<group id="body" position="inside"> <separator string="Page %i."/> <newline/> %s </group>""" % (actual_page, '\n'.join(view_item))
+        _logger.debug(view)
         return view, fields
 
     def fields_view_get(self, cr, uid, view_id=None, view_type=None, context=None, toolbar=False, submenu=False):
@@ -608,6 +587,9 @@ class questionnaire(osv.osv):
         actual_page = context.get('actual_page',1)
         res = super(questionnaire, self).fields_view_get(cr, uid, view_id, view_type, context, toolbar=toolbar, submenu=submenu)
 
+        # En la primera vista, como es genérica para cualquier cuestionario, no vamos a tener la información
+        # de como se cargan los datos. Es por ello que va a aparecer sin el cuestionario. Una vez que sepamos
+        # cual es la encuesta, podemos completar el formulario.
         if view_type == "form" and questionnaire_id is not None:
             source = etree.fromstring(encode(res['arch']))
             #insert_view, insert_fields = self.fields_view_get_dataentry(cr, uid, questionnaire_id, actual_page)
@@ -623,7 +605,7 @@ class questionnaire(osv.osv):
         context = context or {}
         for q in self.browse(cr, uid, ids, context=None):
             cr.execute('SELECT MAX(Q.page) FROM sondaggio_answer AS A '
-                       ' LEFT JOIN sondaggio.node AS Q ON A.question_id=Q.id '
+                       ' LEFT JOIN sondaggio_node AS Q ON A.question_id=Q.id '
                        'WHERE A.questionnaire_id = %s '
                        '  AND Q.page < %s '
                        '  AND A.state = \'enabled\'', (q.id, q.actual_page))
@@ -638,7 +620,7 @@ class questionnaire(osv.osv):
             'name': 'Questtionary. page %i' % actual_page,
             'view_type': 'form',
             'view_mode': 'form',
-            'target': 'inline',
+            'target': 'current',
             'res_model': 'sondaggio.questionnaire',
             'res_id': context['questionnaire_id'],
             'context': context,
@@ -655,7 +637,7 @@ class questionnaire(osv.osv):
             'name': 'Questtionary. page %i' % q.actual_page,
             'view_type': 'form',
             'view_mode': 'form',
-            'target': 'inline',
+            'target': 'current',
             'res_model': 'sondaggio.questionnaire',
             'res_id': context['questionnaire_id'],
             'context': context,
@@ -665,7 +647,7 @@ class questionnaire(osv.osv):
         context = context or {}
         for q in self.browse(cr, uid, ids, context=context):
             cr.execute('SELECT MIN(Q.page) FROM sondaggio_answer AS A '
-                       ' LEFT JOIN sondaggio.node AS Q ON A.question_id=Q.id '
+                       ' LEFT JOIN sondaggio_node AS Q ON A.question_id=Q.id '
                        'WHERE A.questionnaire_id = %s '
                        '  AND Q.page > %s '
                        '  AND A.state = \'enabled\'', (q.id, q.actual_page))
@@ -680,11 +662,12 @@ class questionnaire(osv.osv):
             'name': 'Questtionary. page %i' % q.actual_page,
             'view_type': 'form',
             'view_mode': 'form',
-            'target': 'inline',
+            'target': 'current',
             'res_model': 'sondaggio.questionnaire',
             'res_id': context['questionnaire_id'],
             'context': context,
         }
+
     def read(self, cr, uid, ids, fields=None, context=None, load='_classic_read'):
         """
         Lee los campos a partir de las asnwer asociadas.
@@ -730,6 +713,11 @@ class questionnaire(osv.osv):
                 r['val_%s' % answer.complete_place]=answer.valid
         return res
 
+    def is_valid(self, cr, uid, ids, values, context=None):
+        for i in [ i for i in values.keys() if 'in_' in  i ]:
+            import pdb; pdb.set_trace()
+        return True
+
     def write(self, cr, uid, ids, values, context=None):
         """
         Escribe los campos a las answers asociadas.
@@ -739,24 +727,30 @@ class questionnaire(osv.osv):
 
         res = super(questionnaire, self).write(cr, uid, ids, values, context=context)
 
-        answer_ids = answer_obj.search(cr, uid, [
-            ('questionnaire_id','in',ids),
-            ('complete_place','in',[key[4:] for key in values.keys() if key[3]=="_"])
-        ])
+        if self.is_valid(cr, uid, ids, values, context=None):
 
-        for answer in answer_obj.read(cr, uid, answer_ids, ['complete_place']):
-            complete_place = answer['complete_place']
-            v = {}
+            answer_ids = answer_obj.search(cr, uid, [
+                ('questionnaire_id','in',ids),
+                ('complete_place','in',[key[4:] for key in values.keys() if key[3]=="_"])
+            ])
 
-            if 'msg_%s' % complete_place in values: v.update(message=values['msg_%s' % complete_place])
-            if 'sta_%s' % complete_place in values: v.update(state=values['sta_%s' % complete_place])
-            if 'inp_%s' % complete_place in values: v.update(input=values['inp_%s' % complete_place])
-            if 'for_%s' % complete_place in values: v.update(formated=values['for_%s' % complete_place])
-            if 'val_%s' % complete_place in values: v.update(valid=values['val_%s' % complete_place])
-            
-            answer_obj.write(cr, uid, answer['id'], v)
+            for answer in answer_obj.read(cr, uid, answer_ids, ['complete_place']):
+                complete_place = answer['complete_place']
+                v = {}
 
-        return True
+                if 'msg_%s' % complete_place in values: v.update(message=values['msg_%s' % complete_place])
+                if 'sta_%s' % complete_place in values: v.update(state=values['sta_%s' % complete_place])
+                if 'inp_%s' % complete_place in values: v.update(input=values['inp_%s' % complete_place])
+                if 'for_%s' % complete_place in values: v.update(formated=values['for_%s' % complete_place])
+                if 'val_%s' % complete_place in values: v.update(valid=values['val_%s' % complete_place])
+                
+                answer_obj.write(cr, uid, answer['id'], v)
+
+            return True
+
+        else:
+
+            return False
 
 questionnaire()
 

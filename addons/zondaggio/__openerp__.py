@@ -32,6 +32,7 @@
     'license': 'AGPL-3',
     'name': u'Adaptation for Survey Methodology',
     'test': [
+        'test/questionnaire_import.yml',
 #        'test/partners.yml',
 #       'test/questions.yml',
 #       'test/survey001.yml',
@@ -53,6 +54,7 @@
         u'view/survey_view.xml',
         u'view/answer_view.xml',
         u'view/format_view.xml',
+        u'wizard/questionnaire_import_view.xml',
 #       u'view/answer_text_view.xml',
 #       u'view/answer_integer_view.xml',
 #       u'view/answer_selection_view.xml',

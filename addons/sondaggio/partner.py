@@ -32,6 +32,8 @@ class partner(osv.osv):
     _inherits = {  }
     _inherit = [ 'res.partner' ]
 
+
+
     _columns = {
         'is_respondent': fields.boolean(string='is responder?'),
         'is_surveyor': fields.boolean(string='is surveyor?'),

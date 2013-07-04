@@ -31,6 +31,8 @@ class control_condition(osv.osv):
     _name = 'sondaggio.control_condition'
     _description = 'control_condition'
 
+
+
     _columns = {
         'name': fields.char(string='Condition'),
         'survey_id': fields.many2one('sondaggio.survey', string='survey_id', ondelete='cascade', required=True), 

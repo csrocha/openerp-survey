@@ -1,6 +1,6 @@
-  - Campos nulos '.'
+  + Campos nulos '.'
 
-  - Mensaje inteso para los errores!
+  + Mensaje inteso para los errores!
 
   - Calcular los campos de suma 100
 
@@ -8,15 +8,22 @@
 
   - Controlar que el valor de entrada de EE12/C/12/4 y EE12/E/22/2 a partir de los valore ingresados previamente.
 
-  - Limitar a 100% EE12/D/14/1, EE12/D/14/2, EE12/E/18/1, EE12/E/18/2,
+  + Limitar a 100% EE12/D/14/1, EE12/D/14/2, EE12/E/18/1, EE12/E/18/2,
 
   - Limitar a la suma de EE12/D/15/2/1, EE12/D/15/2/2 a EE12/D/15/2/3
 
-  - Validar entrada a mano, y no permitir seguir al siguiete campo.
+  + Validar entrada a mano, y no permitir seguir al siguiete campo.
 
-  - Logica de saltos controlado.
+  - Logica de saltos con control referenciado a las preguntas.
 
   - Generar output de datos.
 
   - Curso de diseño de encuestas.
 
+  - Implementar pivoteo:
+
+     - usar extension: tablefunc // Requiere mucho!!! //
+
+     - usar sql:
+		
+		select QA.name, Q.variable_name, input from survey_methodology_answer as A left join survey_methodology_question as Q on (A.question_id = Q.id) left join survey_methodology_questionnaire as QA on (A.questionnaire_id = QA.id) where type = 'Variable';

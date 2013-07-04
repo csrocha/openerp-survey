@@ -31,11 +31,13 @@ class enable_condition(osv.osv):
     _name = 'sondaggio.enable_condition'
     _description = 'enable_condition'
 
+
+
     _columns = {
-        'operator': fields.selection([(u'=', '='), (u'<', '<'), (u'>', '>'), (u'!=', '!=')], string='operator'),
-        'value': fields.char(string='value'),
+        'operator': fields.selection([(u'=', '='), (u'!=', '!='), (u'>', '>'), (u'>=', '>='), (u'<', '<'), (u'<=', '<='), (u'in', 'in'), (u'not in', 'not in')], string='Operator'),
+        'value': fields.char(string='Value'),
         'node_id': fields.many2one('sondaggio.node', string='node_id', ondelete='cascade', required=True), 
-        'operated_node_id': fields.many2one('sondaggio.node', string='operated_node_id', required=True), 
+        'operated_node_id': fields.many2one('sondaggio.node', string='Variable', domain=[('type','=','Variable')], required=True), 
     }
 
     _defaults = {

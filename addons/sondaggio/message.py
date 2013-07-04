@@ -31,6 +31,8 @@ class message(osv.osv):
     _name = 'sondaggio.message'
     _description = 'message'
 
+
+
     _columns = {
         'name': fields.char(string='name'),
         'condition': fields.char(string='condition'),

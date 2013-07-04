@@ -59,3 +59,13 @@
 "access_sondaggio_enable_condition_developer","sondaggio.enable_condition.developer","model_sondaggio_enable_condition","group_developer",1,1,1,1
 "access_sondaggio_enable_condition_operator","sondaggio.enable_condition.operator","model_sondaggio_enable_condition","group_operator",1,1,1,1
 "access_sondaggio_enable_condition_validator","sondaggio.enable_condition.validator","model_sondaggio_enable_condition","group_validator",1,1,1,1
+"access_sondaggio_questionnaire_import_designer","sondaggio.questionnaire_import.designer","model_sondaggio_questionnaire_import","group_designer",1,1,1,1
+"access_sondaggio_questionnaire_import_poolster","sondaggio.questionnaire_import.poolster","model_sondaggio_questionnaire_import","group_poolster",1,1,1,1
+"access_sondaggio_questionnaire_import_developer","sondaggio.questionnaire_import.developer","model_sondaggio_questionnaire_import","group_developer",1,1,1,1
+"access_sondaggio_questionnaire_import_operator","sondaggio.questionnaire_import.operator","model_sondaggio_questionnaire_import","group_operator",1,1,1,1
+"access_sondaggio_questionnaire_import_validator","sondaggio.questionnaire_import.validator","model_sondaggio_questionnaire_import","group_validator",1,1,1,1
+"access_sondaggio_import_file_column_designer","sondaggio.import_file_column.designer","model_sondaggio_import_file_column","group_designer",1,1,1,1
+"access_sondaggio_import_file_column_poolster","sondaggio.import_file_column.poolster","model_sondaggio_import_file_column","group_poolster",1,1,1,1
+"access_sondaggio_import_file_column_developer","sondaggio.import_file_column.developer","model_sondaggio_import_file_column","group_developer",1,1,1,1
+"access_sondaggio_import_file_column_operator","sondaggio.import_file_column.operator","model_sondaggio_import_file_column","group_operator",1,1,1,1
+"access_sondaggio_import_file_column_validator","sondaggio.import_file_column.validator","model_sondaggio_import_file_column","group_validator",1,1,1,1

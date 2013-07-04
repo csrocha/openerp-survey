@@ -106,6 +106,7 @@
                             <field name="format_id"/>
                             <newline/>
                             <field name="initial_state"/>
+                            <field name="enable_in"/>
                         </group>
                         <notebook>
                             <page string="Questions" attrs="{'invisible': [('type','not in',('View','Variable'))]}">
