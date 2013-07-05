@@ -40,26 +40,34 @@
             <field name="wkf_id" ref="answer_untitle_wkf"/>
             <field name="flow_start">True</field>
             <field name="name">enabled</field>
-            <field name="action">write({'state':'enabled'})</field>
+            <field name="action">
+                write({'state':'enabled'})
+            </field>
             <field name="kind">function</field>
         </record>
         <record id="a_1872_0E37" model="workflow.activity">
             <field name="wkf_id" ref="answer_untitle_wkf"/>
             <field name="name">disabled</field>
-            <field name="action">write({'state':'disabled'})</field>
+            <field name="action">
+                write({'state':'disabled'})
+            </field>
             <field name="kind">function</field>
         </record>
         <record id="a_1872_0E3C" model="workflow.activity">
             <field name="wkf_id" ref="answer_untitle_wkf"/>
             <field name="name">closed</field>
-            <field name="action">write({'state':'closed'})</field>
+            <field name="action">
+                write({'state':'closed'})
+            </field>
             <field name="kind">function</field>
         </record>
         <record id="a_1872_0F0B" model="workflow.activity">
             <field name="wkf_id" ref="answer_untitle_wkf"/>
             <field name="flow_stop">True</field>
             <field name="name">cancelled</field>
-            <field name="action">write({'state':'cancelled'})</field>
+            <field name="action">
+                write({'state':'cancelled'})
+            </field>
             <field name="kind">function</field>
         </record>
 

@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+##############################################################################
+#
+#    Survey Methodology
+#    Copyright (C) 2013 Coop. Trab. Moldeo Interactive Ltda.
+#    No email
+#
+#    This program is free software: you can redistribute it and/or modify
+#    it under the terms of the GNU Affero General Public License as
+#    published by the Free Software Foundation, either version 3 of the
+#    License, or (at your option) any later version.
+#
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU Affero General Public License for more details.
+#
+#    You should have received a copy of the GNU Affero General Public License
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#
+##############################################################################
+-->
+<!-- sondaggio.node -->
+<!-- sondaggio.node -->
+<!-- sondaggio.node -->
+<openerp>
+    <data>
+
+        <!-- SEARCHVIEW -->
+        <record id="sondaggio.view_sondaggio_node_filter" model="ir.ui.view">
+            <field name="name">sondaggio.node.select</field>
+            <field name="model">sondaggio.node</field>
+            <field name="arch" type="xml">
+                <search string="Question" version="7.0">
+                    <group string="Search by">
+                        <field name="question" string="Question" />
+                        <field name="name" string="Code" />
+                        <field name="complete_name" string="Large Code" />
+                    </group>
+                    <group string="Type">
+                        <filter string="Variable" domain="[('type','=','Variable')]"/>
+                        <filter string="View" domain="[('type','=','View')]"/>
+                        <filter string="Null" domain="[('type','=','Null')]"/>
+                    </group>
+                    <group string="Variable">
+                        <filter string="Variable" domain="[]" context="{'group_by': 'variable_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        
+        <!--record id="action_outlook_installer" model="ir.actions.act_window">
+            <field name="name">Install Outlook Plug-In</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">outlook.installer</field>
+            <field name="view_id" ref="view_outlook_installer"/>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record-->
+
+        <act_window 
+           domain="[('id','=',active_id)]"
+           id="act_open_question" 
+           name="Open Question"
+           view_id="sondaggio.view_sondaggio_node_form"
+           view_type="form"
+           view_mode="form"
+           res_model="sondaggio.node" 
+           src_model="sondaggio.node"/>
+
+        <!-- FORMVIEW -->
+        <record id="sondaggio.view_sondaggio_node_form" model="ir.ui.view">
+            <field name="name">sondaggio.node.form</field>
+            <field name="model">sondaggio.node</field>
+            <field name="arch" type="xml">
+                <form string="Question" version="7.0">
+                    <header>
+                    </header>
+                    <sheet string="Question">
+                        <div class="oe_title"> <div class="oe_edit_only"> <label for="question"/> </div> </div>
+                        <h1>
+                            <field name="question" placeholder="Question"/>
+                        </h1>
+                        <group col="8">
+                            <div class="oe_title"> <div class="oe_edit_only"> <label for="parent_id" colspan="2"/> </div> </div>
+                            <div class="oe_title"> <div class="oe_edit_only"> <label for="name"      colspan="2"/> </div> </div>
+                        </group>
+                        <h2>
+                            <group col="8">
+                                <field name="parent_id" placeholder="Root" colspan="2" nolabel="1" domain="[('survey_id','=',survey_id)]"/>
+                                <field name="name"      placeholder="Code" colspan="2" nolabel="1"/>
+                            </group>
+                        </h2>
+                        <group col="8">
+                            <field name="place"     placeholder="0"    colspan="2"/>
+                            <field name="page"      placeholder="0"    colspan="2"/>
+                            <newline/>
+                            <field name="type"      colspan="2"/>
+                            <field name="category_ids" widget="many2many_tags" colspan="2"/>
+                        </group>
+                        <group col="8" attrs="{'invisible': [('type','not in',('Variable'))]}">
+                            <field name="variable_name"/>
+                            <field name="format_id"/>
+                            <newline/>
+                            <field name="initial_state"/>
+                            <field name="enable_in"/>
+                        </group>
+                        <notebook>
+                            <page string="Questions" attrs="{'invisible': [('type','not in',('View','Variable'))]}">
+                                <button name="reordering" string="Reordering" type="object"/>
+                                <newline/>
+                                <field name="child_ids">
+                                    <tree string="Child Questions" editable="bottom">
+                                        <field name="place"/>
+                                        <field name="page"/>
+                                        <field name="name"/>
+                                        <field name="question"/>
+                                        <field name="type"/>
+                                        <field name="format_id"/>
+                                        <button name="open_question" icon="gtk-jump-to" type="object"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page string="Enable next" attrs="{'invisible': [('type','not in',('Variable'))]}">
+                                <field name="enable_condition_ids" type="xml" context="{'node_id': id}">
+                                    <tree editable="bottom">
+                                        <field name="operated_node_id"/>
+                                        <field name="operator"/>
+                                        <field name="value"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page string="Note">
+                                <field name="note" nolabel="1"/>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- TREEVIEW -->
+
+        <record id="sondaggio.view_sondaggio_node_tree" model="ir.ui.view">
+            <field name="name">sondaggio.node.tree</field>
+            <field name="model">sondaggio.node</field>
+            <field name="arch" type="xml">
+                <tree string="Question" >
+                    <field name="complete_name" />
+                    <field name="question" />
+                    <field name="type" />
+                    <field name="format_id" />
+                </tree>
+            </field>
+        </record>
+
+    </data>
+</openerp>
+<!-- vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4
+     -->

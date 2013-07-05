@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+##############################################################################
+#
+#    Survey Methodology
+#    Copyright (C) 2013 Coop. Trab. Moldeo Interactive Ltda.
+#    No email
+#
+#    This program is free software: you can redistribute it and/or modify
+#    it under the terms of the GNU Affero General Public License as
+#    published by the Free Software Foundation, either version 3 of the
+#    License, or (at your option) any later version.
+#
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU Affero General Public License for more details.
+#
+#    You should have received a copy of the GNU Affero General Public License
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#
+##############################################################################
+-->
+<openerp>
+    <data noupdate="1">
+
+        <record model="mail.alias" id="alias_001">
+            <field name="alias_name">Alias 001</field>
+            <field name="alias_model_id" search="[('model','=','mail.alias')]" model="ir.model"/>
+            <field name="alias_default">{}</field>
+        </record>
+
+        <record model="res.users" id="surveyor_001">
+            <field name="name">Surveyor 01</field>
+            <field name="login">surveyor_01</field>
+            <field name="alias_id" eval="alias_001"/>
+        </record>
+
+        <record model="mail.alias" id="alias_002">
+            <field name="alias_name">Alias 002</field>
+            <field name="alias_model_id" search="[('model','=','mail.group')]" model="ir.model"/>
+            <field name="alias_default">{}</field>
+        </record>
+
+        <record model="res.users" id="surveyor_002">
+            <field name="name">Surveyor 02</field>
+            <field name="login">surveyor_02</field>
+            <field name="alias_id" ref="alias_002"/>
+        </record>
+
+    </data>
+</openerp>
+<!-- vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4
+     -->

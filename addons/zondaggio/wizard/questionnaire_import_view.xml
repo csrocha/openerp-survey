@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+##############################################################################
+#
+#    Survey Methodology
+#    Copyright (C) 2013 Coop. Trab. Moldeo Interactive Ltda.
+#    No email
+#
+#    This program is free software: you can redistribute it and/or modify
+#    it under the terms of the GNU Affero General Public License as
+#    published by the Free Software Foundation, either version 3 of the
+#    License, or (at your option) any later version.
+#
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU Affero General Public License for more details.
+#
+#    You should have received a copy of the GNU Affero General Public License
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#
+##############################################################################
+
+-->
+<openerp>
+    <data>
+        <!-- FORMVIEW -->
+        <record id="sondaggio.view_sondaggio_questionnaire_import_form" model="ir.ui.view">
+            <field name="name">sondaggio.questionnaire_import.form</field>
+            <field name="model">sondaggio.questionnaire_import</field>
+            <field name="arch" type="xml">
+                <form string="questionnaire_import" version="7.0">
+		    <field name="state" invisible="1"/>
+                    <group states="init">
+			<label string="Select the file to import."/>
+			<newline/>
+                        <field name="in_file"
+                            />
+                    </group>
+                    <group states="config">
+			<label string="Select survey associated to the questionnaires to import, and the field used as name of them."/>
+			<newline/>
+                        <field name="survey_id"
+				widget="selection"
+                            />
+		        <field name="import_file_column_ids" invisible="1"/>
+                        <field name="selected_column_id"
+				widget="selection"
+				context="[('id','in','import_file_column_ids')]"
+                            />
+                    </group>
+                    <group states="done">
+			<label string="File has been loaded. Continue to list Questionnaires."/>
+                    </group>
+		    <footer states="init">
+                        <button name="do_load_file" string="Load" type="object" class="oe_highlight"/> or 
+                        <button special="cancel" string="Cancel" class="oe_link"/>
+                    </footer>
+		    <footer states="config">
+                        <button name="do_import" string="Import" type="object" class="oe_highlight"/> or 
+                        <button special="cancel" string="Cancel" class="oe_link"/>
+                    </footer>
+                    <footer states="done">
+                        <button name="do_continue" string="Continue" type="object" class="oe_highlight"/> or 
+                        <button special="cancel" string="Close"/>
+                    </footer>  
+                </form>
+            </field>
+        </record>
+    </data>
+</openerp>

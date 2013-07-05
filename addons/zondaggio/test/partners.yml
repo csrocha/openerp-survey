@@ -1,0 +1,34 @@
+#
+# Role users
+#
+
+- !record { model: res.users, id: designer_01 }:
+        name: Designer 01
+
+- !record { model: res.users, id: surveyor_01 }:
+        name: Surveyor 01
+
+#
+# Some partners
+#
+
+- !record { model: res.partner, id: sample_001 }:
+        name: Sample 001
+        is_responder: True
+
+- !record { model: res.partner, id: sample_002 }:
+        name: Sample 002
+        is_responder: True
+
+- !record { model: res.partner, id: sample_003 }:
+        name: Sample 003
+        is_responder: True
+
+- !record { model: res.partner, id: sample_004 }:
+        name: Sample 004
+        is_responder: True
+
+- !record { model: res.partner, id: sample_005 }:
+        name: Sample 005
+        is_responder: True
+

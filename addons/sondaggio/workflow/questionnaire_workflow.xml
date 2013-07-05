@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+##############################################################################
+#
+#    Survey Methodology
+#    Copyright (C) 2013 Coop. Trab. Moldeo Interactive Ltda.
+#    No email
+#
+#    This program is free software: you can redistribute it and/or modify
+#    it under the terms of the GNU Affero General Public License as
+#    published by the Free Software Foundation, either version 3 of the
+#    License, or (at your option) any later version.
+#
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU Affero General Public License for more details.
+#
+#    You should have received a copy of the GNU Affero General Public License
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#
+##############################################################################
+-->
+<!-- sondaggio.questionnaire -->
+<!-- sondaggio.questionnaire -->
+<!-- sondaggio.questionnaire -->
+<openerp>
+    <data>
+        <!-- Workflow -->
+
+        <record id="questionnaire_untitle_wkf" model="workflow">
+            <field name="name">sondaggio.questionnaire.untitle</field>
+            <field name="osv">sondaggio.questionnaire</field>
+            <field name="on_create">True</field>
+        </record>
+
+        <!-- Activities -->
+
+        <record id="a_0F17_1F36" model="workflow.activity">
+            <field name="wkf_id" ref="questionnaire_untitle_wkf"/>
+            <field name="flow_start">True</field>
+            <field name="name">Draft</field>
+            <field name="action">
+                write({'state':'draft'})
+            </field>
+            <field name="kind">function</field>
+        </record>
+        <record id="a_0F17_24E7" model="workflow.activity">
+            <field name="wkf_id" ref="questionnaire_untitle_wkf"/>
+            <field name="name">Cancelled</field>
+            <field name="action">
+                write({'state':'cancelled'})
+            </field>
+            <field name="kind">function</field>
+        </record>
+        <record id="a_0F17_0F37" model="workflow.activity">
+            <field name="wkf_id" ref="questionnaire_untitle_wkf"/>
+            <field name="name">Waiting</field>
+            <field name="action">
+                write({'state':'waiting'})
+            </field>
+            <field name="kind">function</field>
+        </record>
+        <record id="a_0F17_1F37" model="workflow.activity">
+            <field name="wkf_id" ref="questionnaire_untitle_wkf"/>
+            <field name="name">In Process</field>
+            <field name="action">
+                write({'state':'in_process'})
+            </field>
+            <field name="kind">function</field>
+        </record>
+        <record id="a_0F17_1F38" model="workflow.activity">
+            <field name="wkf_id" ref="questionnaire_untitle_wkf"/>
+            <field name="name">Complete</field>
+            <field name="action">
+                write({'state':'complete'})
+            </field>
+            <field name="kind">function</field>
+        </record>
+        <record id="a_0F17_1F3D" model="workflow.activity">
+            <field name="wkf_id" ref="questionnaire_untitle_wkf"/>
+            <field name="name">In Coding</field>
+            <field name="action">
+                write({'state':'in_coding'})
+            </field>
+            <field name="kind">function</field>
+        </record>
+        <record id="a_0F17_1F3E" model="workflow.activity">
+            <field name="wkf_id" ref="questionnaire_untitle_wkf"/>
+            <field name="flow_stop">True</field>
+            <field name="name">Validated</field>
+            <field name="action">
+                write({'state':'validated'})
+            </field>
+            <field name="kind">function</field>
+        </record>
+
+        <!-- Transitions -->
+
+        <record id="t_0F17_1F3A" model="workflow.transition">
+            <field name="act_from" ref="a_0F17_1F36"/>
+            <field name="act_to" ref="a_0F17_1F37"/>
+            <field name="signal">sgn_begin</field>
+            <field name="condition">True</field>
+        </record>
+        <record id="t_0F17_1F3B" model="workflow.transition">
+            <field name="act_from" ref="a_0F17_1F37"/>
+            <field name="act_to" ref="a_0F17_1F38"/>
+            <field name="signal">sgn_end</field>
+            <field name="condition">True</field>
+        </record>
+        <record id="t_0F17_1F3C" model="workflow.transition">
+            <field name="act_from" ref="a_0F17_1F38"/>
+            <field name="act_to" ref="a_0F17_1F3D"/>
+            <field name="signal">sgn_encode</field>
+            <field name="condition">True</field>
+        </record>
+        <record id="t_0F17_1F3F" model="workflow.transition">
+            <field name="act_from" ref="a_0F17_1F3D"/>
+            <field name="act_to" ref="a_0F17_1F3E"/>
+            <field name="signal">sgn_validate</field>
+            <field name="condition">True</field>
+        </record>
+        <record id="t_0F17_24E8" model="workflow.transition">
+            <field name="act_from" ref="a_0F17_1F3E"/>
+            <field name="act_to" ref="a_0F17_24E7"/>
+            <field name="signal">sgn_cancel</field>
+            <field name="condition">True</field>
+        </record>
+        <record id="t_0F17_24E9" model="workflow.transition">
+            <field name="act_from" ref="a_0F17_1F3D"/>
+            <field name="act_to" ref="a_0F17_24E7"/>
+            <field name="signal">sgn_cancel</field>
+            <field name="condition">True</field>
+        </record>
+        <record id="t_0F17_24EA" model="workflow.transition">
+            <field name="act_from" ref="a_0F17_1F38"/>
+            <field name="act_to" ref="a_0F17_24E7"/>
+            <field name="signal">sgn_cancel</field>
+            <field name="condition">True</field>
+        </record>
+        <record id="t_0F17_24EB" model="workflow.transition">
+            <field name="act_from" ref="a_0F17_1F37"/>
+            <field name="act_to" ref="a_0F17_24E7"/>
+            <field name="signal">sgn_cancel</field>
+            <field name="condition">True</field>
+        </record>
+        <record id="t_0F17_24EC" model="workflow.transition">
+            <field name="act_from" ref="a_0F17_24E7"/>
+            <field name="act_to" ref="a_0F17_1F36"/>
+            <field name="signal">sgn_to_draft</field>
+            <field name="condition">True</field>
+        </record>
+        <record id="t_0F17_0F38" model="workflow.transition">
+            <field name="act_from" ref="a_0F17_1F37"/>
+            <field name="act_to" ref="a_0F17_0F37"/>
+            <field name="signal">sgn_wait</field>
+            <field name="condition">True</field>
+        </record>
+        <record id="t_0F17_0F3A" model="workflow.transition">
+            <field name="act_from" ref="a_0F17_0F37"/>
+            <field name="act_to" ref="a_0F17_1F37"/>
+            <field name="signal">sgn_continue</field>
+            <field name="condition">True</field>
+        </record>
+        <record id="t_0F17_0F3C" model="workflow.transition">
+            <field name="act_from" ref="a_0F17_0F37"/>
+            <field name="act_to" ref="a_0F17_24E7"/>
+            <field name="signal">sgn_cancel</field>
+            <field name="condition">True</field>
+        </record>
+    </data>
+</openerp>
+<!-- vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4
+     -->
