@@ -93,8 +93,8 @@
                             <field name="control_condition_ids" type="xml">
                                 <tree editable="bottom">
                                     <field name="name"/>
-                                    <field name="enable_node_ids" widget="many2many_tags" domain="[('survey_id','=',survey_id)]"/>
-                                    <field name="disable_node_ids" widget="many2many_tags" domain="[('survey_id','=',survey_id)]}"/>
+                                    <field name="enable_node_ids" widget="many2many_tags" domain="[('survey_id','=',active_id)]"/>
+                                    <field name="disable_node_ids" widget="many2many_tags" domain="[('survey_id','=',active_id)]}"/>
                                 </tree>
                             </field>
                         </page>

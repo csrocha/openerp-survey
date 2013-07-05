@@ -42,7 +42,7 @@ class questionnaire_import(osv.TransientModel):
     _columns = {
         'in_file': fields.binary(string='Import file', states={'selectfile': [('invisible', False)]}),
         'survey_id': fields.many2one('sondaggio.survey', string='Survey', states={'selectfile': [('invisible', True)]}),
-        'selected_column_id': fields.many2one('sondaggio.import_file_column', string='selected_column_id'),
+        'selected_column_id': fields.many2one('sondaggio.import_file_column', string='Column'),
         'state': fields.selection(_states_, "State"),
         'import_file_column_ids': fields.one2many('sondaggio.import_file_column', 'questionnaire_import_id', string='import_file_column_ids'), 
     }

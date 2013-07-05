@@ -41,6 +41,7 @@ class control_condition(osv.osv):
     }
 
     _defaults = {
+        'survey_id': lambda self, cr, uid, context=None: context and context.get('survey_id', False),
     }
 
 
