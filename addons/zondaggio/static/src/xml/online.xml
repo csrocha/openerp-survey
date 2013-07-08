@@ -1,4 +1,9 @@
 <templates>
+	<style type="text/css">
+		.oe_topbar {
+			visibility: hidden;
+		}
+	</style>
 	<div t-name="zondaggio.action" class="oe_zondaggio oe_zondaggio_stopped">
 		<div>
 			<a name="home" id="home"></a>
