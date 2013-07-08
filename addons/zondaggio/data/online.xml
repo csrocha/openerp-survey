@@ -1,0 +1,11 @@
+<!-- data/online.xml -->
+<openerp>
+    <data>
+        <record model="ir.actions.client" id="action_client_online">
+            <field name="name">Online Client Action</field>
+            <field name="tag">online.action</field>
+        </record>
+        <menuitem action="action_client_online"
+                  id="menu_client_online"/>
+    </data>
+</openerp>

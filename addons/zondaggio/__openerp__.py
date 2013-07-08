@@ -55,6 +55,7 @@
         u'view/answer_view.xml',
         u'view/format_view.xml',
         u'wizard/questionnaire_import_view.xml',
+        u'data/online.xml',
 #       u'view/answer_text_view.xml',
 #       u'view/answer_integer_view.xml',
 #       u'view/answer_selection_view.xml',
@@ -75,6 +76,13 @@
         'static/src/css/survey.css',
         'static/src/css/question.css',
         'static/src/css/questionnaire.css',
+        'static/src/css/online.css',
+    ],
+    'js': [
+        'static/src/js/online.js',
+    ],
+    'qweb': [
+        'static/src/xml/online.xml',
     ],
     'version': u'1.0',
     'website': 'http://business.moldeo.coop/'}
