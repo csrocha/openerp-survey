@@ -110,7 +110,7 @@
                                         <field name="question"/>
                                         <field name="type"/>
                                         <field name="format_id"/>
-                                        <button name="open_question" icon="gtk-jump-to" type="object"/>
+                                        <button name="open_node" icon="gtk-jump-to" type="object"/>
                                     </tree>
                                 </field>
                             </page>
