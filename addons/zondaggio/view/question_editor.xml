@@ -29,7 +29,7 @@
             <field name="model">sondaggio.node</field>
             <field name="arch" type="xml">
                 <tree string="Question" editable="bottom">
-                    <field name="parent_id" "[('survey_id','=',survey_id)]"/>
+                    <field name="parent_id" domain="[('survey_id','=',survey_id)]"/>
                     <field name="place"/>
                     <field name="name"/>
                     <field name="question"/>
