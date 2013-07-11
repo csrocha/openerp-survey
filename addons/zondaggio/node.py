@@ -112,11 +112,11 @@ class node(osv.osv):
         # No copy answers
         default.update(answers_ids=False)
 
-        node = self.browse(cr, uid, id, context=context)
+        my_node = self.browse(cr, uid, id, context=context)
 
         # Copy child nodes
         new_child_ids = []
-        for child in node.child_ids:
+        for child in my_node.child_ids:
             child_ids = self.copy(cr, uid, child.id, default, context=context, done_list=done_list, local=True)
             if child_ids:
                 new_child_ids.append(child_ids)

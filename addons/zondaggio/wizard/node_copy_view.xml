@@ -45,8 +45,10 @@
 			     <group>
 				<field name="new_parent_node_id"/>
 				<field name="new_order" />
-				<field name="max_level" />
 				<field name="move" />
+				<field name="do_rename" attrs="{'invisible': [('move','=',True)]}"/>
+				<field name="new_name" attrs="{'invisible': [('do_rename','=',False)]}"/>
+				<field name="new_question" attrs="{'invisible': [('do_rename','=',False)]}"/>
 			     </group>
 			    </sheet>
 			    <footer>

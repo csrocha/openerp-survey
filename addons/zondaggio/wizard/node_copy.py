@@ -42,18 +42,27 @@ class node_copy(osv.TransientModel):
 
         for wzd in self.browse(cr, uid, ids):
                 new_parent_node_id = wzd.new_parent_node_id.id
+                target_survey_id = wzd.new_parent_node_id.survey_id.id
                 base_parent_place = wzd.new_parent_node_id.complete_place
                 new_order = wzd.new_order
-                max_level = wzd.max_level
                 move = wzd.move
+                do_rename = wzd.do_rename
+                new_name = wzd.new_name
+                new_question = wzd.new_question
                 if move:
-                        obj_node.write(cr, uid, to_copy, { 'parent_id': new_parent_node_id })
+                        obj_node.write(cr, uid, to_copy, {
+                                'parent_id': new_parent_node_id,
+                                'survey_id': target_survey_id,
+                        })
                 else:
                         for id in to_copy:
+                                node_data = obj_node.read(cr, uid, id, ['name', 'question'])
                                 val = dict(
                                            parent_id=new_parent_node_id,
-                                           complete_place=(base_parent_place, new_order+to_copy.index(id)),
-                                           answers_ids=[],
+                                           survey_id=target_survey_id,
+                                           complete_place="{0}{1:02X}".format(base_parent_place, new_order+to_copy.index(id)),
+                                           question = (new_question if do_rename else "{name}").format(**node_data),
+                                           name = (new_name if do_rename else "{question}").format(**node_data)
                                           )
                                 new_id = obj_node.copy(cr, uid, id, default=val, context=context)
         return {}

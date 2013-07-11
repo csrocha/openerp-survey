@@ -38,9 +38,13 @@
                             />
                         <field name="new_order"
                             />
-                        <field name="max_level"
-                            />
                         <field name="move"
+                            />
+                        <field name="do_rename"
+                            />
+                        <field name="new_name"
+                            />
+                        <field name="new_question"
                             />
                      </group>
                     </sheet>

@@ -36,13 +36,16 @@ class node_copy(osv.TransientModel):
     _columns = {
         'new_parent_node_id': fields.many2one('sondaggio.node', string='Question Parent'),
         'new_order': fields.integer(string='Order'),
-        'max_level': fields.integer(string='Maximun depth copy'),
-        'move': fields.boolean(string='move'),
+        'move': fields.boolean(string='Move'),
+        'do_rename': fields.boolean(string='Do rename?'),
+        'new_name': fields.char(string='New code'),
+        'new_question': fields.char(string='New question'),
     }
 
     _defaults = {
         'new_order': 1,
-        'max_level': 0,
+        'new_name': "{name}_C",
+        'new_question': "{question} (Copy)",
     }
 
 
