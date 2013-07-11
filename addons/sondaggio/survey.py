@@ -62,6 +62,7 @@ class survey(osv.osv):
         'message': fields.text(string='Message to Responder', readonly=True, states={'draft':[('readonly',False)]}),
         'sample_size': fields.integer(string='Sample size', readonly=True, states={'draft':[('readonly',False)]}),
         'sample_filter': fields.char(string='Filter for the Sample', help=u"""Context filter for partner. This help to select partners to create the sample. For example: [(&quot;is_company&quot;,&quot;=&quot;,True)] Only select companies.""", readonly=True, size=512, states={'draft':[('readonly',False)]}),
+        'presentation': fields.selection([(u'dataentry', 'dataentry'), (u'callcenter', 'callcenter'), (u'online', 'online')], string='presentation', readonly=True),
         'state': fields.selection(_states_, "State"),
         'question_ids': fields.one2many('sondaggio.node', 'survey_id', string='Questions', readonly=True, states={'draft':[('readonly',False)]}), 
         'questionnaire_ids': fields.one2many('sondaggio.questionnaire', 'survey_id', string='Answers', readonly=True), 

@@ -21,6 +21,7 @@
 ##############################################################################
 
 
+import node_copy
 import questionnaire_import
 import import_file_column
 

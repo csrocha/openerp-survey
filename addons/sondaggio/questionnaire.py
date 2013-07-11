@@ -77,6 +77,7 @@ class questionnaire(osv.osv):
         'state': 'draft',
         'respondent_id': lambda self, cr, uid, context=None: context and context.get('respondent_id', False),
         'pollster_id': lambda self, cr, uid, context=None: context and context.get('pollster_id', False),
+        'survey_id': lambda self, cr, uid, context=None: context and context.get('survey_id', False),
     }
 
 

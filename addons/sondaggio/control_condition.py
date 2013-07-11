@@ -35,6 +35,7 @@ class control_condition(osv.osv):
 
     _columns = {
         'name': fields.char(string='Condition'),
+        'is_validation': fields.boolean(string='is_validation'),
         'survey_id': fields.many2one('sondaggio.survey', string='survey_id', ondelete='cascade', required=True), 
         'enable_node_ids': fields.many2many('sondaggio.node', 'sondaggio_enable_global_condition_ids_enable_node_ids_rel', 'control_condition_id', 'node_id', string='Enable'), 
         'disable_node_ids': fields.many2many('sondaggio.node', 'sondaggio_disable_global_condition_ids_disable_node_ids_rel', 'control_condition_id', 'node_id', string='Disable'), 

@@ -20,7 +20,42 @@
 #
 ##############################################################################
 
-import questionnaire_import
-import node_copy
+
+import re
+from openerp import netsvc
+from openerp.osv import osv, fields
+
+class node_copy(osv.TransientModel):
+    """"""
+    
+    _name = 'sondaggio.node_copy'
+    _description = 'node_copy'
+
+
+
+    _columns = {
+        'new_parent_node_id': fields.many2one('sondaggio.node', string='Question Parent'),
+        'new_order': fields.integer(string='Order'),
+        'max_level': fields.integer(string='Maximun depth copy'),
+        'move': fields.boolean(string='move'),
+    }
+
+    _defaults = {
+        'new_order': 1,
+        'max_level': 0,
+    }
+
+
+    _constraints = [
+    ]
+
+
+    def do_copy(self, cr, uid, ids, context=None):
+        """"""
+        raise NotImplementedError
+
+
+
+node_copy()
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
