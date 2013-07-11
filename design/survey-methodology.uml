@@ -94,7 +94,7 @@
 			</model>
 		</userDefined>
 </profile>
-<XMI xmi.version = '1.2' xmlns:UML = 'org.omg.xmi.namespace.UML' timestamp = 'Wed Jul 10 13:44:33 ART 2013'>
+<XMI xmi.version = '1.2' xmlns:UML = 'org.omg.xmi.namespace.UML' timestamp = 'Thu Jul 11 10:55:20 ART 2013'>
   <XMI.header>    <XMI.documentation>
       <XMI.exporter>ArgoUML (using Netbeans XMI Writer version 1.0)</XMI.exporter>
       <XMI.exporterVersion>0.34(6) revised on $Date: 2010-01-11 22:20:14 +0100 (Mon, 11 Jan 2010) $ </XMI.exporterVersion>
@@ -4982,40 +4982,6 @@ Registry in the log start action.</UML:TaggedValue.dataValue>
                       name = 'return' isSpecification = 'false' kind = 'return'/>
                   </UML:BehavioralFeature.parameter>
                 </UML:Operation>
-                <UML:Attribute xmi.id = '127-0-1-1-5d6c23f8:13fc7f06253:-8000:0000000000000F7D'
-                  name = 'max_level' visibility = 'public' isSpecification = 'false' ownerScope = 'instance'
-                  changeability = 'changeable' targetScope = 'instance'>
-                  <UML:StructuralFeature.multiplicity>
-                    <UML:Multiplicity xmi.id = '127-0-1-1-5d6c23f8:13fc7f06253:-8000:0000000000000F7E'>
-                      <UML:Multiplicity.range>
-                        <UML:MultiplicityRange xmi.id = '127-0-1-1-5d6c23f8:13fc7f06253:-8000:0000000000000F7F'
-                          lower = '1' upper = '1'/>
-                      </UML:Multiplicity.range>
-                    </UML:Multiplicity>
-                  </UML:StructuralFeature.multiplicity>
-                  <UML:ModelElement.stereotype>
-                    <UML:Stereotype href = 'http://argouml.org/user-profiles/OpenObjectStadardElements.xmi#127-0-1-1--66344949:13b09938a14:-8000:00000000000011E5'/>
-                  </UML:ModelElement.stereotype>
-                  <UML:ModelElement.taggedValue>
-                    <UML:TaggedValue xmi.id = '127-0-1-1-5d6c23f8:13fc7f06253:-8000:0000000000000F80'
-                      isSpecification = 'false'>
-                      <UML:TaggedValue.dataValue>0</UML:TaggedValue.dataValue>
-                      <UML:TaggedValue.type>
-                        <UML:TagDefinition href = 'http://argouml.org/user-profiles/OpenObjectStadardElements.xmi#127-0-1-1-2b464aa4:13b09d81b72:-8000:0000000000001567'/>
-                      </UML:TaggedValue.type>
-                    </UML:TaggedValue>
-                    <UML:TaggedValue xmi.id = '127-0-1-1-5d6c23f8:13fc7f06253:-8000:0000000000000F81'
-                      isSpecification = 'false'>
-                      <UML:TaggedValue.dataValue>Maximun depth copy</UML:TaggedValue.dataValue>
-                      <UML:TaggedValue.type>
-                        <UML:TagDefinition href = 'http://argouml.org/user-profiles/OpenObjectStadardElements.xmi#127-0-1-1-2b464aa4:13b09d81b72:-8000:0000000000001573'/>
-                      </UML:TaggedValue.type>
-                    </UML:TaggedValue>
-                  </UML:ModelElement.taggedValue>
-                  <UML:StructuralFeature.type>
-                    <UML:DataType href = 'http://argouml.org/user-profiles/OpenObjectStadardElements.xmi#127-0-1-1--66344949:13b09938a14:-8000:0000000000000B97'/>
-                  </UML:StructuralFeature.type>
-                </UML:Attribute>
                 <UML:Attribute xmi.id = '127-0-1-1-5d6c23f8:13fc7f06253:-8000:0000000000000F8C'
                   name = 'move' visibility = 'public' isSpecification = 'false' ownerScope = 'instance'
                   changeability = 'changeable' targetScope = 'instance'>
@@ -5030,8 +4996,126 @@ Registry in the log start action.</UML:TaggedValue.dataValue>
                   <UML:ModelElement.stereotype>
                     <UML:Stereotype href = 'http://argouml.org/user-profiles/OpenObjectStadardElements.xmi#127-0-1-1--66344949:13b09938a14:-8000:00000000000011E5'/>
                   </UML:ModelElement.stereotype>
+                  <UML:ModelElement.taggedValue>
+                    <UML:TaggedValue xmi.id = '127-0-1-1--27e6e235:13fcb92130f:-8000:0000000000000F94'
+                      isSpecification = 'false'>
+                      <UML:TaggedValue.dataValue>Move</UML:TaggedValue.dataValue>
+                      <UML:TaggedValue.type>
+                        <UML:TagDefinition href = 'http://argouml.org/user-profiles/OpenObjectStadardElements.xmi#127-0-1-1-2b464aa4:13b09d81b72:-8000:0000000000001573'/>
+                      </UML:TaggedValue.type>
+                    </UML:TaggedValue>
+                  </UML:ModelElement.taggedValue>
                   <UML:StructuralFeature.type>
                     <UML:DataType href = 'http://argouml.org/user-profiles/OpenObjectStadardElements.xmi#127-0-1-1--66344949:13b09938a14:-8000:0000000000000B98'/>
+                  </UML:StructuralFeature.type>
+                </UML:Attribute>
+                <UML:Attribute xmi.id = '127-0-1-1--27e6e235:13fcb92130f:-8000:0000000000000F8D'
+                  name = 'do_rename' visibility = 'public' isSpecification = 'false' ownerScope = 'instance'
+                  changeability = 'changeable' targetScope = 'instance'>
+                  <UML:StructuralFeature.multiplicity>
+                    <UML:Multiplicity xmi.id = '127-0-1-1--27e6e235:13fcb92130f:-8000:0000000000000F8E'>
+                      <UML:Multiplicity.range>
+                        <UML:MultiplicityRange xmi.id = '127-0-1-1--27e6e235:13fcb92130f:-8000:0000000000000F8F'
+                          lower = '1' upper = '1'/>
+                      </UML:Multiplicity.range>
+                    </UML:Multiplicity>
+                  </UML:StructuralFeature.multiplicity>
+                  <UML:ModelElement.stereotype>
+                    <UML:Stereotype href = 'http://argouml.org/user-profiles/OpenObjectStadardElements.xmi#127-0-1-1--66344949:13b09938a14:-8000:00000000000011E5'/>
+                  </UML:ModelElement.stereotype>
+                  <UML:ModelElement.taggedValue>
+                    <UML:TaggedValue xmi.id = '127-0-1-1--27e6e235:13fcb92130f:-8000:0000000000000F95'
+                      isSpecification = 'false'>
+                      <UML:TaggedValue.dataValue>Do rename?</UML:TaggedValue.dataValue>
+                      <UML:TaggedValue.type>
+                        <UML:TagDefinition href = 'http://argouml.org/user-profiles/OpenObjectStadardElements.xmi#127-0-1-1-2b464aa4:13b09d81b72:-8000:0000000000001573'/>
+                      </UML:TaggedValue.type>
+                    </UML:TaggedValue>
+                  </UML:ModelElement.taggedValue>
+                  <UML:StructuralFeature.type>
+                    <UML:DataType href = 'http://argouml.org/user-profiles/OpenObjectStadardElements.xmi#127-0-1-1--66344949:13b09938a14:-8000:0000000000000B98'/>
+                  </UML:StructuralFeature.type>
+                </UML:Attribute>
+                <UML:Attribute xmi.id = '127-0-1-1--27e6e235:13fcb92130f:-8000:0000000000000F90'
+                  name = 'new_name' visibility = 'public' isSpecification = 'false' ownerScope = 'instance'
+                  changeability = 'changeable' targetScope = 'instance'>
+                  <UML:StructuralFeature.multiplicity>
+                    <UML:Multiplicity xmi.id = '127-0-1-1--27e6e235:13fcb92130f:-8000:0000000000000F91'>
+                      <UML:Multiplicity.range>
+                        <UML:MultiplicityRange xmi.id = '127-0-1-1--27e6e235:13fcb92130f:-8000:0000000000000F92'
+                          lower = '1' upper = '1'/>
+                      </UML:Multiplicity.range>
+                    </UML:Multiplicity>
+                  </UML:StructuralFeature.multiplicity>
+                  <UML:ModelElement.stereotype>
+                    <UML:Stereotype href = 'http://argouml.org/user-profiles/OpenObjectStadardElements.xmi#127-0-1-1--66344949:13b09938a14:-8000:00000000000011E5'/>
+                  </UML:ModelElement.stereotype>
+                  <UML:ModelElement.taggedValue>
+                    <UML:TaggedValue xmi.id = '127-0-1-1--27e6e235:13fcb92130f:-8000:0000000000000F93'
+                      isSpecification = 'false'>
+                      <UML:TaggedValue.dataValue>&quot;{name}_C&quot;</UML:TaggedValue.dataValue>
+                      <UML:TaggedValue.type>
+                        <UML:TagDefinition href = 'http://argouml.org/user-profiles/OpenObjectStadardElements.xmi#127-0-1-1-2b464aa4:13b09d81b72:-8000:0000000000001567'/>
+                      </UML:TaggedValue.type>
+                    </UML:TaggedValue>
+                    <UML:TaggedValue xmi.id = '127-0-1-1--27e6e235:13fcb92130f:-8000:0000000000000F96'
+                      isSpecification = 'false'>
+                      <UML:TaggedValue.dataValue>New code</UML:TaggedValue.dataValue>
+                      <UML:TaggedValue.type>
+                        <UML:TagDefinition href = 'http://argouml.org/user-profiles/OpenObjectStadardElements.xmi#127-0-1-1-2b464aa4:13b09d81b72:-8000:0000000000001573'/>
+                      </UML:TaggedValue.type>
+                    </UML:TaggedValue>
+                    <UML:TaggedValue xmi.id = '127-0-1-1--27e6e235:13fcb92130f:-8000:0000000000000F97'
+                      isSpecification = 'false'>
+                      <UML:TaggedValue.dataValue>{name} will be replaced by the source code; {question} will be replaced by the source question.</UML:TaggedValue.dataValue>
+                      <UML:TaggedValue.type>
+                        <UML:TagDefinition href = 'http://argouml.org/user-profiles/OpenObjectStadardElements.xmi#127-0-1-1-2b464aa4:13b09d81b72:-8000:0000000000001576'/>
+                      </UML:TaggedValue.type>
+                    </UML:TaggedValue>
+                  </UML:ModelElement.taggedValue>
+                  <UML:StructuralFeature.type>
+                    <UML:DataType href = 'http://argouml.org/user-profiles/OpenObjectStadardElements.xmi#127-0-1-1--66344949:13b09938a14:-8000:0000000000000B9C'/>
+                  </UML:StructuralFeature.type>
+                </UML:Attribute>
+                <UML:Attribute xmi.id = '127-0-1-1--27e6e235:13fcb92130f:-8000:0000000000000F98'
+                  name = 'new_question' visibility = 'public' isSpecification = 'false' ownerScope = 'instance'
+                  changeability = 'changeable' targetScope = 'instance'>
+                  <UML:StructuralFeature.multiplicity>
+                    <UML:Multiplicity xmi.id = '127-0-1-1--27e6e235:13fcb92130f:-8000:0000000000000F99'>
+                      <UML:Multiplicity.range>
+                        <UML:MultiplicityRange xmi.id = '127-0-1-1--27e6e235:13fcb92130f:-8000:0000000000000F9A'
+                          lower = '1' upper = '1'/>
+                      </UML:Multiplicity.range>
+                    </UML:Multiplicity>
+                  </UML:StructuralFeature.multiplicity>
+                  <UML:ModelElement.stereotype>
+                    <UML:Stereotype href = 'http://argouml.org/user-profiles/OpenObjectStadardElements.xmi#127-0-1-1--66344949:13b09938a14:-8000:00000000000011E5'/>
+                  </UML:ModelElement.stereotype>
+                  <UML:ModelElement.taggedValue>
+                    <UML:TaggedValue xmi.id = '127-0-1-1--27e6e235:13fcb92130f:-8000:0000000000000F9B'
+                      isSpecification = 'false'>
+                      <UML:TaggedValue.dataValue>New question</UML:TaggedValue.dataValue>
+                      <UML:TaggedValue.type>
+                        <UML:TagDefinition href = 'http://argouml.org/user-profiles/OpenObjectStadardElements.xmi#127-0-1-1-2b464aa4:13b09d81b72:-8000:0000000000001573'/>
+                      </UML:TaggedValue.type>
+                    </UML:TaggedValue>
+                    <UML:TaggedValue xmi.id = '127-0-1-1--27e6e235:13fcb92130f:-8000:0000000000000F9C'
+                      isSpecification = 'false'>
+                      <UML:TaggedValue.dataValue>{name} will be replaced by the source code; {question} will be replaced by the source question.</UML:TaggedValue.dataValue>
+                      <UML:TaggedValue.type>
+                        <UML:TagDefinition href = 'http://argouml.org/user-profiles/OpenObjectStadardElements.xmi#127-0-1-1-2b464aa4:13b09d81b72:-8000:0000000000001576'/>
+                      </UML:TaggedValue.type>
+                    </UML:TaggedValue>
+                    <UML:TaggedValue xmi.id = '127-0-1-1--27e6e235:13fcb92130f:-8000:0000000000000F9D'
+                      isSpecification = 'false'>
+                      <UML:TaggedValue.dataValue>&quot;{question} (Copy)&quot;</UML:TaggedValue.dataValue>
+                      <UML:TaggedValue.type>
+                        <UML:TagDefinition href = 'http://argouml.org/user-profiles/OpenObjectStadardElements.xmi#127-0-1-1-2b464aa4:13b09d81b72:-8000:0000000000001567'/>
+                      </UML:TaggedValue.type>
+                    </UML:TaggedValue>
+                  </UML:ModelElement.taggedValue>
+                  <UML:StructuralFeature.type>
+                    <UML:DataType href = 'http://argouml.org/user-profiles/OpenObjectStadardElements.xmi#127-0-1-1--66344949:13b09938a14:-8000:0000000000000B9C'/>
                   </UML:StructuralFeature.type>
                 </UML:Attribute>
               </UML:Classifier.feature>
@@ -22506,7 +22590,7 @@ Registry in the log start action.</UML:TaggedValue.dataValue>
     </path>
   </group>
   <group name="Fig5"
-       description="org.argouml.uml.diagram.static_structure.ui.FigClass[656, 480, 252, 139]pathVisible=false;stereotypeView=0;operationsVisible=true;attributesVisible=true;"
+       description="org.argouml.uml.diagram.static_structure.ui.FigClass[656, 464, 252, 171]pathVisible=false;stereotypeView=0;operationsVisible=true;attributesVisible=true;"
        href="127-0-1-1-583060f:13fc3cc8651:-8000:0000000000000F6D"
        fill="1"
        fillcolor="white"
@@ -22518,9 +22602,9 @@ Registry in the log start action.</UML:TaggedValue.dataValue>
     
     <rectangle name="Fig5.0"
       x="656"
-      y="480"
+      y="464"
       width="252"
-      height="139"
+      height="171"
       fill="1"
       fillcolor="white"
       stroke="1"
@@ -22528,7 +22612,7 @@ Registry in the log start action.</UML:TaggedValue.dataValue>
     />
     <text name="Fig5.1"
       x="657"
-      y="481"
+      y="465"
       width="250"
       height="41"
       fill="0"
@@ -22543,7 +22627,7 @@ Registry in the log start action.</UML:TaggedValue.dataValue>
       justification="Center"
     >node_copy</text>
     <group name="Fig5.2"
-         description="org.argouml.uml.diagram.ui.FigStereotypesGroup[657, 481, 250, 19]"
+         description="org.argouml.uml.diagram.ui.FigStereotypesGroup[657, 465, 250, 19]"
          href="127-0-1-1-583060f:13fc3cc8651:-8000:0000000000000F6D"
          fill="0"
          fillcolor="white"
@@ -22555,7 +22639,7 @@ Registry in the log start action.</UML:TaggedValue.dataValue>
       
       <rectangle name="Fig5.2.0"
         x="657"
-        y="481"
+        y="465"
         width="250"
         height="19"
         fill="0"
@@ -22565,7 +22649,7 @@ Registry in the log start action.</UML:TaggedValue.dataValue>
       />
       <text name="Fig5.2.1"
         x="657"
-        y="481"
+        y="465"
         width="250"
         height="17"
         fill="0"
@@ -22582,7 +22666,7 @@ Registry in the log start action.</UML:TaggedValue.dataValue>
     </group>
     <rectangle name="Fig5.3"
       x="656"
-      y="522"
+      y="506"
       width="252"
       height="1"
       fill="1"
@@ -22591,7 +22675,7 @@ Registry in the log start action.</UML:TaggedValue.dataValue>
       strokecolor="black"
     />
     <group name="Fig5.4"
-         description="org.argouml.uml.diagram.ui.FigAttributesCompartment[657, 523, 250, 72]"
+         description="org.argouml.uml.diagram.ui.FigAttributesCompartment[657, 507, 250, 104]"
          href="127-0-1-1-583060f:13fc3cc8651:-8000:0000000000000F6D"
          fill="0"
          fillcolor="white"
@@ -22603,9 +22687,9 @@ Registry in the log start action.</UML:TaggedValue.dataValue>
       
       <rectangle name="Fig5.4.0"
         x="657"
-        y="523"
+        y="507"
         width="250"
-        height="72"
+        height="104"
         fill="0"
         fillcolor="white"
         stroke="0"
@@ -22613,7 +22697,7 @@ Registry in the log start action.</UML:TaggedValue.dataValue>
       />
       <text name="Fig5.4.1"
         x="657"
-        y="523"
+        y="507"
         width="250"
         height="16"
         fill="0"
@@ -22629,7 +22713,7 @@ Registry in the log start action.</UML:TaggedValue.dataValue>
       >&lt;&lt;form&gt;&gt; new_parent_node_id : node</text>
       <text name="Fig5.4.2"
         x="657"
-        y="539"
+        y="523"
         width="250"
         height="16"
         fill="0"
@@ -22645,6 +22729,22 @@ Registry in the log start action.</UML:TaggedValue.dataValue>
       >&lt;&lt;form&gt;&gt; new_order : Integer</text>
       <text name="Fig5.4.3"
         x="657"
+        y="539"
+        width="250"
+        height="16"
+        fill="0"
+        fillcolor="white"
+        stroke="0"
+        strokecolor="black"
+        textcolor="black"
+        font="Dialog"
+        italic="false"
+        bold="false"
+        textsize="12"
+        justification="Left"
+      >&lt;&lt;form&gt;&gt; move : Boolean</text>
+      <text name="Fig5.4.4"
+        x="657"
         y="555"
         width="250"
         height="16"
@@ -22658,10 +22758,26 @@ Registry in the log start action.</UML:TaggedValue.dataValue>
         bold="false"
         textsize="12"
         justification="Left"
-      >&lt;&lt;form&gt;&gt; max_level : Integer</text>
-      <text name="Fig5.4.4"
+      >&lt;&lt;form&gt;&gt; do_rename : Boolean</text>
+      <text name="Fig5.4.5"
         x="657"
         y="571"
+        width="250"
+        height="16"
+        fill="0"
+        fillcolor="white"
+        stroke="0"
+        strokecolor="black"
+        textcolor="black"
+        font="Dialog"
+        italic="false"
+        bold="false"
+        textsize="12"
+        justification="Left"
+      >&lt;&lt;form&gt;&gt; new_name : Char</text>
+      <text name="Fig5.4.6"
+        x="657"
+        y="587"
         width="250"
         height="22"
         fill="0"
@@ -22674,11 +22790,11 @@ Registry in the log start action.</UML:TaggedValue.dataValue>
         bold="false"
         textsize="12"
         justification="Left"
-      >&lt;&lt;form&gt;&gt; move : Boolean</text>
+      >&lt;&lt;form&gt;&gt; new_question : Char</text>
     </group>
     <rectangle name="Fig5.5"
       x="656"
-      y="594"
+      y="610"
       width="252"
       height="1"
       fill="1"
@@ -22687,7 +22803,7 @@ Registry in the log start action.</UML:TaggedValue.dataValue>
       strokecolor="black"
     />
     <group name="Fig5.6"
-         description="org.argouml.uml.diagram.ui.FigOperationsCompartment[657, 595, 250, 24]"
+         description="org.argouml.uml.diagram.ui.FigOperationsCompartment[657, 611, 250, 24]"
          href="127-0-1-1-583060f:13fc3cc8651:-8000:0000000000000F6D"
          fill="0"
          fillcolor="white"
@@ -22699,7 +22815,7 @@ Registry in the log start action.</UML:TaggedValue.dataValue>
       
       <rectangle name="Fig5.6.0"
         x="657"
-        y="595"
+        y="611"
         width="250"
         height="24"
         fill="0"
@@ -22709,7 +22825,7 @@ Registry in the log start action.</UML:TaggedValue.dataValue>
       />
       <text name="Fig5.6.1"
         x="657"
-        y="595"
+        y="611"
         width="250"
         height="22"
         fill="0"
@@ -23326,8 +23442,8 @@ Registry in the log start action.</UML:TaggedValue.dataValue>
       />
     </group>
     <rectangle name="Fig9.3"
-      x="22"
-      y="42"
+      x="10"
+      y="10"
       width="11"
       height="1"
       fill="1"
@@ -23337,7 +23453,7 @@ Registry in the log start action.</UML:TaggedValue.dataValue>
       visibility="0"
     />
     <group name="Fig9.4"
-         description="org.argouml.uml.diagram.ui.FigExtensionPointsCompartment[22, 42, 64, 19]"
+         description="org.argouml.uml.diagram.ui.FigExtensionPointsCompartment[10, 10, 64, 19]"
          href="127-0-1-1-5d6c23f8:13fc7f06253:-8000:0000000000000F82"
          fill="1"
          fillcolor="white"
@@ -23349,8 +23465,8 @@ Registry in the log start action.</UML:TaggedValue.dataValue>
       </private>
       
       <rectangle name="Fig9.4.0"
-        x="22"
-        y="42"
+        x="10"
+        y="10"
         width="64"
         height="19"
         fill="0"
@@ -23406,7 +23522,7 @@ Registry in the log start action.</UML:TaggedValue.dataValue>
                         offset="5" />
     </private>
     <path name="Fig10.0"
-      description="org.tigris.gef.presentation.FigPoly"
+      description="org.argouml.gefext.ArgoFigPoly"
       fill="0"
       fillcolor="white"
       stroke="1"
@@ -23437,7 +23553,7 @@ Registry in the log start action.</UML:TaggedValue.dataValue>
                         offset="25" />
     </private>
     <path name="Fig11.0"
-      description="org.tigris.gef.presentation.FigPoly"
+      description="org.argouml.gefext.ArgoFigPoly"
       fill="0"
       fillcolor="white"
       stroke="1"
@@ -23463,7 +23579,7 @@ Registry in the log start action.</UML:TaggedValue.dataValue>
     <rectangle name="Fig12.0"
       x="16"
       y="504"
-      width="83"
+      width="147"
       height="97"
       fill="0"
       fillcolor="white"
@@ -23471,7 +23587,7 @@ Registry in the log start action.</UML:TaggedValue.dataValue>
       strokecolor="black"
     />
     <text name="Fig12.1"
-      x="25"
+      x="20"
       y="559"
       width="138"
       height="23"
@@ -23487,7 +23603,7 @@ Registry in the log start action.</UML:TaggedValue.dataValue>
       justification="Center"
     >sondaggio::Designer</text>
     <ellipse name="Fig12.2"
-      x="57"
+      x="89"
       y="521"
       rx="8"
       ry="7"
@@ -23503,9 +23619,9 @@ Registry in the log start action.</UML:TaggedValue.dataValue>
       stroke="1"
       strokecolor="black"
     >
-      <moveto x="57"
+      <moveto x="89"
               y="529" />
-      <lineto x="57"
+      <lineto x="89"
               y="544" />
     </path>
     <path name="Fig12.4"
@@ -23515,9 +23631,9 @@ Registry in the log start action.</UML:TaggedValue.dataValue>
       stroke="1"
       strokecolor="black"
     >
-      <moveto x="47"
+      <moveto x="79"
               y="534" />
-      <lineto x="67"
+      <lineto x="99"
               y="534" />
     </path>
     <path name="Fig12.5"
@@ -23527,9 +23643,9 @@ Registry in the log start action.</UML:TaggedValue.dataValue>
       stroke="1"
       strokecolor="black"
     >
-      <moveto x="57"
+      <moveto x="89"
               y="544" />
-      <lineto x="52"
+      <lineto x="84"
               y="559" />
     </path>
     <path name="Fig12.6"
@@ -23539,13 +23655,13 @@ Registry in the log start action.</UML:TaggedValue.dataValue>
       stroke="1"
       strokecolor="black"
     >
-      <moveto x="57"
+      <moveto x="89"
               y="544" />
-      <lineto x="62"
+      <lineto x="94"
               y="559" />
     </path>
     <group name="Fig12.7"
-         description="org.argouml.uml.diagram.ui.FigStereotypesGroup[16, 582, 83, 19]"
+         description="org.argouml.uml.diagram.ui.FigStereotypesGroup[48, 582, 83, 19]"
          href="127-0-1-1--3b5079bc:13cd6248bba:-8000:00000000000018CD"
          fill="0"
          fillcolor="white"
@@ -23556,7 +23672,7 @@ Registry in the log start action.</UML:TaggedValue.dataValue>
       </private>
       
       <rectangle name="Fig12.7.0"
-        x="16"
+        x="48"
         y="582"
         width="83"
         height="19"
@@ -23566,7 +23682,7 @@ Registry in the log start action.</UML:TaggedValue.dataValue>
         strokecolor="black"
       />
       <text name="Fig12.7.1"
-        x="16"
+        x="48"
         y="582"
         width="83"
         height="17"
@@ -23628,13 +23744,13 @@ Registry in the log start action.</UML:TaggedValue.dataValue>
                         offset="5" />
     </private>
     <path name="Fig13.0"
-      description="org.tigris.gef.presentation.FigPoly"
+      description="org.argouml.gefext.ArgoFigPoly"
       fill="0"
       fillcolor="white"
       stroke="1"
       strokecolor="51 51 153"
     >
-      <moveto x="67"
+      <moveto x="99"
               y="534" />
       <lineto x="224"
               y="536" />
@@ -23684,7 +23800,7 @@ Registry in the log start action.</UML:TaggedValue.dataValue>
     <path name="Fig14.2"
       description="org.tigris.gef.presentation.FigPoly"
       fill="1"
-      fillcolor="178 178 178"
+      fillcolor="white"
       stroke="1"
       strokecolor="black"
     >
@@ -23704,6 +23820,7 @@ Registry in the log start action.</UML:TaggedValue.dataValue>
          fillcolor="white"
          stroke="0"
          strokecolor="black"
+         visibility="0"
     >
       <private>
       </private>
@@ -23757,16 +23874,16 @@ Registry in the log start action.</UML:TaggedValue.dataValue>
       destFigNode="Fig9"
     </private>
     <path name="Fig15.0"
-      description="org.tigris.gef.presentation.FigPoly"
+      description="org.argouml.gefext.ArgoFigPoly"
       fill="0"
       fillcolor="white"
       stroke="1"
       strokecolor="51 51 153"
     >
-      <moveto x="311"
+      <moveto x="308"
               y="648" />
       <lineto x="308"
-              y="563" />
+              y="564" />
     </path>
   </group>
 </pgml>
