@@ -109,7 +109,20 @@ class node(osv.osv):
 
     def copy(self, cr, uid, id, default=None, context=None, done_list=None, local=False):
         default = {} if default is None else default.copy()
+        # No copy answers
         default.update(answers_ids=False)
+
+        node = self.browse(cr, uid, id, context=context)
+
+        # Copy child nodes
+        new_child_ids = []
+        for child in node.child_ids:
+            child_ids = self.copy(cr, uid, child.id, default, context=context, done_list=done_list, local=True)
+            if child_ids:
+                new_child_ids.append(child_ids)
+        default['new_child_ids'] = [(6, 0, new_child_ids)]
+
+        # Copy using default code
         return super(node, self).copy(cr, uid, id, default, context=context)
 
 node()
