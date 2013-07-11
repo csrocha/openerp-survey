@@ -108,7 +108,7 @@ class node(osv.osv):
         pass
 
     def copy(self, cr, uid, id, default=None, context=None, done_list=None, local=False):
-        default = {} if default is None else default.copy()
+        default = {} if default is None or not local else default.copy()
         # No copy answers
         default.update(answers_ids=False)
 
@@ -117,7 +117,11 @@ class node(osv.osv):
         # Copy child nodes
         new_child_ids = []
         for child in my_node.child_ids:
-            child_ids = self.copy(cr, uid, child.id, default, context=context, done_list=done_list, local=True)
+            child_ids = self.copy(cr, uid, child.id,
+			default,
+			context=context,
+			done_list=done_list,
+			local=True)
             if child_ids:
                 new_child_ids.append(child_ids)
         default['new_child_ids'] = [(6, 0, new_child_ids)]
