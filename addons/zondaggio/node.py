@@ -108,26 +108,29 @@ class node(osv.osv):
         pass
 
     def copy(self, cr, uid, id, default=None, context=None, done_list=None, local=False):
-        default = {} if default is None or not local else default.copy()
-        # No copy answers
-        default.update(answers_ids=False)
+        default = {} if default is None else default.copy()
 
-        my_node = self.browse(cr, uid, id, context=context)
-
-        # Copy child nodes
-        new_child_ids = []
-        for child in my_node.child_ids:
-            child_ids = self.copy(cr, uid, child.id,
-			default,
-			context=context,
-			done_list=done_list,
-			local=True)
-            if child_ids:
-                new_child_ids.append(child_ids)
-        default['new_child_ids'] = [(6, 0, new_child_ids)]
+        # No copy answers and childs
+        default.update(
+            answers_ids=False,
+            child_ids=False
+        )
 
         # Copy using default code
-        return super(node, self).copy(cr, uid, id, default, context=context)
+        rid = super(node, self).copy(cr, uid, id, default, context=context)
+
+        # Copy childs
+        #import pdb; pdb.set_trace()
+        my_node = self.browse(cr, uid, id, context=context)
+        copy_node = self.browse(cr, uid, rid, context=context)
+        for child in my_node.child_ids:
+            child_default = {
+                'parent_id': copy_node.id,
+                'survey_id': copy_node.survey_id.id,
+            }
+            child_ids = self.copy(cr, uid, child.id, child_default, context=context, done_list=done_list, local=True)
+
+        return rid
 
 node()
 
