@@ -61,8 +61,8 @@ class node_copy(osv.TransientModel):
                                            parent_id=new_parent_node_id,
                                            survey_id=target_survey_id,
                                            complete_place="{0}{1:02X}".format(base_parent_place, new_order+to_copy.index(id)),
-                                           question = (new_question if do_rename else "{name}").format(**node_data),
-                                           name = (new_name if do_rename else "{question}").format(**node_data)
+                                           question = (new_question if do_rename else "{question}").format(**node_data),
+                                           name = (new_name if do_rename else "{name}").format(**node_data)
                                           )
                                 new_id = obj_node.copy(cr, uid, id, default=val, context=context)
         return {}
