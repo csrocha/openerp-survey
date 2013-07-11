@@ -50,6 +50,8 @@
                      <group>
                         <field name="name"
                             />
+                        <field name="is_validation"
+                            />
                     <field name="enable_node_ids"
                             />
                     <field name="disable_node_ids"
@@ -70,6 +72,8 @@
                 <tree string="control_condition"
                     >
                     <field name="name"
+                        />
+                    <field name="is_validation"
                         />
                     <field name="enable_node_ids"
                         />

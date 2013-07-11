@@ -41,6 +41,7 @@ class enable_condition(osv.osv):
     }
 
     _defaults = {
+        'node_id': lambda self, cr, uid, context=None: context and context.get('node_id', False),
     }
 
 

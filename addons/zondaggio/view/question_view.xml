@@ -61,16 +61,6 @@
             <field name="target">new</field>
         </record-->
 
-        <act_window 
-           domain="[('id','=',active_id)]"
-           id="act_open_question" 
-           name="Open Question"
-           view_id="sondaggio.view_sondaggio_node_form"
-           view_type="form"
-           view_mode="form"
-           res_model="sondaggio.node" 
-           src_model="sondaggio.node"/>
-
         <!-- FORMVIEW -->
         <record id="sondaggio.view_sondaggio_node_form" model="ir.ui.view">
             <field name="name">sondaggio.node.form</field>

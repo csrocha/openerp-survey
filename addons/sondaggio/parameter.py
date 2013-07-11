@@ -40,6 +40,7 @@ class parameter(osv.osv):
     }
 
     _defaults = {
+        'questionnaire_id': lambda self, cr, uid, context=None: context and context.get('questionnaire_id', False),
     }
 
 

@@ -287,21 +287,11 @@
             parent="menu_for_validators"
             />
 
-        <record id="action_sondaggio_node_questions" model="ir.actions.act_window">
-            <field name="name">Questions</field>
-            <field name="res_model">sondaggio.node</field>
-            <field name="view_type">form</field>
-            <field name="view_mode">tree,form</field>
-            <field name="view_id" ref="view_sondaggio_node_tree"/>
-            <field name="search_view_id" ref="view_sondaggio_node_filter"/>
-            <field name="domain">[]</field>
-        </record>
 
         <menuitem
             name="Questions"
             id="menu_questions"
             sequence="100"
-            action="action_sondaggio_node_questions"
             parent="menu_for_designers"
             groups="group_designer"
             />

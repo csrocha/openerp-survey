@@ -61,6 +61,7 @@ class answer(osv.osv):
     _defaults = {
         'state': 'enabled',
         'state': 'disabled',
+        'questionnaire_id': lambda self, cr, uid, context=None: context and context.get('questionnaire_id', False),
     }
 
     _order = "questionnaire_id, complete_place"

@@ -101,6 +101,8 @@
                             />
                         <field name="sample_filter"
                             />
+                        <field name="presentation"
+                            />
                     <field name="question_ids"
                             />
                     <field name="respondent_ids"

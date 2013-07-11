@@ -26,7 +26,7 @@ import netsvc
 from osv import osv, fields
 import itertools
 
-class question(osv.osv):
+class node(osv.osv):
     """"""
     _name = 'sondaggio.node'
     _inherit = [ _name ]
@@ -79,7 +79,7 @@ class question(osv.osv):
         'complete_place': fields.function(_place_get_fnc, type="char", string='Place Path', store=True),
     }
 
-    def open_question(self, cr, uid, ids, context=None):
+    def open_node(self, cr, uid, ids, context=None):
         model_obj = self.pool.get('ir.model.data')
         return {
             'type': 'ir.actions.act_window',
@@ -107,6 +107,11 @@ class question(osv.osv):
     def answer_is_valid(self, cr, uid, ids, values, context=None):
         pass
 
-question()
+    def copy(self, cr, uid, id, default=None, context=None, done_list=None, local=False):
+        default = {} if default is None else default.copy()
+        default.update(answers_ids=False)
+        return super(node, self).copy(cr, uid, id, default, context=context)
+
+node()
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

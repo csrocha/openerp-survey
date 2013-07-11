@@ -40,6 +40,7 @@ class message(osv.osv):
     }
 
     _defaults = {
+        'format_id': lambda self, cr, uid, context=None: context and context.get('format_id', False),
     }
 
 
