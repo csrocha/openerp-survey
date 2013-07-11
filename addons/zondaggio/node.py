@@ -132,31 +132,6 @@ class node(osv.osv):
 
         return rid
 
-
-    def _copy(self, cr, uid, id, default=None, context=None, done_list=None, local=False):
-        default = {} if default is None else default.copy()
-        # No copy answers
-        default.update(answers_ids=False)
-
-        my_node = self.browse(cr, uid, id, context=context)
-        if 'parent_id' in default:
-            parent_node = self.browse(cr, uid, default['parent_id'], context=context)
-            parent_complete_name = parent_node.complete_name
-
-        # Copy child nodes
-        new_child_ids = []
-        child_default = {}
-        import pdb; pdb.set_trace()
-        for child in my_node.child_ids:
-            print child_default, default, context
-            child_ids = self.copy(cr, uid, child.id, child_default, context=context, done_list=done_list, local=True)
-            if child_ids:
-                new_child_ids.append(child_ids)
-        default['new_child_ids'] = [(6, 0, new_child_ids)]
-
-        # Copy using default code
-        return super(node, self).copy(cr, uid, id, default, context=context)
-
 node()
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
