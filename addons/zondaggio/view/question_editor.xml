@@ -33,7 +33,6 @@
                     <field name="place"/>
                     <field name="name"/>
                     <field name="question"/>
-                    <field name="variable_name"/>
                     <field name="type"/>
                     <field name="format_id"/>
                 </tree>
@@ -49,6 +48,31 @@
             <field name="domain">[('survey_id','=',active_id)]</field>
             <field name="context">{'survey_id': active_id}</field>
         </record>
+
+        <record id="view_sondaggio_variable_editor" model="ir.ui.view">
+            <field name="name">sondaggio.node.tree</field>
+            <field name="model">sondaggio.node</field>
+            <field name="arch" type="xml">
+                <tree string="Variable" editable="bottom">
+                    <field name="name"/>
+                    <field name="question"/>
+                    <field name="variable_name"/>
+                    <field name="initial_state"/>
+                    <field name="enable_in"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_variable_editor">
+            <field name="name">Variable Editor</field>
+            <field name="res_model">sondaggio.node</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form,tree</field>
+            <field name="view_id" ref="view_sondaggio_variable_editor"/>
+            <field name="domain">[('survey_id','=',active_id),('type','=','Variable')]</field>
+            <field name="context">{'survey_id': active_id}</field>
+        </record>
+
 
 
     </data>

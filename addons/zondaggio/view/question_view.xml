@@ -101,7 +101,8 @@
                         </group>
                         <notebook>
                             <page string="Questions" attrs="{'invisible': [('type','not in',('View','Variable'))]}">
-                                <button name="reordering" string="Reordering" type="object"/>
+                                <button name="do_reordering" string="Reordering" type="object"/>
+                                <button name="do_propagate_page" string="Propagate page" type="object"/>
                                 <newline/>
                                 <field name="child_ids" context="{'survey_id': survey_id}">
                                     <tree string="Child Questions" editable="bottom">

@@ -573,7 +573,12 @@ class questionnaire(osv.osv):
         view_item.append('</group>')
         view_item.append(_enter_js)
 
-        view = """<group id="body" position="inside"> <separator string="Page %i."/> <newline/> %s </group>""" % (actual_page, '\n'.join(view_item))
+        view = """
+            <group id="body" position="inside">
+            <separator string="%s."/>
+            <newline/>
+            %s
+            </group>""" % ((actual_page and "Page %i" % actual_page) or "No Page", '\n'.join(view_item))
         _logger.debug(view)
         return view, fields
 
@@ -617,7 +622,7 @@ class questionnaire(osv.osv):
             context['actual_page'] = actual_page
         return {
             'type': 'ir.actions.act_window',
-            'name': 'Questtionary. page %i' % actual_page,
+            'name': 'Questionary.%s' % ( actual_page and ' Page %i' % actual_page or ''),
             'view_type': 'form',
             'view_mode': 'form',
             'target': 'current',
@@ -634,7 +639,7 @@ class questionnaire(osv.osv):
             context['actual_page'] = actual_page
         return {
             'type': 'ir.actions.act_window',
-            'name': 'Questtionary. page %i' % q.actual_page,
+            'name': 'Questionary.%s' % ( actual_page and ' Page %i' % actual_page or ''),
             'view_type': 'form',
             'view_mode': 'form',
             'target': 'current',
@@ -659,7 +664,7 @@ class questionnaire(osv.osv):
             context['actual_page'] = actual_page
         return {
             'type': 'ir.actions.act_window',
-            'name': 'Questtionary. page %i' % q.actual_page,
+            'name': 'Questionary.%s' % ( actual_page and ' Page %i' % actual_page or ''),
             'view_type': 'form',
             'view_mode': 'form',
             'target': 'current',
@@ -700,6 +705,7 @@ class questionnaire(osv.osv):
                         'questionnaire_id': r['id'],
                         'question_id': question.id,
                     }
+                    _logger.debug("Creating: %s", v)
                     a_ids.append(answer_obj.create(cr, uid, v))
                     answer_obj.write(cr, uid, a_ids[-1], {'state': question.initial_state})
             # Leemos las preguntas.
