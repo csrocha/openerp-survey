@@ -87,6 +87,7 @@
                         <field name="automatic" />
                         <field name="message" />
                         <button name="zondaggio.action_question_editor" string="Edit Questions" type="action"/>
+                        <button name="zondaggio.action_variable_editor" string="Edit Variables" type="action"/>
                     </group>
                     <notebook>
                         <page string="Conditions">

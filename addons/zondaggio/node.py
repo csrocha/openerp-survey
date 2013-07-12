@@ -92,7 +92,7 @@ class node(osv.osv):
             'context': context,
         }
 
-    def reordering(self, cr, uid, ids, context=None):
+    def do_reordering(self, cr, uid, ids, context=None):
         context = context or {}
 
         if type(ids) is int:
@@ -103,6 +103,19 @@ class node(osv.osv):
             self.write(cr, uid, q['id'], { 'place': i })
             self.reordering(cr, uid, q['child_ids'], context=context)
             i = i + 1
+
+    def do_propagate_page(self, cr, uid, ids, context=None, page=None):
+        context = context or {}
+
+        if type(ids) is int:
+            ids = [ids]
+
+        for q in self.read(cr, uid, ids, ['page', 'child_ids'], context=context):
+            if page:
+                self.write(cr, uid, q['id'], { 'page': page })
+            else:
+                page = q['page']
+            self.do_propagate_page(cr, uid, q['child_ids'], context=context, page=page)
 
     def answer_is_valid(self, cr, uid, ids, values, context=None):
         pass
