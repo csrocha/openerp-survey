@@ -541,7 +541,7 @@ class questionnaire(osv.osv):
                         enable_conditions = enable_conditions[1:]
                     # Compilo las condiciones.
                     rep_enable_conditions = repr(enable_conditions).replace('\'','&quot;').replace('"','&quot;')
-                    item_map['enable_condition'] = 'modifiers="{{&quot;readonly&quot;: {!s}}}"'.format(rep_enable_conditions) if rep_enable_conditions else ""
+                    item_map['enable_condition'] = 'modifiers="{{&quot;readonly&quot;: {0!s}}}"'.format(rep_enable_conditions) if rep_enable_conditions else ""
                     view_item.append(
                        # '<label string="%(complete_name)s" colspan="1" class="sm_complete_name"/>'
                         '<label for="inp_%(complete_place)s" colspan="3" class="sm_complete_name"/>'
