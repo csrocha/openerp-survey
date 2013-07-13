@@ -26,6 +26,7 @@ import netsvc
 from osv import osv, fields
 from lxml import etree
 from openerp.tools import SKIPPED_ELEMENT_TYPES
+from openerp.tools.translate import _
 import tools
 import time
 import logging
@@ -206,7 +207,30 @@ _enter_js = """
 </script>
 </html>
 """
-_enter_js = ""
+_enter_js = """
+<html>
+<script type="text/javascript">
+    $(document).ready(function(){
+        debugger;
+        sheets = $('.oe_form_sheetbg');
+        main_sheet = sheets[sheets.length-1];
+        main_sheet.className = 'oe_form_sheetbg survey_full';
+    });
+</script>
+</html>"""
+
+_enter_css_ = """
+element.style {
+display: block;
+position: absolute;
+width: 100%;
+height: 100%;
+background-color: white;
+z-index: 10000;
+left: 0px;
+top: 0px;
+}
+"""
 
 class questionnaire(osv.osv):
     """
@@ -481,7 +505,7 @@ class questionnaire(osv.osv):
         view = """<group position="after"> <separator string="Page %i."/> %s </group>""" % (actual_page, ' '.join(view_item))
         return view, fields
 
-    def fields_view_get_callcenter(self, cr, uid, questionnaire_id, actual_page):
+    def fields_view_get_callcenter(self, cr, uid, questionnaire_id, actual_page=None):
         qaire_ids = self.search(cr, uid, [('id','=',questionnaire_id)])[:1]
         view_item = ['<group colspan="4" col="6">']
         fields = {}
@@ -598,7 +622,7 @@ class questionnaire(osv.osv):
         if view_type == "form" and questionnaire_id is not None:
             source = etree.fromstring(encode(res['arch']))
             #insert_view, insert_fields = self.fields_view_get_dataentry(cr, uid, questionnaire_id, actual_page)
-            insert_view, insert_fields = self.fields_view_get_callcenter(cr, uid, questionnaire_id, actual_page)
+            insert_view, insert_fields = self.fields_view_get_callcenter(cr, uid, questionnaire_id, actual_page=None)
             res['fields'].update(insert_fields)
             source = apply_inheritance_specs(source, insert_view, view_id)
             res.update(
@@ -757,6 +781,16 @@ class questionnaire(osv.osv):
         else:
 
             return False
+
+    def on_open_ui(self, cr, uid, ids, context=None):
+        context = context or {}
+        context['active_id'] = ids[0]
+        return {
+            'type' : 'ir.actions.client',
+            'name' : _('Start Questionnaire'),
+            'tag' : 'questionnaire.ui',
+            'context' : context
+        }
 
 questionnaire()
 

@@ -1,88 +1,60 @@
 <templates>
-	<style type="text/css">
-		.oe_topbar {
-			visibility: hidden;
-		}
-	</style>
-	<div t-name="zondaggio.action" class="oe_zondaggio oe_zondaggio_stopped">
-		<div>
-			<a name="home" id="home"></a>
-			<section class="section scroll-item" id="page1">
-				<table class="logos">
-					<tr>
-						<td id="logos">
-							<img class="z_logo" src="zondaggio/static/src/img/logo_fop.png"/>
-						</td>
-						<td id="logos_space" width="50%">
-						</td>
-						<td id="logos">
-							<img class="z_logo" src="zondaggio/static/src/img/logo_mincyt.png"/>
-						</td>
-					</tr>
-				</table>
-				<table class="intro">
-					<tr class="title">
-						<td>
-							<p>ENCUESTA NACIONAL SOBRE VALORACIÓN DE LA INNOVACIÓN Y CONOCIMIENTO DE FONDOS DE FINANCIAMIENTO</p>
-						</td>
-					</tr>
-					<tr class="subtitle">
-						<td>
-							<p>INTRODUCCIÓN Y PROTECCIÓN DE LOS DATOS</p>
-						</td>
-					</tr>
-					<tr>
-						<td>
-							<p>Estimado Sr. Empresario: el Ministerio de Ciencia, Tecnología e Innovación Productiva de la Nación (MINCyT), lo invita a Ud. a responder la presente encuesta, cuyo principal objetivo es conocer la valoración de la innovación por parte de los empresarios nacionales y relevar el grado de conocimiento de los fondos de financiamiento del Ministerio de Ciencia de la Nación.</p>
-							<p>Las respuestas que Ud. nos provea serán estrictamente secretas y sólo se utilizarán con fines estadísticos (Ley 17.622 Art. 10° de secreto estadístico). Los datos serán publicados exclusivamente en compilaciones de conjunto, de modo que no pueda ser violado el secreto comercial o patrimonial, ni individualizarse las personas o entidades a quienes se refieran.</p>
-							<p>Una vez finalizado el relevamiento, le remitiremos de forma personal los resultados e informes de prensa elaborados a partir de la información recogida.</p>
-							<p>Le agradecemos su valiosa colaboración brindándonos su tiempo y sus respuestas.</p>
-							<p>Cualquier inquietud o consulta puede contactarse a: xxxxxxxxxxxxxxxxx o bien a xxxxxxxxxxxxxxxxxxxxxxxxxxxx. (PONER MAIL DE CONTACTO A FOP O MINCYT)</p>
-						</td>
-					</tr>
-				</table>
-				<button type="button" name="" value="" class="fop-button">Continuar</button>
-			</section>
-			<section class="section scroll-item" id="page2">
-				<div class="page">
-					<p align="center">DATOS DE IDENTIFICACIÓN DE LA EMPRESA</p>
-					<table class="centered" align="center" width="80%">
-						<tr>
-							<td align="center" colspan="3"><hr/>Razón Social</td>
-						</tr>
-						<tr>
-							<td><hr/>Calle / Ruta</td>
-							<td><hr/>Número / Km</td>
-							<td><hr/>Localidad / Paraje</td>
-						</tr>
-						<tr>
-							<td><hr/>Partido / Departamento</td>
-							<td><hr/>Código Postal</td>
-							<td><hr/>Provincia</td>
-						</tr>
-					</table>
-				</div>
-				<div class="page">
-					<p align="center">DATOS DE IDENTIFICACIÓN DE LA EMPRESA</p>
-					<table class="centered" align="center" width="80%">
-						<tr>
-							<td align="center" colspan="3"><input type="text"/>Razón Social</td>
-						</tr>
-						<tr>
-							<td><input/>Calle / Ruta</td>
-							<td><input/>Número / Km</td>
-							<td><input/>Localidad / Paraje</td>
-						</tr>
-						<tr>
-							<td><input/>Partido / Departamento</td>
-							<td><input/>Código Postal</td>
-							<td><input/>Provincia</td>
-						</tr>
-					</table>
-				</div>
+    <div t-name="StyledView" class="zoe_zondaggio zoe_zondaggio_stopped Xzoe_full_screen">
+        <t t-call="z_mask">
+            <t t-set="title" t-value="widget.get_name()"/>
+            <t t-set="description" t-value="widget.get_description()"/>
+        </t>
 
-				<button type="button" name="" value="" class="fop-button">Continuar</button>
-			</section>
-		</div>
-	</div>
+        <t t-foreach="widget.get_pages()" t-as="page" t-att-class="item_parity">
+            <t t-call="z_page">
+                <t t-set="page_number" t-value="page"/>
+                <t t-set="pages" t-value="widget.get_pages()"/>
+            </t>
+        </t>
+    </div>
+
+    <section t-name="z_mask" class="zoe_page zoe_scroll-item zoe_mask">
+        <table class="zoe_logos">
+            <tr>
+                <td class="zoe_logos">
+                    <img class="z_logo" src="zondaggio/static/src/img/logo_fop.png"/>
+                </td>
+                <td class="zoe_logos_space" width="50%"/>
+                <td class="zoe_logos">
+                    <img class="z_logo" src="zondaggio/static/src/img/logo_mincyt.png"/>
+                </td>
+            </tr>
+        </table>
+        <table class="zoe_intro">
+            <tr class="zoe_title">
+                <td>
+                    <p><t t-esc="title"/></p>
+                </td>
+            </tr>
+            <tr class="zoe_subtitle">
+                <td>
+                    <p>INTRODUCCIÓN Y PROTECCIÓN DE LOS DATOS</p>
+                </td>
+            </tr>
+            <tr class="zoe_description">
+                <td>
+                    <t t-raw="description"/>
+                </td>
+            </tr>
+        </table>
+    </section>
+
+    <section t-name="z_page" class="zoe_section zoe_scroll-item zoe_page">
+        <t t-foreach="pages[page_number]" t-as="node" t-att-class="item_parity">
+            <div t-if="node.type != 'Null'"><t t-raw="node.question"/></div>
+            <div t-if="node.type == 'Variable' and node.format_id[1] == 'Char'"><input/></div>
+            <div t-if="node.type == 'Variable' and node.format_id[1] == 'Text'"><textarea/></div>
+            <div t-if="node.type == 'Variable' and node.format_id[1] == 'Boolean'"><input type="checkbox"/></div>
+            <div t-if="node.type == 'Null'"><input type="radio" t-attf-name="p#{node.parent_id[1]}"/></div>
+        </t>
+    </section>
+
 </templates>
+<!-- 
+ vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
+-->
