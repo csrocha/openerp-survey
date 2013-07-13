@@ -107,8 +107,6 @@ Registry in the log start action."""
             wf_service.trg_create(uid, 'sondaggio.questionnaire', obj_id, cr)
         return True
 
-
-
 questionnaire()
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

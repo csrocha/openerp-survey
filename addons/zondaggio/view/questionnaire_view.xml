@@ -24,25 +24,29 @@
 -->
 <openerp>
     <data>
-
-        <!--record id="action_sondaggio.questionnaire_form" model="ir.actions.act_window">
-            <field name="name">Questionnaire</field>
-            <field name="res_model">sondaggio.questionnaire</field>
-            <field name="view_type">form</field>
-            <field name="view_mode">tree,form</field>
-            <- -field name="view_id" ref="view_sondaggio_survey_tree"/>
-            <field name="search_view_id" ref="view_sondaggio_survey_filter"/>
-            <field name="domain">[('state','=','published')            ]            </field- ->
+        <!-- QUESTIONNAIRE UI CLIENT ACTION -->
+        <record model="ir.actions.client" id="action_questionnaire_ui">
+            <field name="name">Start Questionnaire</field>
+            <field name="tag">questionnaire.ui</field>
         </record>
 
-        <menuitem
-            name="Questionnaires"
-            id="menu_questionnaires"
-            sequence="100"
-            action="action_sondaggio.questionnaire_form"
-            parent="sondaggio.menu_for_poolster"
-            groups="sondaggio.group_poolster"
-            /-->
+        <!-- TREEVIEW -->
+        <record id="sondaggio.view_sondaggio_questionnaire_tree" model="ir.ui.view">
+            <field name="name">sondaggio.questionnaire.tree</field>
+            <field name="model">sondaggio.questionnaire</field>
+            <field name="arch" type="xml">
+                <tree string="questionnaire"
+                    colors="grey:state=='cancelled';blue:state in ('draft',);black:state in ('cancelled', 'waiting', 'in_coding', 'in_process', 'complete'); red:state in ()"
+                    >
+                    <field name="name" />
+                    <field name="respondent_id" />
+                    <field name="pollster_id" />
+                    <field name="respondent_code" />
+                    <field name="state" />
+                    <button name="on_open_ui" string="Open" type="object" icon="gtk-jump-to"/>
+                </tree>
+            </field>
+        </record>
 
         <!-- SEARCH VIEW -->
         <record id="sondaggio.view_sondaggio_questionnaire_filter" model="ir.ui.view">

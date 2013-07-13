@@ -59,16 +59,15 @@
         u'wizard/node_copy_view.xml',
     ],
     'css' : [
-        'static/src/css/survey.css',
-        'static/src/css/question.css',
-        'static/src/css/questionnaire.css',
-        'static/src/css/online.css',
+        'static/src/css/*.css',
     ],
     'js': [
-        'static/src/js/online.js',
+        'static/src/js/models.js',
+        'static/src/js/widgets.js',
+        'static/src/js/main.js',
     ],
     'qweb': [
-        'static/src/xml/online.xml',
+        'static/src/xml/*.xml',
     ],
     'version': u'1.0',
     'website': 'http://business.moldeo.coop/'}
