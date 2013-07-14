@@ -9,6 +9,7 @@ function openerp_zondaggio_widgets(instance, module){
                 this._super(parent);
                 options = options || { context: {} };
                 this.session.questionnaire_context = options.context;
+                this.session.questionnaire_params = options.params;
                 this.questionnaire = new module.Questionnaire(this.session);
                 this.questionnaire_widget = this;
             },
