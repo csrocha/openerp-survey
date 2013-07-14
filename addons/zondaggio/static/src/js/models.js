@@ -39,13 +39,14 @@ function openerp_zondaggio_models(instance, module){
 
             var loaded = self.fetch('sondaggio.category', ['name'],[])
                 .then(function(categories){
-                    map_categories={}
+                    map_classes={}
+                    map_widgets={}
                     categories.forEach(function(cat){
-                        if (cat.name.indexOf('zoe_') == 0) {
-                            map_categories[cat.id]=cat.name;
-                        }
+                        if (cat.name.indexOf('zoe_') == 0) { map_classes[cat.id]=cat.name; }
+                        if (cat.name.indexOf('widget_') == 0) { map_widgets[cat.id]=cat.name; }
                     });
-                    self.set('categories', map_categories);
+                    self.set('classes', map_classes);
+                    self.set('widgets', map_widgets);
             
                     return self.fetch('sondaggio.questionnaire',['name','description','survey_id'],[['id','=',self.active_id]]);        
                 }).then(function(questionnaires){
@@ -55,7 +56,7 @@ function openerp_zondaggio_models(instance, module){
                 }).then(function(surveys){
                     self.set('survey',surveys[0]);
 
-                    return self.fetch('sondaggio.node',['name','question','type','initial_state','page','enable_in','format_id','parent_id','category_ids.name'],[['survey_id','=',surveys[0].id]]);
+                    return self.fetch('sondaggio.node',['name','question','type','initial_state','page','enable_in','format_id','parent_id','category_ids'],[['survey_id','=',surveys[0].id]]);
                 }).then(function(nodes){
                     // Group by pages
                     pages = {};
@@ -63,6 +64,19 @@ function openerp_zondaggio_models(instance, module){
                         if (!(node.page in pages)) { pages[node.page] = []; };
                         pages[node.page].push(node);
                     })
+                    // Set categories as classes
+                    classes = self.get('classes')
+                    widgets = self.get('widgets')
+                    nodes.forEach(function(node){
+                        node_classes = [];
+                        node_widgets = [];
+                        node.category_ids.forEach(function(cat){
+                            if (cat in classes) { node_classes.push(classes[cat]); }
+                            if (cat in widgets) { node_widgets.push(widgets[cat]); }
+                        });
+                        node.classes = node_classes.join(' ');
+                        node.widget = node_widgets[0] || null;
+                    });
                     self.set('pages',pages);
                     self.set('nodes',nodes);
                 });

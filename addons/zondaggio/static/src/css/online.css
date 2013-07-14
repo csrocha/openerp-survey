@@ -122,3 +122,44 @@ button.fop-button {
 	padding: 10px 10px 5px 5px;
 }
 
+.zoe_section_title {
+	background-color: black;
+	color: white;
+	margin: 5px;
+	padding: 5px;
+	width:98% !important;
+}
+
+.zoe_section_description {
+	margin: 15px;
+	text-align:justify;
+	text-justify:inter-word;
+	width:100% !important;
+}
+
+.zoe_col_left {
+	float:left;
+}
+
+.zoe_col_med {
+}
+
+.zoe_col_right {
+	float:right;
+}
+
+.zoe_col_reset {
+	clear:both;
+}
+
+.zoe_label {
+	margin: 5px;
+	float:left;
+	width:50%;
+}
+
+.zoe_input {
+	margin: 5px;
+	float:right;
+}
+

@@ -46,12 +46,23 @@
 
     <section t-name="z_page" class="zoe_section zoe_scroll-item zoe_page">
         <t t-foreach="pages[page_number]" t-as="node" t-att-class="item_parity">
-            <div t-if="node.type != 'Null'"><t t-raw="node.question"/></div>
-            <div t-if="node.type == 'Variable' and node.format_id[1] == 'Char'"><input/></div>
-            <div t-if="node.type == 'Variable' and node.format_id[1] == 'Text'"><textarea/></div>
-            <div t-if="node.type == 'Variable' and node.format_id[1] == 'Boolean'"><input type="checkbox"/></div>
-            <div t-if="node.type == 'Null'"><input type="radio" t-attf-name="p#{node.parent_id[1]}"/></div>
+            <t t-if="[null, 'widget_div'].indexOf(node.widget) != -1">
+                <div t-if="node.type != 'Null' and !node_first" style="clear:both"/>
+                <div t-if="node.type != 'Null'" t-attf-class="zoe_label #{node.classes}">
+                    <t t-raw="node.question"/>
+                </div>
+                <div t-if="node.type == 'Variable'" t-attf-class="zoe_input #{node.classes}">
+                    <input      t-if="node.format_id[1] == 'Char'"/>
+                    <textarea   t-if="node.format_id[1] == 'Text'"/>
+                    <input      t-if="node.format_id[1] == 'Boolean'" type="checkbox"/>
+                </div>
+                <div t-if="node.type == 'Null'" t-attf-class="zoe_input #{node.classes}">
+                    <input      t-if="node.type == 'Null'" type="radio" t-attf-name="p#{node.parent_id[1]}"/>
+                </div>
+            </t>
         </t>
+        <div style="clear:both"/>
+        <button class="cupid-blue" name="do_save" style="clear:inherit">Guardar</button>
     </section>
 
 </templates>
