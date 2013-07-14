@@ -9,7 +9,7 @@ function openerp_zondaggio_models(instance, module){
             this.session = session;
             this.ready = $.Deferred();                          // used to notify the GUI that the PosModel has loaded all resources
             this.flush_mutex = new $.Mutex();                   // used to make sure the orders are sent to the server once at time
-            this.active_id = session.questionnaire_context.active_id
+            this.active_id = session.questionnaire_context.active_id || session.questionnaire_params.active_id;
 
             if (this.active_id == null) {
                 return self.ready.reject();
