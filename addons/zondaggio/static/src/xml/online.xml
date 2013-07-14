@@ -1,5 +1,5 @@
 <templates>
-    <div t-name="StyledView" class="zoe_zondaggio zoe_zondaggio_stopped Xzoe_full_screen">
+    <div t-name="StyledView" t-attf-class="zoe_zondaggio zoe_zondaggio_stopped #{widget.is_fullscreen and 'zoe_full_screen'}">
         <t t-call="z_mask">
             <t t-set="title" t-value="widget.get_name()"/>
             <t t-set="description" t-value="widget.get_description()"/>
@@ -64,6 +64,7 @@
         <div style="clear:both"/>
         <button class="cupid-blue" name="do_save" style="clear:inherit">Guardar</button>
     </section>
+    <div style="clear:both"/>
 
 </templates>
 <!-- 
