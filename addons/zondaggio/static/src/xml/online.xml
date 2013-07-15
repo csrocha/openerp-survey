@@ -54,7 +54,7 @@
                         />
                 </div>
                 <div t-if="node.type == 'Null'" t-attf-class="zoe_input #{node.classes}">
-                    <p class="zoe_tiny_fixed"><t t-raw="node.question"/></p>
+                    <p class="zoe_select_one_item"><t t-raw="node.question"/></p>
                     <input t-if="node.type == 'Null'"
                         type="radio"
                         t-attf-name="inp_#{complete_places[node.parent_id[0]]}"
