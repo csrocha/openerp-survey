@@ -66,7 +66,7 @@ function openerp_zondaggio_widgets(instance, module){
                 var widget = items[item];
                 var id = widget.classList[0].replace(/^inp_/,'');
                 var question_id = complete_place_nodes[id];
-                widget.value = answers[question_id].input;
+                widget.value = answers[question_id].input || '';
                 widget.disabled = answers[question_id].state != 'enabled';
             });
             // Booleans or checkbox.
@@ -84,7 +84,7 @@ function openerp_zondaggio_widgets(instance, module){
                 var widget = items[item];
                 if (widget.value != "false") {
                     var radios = $(_.str.sprintf('input[type="radio"][name="%s"][alt="%s"]', widget.classList[0],widget.value))
-                    radios[0].checked = true;
+                    radios.each(function(item) { radios[item].checked = true; });
                 }
             });
         },
@@ -141,6 +141,7 @@ function openerp_zondaggio_widgets(instance, module){
             for (var key in node_conditions) {
                 var condition = node_conditions[key];
                 var control = $(_.str.sprintf(".inp_%s", complete_places[key]))[0];
+                var childs = $(_.str.sprintf("input[name='inp_%s']", complete_places[key]));
                 var input = $(_.str.sprintf(".inp_%s", complete_places[condition.node_id]))[0];
                 var value = input.value;
                 if (input.type == "checkbox") {
@@ -148,8 +149,9 @@ function openerp_zondaggio_widgets(instance, module){
                 };
                 var not = (condition.operator.indexOf('not') >= 0) && '!' || '';
                 var oper = condition.operator.replace(/not /,'');
-                var statement = _.str.sprintf("%s(%s %s %s)", not, value, oper, condition.value);
+                var statement = _.str.sprintf("%s('%s' %s %s)", not, value, oper, condition.value);
                 control.disabled = !eval(statement);
+                childs.each(function(node){ childs[node].disabled = control.disabled; });
             };
         },
     })

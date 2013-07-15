@@ -112,6 +112,7 @@
                                         <field name="question"/>
                                         <field name="type"/>
                                         <field name="format_id"/>
+                                        <field name="category_ids" widget="many2many_tags"/>
                                         <field name="survey_id" invisible="1"/>
                                         <button name="open_node" icon="gtk-jump-to" type="object"/>
                                     </tree>

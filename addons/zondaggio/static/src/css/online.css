@@ -194,16 +194,17 @@ section.zoe_section h2 {
 }
 
 .zoe_table {
-	float:right;
+	float:left;
 }
 
 .zoe_table p {
 	font-size:xx-small;
 	font-family:cursive; 
 	text-align:center;
+	margin:0px;
 }
 
 .zoe_table input {
-	float:left;
+	float:right;
 }
 
