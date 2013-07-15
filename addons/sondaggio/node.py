@@ -69,7 +69,7 @@ class node(osv.osv):
         'complete_name': fields.function(_name_get_fnc, type="char", string='Name', store=True),
         'name': fields.char(string='Code', required=True),
         'place': fields.integer(string='Place', required=True),
-        'question': fields.char(string='Question', required=True),
+        'question': fields.html(string='Question', required=True),
         'type': fields.selection([(u'View', 'View'), (u'Variable', 'Variable'), (u'Null', 'Null')], string='Type', required=True),
         'variable_name': fields.char(string='Variable name'),
         'format_id': fields.many2one('sondaggio.format', string='Format', select=True),
@@ -94,7 +94,7 @@ class node(osv.osv):
         'next_enable': '',
         'type': 'View',
         'initial_state': 'disabled',
-        'survey_id': lambda self, cr, uid, context=None: context and context.get('survey_id', False),
+        'survey_id': lambda self, cr, uid, context=None: context and context.get('survey_id', ),
         'parent_id': lambda self, cr, uid, context=None: context and context.get('parent_id', False),
     }
 
