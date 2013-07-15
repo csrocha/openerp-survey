@@ -25,6 +25,8 @@
         <div style="clear:both"/>
         <t t-raw="description"/>
         <div style="clear:both"/>
+        <button class="do_save cupid-blue" name="do_save" style="clear:inherit">Empezar</button>
+        <div style="clear:both"/>
     </section>
 
     <section t-name="z_page" class="zoe_section zoe_scroll-item zoe_page" t-if="!page_first">
