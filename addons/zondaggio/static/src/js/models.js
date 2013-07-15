@@ -56,7 +56,12 @@ function openerp_zondaggio_models(instance, module){
                 }).then(function(surveys){
                     self.set('survey',surveys[0]);
 
-                    return self.fetch('sondaggio.node',['name','question','type','initial_state','page','enable_in','format_id','parent_id','category_ids'],[['survey_id','=',surveys[0].id]]);
+                    return self.fetch('sondaggio.node',[
+                        'name','question','type','initial_state',
+                        'page','complete_place',
+                        'enable_in','format_id','parent_id',
+                        'category_ids','enable_condition_ids',
+                        ],[['survey_id','=',surveys[0].id]]);
                 }).then(function(nodes){
                     // Group by pages
                     pages = {};
@@ -64,7 +69,7 @@ function openerp_zondaggio_models(instance, module){
                         if (!(node.page in pages)) { pages[node.page] = []; };
                         pages[node.page].push(node);
                     })
-                    // Set categories as classes
+                    // Set categories as classes & widgets
                     classes = self.get('classes')
                     widgets = self.get('widgets')
                     nodes.forEach(function(node){
@@ -77,10 +82,36 @@ function openerp_zondaggio_models(instance, module){
                         node.classes = node_classes.join(' ');
                         node.widget = node_widgets[0] || null;
                     });
+                    // Set node_ids & node_complete_place
+                    node_ids = [];
+                    node_complete_places = {}
+                    nodes.forEach(function(node){
+                        node_ids.push(node.id);
+                        node_complete_places[node.id] = node.complete_place
+                    });
+
+                    // Save variables
                     self.set('pages',pages);
                     self.set('nodes',nodes);
+                    self.set('node_complete_places',node_complete_places);
+
+                    // Take restrictions
+                    return self.fetch('sondaggio.enable_condition',['node_id','operated_node_id','operator','value'],[['node_id','in',node_ids]]);
+                }).then(function(conditions){
+                    node_conditions = {};
+                    conditions.forEach(function(condition){
+                        node_conditions[condition.node_id[0]]={
+                            node_id: condition.operated_node_id[0],
+                            operator: condition.operator,
+                            value: condition.value
+                        };
+                    });
+                    self.set('node_conditions',node_conditions);
                 });
             return loaded;
+        },
+        save_server_data:function(data){
+            return new instance.web.Model('sondaggio.questionnaire').call('write', [[this.active_id], data]);
         },
     });
 };

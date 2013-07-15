@@ -101,7 +101,7 @@ class node(osv.osv):
         i = 1
         for q in self.read(cr, uid, ids, ['child_ids'], context=context):
             self.write(cr, uid, q['id'], { 'place': i })
-            self.reordering(cr, uid, q['child_ids'], context=context)
+            self.do_reordering(cr, uid, q['child_ids'], context=context)
             i = i + 1
 
     def do_propagate_page(self, cr, uid, ids, context=None, page=None):

@@ -134,7 +134,7 @@ button.fop-button {
 	margin: 15px;
 	text-align:justify;
 	text-justify:inter-word;
-	width:100% !important;
+	padding: 5px;
 }
 
 .zoe_col_left {
@@ -163,3 +163,10 @@ button.fop-button {
 	float:right;
 }
 
+section.zoe_section h2 {
+	margin: 5px;
+	background-color: black;
+	color: white;
+	margin: 5px;
+	padding: 5px;
+}
