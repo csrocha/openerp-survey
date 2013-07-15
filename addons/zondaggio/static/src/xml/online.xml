@@ -50,7 +50,6 @@
                     <input
                         t-if="node.format_id[1] == 'Select one'" type="hidden"
                         t-attf-class="inp_#{node.complete_place}"
-                        onchange="on_change_select_one(this)"
                         />
                 </div>
                 <div t-if="node.type == 'Null'" t-attf-class="zoe_input #{node.classes}">
@@ -59,7 +58,7 @@
                         type="radio"
                         t-attf-name="inp_#{complete_places[node.parent_id[0]]}"
                         t-attf-class="inp_#{node.complete_place}"
-                        t-att-alt="node.question"
+                        t-att-alt="node.name"
                         />
                 </div>
             </t>
