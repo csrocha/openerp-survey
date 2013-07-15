@@ -22,7 +22,8 @@ function openerp_zondaggio_widgets(instance, module){
             var self=this;
             return self.questionnaire.ready.done(function(){
                 self.renderElement();
-                // TODO: Load values
+                self.load_data();
+                self.evaluate_conditions();
             });
         },
         get_name:function() {
@@ -53,20 +54,59 @@ function openerp_zondaggio_widgets(instance, module){
                 return this.questionnaire.get('pages');
             }
         },
-        get_complete_places:function(node_id) {
-            return this.questionnaire.get('node_complete_places')[node_id];
+        get_complete_places:function() {
+            return this.questionnaire.get('node_complete_places');
+        },
+        load_data:function() {
+            var answers = this.questionnaire.get('answers');
+            var complete_place_nodes = this.questionnaire.get('complete_place_nodes');
+            // Input text type and text area.
+            var items = $("input[type='text'][class^='inp_'],input[type='hidden'][class^='inp_'],textarea[class^='inp_']");
+            items.each(function(item){
+                var widget = items[item];
+                var id = widget.classList[0].replace(/^inp_/,'');
+                var question_id = complete_place_nodes[id];
+                widget.value = answers[question_id].input;
+                widget.disabled = answers[question_id].state != 'enabled';
+            });
+            // Booleans or checkbox.
+            var items = $("input[type='checkbox'][class^='inp_']");
+            items.each(function(item){
+                var widget = items[item];
+                var id = widget.classList[0].replace(/^inp_/,'');
+                var question_id = complete_place_nodes[id];
+                widget.checked = answers[question_id].input;
+                widget.disabled = answers[question_id].state != 'enabled';
+            });
+            // Update on selects.
+            var items = $("input[type='hidden'][class^='inp_']");
+            items.each(function(item){
+                var widget = items[item];
+                if (widget.value != "false") {
+                    var radios = $(_.str.sprintf('input[type="radio"][name="%s"][alt="%s"]', widget.classList[0],widget.value))
+                    radios[0].checked = true;
+                }
+            });
+        },
+        save_data:function() {
+            var data = {};
+            // Input text type and text area.
+            var items = $("input[type='text'][class^='inp_'],input[type='hidden'][class^='inp_'],textarea[class^='inp_']");
+            items.each(function(item){
+                var widget = items[item];
+                data[widget.classList[0]] = widget.value;
+            });
+            // Booleans or checkbox.
+            var items = $("input[type='checkbox'][class^='inp_']");
+            items.each(function(item){
+                var widget = items[item];
+                data[widget.classList[0]] = widget.checked;
+            });
+            this.questionnaire.save_server_data(data);
         },
         do_save:function(e) {
             var button = e.currentTarget;
-            var data = {};
-            var items = $('textarea, input');
-            for (item in items) {
-                var widget = items[item];
-                if (widget.classList && widget.classList.length > 0) {
-                   data[widget.classList[0]] = widget.value;
-                };
-            };
-            this.questionnaire.save_server_data(data);
+            this.save_data();
             this.go_next(button.parentNode);
         },
         go_prev:function(actual) {
@@ -84,21 +124,31 @@ function openerp_zondaggio_widgets(instance, module){
         on_change:function(e) {
             var input_id = e.currentTarget.classList[0];
             // check if input enable of disable something.
+            this.on_change_select_one(e.currentTarget);
             this.evaluate_conditions();
             e.stopPropagation();
         },
+        on_change_select_one:function(widget){
+            if (widget.type=='radio') {
+                var widget_parent = $(_.str.sprintf("input[type='hidden'][class='%s']", widget.name))[0];
+                widget_parent.value = widget.alt;
+            }
+        },
         evaluate_conditions:function() {
             var node_conditions = this.questionnaire.get('node_conditions');
+            var complete_places = this.questionnaire.get('node_complete_places');
 
             for (var key in node_conditions) {
                 var condition = node_conditions[key];
-                var control = $(_.str.sprintf(".inp_%s", this.get_complete_places(key)))[0];
-                var input = $(_.str.sprintf(".inp_%s", this.get_complete_places(condition.node_id)))[0];
+                var control = $(_.str.sprintf(".inp_%s", complete_places[key]))[0];
+                var input = $(_.str.sprintf(".inp_%s", complete_places[condition.node_id]))[0];
                 var value = input.value;
                 if (input.type == "checkbox") {
                     value = input.checked;
                 };
-                var statement = _.str.sprintf("%s %s %s", value, condition.operator, condition.value);
+                var not = (condition.operator.indexOf('not') >= 0) && '!' || '';
+                var oper = condition.operator.replace(/not /,'');
+                var statement = _.str.sprintf("%s(%s %s %s)", not, value, oper, condition.value);
                 control.disabled = !eval(statement);
             };
         },

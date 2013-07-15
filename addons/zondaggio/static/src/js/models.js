@@ -85,15 +85,18 @@ function openerp_zondaggio_models(instance, module){
                     // Set node_ids & node_complete_place
                     node_ids = [];
                     node_complete_places = {}
+                    complete_place_nodes = {}
                     nodes.forEach(function(node){
                         node_ids.push(node.id);
-                        node_complete_places[node.id] = node.complete_place
+                        node_complete_places[node.id] = node.complete_place;
+                        complete_place_nodes[node.complete_place] = node.id;
                     });
 
                     // Save variables
                     self.set('pages',pages);
                     self.set('nodes',nodes);
                     self.set('node_complete_places',node_complete_places);
+                    self.set('complete_place_nodes',complete_place_nodes);
 
                     // Take restrictions
                     return self.fetch('sondaggio.enable_condition',['node_id','operated_node_id','operator','value'],[['node_id','in',node_ids]]);
@@ -107,6 +110,26 @@ function openerp_zondaggio_models(instance, module){
                         };
                     });
                     self.set('node_conditions',node_conditions);
+
+                    return self.fetch('sondaggio.answer',[
+                        'name',
+                        'complete_place',
+                        'code',
+                        'input',
+                        'formated',
+                        'message',
+                        'valid',
+                        'state',
+                        'question_id',
+                        'questionnaire_id'],
+                        [['questionnaire_id', '=', self.active_id]]);
+                }).then(function(answers){
+                    answer_map = {};
+                    for (index in answers) {
+                        var answer = answers[index]; 
+                        answer_map[answer.question_id[0]] = answer;
+                    };
+                    self.set('answers', answer_map);
                 });
             return loaded;
         },

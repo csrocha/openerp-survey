@@ -10,7 +10,7 @@
                 <t t-set="page_number" t-value="page"/>
                 <t t-set="page_first" t-value="page_first"/>
                 <t t-set="pages" t-value="widget.get_pages()"/>
-                <t t-set="get_complete_places" t-value="widget.get_node_complete_places"/>
+                <t t-set="complete_places" t-value="widget.get_complete_places()"/>
             </t>
         </t>
     </div>
@@ -35,7 +35,7 @@
                 <div t-if="node.type != 'Null' and !node_first" style="clear:both"/>
                 <t t-if="node.type != 'Null'" t-raw="node.question"/>
                 <div t-if="node.type == 'Variable'" t-attf-class="zoe_input #{node.classes}">
-                    <input
+                    <input type="text"
                         t-if="node.format_id[1] == 'Char'"
                         t-attf-class="inp_#{node.complete_place}"
                         />
@@ -47,11 +47,17 @@
                         t-if="node.format_id[1] == 'Boolean'" type="checkbox"
                         t-attf-class="inp_#{node.complete_place}"
                         />
+                    <input
+                        t-if="node.format_id[1] == 'Select one'" type="hidden"
+                        t-attf-class="inp_#{node.complete_place}"
+                        onchange="on_change_select_one(this)"
+                        />
                 </div>
                 <div t-if="node.type == 'Null'" t-attf-class="zoe_input #{node.classes}">
+                    <p class="zoe_tiny_fixed"><t t-raw="node.question"/></p>
                     <input t-if="node.type == 'Null'"
                         type="radio"
-                        t-attf-name="p#{node.parent_id[1]}"
+                        t-attf-name="inp_#{complete_places[node.parent_id[0]]}"
                         t-attf-class="inp_#{node.complete_place}"
                         t-att-alt="node.question"
                         />
