@@ -8,61 +8,56 @@
         <t t-foreach="widget.get_pages()" t-as="page" t-att-class="item_parity">
             <t t-call="z_page">
                 <t t-set="page_number" t-value="page"/>
+                <t t-set="page_first" t-value="page_first"/>
                 <t t-set="pages" t-value="widget.get_pages()"/>
+                <t t-set="get_complete_places" t-value="widget.get_node_complete_places"/>
             </t>
         </t>
     </div>
 
     <section t-name="z_mask" class="zoe_page zoe_scroll-item zoe_mask">
-        <table class="zoe_logos">
-            <tr>
-                <td class="zoe_logos">
-                    <img class="z_logo" src="zondaggio/static/src/img/logo_fop.png"/>
-                </td>
-                <td class="zoe_logos_space" width="50%"/>
-                <td class="zoe_logos">
-                    <img class="z_logo" src="zondaggio/static/src/img/logo_mincyt.png"/>
-                </td>
-            </tr>
-        </table>
-        <table class="zoe_intro">
-            <tr class="zoe_title">
-                <td>
-                    <p><t t-esc="title"/></p>
-                </td>
-            </tr>
-            <tr class="zoe_subtitle">
-                <td>
-                    <p>INTRODUCCIÓN Y PROTECCIÓN DE LOS DATOS</p>
-                </td>
-            </tr>
-            <tr class="zoe_description">
-                <td>
-                    <t t-raw="description"/>
-                </td>
-            </tr>
-        </table>
+        <div style="float:left"><img class="z_logo" src="zondaggio/static/src/img/logo_fop.png"/></div>
+        <div style="float:right"><img class="z_logo" src="zondaggio/static/src/img/logo_mincyt.png"/></div>
+        <div style="clear:both"/>
+        <div style="padding:15px; text-align:center" ><t t-esc="title"/></div>
+        <div style="clear:both"/>
+        <div style="padding:15px; text-align:center">INTRODUCCIÓN Y PROTECCIÓN DE LOS DATOS</div>
+        <div style="clear:both"/>
+        <t t-raw="description"/>
+        <div style="clear:both"/>
     </section>
 
-    <section t-name="z_page" class="zoe_section zoe_scroll-item zoe_page">
+    <section t-name="z_page" class="zoe_section zoe_scroll-item zoe_page" t-if="!page_first">
         <t t-foreach="pages[page_number]" t-as="node" t-att-class="item_parity">
             <t t-if="[null, 'widget_div'].indexOf(node.widget) != -1">
                 <div t-if="node.type != 'Null' and !node_first" style="clear:both"/>
-                <div t-if="node.type != 'Null'" t-attf-class="zoe_label #{node.classes}">
-                    <t t-raw="node.question"/>
-                </div>
+                <t t-if="node.type != 'Null'" t-raw="node.question"/>
                 <div t-if="node.type == 'Variable'" t-attf-class="zoe_input #{node.classes}">
-                    <input      t-if="node.format_id[1] == 'Char'"/>
-                    <textarea   t-if="node.format_id[1] == 'Text'"/>
-                    <input      t-if="node.format_id[1] == 'Boolean'" type="checkbox"/>
+                    <input
+                        t-if="node.format_id[1] == 'Char'"
+                        t-attf-class="inp_#{node.complete_place}"
+                        />
+                    <textarea
+                        t-if="node.format_id[1] == 'Text'"
+                        t-attf-class="inp_#{node.complete_place}"
+                        />
+                    <input
+                        t-if="node.format_id[1] == 'Boolean'" type="checkbox"
+                        t-attf-class="inp_#{node.complete_place}"
+                        />
                 </div>
                 <div t-if="node.type == 'Null'" t-attf-class="zoe_input #{node.classes}">
-                    <input      t-if="node.type == 'Null'" type="radio" t-attf-name="p#{node.parent_id[1]}"/>
+                    <input t-if="node.type == 'Null'"
+                        type="radio"
+                        t-attf-name="p#{node.parent_id[1]}"
+                        t-attf-class="inp_#{node.complete_place}"
+                        t-att-alt="node.question"
+                        />
                 </div>
             </t>
         </t>
         <div style="clear:both"/>
-        <button class="cupid-blue" name="do_save" style="clear:inherit">Guardar</button>
+        <button class="do_save cupid-blue" name="do_save" style="clear:inherit">Guardar y Continuar</button>
     </section>
     <div style="clear:both"/>
 

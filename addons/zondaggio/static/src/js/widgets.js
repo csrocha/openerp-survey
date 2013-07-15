@@ -4,13 +4,17 @@ function openerp_zondaggio_widgets(instance, module){
 	_t = instance.web._t;
 
     module.questionnaire_ui = instance.web.Widget.extend({
+        events: {
+            'change input': 'on_change',
+            'click button.do_save': 'do_save',
+        },
         template: 'StyledView',
         init:function(parent,options){
                 this._super(parent);
                 options = options || { context: {} };
                 this.session.questionnaire_context = options.context;
                 this.session.questionnaire_params = options.params;
-                this.is_fullscreen = options.params['fullscreen'] || false;
+                this.is_fullscreen = options.params && options.params.fullscreen || false;
                 this.questionnaire = new module.Questionnaire(this.session);
                 this.questionnaire_widget = this;
             },
@@ -18,6 +22,7 @@ function openerp_zondaggio_widgets(instance, module){
             var self=this;
             return self.questionnaire.ready.done(function(){
                 self.renderElement();
+                // TODO: Load values
             });
         },
         get_name:function() {
@@ -47,7 +52,43 @@ function openerp_zondaggio_widgets(instance, module){
             } else {
                 return this.questionnaire.get('pages');
             }
-        }
+        },
+        get_complete_places:function(node_id) {
+            return this.questionnaire.get('node_complete_places')[node_id];
+        },
+        do_save:function(e) {
+            var button = e.currentTarget;
+            var data = {};
+            var items = $('textarea, input');
+            for (item in items) {
+                var widget = items[item];
+                if (widget.classList && widget.classList.length > 0) {
+                   data[widget.classList[0]] = widget.value;
+                };
+            };
+            this.questionnaire.save_server_data(data);
+        },
+        on_change:function(e) {
+            var input_id = e.currentTarget.classList[0];
+            // check if input enable of disable something.
+            this.evaluate_conditions();
+            e.stopPropagation();
+        },
+        evaluate_conditions:function() {
+            var node_conditions = this.questionnaire.get('node_conditions');
+
+            for (var key in node_conditions) {
+                var condition = node_conditions[key];
+                var control = $(_.str.sprintf(".inp_%s", this.get_complete_places(key)))[0];
+                var input = $(_.str.sprintf(".inp_%s", this.get_complete_places(condition.node_id)))[0];
+                var value = input.value;
+                if (input.type == "checkbox") {
+                    value = input.checked;
+                };
+                var statement = _.str.sprintf("%s %s %s", value, condition.operator, condition.value);
+                control.disabled = !eval(statement);
+            };
+        },
     })
 
 };

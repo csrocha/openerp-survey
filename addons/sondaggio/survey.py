@@ -54,7 +54,7 @@ class survey(osv.osv):
 
     _columns = {
         'name': fields.char(string='Name', readonly=True, required=True, states={'draft':[('readonly',False)]}),
-        'description': fields.text(string='Description', readonly=True, states={'draft':[('readonly',False)]}),
+        'description': fields.html(string='Description', readonly=True, states={'draft':[('readonly',False)]}),
         'manager_id': fields.many2one('res.users', string='Survey Manager', readonly=True, states={'draft':[('readonly',False)]}),
         'open_dt': fields.datetime(string='Open date', readonly=True, states={'draft':[('readonly',False)]}),
         'close_dt': fields.datetime(string='Close date', readonly=True, states={'draft':[('readonly',False)]}),

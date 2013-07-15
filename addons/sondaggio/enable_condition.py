@@ -34,7 +34,7 @@ class enable_condition(osv.osv):
 
 
     _columns = {
-        'operator': fields.selection([(u'=', '='), (u'!=', '!='), (u'>', '>'), (u'>=', '>='), (u'<', '<'), (u'<=', '<='), (u'in', 'in'), (u'not in', 'not in')], string='Operator'),
+        'operator': fields.selection([(u'==', '=='), (u'!=', '!='), (u'>', '>'), (u'>=', '>='), (u'<', '<'), (u'<=', '<='), (u'in', 'in'), (u'not in', 'not in')], string='Operator'),
         'value': fields.char(string='Value'),
         'node_id': fields.many2one('sondaggio.node', string='node_id', ondelete='cascade', required=True), 
         'operated_node_id': fields.many2one('sondaggio.node', string='Variable', domain=[('type','=','Variable')], required=True), 
