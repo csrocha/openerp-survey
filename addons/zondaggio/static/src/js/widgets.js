@@ -67,6 +67,19 @@ function openerp_zondaggio_widgets(instance, module){
                 };
             };
             this.questionnaire.save_server_data(data);
+            this.go_next(button.parentNode);
+        },
+        go_prev:function(actual) {
+            var next = actual.previousElementSibling;
+            if (next) {
+                next.scrollIntoView();
+            }
+        },
+        go_next:function(actual) {
+            var next = actual.nextElementSibling;
+            if (next) {
+                next.scrollIntoView();
+            }
         },
         on_change:function(e) {
             var input_id = e.currentTarget.classList[0];
