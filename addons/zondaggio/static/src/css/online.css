@@ -163,6 +163,12 @@ button.fop-button {
 	float:right;
 }
 
+.zoe_tiny_fixed {
+	font-size:xx-small;
+	font-family:cursive; 
+	text-align:center;
+}
+
 section.zoe_section h2 {
 	margin: 5px;
 	background-color: black;
