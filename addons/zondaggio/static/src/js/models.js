@@ -103,11 +103,14 @@ function openerp_zondaggio_models(instance, module){
                 }).then(function(conditions){
                     node_conditions = {};
                     conditions.forEach(function(condition){
-                        node_conditions[condition.node_id[0]]={
+                        if (!(condition.node_id[0] in node_conditions)) {
+                            node_conditions[condition.node_id[0]]=[];
+                        }
+                        node_conditions[condition.node_id[0]].push({
                             node_id: condition.operated_node_id[0],
                             operator: condition.operator,
                             value: condition.value
-                        };
+                        });
                     });
                     self.set('node_conditions',node_conditions);
 
