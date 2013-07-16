@@ -158,6 +158,13 @@ button.fop-button {
 	width:50%;
 }
 
+.zoe_sublabel {
+	margin: 0 0 0 15px;
+	float:left;
+	width:50%;
+	text-align:right
+}
+
 .zoe_input {
 	margin: 5px;
 	float:right;
