@@ -26,6 +26,7 @@
         <t t-raw="description"/>
         <div style="clear:both"/>
         <button class="do_save cupid-blue" name="do_save" style="clear:inherit">Empezar</button>
+        <button class="do_print cupid-blue" name="do_print" style="clear:inherit;float:right">Imprimir</button>
         <div style="clear:both"/>
     </section>
 
@@ -78,6 +79,7 @@
         </t>
         <div style="clear:both"/>
         <button class="do_save cupid-blue" name="do_save" style="clear:inherit">Guardar y Continuar</button>
+        <div class="zoe_page_number"><t t-raw="page_number"/></div>
     </section>
     <div style="clear:both"/>
 

@@ -7,6 +7,7 @@ function openerp_zondaggio_widgets(instance, module){
         events: {
             'change input': 'on_change',
             'click button.do_save': 'do_save',
+            'click button.do_print': 'do_print',
         },
         template: 'StyledView',
         init:function(parent,options){
@@ -108,6 +109,9 @@ function openerp_zondaggio_widgets(instance, module){
             var button = e.currentTarget;
             this.save_data();
             this.go_next(button.parentNode);
+        },
+        do_print:function(e) {
+            window.print();
         },
         go_prev:function(actual) {
             var next = actual.previousElementSibling;
