@@ -36,6 +36,10 @@
                 <t t-if="node.type != 'Null'" t-raw="node.question"/>
                 <div t-if="node.type == 'Variable'" t-attf-class="zoe_input #{node.classes}">
                     <input type="number"
+                        t-if="node.format_id[1] == 'Integer'"
+                        t-attf-class="inp_#{node.complete_place}"
+                        />
+                    <input type="number"
                         min="0" max="100"
                         t-if="node.format_id[1] == 'Porcentual'"
                         t-attf-class="inp_#{node.complete_place}"
