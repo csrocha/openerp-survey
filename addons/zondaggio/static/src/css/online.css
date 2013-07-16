@@ -134,6 +134,7 @@ button.fop-button {
 	text-align:justify;
 	text-justify:inter-word;
 	padding: 5px;
+	border-top:1px solid #313030;
 }
 
 .zoe_col_left {
@@ -186,6 +187,7 @@ section.zoe_section h2 {
 	font-family:cursive; 
 	text-align:left;
 	padding-left:20px;
+	margin: 0px;
 }
 
 .zoe_list input {
@@ -195,6 +197,7 @@ section.zoe_section h2 {
 
 .zoe_table {
 	float:left;
+	margin:0px;
 }
 
 .zoe_table p {
@@ -208,3 +211,6 @@ section.zoe_section h2 {
 	float:right;
 }
 
+.zoe_hidden {
+	hidden:true;
+}

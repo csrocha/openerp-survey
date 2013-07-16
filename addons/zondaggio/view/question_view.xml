@@ -34,32 +34,35 @@
             <field name="arch" type="xml">
                 <search string="Question" version="7.0">
                     <group string="Search by">
+                        <field name="survey_id" string="Survey" />
                         <field name="question" string="Question" />
                         <field name="name" string="Code" />
                         <field name="complete_name" string="Large Code" />
+                        <field name="page" string="Page" />
+                        <field name="format_id" string="Format" />
+                        <field name="category_ids" string="Category" />
                     </group>
                     <group string="Type">
                         <filter string="Variable" domain="[('type','=','Variable')]"/>
                         <filter string="View" domain="[('type','=','View')]"/>
                         <filter string="Null" domain="[('type','=','Null')]"/>
                     </group>
+                    <group string="Initial State">
+                        <filter string="Close" domain="[('initial_state','=','closed')]"/>
+                        <filter string="Disable" domain="[('initial_state','=','disabled')]"/>
+                        <filter string="Enable" domain="[('initial_state','=','enabled')]"/>
+                    </group>
+                    <group string="Enable In">
+                        <filter string="Processing" domain="[('enable_in','=','in_process')]"/>
+                        <filter string="Coding" domain="[('enable_in','=','in_coding')]"/>
+                    </group>
                     <group string="Variable">
                         <filter string="Variable" domain="[]" context="{'group_by': 'variable_id'}"/>
+                        <filter string="Page" domain="[]" context="{'group_by': 'page'}"/>
                     </group>
                 </search>
             </field>
         </record>
-
-        
-        <!--record id="action_outlook_installer" model="ir.actions.act_window">
-            <field name="name">Install Outlook Plug-In</field>
-            <field name="type">ir.actions.act_window</field>
-            <field name="res_model">outlook.installer</field>
-            <field name="view_id" ref="view_outlook_installer"/>
-            <field name="view_type">form</field>
-            <field name="view_mode">form</field>
-            <field name="target">new</field>
-        </record-->
 
         <!-- FORMVIEW -->
         <record id="sondaggio.view_sondaggio_node_form" model="ir.ui.view">

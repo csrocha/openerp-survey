@@ -26,7 +26,7 @@
       <fontname>Dialog</fontname>
       <fontsize>12</fontsize>
       <defaultstereotypeview>0</defaultstereotypeview>
-      <activediagram>Questions</activediagram>
+      <activediagram>Menues</activediagram>
     </settings>
     <searchpath href="PROJECT_DIR" />
     <members>
@@ -94,7 +94,7 @@
 			</model>
 		</userDefined>
 </profile>
-<XMI xmi.version = '1.2' xmlns:UML = 'org.omg.xmi.namespace.UML' timestamp = 'Sun Jul 14 18:15:03 ART 2013'>
+<XMI xmi.version = '1.2' xmlns:UML = 'org.omg.xmi.namespace.UML' timestamp = 'Tue Jul 16 07:44:50 ART 2013'>
   <XMI.header>    <XMI.documentation>
       <XMI.exporter>ArgoUML (using Netbeans XMI Writer version 1.0)</XMI.exporter>
       <XMI.exporterVersion>0.34(6) revised on $Date: 2010-01-11 22:20:14 +0100 (Mon, 11 Jan 2010) $ </XMI.exporterVersion>
@@ -4893,25 +4893,6 @@ Registry in the log start action.</UML:TaggedValue.dataValue>
                   name = 'online' isSpecification = 'false'/>
               </UML:Enumeration.literal>
             </UML:Enumeration>
-            <UML:Association xmi.id = '127-0-1-1-583060f:13fc3cc8651:-8000:0000000000000F74'
-              name = '' isSpecification = 'false' isRoot = 'false' isLeaf = 'false' isAbstract = 'false'>
-              <UML:Association.connection>
-                <UML:AssociationEnd xmi.id = '127-0-1-1-583060f:13fc3cc8651:-8000:0000000000000F75'
-                  visibility = 'public' isSpecification = 'false' isNavigable = 'false' ordering = 'unordered'
-                  aggregation = 'none' targetScope = 'instance' changeability = 'changeable'>
-                  <UML:AssociationEnd.participant>
-                    <UML:UseCase xmi.idref = '127-0-1-1--3b5079bc:13cd6248bba:-8000:00000000000018B6'/>
-                  </UML:AssociationEnd.participant>
-                </UML:AssociationEnd>
-                <UML:AssociationEnd xmi.id = '127-0-1-1-583060f:13fc3cc8651:-8000:0000000000000F76'
-                  visibility = 'public' isSpecification = 'false' isNavigable = 'true' ordering = 'unordered'
-                  aggregation = 'none' targetScope = 'instance' changeability = 'changeable'>
-                  <UML:AssociationEnd.participant>
-                    <UML:Class xmi.idref = '127-0-1-1-583060f:13fc3cc8651:-8000:0000000000000F6D'/>
-                  </UML:AssociationEnd.participant>
-                </UML:AssociationEnd>
-              </UML:Association.connection>
-            </UML:Association>
             <UML:Class xmi.id = '127-0-1-1-583060f:13fc3cc8651:-8000:0000000000000F6D'
               name = 'node_copy' visibility = 'public' isSpecification = 'false' isRoot = 'false'
               isLeaf = 'false' isAbstract = 'false' isActive = 'false'>

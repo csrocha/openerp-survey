@@ -137,20 +137,36 @@ function openerp_zondaggio_widgets(instance, module){
         evaluate_conditions:function() {
             var node_conditions = this.questionnaire.get('node_conditions');
             var complete_places = this.questionnaire.get('node_complete_places');
+            var solved_nodes = {};
 
+            // Solve boolean statements
             for (var key in node_conditions) {
-                var condition = node_conditions[key];
-                var control = $(_.str.sprintf(".inp_%s", complete_places[key]))[0];
-                var childs = $(_.str.sprintf("input[name='inp_%s']", complete_places[key]));
-                var input = $(_.str.sprintf(".inp_%s", complete_places[condition.node_id]))[0];
-                var value = input.value;
-                if (input.type == "checkbox") {
-                    value = input.checked;
+                for (var i in node_conditions[key]) {
+                    var condition = node_conditions[key][i];
+                    var input = $(_.str.sprintf(".inp_%s", complete_places[condition.node_id]))[0];
+
+                    if (input == null) continue;
+
+                    var value = input.value;
+                    if (input.type == "checkbox") {
+                        value = input.checked;
+                    };
+                    var not = (condition.operator.indexOf('not') >= 0) && '!' || '';
+                    var oper = condition.operator.replace(/not /,'');
+                    var statement = _.str.sprintf("%s('%s' %s %s)", not, value, oper, condition.value);
+                    var complete_place = complete_places[key];
+                    if (!(complete_place in solved_nodes)) {
+                        solved_nodes[complete_place] = !eval(statement);
+                    } else {
+                        solved_nodes[complete_place] = solved_nodes[complete_place] || !eval(statement);
+                    };
                 };
-                var not = (condition.operator.indexOf('not') >= 0) && '!' || '';
-                var oper = condition.operator.replace(/not /,'');
-                var statement = _.str.sprintf("%s('%s' %s %s)", not, value, oper, condition.value);
-                control.disabled = !eval(statement);
+            };
+            // Asign state
+            for (complete_place in solved_nodes) {
+                var control = $(_.str.sprintf(".inp_%s", complete_place))[0];
+                var childs = $(_.str.sprintf("input[name='inp_%s']", complete_place));
+                control.disabled = solved_nodes[complete_place];
                 childs.each(function(node){ childs[node].disabled = control.disabled; });
             };
         },
