@@ -64,6 +64,7 @@ function openerp_zondaggio_models(instance, module){
                         'enable_in','format_id','parent_id',
                         'category_ids','enable_condition_ids',
                         'child_ids',
+                        'variable_name',
                         ],[['survey_id','=',surveys[0].id]]);
                 }).then(function(nodes){
                     // Group by pages
@@ -159,6 +160,18 @@ function openerp_zondaggio_models(instance, module){
                         answer_map[answer.question_id[0]] = answer;
                     };
                     self.set('answers', answer_map);
+
+                    return self.fetch('sondaggio.parameter',[
+                        'name',
+                        'value'],
+                        [['questionnaire_id', '=', self.active_id]]);
+                }).then(function(parameters){
+                    parameter_map = {};
+                    for (index in parameters) {
+                        var parameter = parameters[index]; 
+                        parameter_map[parameter.name] = parameter.value;
+                    };
+                    self.set('parameters', parameter_map);
                 });
             return loaded;
         },

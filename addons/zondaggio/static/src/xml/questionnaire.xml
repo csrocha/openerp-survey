@@ -51,6 +51,9 @@
                 <t t-set="childs" t-value="childs"/>
                 <t t-set="level" t-value="level"/>
             </t>
+            <t t-if="level == 2">
+                <button class="do_save cupid-blue" name="do_save" style="clear:inherit">Grabar y Continuar</button>
+            </t>
         </t>
     </t>
 
@@ -88,14 +91,14 @@
                     </th>
                 </tr>
                 <tr t-foreach="table['dim'][0]" t-as="r_id">
-                    <th>
+                    <th t-att-class="nodes[r_id].classes">
                         <t t-raw="nodes[r_id].question"/>
                         <input t-if="nodes[r_id].format_id[1]=='Select one'"
                             type="hidden"
-                            t-attf-class="inp_#{nodes[r_id].complete_place}"
+                            t-attf-class="inp_#{nodes[r_id].complete_place} var_#{nodes[r_id].variable_name}"
                             />
                     </th>
-                    <td t-foreach="table['dim'][1]" t-as="c_id">
+                    <td t-foreach="table['dim'][1]" t-as="c_id" t-att-class="nodes[r_id].classes">
                         <t t-call="z_table_variable">
                             <t t-set="node" t-value="table.get([r_id,c_id])" />
                             <t t-set="nodes" t-value="nodes" />
@@ -115,15 +118,15 @@
                         <t t-raw="nodes[c_id].question"/>
                         <input t-if="nodes[c_id].format_id[1]=='Select one'"
                             type="hidden"
-                            t-attf-class="inp_#{nodes[c_id].complete_place}"
+                            t-attf-class="inp_#{nodes[c_id].complete_place} var_#{nodes[c_id].variable_name}"
                             />
                     </th>
                 </tr>
                 <tr t-foreach="table['dim'][1]" t-as="r_id">
-                    <th>
+                    <th t-att-class="nodes[r_id].classes">
                         <t t-raw="nodes[r_id].question"/>
                     </th>
-                    <td t-foreach="table['dim'][0]" t-as="c_id">
+                    <td t-foreach="table['dim'][0]" t-as="c_id" t-att-class="nodes[r_id].classes">
                         <t t-call="z_table_variable">
                             <t t-set="node" t-value="table.get([c_id,r_id])" />
                             <t t-set="nodes" t-value="nodes" />
@@ -140,13 +143,17 @@
             <input t-if="parent.format_id[1]=='Select one'"
                 type="radio"
                 t-attf-name="inp_#{parent.complete_place}"
-                t-attf-class="inp_#{node.complete_place}"
+                t-attf-class="inp_#{node.complete_place} var_#{node.variable_name}"
                 t-att-alt="node.name"
                 />
         </t>
         <input t-if="node and node.format_id[1]=='Integer'"
             type="number"
-            t-attf-class="inp_#{node.complete_place}"
+            t-attf-class="inp_#{node.complete_place} var_#{node.variable_name}"
+            />
+        <input t-if="node and node.format_id[1]=='Char'"
+            type="text"
+            t-attf-class="inp_#{node.complete_place} var_#{node.variable_name}"
             />
     </t>
 
@@ -194,7 +201,7 @@
         <t t-set="n" t-value="nodes[node]"/>
         <t t-raw="n.question"/>
         <input type="text"
-            t-attf-class="inp_#{n.complete_place}"
+            t-attf-class="inp_#{n.complete_place} var_#{n.variable_name}"
             />
         <t t-call="z_node_iterate">
             <t t-set="nodes" t-value="nodes"/>
@@ -203,11 +210,11 @@
         </t>
     </div>
 
-    <div t-name="z_variable_integer" class="zoe_integer">
+    <div t-name="z_variable_integer"  t-attf-class="zoe_integer #{nodes[node].classes}">
         <t t-set="n" t-value="nodes[node]"/>
         <t t-raw="n.question"/>
         <input type="number"
-            t-attf-class="inp_#{n.complete_place}"
+            t-attf-class="inp_#{n.complete_place} var_#{n.variable_name}"
             />
         <t t-call="z_node_iterate">
             <t t-set="nodes" t-value="nodes"/>
@@ -216,13 +223,13 @@
         </t>
     </div>
 
-    <div t-name="z_variable_porcentual" class="zoe_porcentual">
+    <div t-name="z_variable_porcentual" t-attf-class="zoe_porcentual #{nodes[node].classes}">
         <t t-set="n" t-value="nodes[node]"/>
         <t t-raw="n.question"/>
         <input type="number"
             min="0" max="100"
-            t-attf-class="inp_#{n.complete_place}"
-            />
+            t-attf-class="inp_#{n.complete_place} var_#{n.variable_name}"
+            />%
         <t t-call="z_node_iterate">
             <t t-set="nodes" t-value="nodes"/>
             <t t-set="node" t-value="node"/>
@@ -230,11 +237,12 @@
         </t>
     </div>
 
-    <div t-name="z_variable_year" class="zoe_year">
+    <div t-name="z_variable_year" t-attf-class="zoe_year #{nodes[node].classes}">
         <t t-set="n" t-value="nodes[node]"/>
         <t t-raw="n.question"/>
         <input type="number"
-            t-attf-class="inp_#{n.complete_place}"
+            t-attf-class="inp_#{n.complete_place} var_#{n.variable_name}"
+            placeholder="0"
             />
         <t t-call="z_node_iterate">
             <t t-set="nodes" t-value="nodes"/>
@@ -243,11 +251,11 @@
         </t>
     </div>
 
-    <div t-name="z_variable_text" class="zoe_text">
+    <div t-name="z_variable_text" t-attf-class="zoe_text #{nodes[node].classes}">
         <t t-set="n" t-value="nodes[node]"/>
         <t t-raw="n.question"/>
         <textarea
-            t-attf-class="inp_#{n.complete_place}"
+            t-attf-class="inp_#{n.complete_place} var_#{n.variable_name}"
             rows="10" cols="40"
             />
         <t t-call="z_node_iterate">
@@ -257,11 +265,11 @@
         </t>
     </div>
 
-    <div t-name="z_variable_checkbox" class="zoe_checkbox">
+    <div t-name="z_variable_checkbox" t-attf-class="zoe_checkbox #{nodes[node].classes}">
         <t t-set="n" t-value="nodes[node]"/>
         <t t-raw="n.question"/>
         <input type="checkbox"
-            t-attf-class="inp_#{n.complete_place}"
+            t-attf-class="inp_#{n.complete_place} var_#{n.variable_name}"
             />
         <t t-call="z_node_iterate">
             <t t-set="nodes" t-value="nodes"/>
@@ -287,7 +295,7 @@
                 <div class="zoe_row_label">
                     <t t-raw="n.question"/>
                     <input type="hidden"
-                        t-attf-class="inp_#{inp_class}"
+                        t-attf-class="inp_#{inp_class} var_#{n.variable_name}"
                         />
                 </div>
                 <div t-foreach="childs" t-as="child" class="option">

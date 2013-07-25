@@ -264,6 +264,12 @@ div.zoe_porcentual p {
 	width: 50%;
 }
 
+div.zoe_porcentual input[type="text"] {
+	display: inline-block;
+	vertical-align:top;
+	width: 49%;
+}
+
 div.zoe_porcentual input {
 	display: inline-block;
 }
