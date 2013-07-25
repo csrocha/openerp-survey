@@ -13,95 +13,267 @@
     text-align:center;
 }
 
-#scroll-item  {
-	height: 100%;
-	overflow:hidden;
-	position:relative;
+div.zoe_page {
+	margin: 10px 25% 10px 15%;
+	width: 70%;
+	border-radius: 5px;
+	border: 5px solid whitesmoke;
+	padding: 10px 10px 5px 5px;
+	page-break-inside: avoid;
 }
 
-input[type="text"] {
-     width: 100%; 
-     box-sizing: border-box;
-     -webkit-box-sizing:border-box;
-     -moz-box-sizing: border-box;
-}
-
-table.zoe_logos {
-	margin-top: 30px;
-	margin-bottom: 30px;
-}
-
-table.zoe_intro {
-	width: 100%;
-}
-
-table.zoe_intro, table.zoe_intro tr {
-	border: 1px solid black;
-	padding: 5px;
-	width: 100%;
-}
-
-tr.zoe_title {
-	background-color: #008080;
-}
-
-tr.zoe_title td {
-	text-align: center;
-	font-weight:bold;
+div.zoe_page h2 {
+	margin: 5px;
+	background-color: black;
 	color: white;
-	width: 100%;
+	margin: 5px;
+	padding: 5px;
 }
 
-tr.zoe_subtitle {
-	background-color: #d9d9d9;
+.zoe_hidden {
+	display:none;
 }
 
+.zoe_page div ul { 
+	display: table;
+	width: 50%;
+	margin-left: 25%;
+}
 
-tr.zoe_subtitle td {
+.zoe_page div ul li { 
+	display: table-cell;
+	width: 50%;
+	padding: 10px;
+}
+
+div.group {
+	display: table;
+	width: 95%;
+	margin-left: 2.5%;
+}
+
+div.group div.row {
+	display: table-row;
+}
+
+div.group div.row div {
+	display: table-cell;
+	margin: 0px;
+	padding: 0px;
+}
+
+div.group div.row div p {
+	margin: 0px;
+	padding: 0px 15px;
+}
+
+div.zoe_row_label div.label {
 	text-align: center;
-	font-weight:bold;
+	padding: 5px;
 }
 
-tr.zoe_description {
+div.zoe_row_label~div.option {
+	text-align: center;
+	padding: 5px;
+}
+
+div.zoe_col_label div.label {
+	text-align: center;
+	padding: 5px;
+}
+
+div.zoe_col_label div.option {
+	text-align: center;
+	padding: 5px;
+}
+
+div.zoe_question div.option {
+	text-align: center;
+	padding: 5px;
+}
+
+/* *
+ * BEGIN: Tablas horizontales
+ * */
+table.zoe {
+	width: 80%;
+	margin-left:10%;
+}
+
+table.zoe tr:nth-child(odd) {
 	background-color: white;
 }
 
-tr.zoe_description td {
+table.zoe tr:nth-child(even) {
+	background-color: lightgray;
+}
+
+table.zoe, table.zoe th, table.zoe td {
+	border: 1px solid black;
+}
+
+table.zoe td {
 	text-align: center;
-	font-weight:bold;
+	vertical-align: middle;
 }
 
-button.fop-button {
-	font-family: Arial, Helvetica, sans-serif;
-	font-size: 14px;
-	color: #050505;
-	padding: 10px 20px;
-	background: -moz-linear-gradient(
-		top,
-		#008080 0%,
-		#d9d9d9);
-	background: -webkit-gradient(
-		linear, left top, left bottom, 
-		from(#008080),
-		to(#d9d9d9));
-	-moz-border-radius: 30px;
-	-webkit-border-radius: 30px;
-	border-radius: 30px;
-	border: 5px solid #000000;
-	-moz-box-shadow:
-		0px 1px 3px rgba(000,000,000,0.5),
-		inset 0px 0px 1px rgba(255,255,255,0.7);
-	-webkit-box-shadow:
-		0px 1px 3px rgba(000,000,000,0.5),
-		inset 0px 0px 1px rgba(255,255,255,0.7);
-	box-shadow:
-		0px 1px 3px rgba(000,000,000,0.5),
-		inset 0px 0px 1px rgba(255,255,255,0.7);
-	text-shadow:
-		0px -1px 0px rgba(000,000,000,0.4),
-		0px 1px 0px rgba(255,255,255,0.3);
+table.zoe tr:first-child th {
+	text-align: center;
+	padding-left: 5px;
 }
 
+table.zoe tr th {
+	text-align: left;
+	padding-left: 15px;
+	padding-right: 5px;
+}
+
+/* END: Tablas horizontales */
+
+/* *
+ * BEGIN: Tablas transpuestas
+ * */
+div.zoe_transpose div.option {
+	display:table-row !important;
+}
+div.zoe_transpose div.option .zoe_label {
+	text-align: left !important;
+}
+div.zoe_transpose div.option .zoe_option {
+	text-align: center !important;
+}
+
+/* END: Tablas horizontales */
+
+/*
+ * BEGIN: Char
+ */
+div.zoe_char {
+	display: inline-block;
+	width: 100%;
+}
+
+div.zoe_char p {
+	display: inline-block;
+	vertical-align:top;
+	width: 50%;
+}
+
+div.zoe_char input {
+	display: inline-block;
+}
+/*
+ * END: Char
+ */
+
+/*
+ * BEGIN: Text
+ */
+div.zoe_text {
+	display: inline-block;
+	width: 100%;
+}
+
+div.zoe_text p {
+	display: inline-block;
+	vertical-align:top;
+	width: 50%;
+}
+
+div.zoe_text input {
+	display: inline-block;
+}
+/*
+ * END: Text
+ */
+
+/*
+ * BEGIN: Checkbox
+ */
+div.zoe_checkbox {
+	display: inline-block;
+	width: 100%;
+}
+
+div.zoe_checkbox p {
+	display: inline-block;
+	vertical-align:top;
+	width: 50%;
+}
+
+div.zoe_checkbox input {
+	display: inline-block;
+}
+/*
+ * END: Checkbox
+ */
+
+/*
+ * BEGIN: Integer
+ */
+div.zoe_integer {
+	display: inline-block;
+	width: 100%;
+}
+
+div.zoe_integer p {
+	display: inline-block;
+	vertical-align:top;
+	width: 50%;
+}
+
+div.zoe_integer input {
+	display: inline-block;
+}
+/*
+ * END: Integer
+ */
+
+/*
+ * BEGIN: Year
+ */
+div.zoe_year {
+	display: inline-block;
+	width: 100%;
+}
+
+div.zoe_year p {
+	display: inline-block;
+	vertical-align:top;
+	width: 50%;
+}
+
+div.zoe_year input {
+	display: inline-block;
+}
+/*
+ * END: Year
+ */
+
+/*
+ * BEGIN: Porcentual
+ */
+div.zoe_porcentual {
+	display: inline-block;
+	width: 100%;
+}
+
+div.zoe_porcentual p {
+	display: inline-block;
+	vertical-align:top;
+	width: 50%;
+}
+
+div.zoe_porcentual input {
+	display: inline-block;
+}
+/*
+ * END: Porcentual
+ */
+
+/*
+ * BEGIN: Fullscreen
+ */
 .zoe_full_screen {
 	display: block;
 	position: absolute;
@@ -112,121 +284,32 @@ button.fop-button {
 	left: 0px;
 	top: 0px;
 }
+/*
+ * END: Fullscreen
+ */
 
-.zoe_page {
-	margin: 10px 25% 10px 15%;
-	width: 70%;
-	border-radius: 5px;
-	border: 5px solid whitesmoke;
-	padding: 10px 10px 5px 5px;
-	page-break-inside: avoid;
-}
 
-.zoe_section_title {
-	background-color: black;
-	color: white;
-	margin: 5px;
-	padding: 5px;
-	width:98% !important;
-}
 
-.zoe_section_description {
+div.zoe_section_description {
 	margin: 15px;
 	text-align:justify;
 	text-justify:inter-word;
 	padding: 5px;
 	border-top:1px solid #313030;
+	display: inline-block;
 }
 
-.zoe_col_left {
-	float:left;
-}
-
-.zoe_col_med {
-}
-
-.zoe_col_right {
-	float:right;
-}
-
-.zoe_col_reset {
-	clear:both;
-}
-
-.zoe_label {
-	margin: 5px;
-	float:left;
-	width:50%;
-}
-
-.zoe_sublabel {
-	margin: 0 0 0 15px;
-	float:left;
-	width:50%;
-	text-align:right
-}
-
-.zoe_input {
-	margin: 5px;
-	float:right;
-}
-
-.zoe_tiny_fixed {
-	font-size:xx-small;
-	font-family:cursive; 
-	text-align:center;
-}
-
-section.zoe_section h2 {
-	margin: 5px;
-	background-color: black;
-	color: white;
-	margin: 5px;
+div.zoe_selectone+.zoe_char p {
+	display: inline-block;
 	padding: 5px;
 }
 
-.zoe_list {
-	float:left;
-	width:90%;
+div.zoe_selectone+.zoe_char input {
+	display: inline-block;
+	padding: 5px;
 }
 
-.zoe_list p {
-	float:left;
-	font-family:cursive; 
-	text-align:left;
-	padding-left:20px;
-	margin: 0px;
+div.zoe_hidden {
+	display: none;
 }
 
-.zoe_list input {
-	float:right;
-	padding-right:20px;
-}
-
-.zoe_table {
-	float:left;
-	margin:0px;
-}
-
-.zoe_table p {
-	font-size:xx-small;
-	font-family:cursive; 
-	text-align:center;
-	margin:0px;
-	padding: 0 4px 0 4px;
-}
-
-.zoe_table input {
-	float:right;
-}
-
-.zoe_hidden {
-	hidden:true;
-}
-
-.zoe_page_number {
-	font-size:xx-small;
-	font-family:cursive; 
-	text-align:center;
-	margin:0px;
-}

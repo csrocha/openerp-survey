@@ -1,0 +1,346 @@
+<templates>
+    <div t-name="QuestionnaireView" t-attf-class="zoe_zondaggio zoe_zondaggio_stopped #{widget.is_fullscreen and 'zoe_full_screen'}">
+        <t t-call="z_mask">
+            <t t-set="title" t-value="widget.get_name()"/>
+            <t t-set="description" t-value="widget.get_description()"/>
+        </t>
+
+
+        <t t-call="z_node">
+            <t t-set="widgets" t-value="widget.get_widgets()"/>
+            <t t-set="nodes" t-value="widget.get_node_dict()"/>
+            <t t-set="node" t-value="widget.get_root()"/>
+            <t t-set="childs" t-value="widget.get_childs(widget.get_root())"/>
+            <t t-set="level" t-value="1"/>
+        </t>
+
+    </div>
+
+    <div t-name="z_mask" class="zoe_page zoe_scroll-item zoe_mask">
+        <div style="float:left"><img class="z_logo" src="zondaggio/static/src/img/logo_fop.png"/></div>
+        <div style="float:right"><img class="z_logo" src="zondaggio/static/src/img/logo_mincyt.png"/></div>
+        <div style="clear:both"/>
+        <div style="padding:15px; text-align:center" ><t t-esc="title"/></div>
+        <div style="clear:both"/>
+        <div style="padding:15px; text-align:center">INTRODUCCIÓN Y PROTECCIÓN DE LOS DATOS</div>
+        <div style="clear:both"/>
+        <t t-raw="description"/>
+        <div style="clear:both"/>
+        <button class="do_save cupid-blue" name="do_save" style="clear:inherit">Empezar</button>
+        <button class="do_print cupid-blue" name="do_print" style="clear:inherit;float:right">Imprimir</button>
+        <div style="clear:both"/>
+    </div>
+
+    <t t-name="z_node">
+        <t t-if="node and nodes[node]">
+            <t t-call="z_view"       t-if="nodes[node].type == 'View'">
+                <t t-set="nodes" t-value="nodes"/>
+                <t t-set="node" t-value="node"/>
+                <t t-set="childs" t-value="childs"/>
+                <t t-set="level" t-value="level"/>
+            </t>
+            <t t-call="z_variable"   t-if="nodes[node].type == 'Variable'">
+                <t t-set="nodes" t-value="nodes"/>
+                <t t-set="node" t-value="node"/>
+                <t t-set="childs" t-value="childs"/>
+                <t t-set="level" t-value="level"/>
+            </t>
+            <t t-call="z_null"       t-if="nodes[node].type == 'Null'">
+                <t t-set="nodes" t-value="nodes"/>
+                <t t-set="node" t-value="child"/>
+                <t t-set="childs" t-value="childs"/>
+                <t t-set="level" t-value="level"/>
+            </t>
+        </t>
+    </t>
+
+    <t t-name="z_node_iterate">
+        <t t-foreach="childs" t-as="child" t-if="node != null">
+            <t t-call="z_node">
+                <t t-set="nodes" t-value="nodes"/>
+                <t t-set="node" t-value="child"/>
+                <t t-set="childs" t-value="widget.get_childs(child)"/>
+                <t t-set="level" t-value="level+1"/>
+            </t>
+        </t>
+    </t>
+
+    <div t-name="z_view" t-att-class="nodes[node].classes">
+        <t t-if="!nodes[node].has_class('zoe_table') and !nodes[node].has_class('zoe_table_transpose') ">
+            <t t-raw="nodes[node].question"/>
+            <div class="group">
+                <t t-call="z_node_iterate">
+                    <t t-set="nodes" t-value="nodes"/>
+                    <t t-set="node" t-value="node"/>
+                    <t t-set="childs" t-value="childs"/>
+                </t>
+            </div>
+        </t>
+        <t t-if="nodes[node].has_class('zoe_table') and !nodes[node].has_class('zoe_table_transpose')">
+            <t t-set="table" t-value="widget.get_table(nodes[node])"/>
+            <t t-raw="nodes[node].question"/>
+            <table class="zoe">
+                <tr>
+                    <th>
+                    </th>
+                    <th t-foreach="table['dim'][1]" t-as="c_id">
+                        <t t-raw="nodes[c_id].question"/>
+                    </th>
+                </tr>
+                <tr t-foreach="table['dim'][0]" t-as="r_id">
+                    <th>
+                        <t t-raw="nodes[r_id].question"/>
+                        <input t-if="nodes[r_id].format_id[1]=='Select one'"
+                            type="hidden"
+                            t-attf-class="inp_#{nodes[r_id].complete_place}"
+                            />
+                    </th>
+                    <td t-foreach="table['dim'][1]" t-as="c_id">
+                        <t t-call="z_table_variable">
+                            <t t-set="node" t-value="table.get([r_id,c_id])" />
+                            <t t-set="nodes" t-value="nodes" />
+                        </t>
+                    </td>
+                </tr>
+            </table>
+        </t>
+        <t t-if="!nodes[node].has_class('zoe_table') and nodes[node].has_class('zoe_table_transpose')">
+            <t t-set="table" t-value="widget.get_table(nodes[node])"/>
+            <t t-raw="nodes[node].question"/>
+            <table class="zoe">
+                <tr>
+                    <th>
+                    </th>
+                    <th t-foreach="table['dim'][0]" t-as="c_id">
+                        <t t-raw="nodes[c_id].question"/>
+                        <input t-if="nodes[c_id].format_id[1]=='Select one'"
+                            type="hidden"
+                            t-attf-class="inp_#{nodes[c_id].complete_place}"
+                            />
+                    </th>
+                </tr>
+                <tr t-foreach="table['dim'][1]" t-as="r_id">
+                    <th>
+                        <t t-raw="nodes[r_id].question"/>
+                    </th>
+                    <td t-foreach="table['dim'][0]" t-as="c_id">
+                        <t t-call="z_table_variable">
+                            <t t-set="node" t-value="table.get([c_id,r_id])" />
+                            <t t-set="nodes" t-value="nodes" />
+                        </t>
+                    </td>
+                </tr>
+            </table>
+        </t>
+    </div>
+
+    <t t-name="z_table_variable">
+        <t t-if="node and node.type=='Null'">
+            <t t-set="parent" t-value="nodes[node.parent_id[0]]"/>
+            <input t-if="parent.format_id[1]=='Select one'"
+                type="radio"
+                t-attf-name="inp_#{parent.complete_place}"
+                t-attf-class="inp_#{node.complete_place}"
+                t-att-alt="node.name"
+                />
+        </t>
+        <input t-if="node and node.format_id[1]=='Integer'"
+            type="number"
+            t-attf-class="inp_#{node.complete_place}"
+            />
+    </t>
+
+    <t t-name="z_variable">
+        <t t-set="n" t-value="nodes[node]"/>
+        <t t-set="f" t-value="n.format_id[1]"/>
+        <t t-call="z_variable_char" t-if="f == 'Char'">
+            <t t-set="nodes" t-value="nodes"/>
+            <t t-set="node" t-value="node"/>
+            <t t-set="childs" t-value="childs"/>
+        </t>
+        <t t-call="z_variable_integer" t-if="f == 'Integer'">
+            <t t-set="nodes" t-value="nodes"/>
+            <t t-set="node" t-value="node"/>
+            <t t-set="childs" t-value="childs"/>
+        </t>
+        <t t-call="z_variable_porcentual" t-if="f == 'Porcentual'">
+            <t t-set="nodes" t-value="nodes"/>
+            <t t-set="node" t-value="node"/>
+            <t t-set="childs" t-value="childs"/>
+        </t>
+        <t t-call="z_variable_year" t-if="f == 'Year'">
+            <t t-set="nodes" t-value="nodes"/>
+            <t t-set="node" t-value="node"/>
+            <t t-set="childs" t-value="childs"/>
+        </t>
+        <t t-call="z_variable_text" t-if="f == 'Text'">
+            <t t-set="nodes" t-value="nodes"/>
+            <t t-set="node" t-value="node"/>
+            <t t-set="childs" t-value="childs"/>
+        </t>
+        <t t-call="z_variable_checkbox" t-if="f == 'Boolean'">
+            <t t-set="nodes" t-value="nodes"/>
+            <t t-set="node" t-value="node"/>
+            <t t-set="childs" t-value="childs"/>
+        </t>
+        <t t-call="z_variable_selectone" t-if="f == 'Select one'">
+            <t t-set="nodes" t-value="nodes"/>
+            <t t-set="node" t-value="node"/>
+            <t t-set="childs" t-value="childs"/>
+        </t>
+    </t>
+
+    <div t-name="z_variable_char" t-attf-class="zoe_char #{nodes[node].classes}">
+        <t t-set="n" t-value="nodes[node]"/>
+        <t t-raw="n.question"/>
+        <input type="text"
+            t-attf-class="inp_#{n.complete_place}"
+            />
+        <t t-call="z_node_iterate">
+            <t t-set="nodes" t-value="nodes"/>
+            <t t-set="node" t-value="node"/>
+            <t t-set="childs" t-value="childs"/>
+        </t>
+    </div>
+
+    <div t-name="z_variable_integer" class="zoe_integer">
+        <t t-set="n" t-value="nodes[node]"/>
+        <t t-raw="n.question"/>
+        <input type="number"
+            t-attf-class="inp_#{n.complete_place}"
+            />
+        <t t-call="z_node_iterate">
+            <t t-set="nodes" t-value="nodes"/>
+            <t t-set="node" t-value="node"/>
+            <t t-set="childs" t-value="childs"/>
+        </t>
+    </div>
+
+    <div t-name="z_variable_porcentual" class="zoe_porcentual">
+        <t t-set="n" t-value="nodes[node]"/>
+        <t t-raw="n.question"/>
+        <input type="number"
+            min="0" max="100"
+            t-attf-class="inp_#{n.complete_place}"
+            />
+        <t t-call="z_node_iterate">
+            <t t-set="nodes" t-value="nodes"/>
+            <t t-set="node" t-value="node"/>
+            <t t-set="childs" t-value="childs"/>
+        </t>
+    </div>
+
+    <div t-name="z_variable_year" class="zoe_year">
+        <t t-set="n" t-value="nodes[node]"/>
+        <t t-raw="n.question"/>
+        <input type="number"
+            t-attf-class="inp_#{n.complete_place}"
+            />
+        <t t-call="z_node_iterate">
+            <t t-set="nodes" t-value="nodes"/>
+            <t t-set="node" t-value="node"/>
+            <t t-set="childs" t-value="childs"/>
+        </t>
+    </div>
+
+    <div t-name="z_variable_text" class="zoe_text">
+        <t t-set="n" t-value="nodes[node]"/>
+        <t t-raw="n.question"/>
+        <textarea
+            t-attf-class="inp_#{n.complete_place}"
+            rows="10" cols="40"
+            />
+        <t t-call="z_node_iterate">
+            <t t-set="nodes" t-value="nodes"/>
+            <t t-set="node" t-value="node"/>
+            <t t-set="childs" t-value="childs"/>
+        </t>
+    </div>
+
+    <div t-name="z_variable_checkbox" class="zoe_checkbox">
+        <t t-set="n" t-value="nodes[node]"/>
+        <t t-raw="n.question"/>
+        <input type="checkbox"
+            t-attf-class="inp_#{n.complete_place}"
+            />
+        <t t-call="z_node_iterate">
+            <t t-set="nodes" t-value="nodes"/>
+            <t t-set="node" t-value="node"/>
+            <t t-set="childs" t-value="childs"/>
+        </t>
+    </div>
+
+    <div t-name="z_variable_selectone" t-attf-class="zoe_selectone #{nodes[node].classes}">
+        <t t-set="n" t-value="nodes[node]"/>
+        <t t-set="col_width" t-value="40 / childs.length"/>
+        <t t-set="fcol_width" t-value="60"/>
+        <t t-set="inp_class" t-value="n.complete_place"/>
+        <t t-if="nodes[node].classes.indexOf('zoe_transpose') lt 0">
+            <div class="row zoe_col_label">
+                <div class="label"></div>
+                <div t-foreach="childs" t-as="child" class="option">
+                    <t t-set="c" t-value="nodes[child]"/>
+                    <t t-raw="c.question"/>
+                </div>
+            </div>
+            <div class="row zoe_question">
+                <div class="zoe_row_label">
+                    <t t-raw="n.question"/>
+                    <input type="hidden"
+                        t-attf-class="inp_#{inp_class}"
+                        />
+                </div>
+                <div t-foreach="childs" t-as="child" class="option">
+                    <t t-set="c" t-value="nodes[child]"/>
+                    <input t-if="c.type == 'Null'"
+                        type="radio"
+                        t-attf-name="inp_#{inp_class}"
+                        t-attf-class="inp_#{c.complete_place}"
+                        t-att-alt="node.name"
+                        />
+                </div>
+            </div>
+        </t>
+        <t t-if="nodes[node].classes.indexOf('zoe_transpose') gte 0">
+            <t t-set="table" t-value="widget.get_table(nodes[node])"/>
+            <p>Hola mundo</p>
+            <!--div t-foreach="get_dim(nodes[node],0)" t-as="dim"/-->
+
+            <!--div class="row zoe_label" style="display: table-row-group">
+                <div class="option">
+                    <div class="zoe_label">
+                    </div>
+                    <div class="zoe_option">
+                        <t t-raw="n.question"/>
+                    </div>
+                </div>
+            </div>
+            <div class="row zoe_question" style="display: table-row-group">
+                <div t-foreach="childs" t-as="child" class="option">
+                    <t t-set="c" t-value="nodes[child]"/>
+                    <div class="zoe_label"><t t-raw="c.question"/></div>
+                    <div class="zoe_option"><input t-if="c.type == 'Null'"
+                        type="radio"
+                        t-attf-name="inp_#{inp_class}"
+                        t-attf-class="inp_#{c.complete_place}"
+                        t-att-alt="node.name"
+                        /></div>
+                </div>
+            </div-->
+        </t>
+        <t t-set="not_null_childs" t-value="widget.filter_nodes_by_type(childs, [], ['Null'])"/>
+        <t t-call="z_node_iterate">
+            <t t-set="nodes" t-value="nodes"/>
+            <t t-set="node" t-value="node"/>
+            <t t-set="childs" t-value="not_null_childs"/>
+        </t>
+    </div>
+
+    <div t-name="z_null" t-att-class="nodes[node].classes">
+        <t t-raw="nodes[node].question"/>
+    </div>
+
+</templates>
+<!-- 
+ vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
+-->
