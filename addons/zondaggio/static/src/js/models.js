@@ -83,6 +83,15 @@ function openerp_zondaggio_models(instance, module){
                             if (cat in widgets) { node_widgets.push(widgets[cat]); }
                         });
                         node.classes = node_classes.join(' ');
+                        node.has_class = function(cls) {
+                            var r = false;
+                            this.category_ids.forEach(function(cat){
+                                    if (cat in classes && classes[cat] == cls) {
+                                        r = r || true; 
+                                    };
+                                });
+                            return r;
+                        };
                         node.widget = node_widgets[0] || null;
                     });
                     // Set node_ids & node_complete_place

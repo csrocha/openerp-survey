@@ -66,7 +66,7 @@
     </t>
 
     <div t-name="z_view" t-att-class="nodes[node].classes">
-        <!-- t t-if="nodes[node].classes.indexOf('zoe_table') lt 0" -->
+        <t t-if="!nodes[node].has_class('zoe_table') and !nodes[node].has_class('zoe_table_transpose') ">
             <t t-raw="nodes[node].question"/>
             <div class="group">
                 <t t-call="z_node_iterate">
@@ -75,8 +75,36 @@
                     <t t-set="childs" t-value="childs"/>
                 </t>
             </div>
-        <!-- /t -->
-        <!-- <t t-if="nodes[node].classes.indexOf('zoe_table') gte 0">
+        </t>
+        <t t-if="nodes[node].has_class('zoe_table') and !nodes[node].has_class('zoe_table_transpose')">
+            <t t-set="table" t-value="widget.get_table(nodes[node])"/>
+            <t t-raw="nodes[node].question"/>
+            <table>
+                <tr>
+                    <td>
+                    </td>
+                    <td t-foreach="table['dim'][1]" t-as="c_id">
+                        <t t-raw="nodes[c_id].question"/>
+                    </td>
+                </tr>
+                <tr t-foreach="table['dim'][0]" t-as="r_id">
+                    <td>
+                        <t t-raw="nodes[r_id].question"/>
+                        <input t-if="nodes[r_id].format_id[1]=='Select one'"
+                            type="hidden"
+                            t-attf-class="inp_#{nodes[r_id].complete_place}"
+                            />
+                    </td>
+                    <td t-foreach="table['dim'][1]" t-as="c_id">
+                        <t t-call="z_table_variable">
+                            <t t-set="node" t-value="table.get([r_id,c_id])" />
+                            <t t-set="nodes" t-value="nodes" />
+                        </t>
+                    </td>
+                </tr>
+            </table>
+        </t>
+        <t t-if="!nodes[node].has_class('zoe_table') and nodes[node].has_class('zoe_table_transpose')">
             <t t-set="table" t-value="widget.get_table(nodes[node])"/>
             <t t-raw="nodes[node].question"/>
             <table>
@@ -84,7 +112,11 @@
                     <td>
                     </td>
                     <td t-foreach="table['dim'][0]" t-as="c_id">
-                        <p><t t-raw="nodes[c_id].question"/></p>
+                        <t t-raw="nodes[c_id].question"/>
+                        <input t-if="nodes[c_id].format_id[1]=='Select one'"
+                            type="hidden"
+                            t-attf-class="inp_#{nodes[c_id].complete_place}"
+                            />
                     </td>
                 </tr>
                 <tr t-foreach="table['dim'][1]" t-as="r_id">
@@ -92,12 +124,31 @@
                         <t t-raw="nodes[r_id].question"/>
                     </td>
                     <td t-foreach="table['dim'][0]" t-as="c_id">
-                        <t t-raw="table['table'][nodes[c_id].name][nodes[r_id].name].type" />
+                        <t t-call="z_table_variable">
+                            <t t-set="node" t-value="table.get([c_id,r_id])" />
+                            <t t-set="nodes" t-value="nodes" />
+                        </t>
                     </td>
                 </tr>
             </table>
-        </t> -->
+        </t>
     </div>
+
+    <t t-name="z_table_variable">
+        <t t-if="node and node.type=='Null'">
+            <t t-set="parent" t-value="nodes[node.parent_id[0]]"/>
+            <input t-if="parent.format_id[1]=='Select one'"
+                type="radio"
+                t-attf-name="inp_#{parent.complete_place}"
+                t-attf-class="inp_#{node.complete_place}"
+                t-att-alt="node.name"
+                />
+        </t>
+        <input t-if="node and node.format_id[1]=='Integer'"
+            type="integer"
+            t-attf-class="inp_#{node.complete_place}"
+            />
+    </t>
 
     <t t-name="z_variable">
         <t t-set="n" t-value="nodes[node]"/>

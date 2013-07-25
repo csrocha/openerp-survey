@@ -236,6 +236,7 @@ function openerp_zondaggio_widgets(instance, module){
                     control.disabled = solved_nodes[complete_place];
                     childs.each(function(node){ childs[node].disabled = control.disabled; });
                 } else {
+                    console.log("Cant found:",_.str.sprintf(".inp_%s", complete_place));
                     debugger;
                 }
             };
@@ -274,7 +275,24 @@ function openerp_zondaggio_widgets(instance, module){
 
             var table=build_table(root);
 
-            return { 'table': table, 'dim': dim };
+            return {
+                nodes: node_dict,
+                table: table,
+                dim: dim,
+                get: function(keys) {
+                    var self=this;
+                    var node=null;
+                    keys.forEach(function(item){
+                         name = self.nodes[item].name;
+                         if (node == null) {
+                             node = table[name];
+                         } else {
+                             node = node[name];
+                         }
+                    });
+                    return node;
+                },
+            };
         }, 
     })
 
