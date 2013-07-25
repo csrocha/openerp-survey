@@ -95,6 +95,19 @@ div.zoe_question div.option {
 /* *
  * BEGIN: Tablas horizontales
  * */
+table.zoe {
+	width: 80%;
+	margin-left:10%;
+}
+
+table.zoe tr:nth-child(odd) {
+	background-color: white;
+}
+
+table.zoe tr:nth-child(even) {
+	background-color: lightgray;
+}
+
 table.zoe, table.zoe th, table.zoe td {
 	border: 1px solid black;
 }
@@ -132,70 +145,131 @@ div.zoe_transpose div.option .zoe_option {
 
 /* END: Tablas horizontales */
 
+/*
+ * BEGIN: Char
+ */
 div.zoe_char {
-	display: table-row;
+	display: inline-block;
+	width: 100%;
 }
 
 div.zoe_char p {
-	display: table-cell;
+	display: inline-block;
+	vertical-align:top;
+	width: 50%;
 }
 
 div.zoe_char input {
-	display: table-cell;
+	display: inline-block;
+}
+/*
+ * END: Char
+ */
+
+/*
+ * BEGIN: Text
+ */
+div.zoe_text {
+	display: inline-block;
+	width: 100%;
 }
 
+div.zoe_text p {
+	display: inline-block;
+	vertical-align:top;
+	width: 50%;
+}
+
+div.zoe_text input {
+	display: inline-block;
+}
+/*
+ * END: Text
+ */
+
+/*
+ * BEGIN: Checkbox
+ */
 div.zoe_checkbox {
-	display: table;
+	display: inline-block;
+	width: 100%;
 }
 
 div.zoe_checkbox p {
-	display: table-cell;
+	display: inline-block;
+	vertical-align:top;
+	width: 50%;
 }
 
 div.zoe_checkbox input {
-	display: table-cell;
-}
-
-div.zoe_section_description {
-	margin: 15px;
-	text-align:justify;
-	text-justify:inter-word;
-	padding: 5px;
-	border-top:1px solid #313030;
-}
-
-div.zoe_selectone+.zoe_char p {
 	display: inline-block;
-	padding: 5px;
 }
+/*
+ * END: Checkbox
+ */
 
-div.zoe_selectone+.zoe_char input {
+/*
+ * BEGIN: Integer
+ */
+div.zoe_integer {
 	display: inline-block;
-	padding: 5px;
+	width: 100%;
 }
 
-div.zoe_hidden {
-	display: none;
+div.zoe_integer p {
+	display: inline-block;
+	vertical-align:top;
+	width: 50%;
 }
+
+div.zoe_integer input {
+	display: inline-block;
+}
+/*
+ * END: Integer
+ */
 
 /*
  * BEGIN: Year
  */
 div.zoe_year {
-	display: table-row;
+	display: inline-block;
+	width: 100%;
 }
 
 div.zoe_year p {
-	display: table-cell;
+	display: inline-block;
+	vertical-align:top;
+	width: 50%;
 }
 
 div.zoe_year input {
-	display: table-cell;
+	display: inline-block;
 }
 /*
  * END: Year
  */
 
+/*
+ * BEGIN: Porcentual
+ */
+div.zoe_porcentual {
+	display: inline-block;
+	width: 100%;
+}
+
+div.zoe_porcentual p {
+	display: inline-block;
+	vertical-align:top;
+	width: 50%;
+}
+
+div.zoe_porcentual input {
+	display: inline-block;
+}
+/*
+ * END: Porcentual
+ */
 
 /*
  * BEGIN: Fullscreen
@@ -214,4 +288,28 @@ div.zoe_year input {
  * END: Fullscreen
  */
 
+
+
+div.zoe_section_description {
+	margin: 15px;
+	text-align:justify;
+	text-justify:inter-word;
+	padding: 5px;
+	border-top:1px solid #313030;
+	display: inline-block;
+}
+
+div.zoe_selectone+.zoe_char p {
+	display: inline-block;
+	padding: 5px;
+}
+
+div.zoe_selectone+.zoe_char input {
+	display: inline-block;
+	padding: 5px;
+}
+
+div.zoe_hidden {
+	display: none;
+}
 

@@ -145,7 +145,7 @@
                 />
         </t>
         <input t-if="node and node.format_id[1]=='Integer'"
-            type="integer"
+            type="number"
             t-attf-class="inp_#{node.complete_place}"
             />
     </t>
