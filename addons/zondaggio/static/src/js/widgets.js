@@ -34,26 +34,19 @@ function openerp_zondaggio_widgets(instance, module){
             var divs = $('div.group .zoe_selectone+.zoe_selectone:not(.zoe_section_description) .zoe_col_label');
             divs.remove();
             /* Put especificar in otros */
-            var esp = $('div.zoe_especificar');
-            $('div.zoe_otros div.zoe_row_label').append(function(index, item) {
+            var esp = $('div.zoe_especificar input');
+            $('th.zoe_otros,div.zoe_otros').prepend(function(index, item) {
                 return esp[index];
             });
-            /* */
-            $('.zoe_section_description.zoe_selectone:not(.zoe_transpose)').prepend(function(index, item){
-                return jQuery(item).find('.zoe_row_label');
-            })
-            $('.zoe_section_description.zoe_selectone:not(.zoe_transpose) .zoe_question .zoe_row_label').remove()
-            $('.zoe_selectone.zoe_section_description:not(.zoe_transpose)>.zoe_col_label>.label').remove()
-            /* Remove labels transpose */
-            $('.zoe_selectone.zoe_transpose+.zoe_selectone.zoe_transpose>.zoe_question>.option>.zoe_label').remove()
-            $('.zoe_selectone.zoe_transpose+.zoe_selectone.zoe_transpose>.zoe_label>.option>.zoe_label').remove()
-            /* Same height for every-one*/
-            //var _h = 0; $('.zoe_selectone.zoe_transpose .zoe_option').height(function(idx, h){ if(_h < h) _h = h; }).height(_h);
-            $('.group .zoe_selectone.zoe_transpose:first-child').each(function(idx, item){
-                _h = 0;
-                jQuery(item).find('.option');
-            })
-
+            $('th.zoe_otros p,div.zoe_otros>p').hide();
+            $('div.zoe_especificar>p').hide();
+            $('th.zoe_otros input, div.zoe_otros input[type="text"]').attr('placeholder','Especifique otra opción.');
+            $('th.zoe_otros input').css('width','95%');
+            /* Assign parameters to values by default */
+            var parameters = this.questionnaire.get('parameters');
+            $.each(parameters, function(key, value){
+                $(_.str.sprintf("input.var_%s",key)).attr('placeholder',value)
+            });
         },
         push_parent:function(node) {
             this.actual_parent.push(node.parent_id);
