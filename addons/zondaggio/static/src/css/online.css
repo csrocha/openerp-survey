@@ -95,17 +95,26 @@ div.zoe_question div.option {
 /* *
  * BEGIN: Tablas horizontales
  * */
-div.zoe_row_continue {
-	display:table-row-group;
+table.zoe, table.zoe th, table.zoe td {
+	border: 1px solid black;
 }
 
-div.zoe_row_continue:nth-child(odd) {
-	background:white;
+table.zoe td {
+	text-align: center;
+	vertical-align: middle;
 }
 
-div.zoe_row_continue:nth-child(even) {
-	background:lightgray;
+table.zoe tr:first-child th {
+	text-align: center;
+	padding-left: 5px;
 }
+
+table.zoe tr th {
+	text-align: left;
+	padding-left: 15px;
+	padding-right: 5px;
+}
+
 /* END: Tablas horizontales */
 
 /* *

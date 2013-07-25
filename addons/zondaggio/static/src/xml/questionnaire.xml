@@ -79,22 +79,22 @@
         <t t-if="nodes[node].has_class('zoe_table') and !nodes[node].has_class('zoe_table_transpose')">
             <t t-set="table" t-value="widget.get_table(nodes[node])"/>
             <t t-raw="nodes[node].question"/>
-            <table>
+            <table class="zoe">
                 <tr>
-                    <td>
-                    </td>
-                    <td t-foreach="table['dim'][1]" t-as="c_id">
+                    <th>
+                    </th>
+                    <th t-foreach="table['dim'][1]" t-as="c_id">
                         <t t-raw="nodes[c_id].question"/>
-                    </td>
+                    </th>
                 </tr>
                 <tr t-foreach="table['dim'][0]" t-as="r_id">
-                    <td>
+                    <th>
                         <t t-raw="nodes[r_id].question"/>
                         <input t-if="nodes[r_id].format_id[1]=='Select one'"
                             type="hidden"
                             t-attf-class="inp_#{nodes[r_id].complete_place}"
                             />
-                    </td>
+                    </th>
                     <td t-foreach="table['dim'][1]" t-as="c_id">
                         <t t-call="z_table_variable">
                             <t t-set="node" t-value="table.get([r_id,c_id])" />
@@ -107,22 +107,22 @@
         <t t-if="!nodes[node].has_class('zoe_table') and nodes[node].has_class('zoe_table_transpose')">
             <t t-set="table" t-value="widget.get_table(nodes[node])"/>
             <t t-raw="nodes[node].question"/>
-            <table>
+            <table class="zoe">
                 <tr>
-                    <td>
-                    </td>
-                    <td t-foreach="table['dim'][0]" t-as="c_id">
+                    <th>
+                    </th>
+                    <th t-foreach="table['dim'][0]" t-as="c_id">
                         <t t-raw="nodes[c_id].question"/>
                         <input t-if="nodes[c_id].format_id[1]=='Select one'"
                             type="hidden"
                             t-attf-class="inp_#{nodes[c_id].complete_place}"
                             />
-                    </td>
+                    </th>
                 </tr>
                 <tr t-foreach="table['dim'][1]" t-as="r_id">
-                    <td>
+                    <th>
                         <t t-raw="nodes[r_id].question"/>
-                    </td>
+                    </th>
                     <td t-foreach="table['dim'][0]" t-as="c_id">
                         <t t-call="z_table_variable">
                             <t t-set="node" t-value="table.get([c_id,r_id])" />
