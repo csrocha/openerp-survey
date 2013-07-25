@@ -9,7 +9,7 @@ function openerp_zondaggio_widgets(instance, module){
             'click button.do_save': 'do_save',
             'click button.do_print': 'do_print',
         },
-        template: 'StyledView',
+        template: 'QuestionnaireView',
         init:function(parent,options){
                 this._super(parent);
                 options = options || { context: {} };
@@ -23,22 +23,84 @@ function openerp_zondaggio_widgets(instance, module){
             var self=this;
             return self.questionnaire.ready.done(function(){
                 self.renderElement();
+                self.dynamicCss();
                 self.load_data();
                 self.evaluate_conditions();
             });
         },
+        dynamicCss:function() {
+            /* Remove inner labels for tables */
+            // var divs = $('div.group .zoe_selectone:not(:first-child) .zoe_col_label');
+            var divs = $('div.group .zoe_selectone+.zoe_selectone:not(.zoe_section_description) .zoe_col_label');
+            divs.remove();
+            /* Put especificar in otros */
+            var esp = $('div.zoe_especificar');
+            $('div.zoe_otros div.zoe_row_label').append(function(index, item) {
+                return esp[index];
+            });
+            /* */
+            $('.zoe_section_description.zoe_selectone:not(.zoe_transpose)').prepend(function(index, item){
+                return jQuery(item).find('.zoe_row_label');
+            })
+            $('.zoe_section_description.zoe_selectone:not(.zoe_transpose) .zoe_question .zoe_row_label').remove()
+            $('.zoe_selectone.zoe_section_description:not(.zoe_transpose)>.zoe_col_label>.label').remove()
+            /* Remove labels transpose */
+            $('.zoe_selectone.zoe_transpose+.zoe_selectone.zoe_transpose>.zoe_question>.option>.zoe_label').remove()
+            $('.zoe_selectone.zoe_transpose+.zoe_selectone.zoe_transpose>.zoe_label>.option>.zoe_label').remove()
+            /* Same height for every-one*/
+            //var _h = 0; $('.zoe_selectone.zoe_transpose .zoe_option').height(function(idx, h){ if(_h < h) _h = h; }).height(_h);
+            $('.group .zoe_selectone.zoe_transpose:first-child').each(function(idx, item){
+                _h = 0;
+                jQuery(item).find('.option');
+            })
+
+        },
+        push_parent:function(node) {
+            this.actual_parent.push(node.parent_id);
+        },
         get_name:function() {
             if (this.questionnaire.get('survey') == null) {
-                return 'No defined'
+                return 'Encuesta Nacional Sobre Valoración de la Innovación y Conocimiento de Fondos de Financiamiento'
             } else {
                 return this.questionnaire.get('survey').name;
             }
         },
         get_description:function() {
             if (this.questionnaire.get('survey') == null) {
-                return 'No defined'
+                return '<p>Las respuestas que Ud. nos provea serán estrictamente secretas y sólo se utilizarán con fines estadísticos (Ley 17.622 Art. 10° de secreto estadístico). Los datos serán publicados exclusivamente en compilaciones de conjunto, de modo que no pueda ser violado el secreto comercial o patrimonial, ni individualizarse las personas o entidades a quienes se refieran.</p><p>Una vez finalizado el relevamiento, le remitiremos de forma personal los resultados e informes de prensa elaborados a partir de la información recogida.</p><p>Le agradecemos su valiosa colaboración brindándonos su tiempo y sus respuestas.</p><h2>En este momento se está cargando el cuestionario.</h2>'
             } else {
                 return this.questionnaire.get('survey').description;
+            }
+        },
+        get_widgets:function() {
+            return this.questionnaire.get('widgets');
+        },
+        get_root:function() {
+            return this.questionnaire.get('root');
+        },
+        get_childs:function(node) {
+            if (node in this.questionnaire.get('tree')) {
+                return this.questionnaire.get('tree')[node];
+            } else {
+                return [];
+            }
+        },
+        filter_nodes_by_type:function(items, eq_type, neq_type) {
+            var r = [];
+            var nodes=this.questionnaire.get('node_dict');
+            for (item in items) {
+                var node = nodes[items[item]];
+                if ((eq_type.indexOf(node.type) >= 0) || !(neq_type.indexOf(node.type) >= 0 )) {
+                    r.push(items[item]);
+                }
+            };
+            return r;
+        },
+        get_node_dict:function() {
+            if (this.questionnaire.get('node_dict') == null) {
+                return {}
+            } else {
+                return this.questionnaire.get('node_dict');
             }
         },
         get_nodes:function() {
@@ -170,10 +232,50 @@ function openerp_zondaggio_widgets(instance, module){
             for (complete_place in solved_nodes) {
                 var control = $(_.str.sprintf(".inp_%s", complete_place))[0];
                 var childs = $(_.str.sprintf("input[name='inp_%s']", complete_place));
-                control.disabled = solved_nodes[complete_place];
-                childs.each(function(node){ childs[node].disabled = control.disabled; });
+                if (control) {
+                    control.disabled = solved_nodes[complete_place];
+                    childs.each(function(node){ childs[node].disabled = control.disabled; });
+                } else {
+                    debugger;
+                }
             };
         },
+        get_table:function(root) {
+            var nodes = this.questionnaire.get('nodes');
+            var node_dict = this.questionnaire.get('node_dict');
+            var tree = this.questionnaire.get('tree');
+
+            get_dim = function(root) {
+                var dim = [];
+                root.child_ids.forEach(function(item){
+                        dim.push(item);
+                });
+                return dim;
+            };
+
+            var dim = [];
+            var node = root;
+            while(node.child_ids.length > 0) {
+                dim.push(get_dim(node));
+                node = node_dict[node.child_ids[0]];
+            };
+
+            build_table = function(root) {
+                var table = { };
+                root.child_ids.forEach(function(item){
+                    table[node_dict[item].name] = build_table(node_dict[item]);
+                });
+                if (jQuery.isEmptyObject(table)) {
+                    return root;
+                } else {
+                    return table;
+                }
+            };
+
+            var table=build_table(root);
+
+            return { 'table': table, 'dim': dim };
+        }, 
     })
 
 };

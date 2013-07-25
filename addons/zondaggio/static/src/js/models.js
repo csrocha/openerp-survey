@@ -20,6 +20,8 @@ function openerp_zondaggio_models(instance, module){
                 'survey': null,
                 'nodes': [],
                 'pages': [],
+                'tree': {},
+                'root': null,
             });
 
             $.when(this.load_server_data())
@@ -61,6 +63,7 @@ function openerp_zondaggio_models(instance, module){
                         'page','complete_place',
                         'enable_in','format_id','parent_id',
                         'category_ids','enable_condition_ids',
+                        'child_ids',
                         ],[['survey_id','=',surveys[0].id]]);
                 }).then(function(nodes){
                     // Group by pages
@@ -91,10 +94,24 @@ function openerp_zondaggio_models(instance, module){
                         node_complete_places[node.id] = node.complete_place;
                         complete_place_nodes[node.complete_place] = node.id;
                     });
+                    // Set herarchical tree topology
+                    var tree = {};
+                    var root = null;
+                    var node_dict = {};
+                    nodes.forEach(function(node){
+                        tree[node.id] = node.child_ids;
+                        if (node.parent_id == false) {
+                            root = node.id;
+                        };
+                        node_dict[node.id] = node;
+                    });
 
                     // Save variables
                     self.set('pages',pages);
                     self.set('nodes',nodes);
+                    self.set('node_dict',node_dict);
+                    self.set('tree',tree);
+                    self.set('root',root);
                     self.set('node_complete_places',node_complete_places);
                     self.set('complete_place_nodes',complete_place_nodes);
 
