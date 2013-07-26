@@ -260,7 +260,7 @@ class questionnaire(osv.osv):
 
         answer_obj = self.pool.get('sondaggio.answer')
         question_obj = self.pool.get('sondaggio.node')
-        question_ids = question_obj.search(cr, uid, [('complete_place','=',fields)])
+        question_ids = question_obj.search(cr, uid, [('variable_name','=',fields)])
 
         #answer_id = answer_obj.search(cr, uid, [('complete_place','=',fields),('questionnaire_id','=',ids)])
 
@@ -301,16 +301,14 @@ class questionnaire(osv.osv):
                             _logger.debug('Found: %s' % (next_dict))
                             next_field_code = question_obj.read(cr, uid, next_dict.keys(), ['complete_place', 'complete_name'])
                             for item in next_field_code:
-                                complete_place = item['complete_place']
-                                value['sta_%s' % complete_place] = next_dict[item['id']]
-                                it_ids = answer_obj.search(cr, uid, [('complete_place','=',complete_place)])
+                                variable_name = item['variable_name']
+                                value['sta_%s' % variable_name] = next_dict[item['id']]
+                                it_ids = answer_obj.search(cr, uid, [('name','=',variable_name)])
                                 if it_ids == []:
-                                    q_ids = question_obj.search(cr, uid, [('survey_id','=',question.survey_id.id),('complete_place','=',complete_place)])
+                                    q_ids = question_obj.search(cr, uid, [('survey_id','=',question.survey_id.id),('variable_name','=',variable_name)])
                                     for nq in question_obj.browse(cr, uid, q_ids):
                                         v = {
-                                            'name': nq.question,
-                                            'complete_place': nq.complete_place,
-                                            'code': nq.name,
+                                            'name': nq.variable_name,
                                             'input': False,
                                             'formated': False,
                                             'message': False,
@@ -322,7 +320,7 @@ class questionnaire(osv.osv):
                                     if it_ids == []:
                                         raise osv.except_osv("Inestable Questionary", "Not answer associated to the next field. Communicate with the administrator.")
                                 answer_obj.write(cr, uid, it_ids, {'state': next_dict[item['id']]})
-                                _logger.debug('Change %s(%s) to %s' % (complete_place, it_ids, next_dict[item['id']]))
+                                _logger.debug('Change %s(%s) to %s' % (variable_name, it_ids, next_dict[item['id']]))
 
             # Evaluamos el formato
             format_obj = question.format_id
@@ -716,12 +714,10 @@ class questionnaire(osv.osv):
             a_ids = answer_obj.search(cr, uid, [ ('questionnaire_id','=',r['id']) ])
             # Creamos las preguntas si no existen.
             if a_ids == []:
-                q_ids = question_obj.search(cr, uid, [('survey_id','=',survey_id)])
+                q_ids = question_obj.search(cr, uid, [('survey_id','=',survey_id), ('variable_name','!=','')])
                 for question in question_obj.browse(cr, uid, q_ids):
                     v = {
-                        'name': question.question,
-                        'complete_place': question.complete_place,
-                        'code': question.name,
+                        'name': question.variable_name,
                         'input': False,
                         'formated': False,
                         'message': False,
@@ -734,13 +730,13 @@ class questionnaire(osv.osv):
                     answer_obj.write(cr, uid, a_ids[-1], {'state': question.initial_state})
             # Leemos las preguntas.
             for answer in answer_obj.browse(cr, uid, a_ids):
-                r['inp_%s' % answer.complete_place]=answer.input
-                r['msg_%s' % answer.complete_place]=answer.message
-                r['vms_%s' % answer.complete_place]=answer.message
-                r['sta_%s' % answer.complete_place]=answer.state
-                r['for_%s' % answer.complete_place]=answer.formated
-                r['vfo_%s' % answer.complete_place]=answer.formated
-                r['val_%s' % answer.complete_place]=answer.valid
+                r['inp_%s' % answer.name]=answer.input
+                r['msg_%s' % answer.name]=answer.message
+                r['vms_%s' % answer.name]=answer.message
+                r['sta_%s' % answer.name]=answer.state
+                r['for_%s' % answer.name]=answer.formated
+                r['vfo_%s' % answer.name]=answer.formated
+                r['val_%s' % answer.name]=answer.valid
         return res
 
     def is_valid(self, cr, uid, ids, values, context=None):
@@ -761,18 +757,18 @@ class questionnaire(osv.osv):
 
             answer_ids = answer_obj.search(cr, uid, [
                 ('questionnaire_id','in',ids),
-                ('complete_place','in',[key[4:] for key in values.keys() if key[3]=="_"])
+                ('name','in',[key[4:] for key in values.keys() if key[3]=="_"])
             ])
 
-            for answer in answer_obj.read(cr, uid, answer_ids, ['complete_place']):
-                complete_place = answer['complete_place']
+            for answer in answer_obj.read(cr, uid, answer_ids, ['name']):
+                variable_name = answer['name']
                 v = {}
 
-                if 'msg_%s' % complete_place in values: v.update(message=values['msg_%s' % complete_place])
-                if 'sta_%s' % complete_place in values: v.update(state=values['sta_%s' % complete_place])
-                if 'inp_%s' % complete_place in values: v.update(input=values['inp_%s' % complete_place])
-                if 'for_%s' % complete_place in values: v.update(formated=values['for_%s' % complete_place])
-                if 'val_%s' % complete_place in values: v.update(valid=values['val_%s' % complete_place])
+                if 'msg_%s' % variable_name in values: v.update(message  = values['msg_%s' % variable_name])
+                if 'sta_%s' % variable_name in values: v.update(state    = values['sta_%s' % variable_name])
+                if 'inp_%s' % variable_name in values: v.update(input    = values['inp_%s' % variable_name])
+                if 'for_%s' % variable_name in values: v.update(formated = values['for_%s' % variable_name])
+                if 'val_%s' % variable_name in values: v.update(valid    = values['val_%s' % variable_name])
                 
                 answer_obj.write(cr, uid, answer['id'], v)
 

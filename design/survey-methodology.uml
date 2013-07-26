@@ -26,7 +26,7 @@
       <fontname>Dialog</fontname>
       <fontsize>12</fontsize>
       <defaultstereotypeview>0</defaultstereotypeview>
-      <activediagram>Wizards</activediagram>
+      <activediagram>Main Classes</activediagram>
     </settings>
     <searchpath href="PROJECT_DIR" />
     <members>
@@ -94,7 +94,7 @@
 			</model>
 		</userDefined>
 </profile>
-<XMI xmi.version = '1.2' xmlns:UML = 'org.omg.xmi.namespace.UML' timestamp = 'Wed Jul 17 15:09:34 ART 2013'>
+<XMI xmi.version = '1.2' xmlns:UML = 'org.omg.xmi.namespace.UML' timestamp = 'Fri Jul 26 16:37:04 ART 2013'>
   <XMI.header>    <XMI.documentation>
       <XMI.exporter>ArgoUML (using Netbeans XMI Writer version 1.0)</XMI.exporter>
       <XMI.exporterVersion>0.34(6) revised on $Date: 2010-01-11 22:20:14 +0100 (Mon, 11 Jan 2010) $ </XMI.exporterVersion>
@@ -1684,14 +1684,14 @@
                 </UML:TaggedValue>
                 <UML:TaggedValue xmi.id = '127-0-1-1--4f3fef17:13d47b31775:-8000:0000000000000E68'
                   isSpecification = 'false'>
-                  <UML:TaggedValue.dataValue>questionnaire_id, complete_place</UML:TaggedValue.dataValue>
+                  <UML:TaggedValue.dataValue>questionnaire_id, name</UML:TaggedValue.dataValue>
                   <UML:TaggedValue.type>
                     <UML:TagDefinition xmi.idref = '127-0-1-1--4f3fef17:13d47b31775:-8000:0000000000000E75'/>
                   </UML:TaggedValue.type>
                 </UML:TaggedValue>
                 <UML:TaggedValue xmi.id = '127-0-1-1--4f3fef17:13d47b31775:-8000:0000000000000E73'
                   isSpecification = 'false'>
-                  <UML:TaggedValue.dataValue>(&apos;unique_answer&apos;,&apos;unique(questionnaire_id,complete_place)&apos;,&apos;Not repeat answers.&apos;)</UML:TaggedValue.dataValue>
+                  <UML:TaggedValue.dataValue>(&apos;unique_answer&apos;,&apos;unique(questionnaire_id,name)&apos;,&apos;Not repeat variables in answers.&apos;)</UML:TaggedValue.dataValue>
                   <UML:TaggedValue.type>
                     <UML:TagDefinition xmi.idref = '127-0-1-1--4f3fef17:13d47b31775:-8000:0000000000000E70'/>
                   </UML:TaggedValue.type>
@@ -1719,56 +1719,6 @@
                     <UML:TaggedValue xmi.id = '127-0-1-1--4f3fef17:13d47b31775:-8000:0000000000000E48'
                       isSpecification = 'false'>
                       <UML:TaggedValue.dataValue>Question</UML:TaggedValue.dataValue>
-                      <UML:TaggedValue.type>
-                        <UML:TagDefinition href = 'http://argouml.org/user-profiles/OpenObjectStadardElements.xmi#127-0-1-1-2b464aa4:13b09d81b72:-8000:0000000000001573'/>
-                      </UML:TaggedValue.type>
-                    </UML:TaggedValue>
-                  </UML:ModelElement.taggedValue>
-                  <UML:StructuralFeature.type>
-                    <UML:DataType href = 'http://argouml.org/user-profiles/OpenObjectStadardElements.xmi#127-0-1-1--66344949:13b09938a14:-8000:0000000000000B9C'/>
-                  </UML:StructuralFeature.type>
-                </UML:Attribute>
-                <UML:Attribute xmi.id = '127-0-1-1--4f3fef17:13d47b31775:-8000:0000000000000F14'
-                  name = 'complete_place' visibility = 'public' isSpecification = 'false'
-                  ownerScope = 'instance' changeability = 'changeable' targetScope = 'instance'>
-                  <UML:StructuralFeature.multiplicity>
-                    <UML:Multiplicity xmi.id = '127-0-1-1--4f3fef17:13d47b31775:-8000:0000000000000F15'>
-                      <UML:Multiplicity.range>
-                        <UML:MultiplicityRange xmi.id = '127-0-1-1--4f3fef17:13d47b31775:-8000:0000000000000F16'
-                          lower = '1' upper = '1'/>
-                      </UML:Multiplicity.range>
-                    </UML:Multiplicity>
-                  </UML:StructuralFeature.multiplicity>
-                  <UML:ModelElement.stereotype>
-                    <UML:Stereotype href = 'http://argouml.org/user-profiles/OpenObjectStadardElements.xmi#127-0-1-1--66344949:13b09938a14:-8000:0000000000000BA1'/>
-                    <UML:Stereotype href = 'http://argouml.org/user-profiles/OpenObjectStadardElements.xmi#127-0-1-1--66344949:13b09938a14:-8000:0000000000000BA3'/>
-                    <UML:Stereotype href = 'http://argouml.org/user-profiles/OpenObjectStadardElements.xmi#127-0-1-1--66344949:13b09938a14:-8000:0000000000000BA2'/>
-                  </UML:ModelElement.stereotype>
-                  <UML:StructuralFeature.type>
-                    <UML:DataType href = 'http://argouml.org/user-profiles/OpenObjectStadardElements.xmi#127-0-1-1--66344949:13b09938a14:-8000:0000000000000B9C'/>
-                  </UML:StructuralFeature.type>
-                </UML:Attribute>
-                <UML:Attribute xmi.id = '127-0-1-1--4f3fef17:13d47b31775:-8000:0000000000000E69'
-                  name = 'code' visibility = 'public' isSpecification = 'false' ownerScope = 'instance'
-                  changeability = 'changeable' targetScope = 'instance'>
-                  <UML:StructuralFeature.multiplicity>
-                    <UML:Multiplicity xmi.id = '127-0-1-1--4f3fef17:13d47b31775:-8000:0000000000000E6A'>
-                      <UML:Multiplicity.range>
-                        <UML:MultiplicityRange xmi.id = '127-0-1-1--4f3fef17:13d47b31775:-8000:0000000000000E6B'
-                          lower = '1' upper = '1'/>
-                      </UML:Multiplicity.range>
-                    </UML:Multiplicity>
-                  </UML:StructuralFeature.multiplicity>
-                  <UML:ModelElement.stereotype>
-                    <UML:Stereotype href = 'http://argouml.org/user-profiles/OpenObjectStadardElements.xmi#127-0-1-1--66344949:13b09938a14:-8000:0000000000000BA2'/>
-                    <UML:Stereotype href = 'http://argouml.org/user-profiles/OpenObjectStadardElements.xmi#127-0-1-1--66344949:13b09938a14:-8000:0000000000000BA1'/>
-                    <UML:Stereotype href = 'http://argouml.org/user-profiles/OpenObjectStadardElements.xmi#127-0-1-1--66344949:13b09938a14:-8000:00000000000011E5'/>
-                    <UML:Stereotype href = 'http://argouml.org/user-profiles/OpenObjectStadardElements.xmi#127-0-1-1--66344949:13b09938a14:-8000:00000000000011E6'/>
-                  </UML:ModelElement.stereotype>
-                  <UML:ModelElement.taggedValue>
-                    <UML:TaggedValue xmi.id = '127-0-1-1--4f3fef17:13d47b31775:-8000:0000000000000E7A'
-                      isSpecification = 'false'>
-                      <UML:TaggedValue.dataValue>Code</UML:TaggedValue.dataValue>
                       <UML:TaggedValue.type>
                         <UML:TagDefinition href = 'http://argouml.org/user-profiles/OpenObjectStadardElements.xmi#127-0-1-1-2b464aa4:13b09d81b72:-8000:0000000000001573'/>
                       </UML:TaggedValue.type>
@@ -6468,7 +6418,7 @@ Registry in the log start action.</UML:TaggedValue.dataValue>
       strokecolor="black"
     />
     <group name="Fig2.4"
-         description="org.argouml.uml.diagram.ui.FigAttributesCompartment[1249, 768, 350, 136]"
+         description="org.argouml.uml.diagram.ui.FigAttributesCompartment[1249, 768, 350, 119]"
          href="127-0-1-1--3b5079bc:13cd6248bba:-8000:0000000000001872"
          fill="0"
          fillcolor="white"
@@ -6482,7 +6432,7 @@ Registry in the log start action.</UML:TaggedValue.dataValue>
         x="1249"
         y="768"
         width="350"
-        height="136"
+        height="119"
         fill="0"
         fillcolor="white"
         stroke="0"
@@ -6519,7 +6469,7 @@ Registry in the log start action.</UML:TaggedValue.dataValue>
         bold="false"
         textsize="12"
         justification="Left"
-      >&lt;&lt;readonly, select, required&gt;&gt; complete_place : Char</text>
+      >&lt;&lt;tree, form, readonly&gt;&gt; input : Char</text>
       <text name="Fig2.4.3"
         x="1249"
         y="800"
@@ -6535,7 +6485,7 @@ Registry in the log start action.</UML:TaggedValue.dataValue>
         bold="false"
         textsize="12"
         justification="Left"
-      >&lt;&lt;required, readonly, form, tree&gt;&gt; code : Char</text>
+      >&lt;&lt;form&gt;&gt; formated : Char</text>
       <text name="Fig2.4.4"
         x="1249"
         y="816"
@@ -6551,7 +6501,7 @@ Registry in the log start action.</UML:TaggedValue.dataValue>
         bold="false"
         textsize="12"
         justification="Left"
-      >&lt;&lt;tree, form, readonly&gt;&gt; input : Char</text>
+      >&lt;&lt;readonly, form, tree&gt;&gt; message : Char</text>
       <text name="Fig2.4.5"
         x="1249"
         y="832"
@@ -6567,42 +6517,10 @@ Registry in the log start action.</UML:TaggedValue.dataValue>
         bold="false"
         textsize="12"
         justification="Left"
-      >&lt;&lt;form&gt;&gt; formated : Char</text>
+      >&lt;&lt;readonly, form, tree&gt;&gt; valid : Boolean</text>
       <text name="Fig2.4.6"
         x="1249"
         y="848"
-        width="350"
-        height="16"
-        fill="0"
-        fillcolor="white"
-        stroke="0"
-        strokecolor="black"
-        textcolor="black"
-        font="Dialog"
-        italic="false"
-        bold="false"
-        textsize="12"
-        justification="Left"
-      >&lt;&lt;readonly, form, tree&gt;&gt; message : Char</text>
-      <text name="Fig2.4.7"
-        x="1249"
-        y="864"
-        width="350"
-        height="16"
-        fill="0"
-        fillcolor="white"
-        stroke="0"
-        strokecolor="black"
-        textcolor="black"
-        font="Dialog"
-        italic="false"
-        bold="false"
-        textsize="12"
-        justification="Left"
-      >&lt;&lt;readonly, form, tree&gt;&gt; valid : Boolean</text>
-      <text name="Fig2.4.8"
-        x="1249"
-        y="880"
         width="350"
         height="22"
         fill="0"
@@ -6619,7 +6537,7 @@ Registry in the log start action.</UML:TaggedValue.dataValue>
     </group>
     <rectangle name="Fig2.5"
       x="1248"
-      y="903"
+      y="887"
       width="352"
       height="1"
       fill="1"
@@ -6628,7 +6546,7 @@ Registry in the log start action.</UML:TaggedValue.dataValue>
       strokecolor="black"
     />
     <group name="Fig2.6"
-         description="org.argouml.uml.diagram.ui.FigOperationsCompartment[1249, 904, 350, 56]"
+         description="org.argouml.uml.diagram.ui.FigOperationsCompartment[1249, 888, 350, 71]"
          href="127-0-1-1--3b5079bc:13cd6248bba:-8000:0000000000001872"
          fill="0"
          fillcolor="white"
@@ -6640,9 +6558,9 @@ Registry in the log start action.</UML:TaggedValue.dataValue>
       
       <rectangle name="Fig2.6.0"
         x="1249"
-        y="904"
+        y="888"
         width="350"
-        height="56"
+        height="71"
         fill="0"
         fillcolor="white"
         stroke="0"
@@ -6650,7 +6568,7 @@ Registry in the log start action.</UML:TaggedValue.dataValue>
       />
       <text name="Fig2.6.1"
         x="1249"
-        y="904"
+        y="888"
         width="350"
         height="16"
         fill="0"
@@ -6666,7 +6584,7 @@ Registry in the log start action.</UML:TaggedValue.dataValue>
       >is_valid() : Boolean</text>
       <text name="Fig2.6.2"
         x="1249"
-        y="920"
+        y="904"
         width="350"
         height="16"
         fill="0"
@@ -6682,7 +6600,7 @@ Registry in the log start action.</UML:TaggedValue.dataValue>
       >_get_progress(name,attrs)</text>
       <text name="Fig2.6.3"
         x="1249"
-        y="936"
+        y="920"
         width="350"
         height="22"
         fill="0"
@@ -17034,7 +16952,7 @@ Registry in the log start action.</UML:TaggedValue.dataValue>
       strokecolor="black"
     />
     <group name="Fig0.4"
-         description="org.argouml.uml.diagram.ui.FigAttributesCompartment[393, 144, 376, 175]"
+         description="org.argouml.uml.diagram.ui.FigAttributesCompartment[393, 144, 376, 159]"
          href="127-0-1-1--3b5079bc:13cd6248bba:-8000:0000000000001872"
          fill="0"
          fillcolor="white"
@@ -17048,7 +16966,7 @@ Registry in the log start action.</UML:TaggedValue.dataValue>
         x="393"
         y="144"
         width="376"
-        height="175"
+        height="159"
         fill="0"
         fillcolor="white"
         stroke="0"
@@ -17085,7 +17003,7 @@ Registry in the log start action.</UML:TaggedValue.dataValue>
         bold="false"
         textsize="12"
         justification="Left"
-      >&lt;&lt;readonly, select, required&gt;&gt; complete_place : Char</text>
+      >&lt;&lt;tree, form, readonly&gt;&gt; input : Char</text>
       <text name="Fig0.4.3"
         x="393"
         y="176"
@@ -17101,7 +17019,7 @@ Registry in the log start action.</UML:TaggedValue.dataValue>
         bold="false"
         textsize="12"
         justification="Left"
-      >&lt;&lt;required, readonly, form, tree&gt;&gt; code : Char</text>
+      >&lt;&lt;form&gt;&gt; formated : Char</text>
       <text name="Fig0.4.4"
         x="393"
         y="192"
@@ -17117,7 +17035,7 @@ Registry in the log start action.</UML:TaggedValue.dataValue>
         bold="false"
         textsize="12"
         justification="Left"
-      >&lt;&lt;tree, form, readonly&gt;&gt; input : Char</text>
+      >&lt;&lt;readonly, form, tree&gt;&gt; message : Char</text>
       <text name="Fig0.4.5"
         x="393"
         y="208"
@@ -17133,42 +17051,10 @@ Registry in the log start action.</UML:TaggedValue.dataValue>
         bold="false"
         textsize="12"
         justification="Left"
-      >&lt;&lt;form&gt;&gt; formated : Char</text>
+      >&lt;&lt;readonly, form, tree&gt;&gt; valid : Boolean</text>
       <text name="Fig0.4.6"
         x="393"
         y="224"
-        width="376"
-        height="16"
-        fill="0"
-        fillcolor="white"
-        stroke="0"
-        strokecolor="black"
-        textcolor="black"
-        font="Dialog"
-        italic="false"
-        bold="false"
-        textsize="12"
-        justification="Left"
-      >&lt;&lt;readonly, form, tree&gt;&gt; message : Char</text>
-      <text name="Fig0.4.7"
-        x="393"
-        y="240"
-        width="376"
-        height="16"
-        fill="0"
-        fillcolor="white"
-        stroke="0"
-        strokecolor="black"
-        textcolor="black"
-        font="Dialog"
-        italic="false"
-        bold="false"
-        textsize="12"
-        justification="Left"
-      >&lt;&lt;readonly, form, tree&gt;&gt; valid : Boolean</text>
-      <text name="Fig0.4.8"
-        x="393"
-        y="256"
         width="376"
         height="22"
         fill="0"
@@ -17185,7 +17071,7 @@ Registry in the log start action.</UML:TaggedValue.dataValue>
     </group>
     <rectangle name="Fig0.5"
       x="392"
-      y="319"
+      y="303"
       width="378"
       height="1"
       fill="1"
@@ -17194,7 +17080,7 @@ Registry in the log start action.</UML:TaggedValue.dataValue>
       strokecolor="black"
     />
     <group name="Fig0.6"
-         description="org.argouml.uml.diagram.ui.FigOperationsCompartment[393, 320, 376, 95]"
+         description="org.argouml.uml.diagram.ui.FigOperationsCompartment[393, 304, 376, 111]"
          href="127-0-1-1--3b5079bc:13cd6248bba:-8000:0000000000001872"
          fill="0"
          fillcolor="white"
@@ -17206,9 +17092,9 @@ Registry in the log start action.</UML:TaggedValue.dataValue>
       
       <rectangle name="Fig0.6.0"
         x="393"
-        y="320"
+        y="304"
         width="376"
-        height="95"
+        height="111"
         fill="0"
         fillcolor="white"
         stroke="0"
@@ -17216,7 +17102,7 @@ Registry in the log start action.</UML:TaggedValue.dataValue>
       />
       <text name="Fig0.6.1"
         x="393"
-        y="320"
+        y="304"
         width="376"
         height="16"
         fill="0"
@@ -17232,7 +17118,7 @@ Registry in the log start action.</UML:TaggedValue.dataValue>
       >is_valid() : Boolean</text>
       <text name="Fig0.6.2"
         x="393"
-        y="336"
+        y="320"
         width="376"
         height="16"
         fill="0"
@@ -17248,7 +17134,7 @@ Registry in the log start action.</UML:TaggedValue.dataValue>
       >_get_progress(name,attrs)</text>
       <text name="Fig0.6.3"
         x="393"
-        y="352"
+        y="336"
         width="376"
         height="22"
         fill="0"

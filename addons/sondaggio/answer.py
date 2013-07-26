@@ -46,8 +46,6 @@ class answer(osv.osv):
 
     _columns = {
         'name': fields.char(string='Question', readonly=True, required=True),
-        'complete_place': fields.char(string='complete_place', readonly=True, required=True, select=True),
-        'code': fields.char(string='Code', readonly=True, required=True),
         'input': fields.char(string='Input', readonly=True, states={'enabled':[('readonly',False)]}),
         'formated': fields.char(string='As integer number'),
         'message': fields.char(string='Message', readonly=True),
@@ -64,12 +62,12 @@ class answer(osv.osv):
         'questionnaire_id': lambda self, cr, uid, context=None: context and context.get('questionnaire_id', False),
     }
 
-    _order = "questionnaire_id, complete_place"
+    _order = "questionnaire_id, name"
 
     _constraints = [
     ]
 
-    _sql_constraints = [ ('unique_answer','unique(questionnaire_id,complete_place)','Not repeat answers.') ]
+    _sql_constraints = [ ('unique_answer','unique(questionnaire_id,name)','Not repeat variables in answers.') ]
 
     def is_valid(self, cr, uid, ids, context=None):
         """"""
