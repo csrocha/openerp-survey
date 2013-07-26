@@ -189,7 +189,7 @@ function openerp_zondaggio_widgets(instance, module){
         },
         on_change_select_one:function(widget){
             if (widget.type=='radio') {
-                var widget_parent = $(_.str.sprintf("input[type='hidden'][class='%s']", widget.name))[0];
+                var widget_parent = $(_.str.sprintf("input.%s[type='hidden']", widget.name))[0];
                 widget_parent.value = widget.alt;
             }
         },
