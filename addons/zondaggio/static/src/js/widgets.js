@@ -215,6 +215,7 @@ function openerp_zondaggio_widgets(instance, module){
 
             // Solve boolean statements
             for (var key in node_conditions) {
+                console.log('Apply to ', _.str.sprintf(".inp_%s", node_variables[key]));
                 for (var i in node_conditions[key]) {
                     var condition = node_conditions[key][i];
                     var input = $(_.str.sprintf(".inp_%s", node_variables[condition.node_id]))[0];
@@ -223,6 +224,7 @@ function openerp_zondaggio_widgets(instance, module){
                         console.log('Ignoring input because ', _.str.sprintf(".inp_%s", node_variables[condition.node_id]) ,' not found.');
                         continue;
                     }
+                    console.log('Evaluating ', _.str.sprintf(".inp_%s", node_variables[condition.node_id]));
 
                     var value = input.value;
                     if (input.type == "checkbox") {
@@ -235,8 +237,8 @@ function openerp_zondaggio_widgets(instance, module){
                     var oper = condition.operator.replace(/not /,'');
                     var statement = _.str.sprintf("%s('%s' %s %s)", not, value, oper, condition.value);
                     var variable_name = node_variables[key];
+                    console.log('Evaluate: ! ', statement, ' - Solve: ', !eval(statement));
                     if (!(variable_name in solved_nodes)) {
-                        console.log('Evaluate: ! ', statement, ' - Solve: ', !eval(statement));
                         solved_nodes[variable_name] = !eval(statement);
                     } else {
                         solved_nodes[variable_name] = solved_nodes[variable_name] || !eval(statement);

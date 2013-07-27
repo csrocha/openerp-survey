@@ -304,7 +304,7 @@
                         type="radio"
                         t-attf-name="inp_#{inp_class}"
                         t-attf-class="inp_#{c.variable_name}"
-                        t-att-alt="node.name"
+                        t-att-alt="c.name"
                         />
                 </div>
             </div>
