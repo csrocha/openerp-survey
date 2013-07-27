@@ -115,24 +115,34 @@ function openerp_zondaggio_widgets(instance, module){
         },
         load_data:function() {
             var answers = this.questionnaire.get('answers');
-            var complete_place_nodes = this.questionnaire.get('complete_place_nodes');
+            var variable_nodes = this.questionnaire.get('variable_nodes');
             // Input text type and text area.
             var items = $("input[type='text'][class^='inp_'],input[type='hidden'][class^='inp_'],textarea[class^='inp_']");
             items.each(function(item){
                 var widget = items[item];
                 var id = widget.classList[0].replace(/^inp_/,'');
-                var question_id = complete_place_nodes[id];
-                widget.value = answers[question_id].input || '';
-                widget.disabled = answers[question_id].state != 'enabled';
+                var question_id = variable_nodes[id];
+                if (question_id in answers) {
+                    widget.value = answers[question_id].input || '';
+                    widget.disabled = answers[question_id].state != 'enabled';
+                } else {
+                    $(widget).css('background-color', 'red');
+                    widget.disabled = true;
+                }
             });
             // Booleans or checkbox.
             var items = $("input[type='checkbox'][class^='inp_']");
             items.each(function(item){
                 var widget = items[item];
                 var id = widget.classList[0].replace(/^inp_/,'');
-                var question_id = complete_place_nodes[id];
-                widget.checked = answers[question_id].input;
-                widget.disabled = answers[question_id].state != 'enabled';
+                var question_id = variable_nodes[id];
+                if (question_id in answers) {
+                    widget.checked = answers[question_id].input;
+                    widget.disabled = answers[question_id].state != 'enabled';
+                } else {
+                    $(widget).css('background-color', 'red');
+                    widget.disabled = true;
+                }
             });
             // Update on selects.
             var items = $("input[type='hidden'][class^='inp_']");
@@ -142,6 +152,9 @@ function openerp_zondaggio_widgets(instance, module){
                     var radios = $(_.str.sprintf('input[type="radio"][name="%s"][alt="%s"]', widget.classList[0],widget.value))
                     radios.each(function(item) { radios[item].checked = true; });
                 }
+                // Enable or Disable checkbox
+                var radios = $(_.str.sprintf('input[type="radio"][name="%s"]', widget.classList[0],widget.value))
+                radios.each(function(item) { radios[item].disabled = widget.disabled; });
             });
         },
         save_data:function() {
@@ -151,12 +164,14 @@ function openerp_zondaggio_widgets(instance, module){
             items.each(function(item){
                 var widget = items[item];
                 data[widget.classList[0]] = widget.value;
+                data[widget.classList[0].replace(/^inp_/,'sta_')] = (widget.disabled && 'disabled') || 'enabled';
             });
             // Booleans or checkbox.
             var items = $("input[type='checkbox'][class^='inp_']");
             items.each(function(item){
                 var widget = items[item];
                 data[widget.classList[0]] = widget.checked;
+                data[widget.classList[0].replace(/^inp_/,'sta_')] = (widget.disabled && 'disabled') || 'enabled';
             });
             this.questionnaire.save_server_data(data);
         },
@@ -195,41 +210,50 @@ function openerp_zondaggio_widgets(instance, module){
         },
         evaluate_conditions:function() {
             var node_conditions = this.questionnaire.get('node_conditions');
-            var complete_places = this.questionnaire.get('node_complete_places');
+            var node_variables = this.questionnaire.get('node_variables');
             var solved_nodes = {};
 
             // Solve boolean statements
             for (var key in node_conditions) {
+                console.log('Apply to ', _.str.sprintf(".inp_%s", node_variables[key]));
                 for (var i in node_conditions[key]) {
                     var condition = node_conditions[key][i];
-                    var input = $(_.str.sprintf(".inp_%s", complete_places[condition.node_id]))[0];
+                    var input = $(_.str.sprintf(".inp_%s", node_variables[condition.node_id]))[0];
 
-                    if (input == null) continue;
+                    if (input == null) {
+                        console.log('Ignoring input because ', _.str.sprintf(".inp_%s", node_variables[condition.node_id]) ,' not found.');
+                        continue;
+                    }
+                    console.log('Evaluating ', _.str.sprintf(".inp_%s", node_variables[condition.node_id]));
 
                     var value = input.value;
                     if (input.type == "checkbox") {
                         value = input.checked;
                     };
+                    if (input.type == "radio") {
+                        value = input.checked;
+                    };
                     var not = (condition.operator.indexOf('not') >= 0) && '!' || '';
                     var oper = condition.operator.replace(/not /,'');
                     var statement = _.str.sprintf("%s('%s' %s %s)", not, value, oper, condition.value);
-                    var complete_place = complete_places[key];
-                    if (!(complete_place in solved_nodes)) {
-                        solved_nodes[complete_place] = !eval(statement);
+                    var variable_name = node_variables[key];
+                    console.log('Evaluate: ! ', statement, ' - Solve: ', !eval(statement));
+                    if (!(variable_name in solved_nodes)) {
+                        solved_nodes[variable_name] = !eval(statement);
                     } else {
-                        solved_nodes[complete_place] = solved_nodes[complete_place] || !eval(statement);
+                        solved_nodes[variable_name] = solved_nodes[variable_name] || !eval(statement);
                     };
                 };
             };
             // Asign state
-            for (complete_place in solved_nodes) {
-                var control = $(_.str.sprintf(".inp_%s", complete_place))[0];
-                var childs = $(_.str.sprintf("input[name='inp_%s']", complete_place));
+            for (variable_name in solved_nodes) {
+                var control = $(_.str.sprintf(".inp_%s", variable_name))[0];
+                var childs = $(_.str.sprintf("input[name='inp_%s'],input.inp_%s", variable_name));
                 if (control) {
-                    control.disabled = solved_nodes[complete_place];
+                    control.disabled = solved_nodes[variable_name];
                     childs.each(function(node){ childs[node].disabled = control.disabled; });
                 } else {
-                    console.log("Cant found:",_.str.sprintf(".inp_%s", complete_place));
+                    console.log("Cant found:",_.str.sprintf(".inp_%s", variable_name));
                     debugger;
                 }
             };

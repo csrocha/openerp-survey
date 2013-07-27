@@ -31,8 +31,16 @@
             <field name="arch" type="xml">
                 <search string="enable_condition" version="7.0">
                     <group string="By Attribute">
+                    <field name="operator" string="Operator"
+                            />
+                    <field name="value" string="Value"
+                            />
                     </group>
                     <group string="By object">
+                    <field name="node_id" string="node_id"
+                            />
+                    <field name="operated_node_id" string="Variable"
+                            />
                     </group>
                 </search>
             </field>
@@ -48,6 +56,14 @@
                     </header>
                     <sheet string="enable_condition">
                      <group>
+                        <field name="operator"
+                            />
+                        <field name="value"
+                            />
+                    <field name="node_id"
+                            />
+                    <field name="operated_node_id"
+                            />
                      </group>
                     </sheet>
 
@@ -63,6 +79,33 @@
             <field name="arch" type="xml">
                 <tree string="enable_condition"
                     >
+                    <field name="operator"
+                        />
+                    <field name="value"
+                        />
+                    <field name="node_id"
+                        />
+                    <field name="operated_node_id"
+                        />
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_sondaggio_enable_condition_tree_edit" model="ir.ui.view">
+            <field name="name">sondaggio.enable_condition.tree_edit</field>
+            <field name="model">sondaggio.enable_condition</field>
+            <field name="arch" type="xml">
+                <tree string="enable_condition"
+                    editable="bottom"
+                    >
+                    <field name="operator"
+                        />
+                    <field name="value"
+                        />
+                    <field name="node_id"
+                        />
+                    <field name="operated_node_id"
+                        />
                 </tree>
             </field>
         </record>

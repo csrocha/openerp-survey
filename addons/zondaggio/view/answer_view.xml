@@ -36,7 +36,6 @@
                 <search string="Answer" version="7.0">
                     <group string="Search by">
                         <field name="name" string="Question" />
-                        <field name="code" string="Code" />
                         <field name="input" string="Input" />
                         <field name="message" string="Message" />
                     </group>
@@ -123,7 +122,6 @@
                     colors="grey:state=='cancelled';blue:state in ('enabled',);black:state in ('disabled',); red:state in ()"
                     toolbar="1"
                     >
-                    <field name="code" />
                     <field name="name" />
                     <field name="input" />
                     <field name="message" />

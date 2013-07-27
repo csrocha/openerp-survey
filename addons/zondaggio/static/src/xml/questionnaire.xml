@@ -95,7 +95,7 @@
                         <t t-raw="nodes[r_id].question"/>
                         <input t-if="nodes[r_id].format_id[1]=='Select one'"
                             type="hidden"
-                            t-attf-class="inp_#{nodes[r_id].complete_place} var_#{nodes[r_id].variable_name}"
+                            t-attf-class="inp_#{nodes[r_id].variable_name} var_#{nodes[r_id].variable_name}"
                             />
                     </th>
                     <td t-foreach="table['dim'][1]" t-as="c_id" t-att-class="nodes[r_id].classes">
@@ -118,7 +118,7 @@
                         <t t-raw="nodes[c_id].question"/>
                         <input t-if="nodes[c_id].format_id[1]=='Select one'"
                             type="hidden"
-                            t-attf-class="inp_#{nodes[c_id].complete_place} var_#{nodes[c_id].variable_name}"
+                            t-attf-class="inp_#{nodes[c_id].variable_name} var_#{nodes[c_id].variable_name}"
                             />
                     </th>
                 </tr>
@@ -142,18 +142,18 @@
             <t t-set="parent" t-value="nodes[node.parent_id[0]]"/>
             <input t-if="parent.format_id[1]=='Select one'"
                 type="radio"
-                t-attf-name="inp_#{parent.complete_place}"
-                t-attf-class="inp_#{node.complete_place} var_#{node.variable_name}"
+                t-attf-name="inp_#{parent.variable_name}"
+                t-attf-class="inp_#{node.variable_name} var_#{node.variable_name}"
                 t-att-alt="node.name"
                 />
         </t>
         <input t-if="node and node.format_id[1]=='Integer'"
             type="number"
-            t-attf-class="inp_#{node.complete_place} var_#{node.variable_name}"
+            t-attf-class="inp_#{node.variable_name} var_#{node.variable_name}"
             />
         <input t-if="node and node.format_id[1]=='Char'"
             type="text"
-            t-attf-class="inp_#{node.complete_place} var_#{node.variable_name}"
+            t-attf-class="inp_#{node.variable_name} var_#{node.variable_name}"
             />
     </t>
 
@@ -201,7 +201,7 @@
         <t t-set="n" t-value="nodes[node]"/>
         <t t-raw="n.question"/>
         <input type="text"
-            t-attf-class="inp_#{n.complete_place} var_#{n.variable_name}"
+            t-attf-class="inp_#{n.variable_name} var_#{n.variable_name}"
             />
         <t t-call="z_node_iterate">
             <t t-set="nodes" t-value="nodes"/>
@@ -214,7 +214,7 @@
         <t t-set="n" t-value="nodes[node]"/>
         <t t-raw="n.question"/>
         <input type="number"
-            t-attf-class="inp_#{n.complete_place} var_#{n.variable_name}"
+            t-attf-class="inp_#{n.variable_name} var_#{n.variable_name}"
             />
         <t t-call="z_node_iterate">
             <t t-set="nodes" t-value="nodes"/>
@@ -228,7 +228,7 @@
         <t t-raw="n.question"/>
         <input type="number"
             min="0" max="100"
-            t-attf-class="inp_#{n.complete_place} var_#{n.variable_name}"
+            t-attf-class="inp_#{n.variable_name} var_#{n.variable_name}"
             />%
         <t t-call="z_node_iterate">
             <t t-set="nodes" t-value="nodes"/>
@@ -241,7 +241,7 @@
         <t t-set="n" t-value="nodes[node]"/>
         <t t-raw="n.question"/>
         <input type="number"
-            t-attf-class="inp_#{n.complete_place} var_#{n.variable_name}"
+            t-attf-class="inp_#{n.variable_name} var_#{n.variable_name}"
             placeholder="0"
             />
         <t t-call="z_node_iterate">
@@ -255,7 +255,7 @@
         <t t-set="n" t-value="nodes[node]"/>
         <t t-raw="n.question"/>
         <textarea
-            t-attf-class="inp_#{n.complete_place} var_#{n.variable_name}"
+            t-attf-class="inp_#{n.variable_name} var_#{n.variable_name}"
             rows="10" cols="40"
             />
         <t t-call="z_node_iterate">
@@ -269,7 +269,7 @@
         <t t-set="n" t-value="nodes[node]"/>
         <t t-raw="n.question"/>
         <input type="checkbox"
-            t-attf-class="inp_#{n.complete_place} var_#{n.variable_name}"
+            t-attf-class="inp_#{n.variable_name} var_#{n.variable_name}"
             />
         <t t-call="z_node_iterate">
             <t t-set="nodes" t-value="nodes"/>
@@ -282,7 +282,7 @@
         <t t-set="n" t-value="nodes[node]"/>
         <t t-set="col_width" t-value="40 / childs.length"/>
         <t t-set="fcol_width" t-value="60"/>
-        <t t-set="inp_class" t-value="n.complete_place"/>
+        <t t-set="inp_class" t-value="n.variable_name"/>
         <t t-if="nodes[node].classes.indexOf('zoe_transpose') lt 0">
             <div class="row zoe_col_label">
                 <div class="label"></div>
@@ -303,8 +303,8 @@
                     <input t-if="c.type == 'Null'"
                         type="radio"
                         t-attf-name="inp_#{inp_class}"
-                        t-attf-class="inp_#{c.complete_place}"
-                        t-att-alt="node.name"
+                        t-attf-class="inp_#{c.variable_name}"
+                        t-att-alt="c.name"
                         />
                 </div>
             </div>
@@ -330,7 +330,7 @@
                     <div class="zoe_option"><input t-if="c.type == 'Null'"
                         type="radio"
                         t-attf-name="inp_#{inp_class}"
-                        t-attf-class="inp_#{c.complete_place}"
+                        t-attf-class="inp_#{c.variable_name}"
                         t-att-alt="node.name"
                         /></div>
                 </div>

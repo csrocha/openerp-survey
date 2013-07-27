@@ -112,6 +112,25 @@
             groups="group_designer"
             />
 
+        <record id="action_sondaggio_enable_condition_enable_rules_edit" model="ir.actions.act_window">
+            <field name="name">Enable Rules</field>
+            <field name="res_model">sondaggio.enable_condition</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_sondaggio_enable_condition_tree_edit"/>
+            <field name="search_view_id" ref="view_sondaggio_enable_condition_filter"/>
+            <field name="domain">[]</field>
+        </record>
+
+        <menuitem
+            name="Enable Rules"
+            id="menu_enable_rules"
+            sequence="100"
+            action="action_sondaggio_enable_condition_enable_rules_edit"
+            parent="menu_for_designers"
+            groups="group_designer"
+            />
+
         <record id="action_sondaggio_format_formats" model="ir.actions.act_window">
             <field name="name">Formats</field>
             <field name="res_model">sondaggio.format</field>

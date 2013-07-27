@@ -75,8 +75,6 @@
                      <group>
                         <field name="name"
                             />
-                        <field name="code"
-                            />
                         <field name="input"
                             />
                         <field name="formated"
@@ -105,8 +103,6 @@
                     >
                     <field name="name"
                         />
-                    <field name="code"
-                        />
                     <field name="input"
                         />
                     <field name="message"
@@ -127,8 +123,6 @@
                     colors="grey:state=='cancelled';blue:state in ('enabled',);black:state in ('disabled', 'closed'); red:state in ()"
                     >
                     <field name="name"
-                        />
-                    <field name="code"
                         />
                     <field name="input"
                         />

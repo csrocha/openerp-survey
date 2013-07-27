@@ -99,10 +99,14 @@ function openerp_zondaggio_models(instance, module){
                     node_ids = [];
                     node_complete_places = {}
                     complete_place_nodes = {}
+                    node_variables = {}
+                    variable_nodes = {}
                     nodes.forEach(function(node){
                         node_ids.push(node.id);
                         node_complete_places[node.id] = node.complete_place;
                         complete_place_nodes[node.complete_place] = node.id;
+                        node_variables[node.id] = node.variable_name;
+                        variable_nodes[node.variable_name] = node.id;
                     });
                     // Set herarchical tree topology
                     var tree = {};
@@ -124,6 +128,8 @@ function openerp_zondaggio_models(instance, module){
                     self.set('root',root);
                     self.set('node_complete_places',node_complete_places);
                     self.set('complete_place_nodes',complete_place_nodes);
+                    self.set('node_variables',node_variables);
+                    self.set('variable_nodes',variable_nodes);
 
                     // Take restrictions
                     return self.fetch('sondaggio.enable_condition',['node_id','operated_node_id','operator','value'],[['node_id','in',node_ids]]);
