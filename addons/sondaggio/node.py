@@ -86,7 +86,7 @@ class node(osv.osv):
         'category_ids': fields.many2many('sondaggio.category', 'sondaggio_question_ids_category_ids_rel', 'node_id', 'category_id', string='Categories'), 
         'enable_global_condition_ids': fields.many2many('sondaggio.control_condition', 'sondaggio_enable_global_condition_ids_enable_node_ids_rel', 'node_id', 'control_condition_id', string='enable_global_condition_ids'), 
         'disable_global_condition_ids': fields.many2many('sondaggio.control_condition', 'sondaggio_disable_global_condition_ids_disable_node_ids_rel', 'node_id', 'control_condition_id', string='disable_global_condition_ids'), 
-        'enable_condition_ids': fields.one2many('sondaggio.enable_condition', 'node_id', string='enable_condition_ids'), 
+        'enable_condition_ids': fields.many2many('sondaggio.enable_condition', 'sondaggio_node_ids_enable_condition_ids_rel', 'node_id', 'enable_condition_id', string='enable_condition_ids'), 
         'operated_conditions_ids': fields.one2many('sondaggio.enable_condition', 'operated_node_id', string='operated_conditions_ids'), 
     }
 

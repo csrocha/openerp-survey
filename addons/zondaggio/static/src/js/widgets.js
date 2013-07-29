@@ -6,6 +6,7 @@ function openerp_zondaggio_widgets(instance, module){
     module.questionnaire_ui = instance.web.Widget.extend({
         events: {
             'change input': 'on_change',
+            'change textarea': 'on_change',
             'click button.do_save': 'do_save',
             'click button.do_print': 'do_print',
         },
@@ -117,7 +118,7 @@ function openerp_zondaggio_widgets(instance, module){
             var answers = this.questionnaire.get('answers');
             var variable_nodes = this.questionnaire.get('variable_nodes');
             // Input text type and text area.
-            var items = $("input[type='text'][class^='inp_'],input[type='hidden'][class^='inp_'],textarea[class^='inp_']");
+            var items = $("input[type='number'][class^='inp_'],input[type='text'][class^='inp_'],input[type='hidden'][class^='inp_'],textarea[class^='inp_']");
             items.each(function(item){
                 var widget = items[item];
                 var id = widget.classList[0].replace(/^inp_/,'');
@@ -160,7 +161,7 @@ function openerp_zondaggio_widgets(instance, module){
         save_data:function() {
             var data = {};
             // Input text type and text area.
-            var items = $("input[type='text'][class^='inp_'],input[type='hidden'][class^='inp_'],textarea[class^='inp_']");
+            var items = $("input[type='number'][class^='inp_'],input[type='text'][class^='inp_'],input[type='hidden'][class^='inp_'],textarea[class^='inp_']");
             items.each(function(item){
                 var widget = items[item];
                 data[widget.classList[0]] = widget.value;
@@ -178,7 +179,8 @@ function openerp_zondaggio_widgets(instance, module){
         do_save:function(e) {
             var button = e.currentTarget;
             this.save_data();
-            this.go_next(button.parentNode);
+            //this.go_next(button.parentNode);
+            this.go_next(button);
         },
         do_print:function(e) {
             window.print();
@@ -191,6 +193,7 @@ function openerp_zondaggio_widgets(instance, module){
         },
         go_next:function(actual) {
             var next = actual.nextElementSibling;
+            //next = $(next).find(':not(:disabled)').parent()[0]
             if (next) {
                 next.scrollIntoView();
             }
@@ -215,41 +218,44 @@ function openerp_zondaggio_widgets(instance, module){
 
             // Solve boolean statements
             for (var key in node_conditions) {
-                console.log('Apply to ', _.str.sprintf(".inp_%s", node_variables[key]));
-                for (var i in node_conditions[key]) {
-                    var condition = node_conditions[key][i];
-                    var input = $(_.str.sprintf(".inp_%s", node_variables[condition.node_id]))[0];
+                var condition = node_conditions[key];
+                var variable_name = node_variables[condition.operated_node_id[0]]
+                var input = $(_.str.sprintf(".inp_%s", variable_name))[0];
 
-                    if (input == null) {
-                        console.log('Ignoring input because ', _.str.sprintf(".inp_%s", node_variables[condition.node_id]) ,' not found.');
-                        continue;
-                    }
-                    console.log('Evaluating ', _.str.sprintf(".inp_%s", node_variables[condition.node_id]));
+                if (input == null) {
+                    console.log('Ignoring input because ', _.str.sprintf(".inp_%s", variable_name) ,' not found.');
+                    continue;
+                }
+                console.log('Evaluating ', _.str.sprintf(".inp_%s", variable_name));
 
-                    var value = input.value;
-                    if (input.type == "checkbox") {
-                        value = input.checked;
-                    };
-                    if (input.type == "radio") {
-                        value = input.checked;
-                    };
-                    var not = (condition.operator.indexOf('not') >= 0) && '!' || '';
-                    var oper = condition.operator.replace(/not /,'');
-                    var statement = _.str.sprintf("%s('%s' %s %s)", not, value, oper, condition.value);
-                    var variable_name = node_variables[key];
-                    console.log('Evaluate: ! ', statement, ' - Solve: ', !eval(statement));
-                    if (!(variable_name in solved_nodes)) {
-                        solved_nodes[variable_name] = !eval(statement);
+                var value = input.value.replace(/\r?\n/g, "\\n");
+                if (input.type == "checkbox") 
+                    value = input.checked;
+                if (input.type == "radio") 
+                    value = input.checked;
+
+                var not = (condition.operator.indexOf('not') >= 0) && '!' || '';
+                var oper = condition.operator.replace(/not /,'');
+                var statement = _.str.sprintf("%s('%s' %s %s)", not, value, oper, condition.value);
+                console.log(' - Evaluate: ! ', statement)
+                var evaluation = !eval(statement);
+                console.log(' - Solve: ', evaluation);
+
+                for (var i in condition.node_ids) {
+                    var target_variable = node_variables[condition.node_ids[i]];
+                    if (!(target_variable in solved_nodes)) {
+                        solved_nodes[target_variable] = evaluation;
                     } else {
-                        solved_nodes[variable_name] = solved_nodes[variable_name] || !eval(statement);
-                    };
-                };
+                        solved_nodes[target_variable] = solved_nodes[target_variable] || evaluation;
+                    }
+                }
             };
             // Asign state
             for (variable_name in solved_nodes) {
                 var control = $(_.str.sprintf(".inp_%s", variable_name))[0];
                 var childs = $(_.str.sprintf("input[name='inp_%s'],input.inp_%s", variable_name));
                 if (control) {
+                    console.log("Disabling ", variable_name, " ? ",  solved_nodes[variable_name]);
                     control.disabled = solved_nodes[variable_name];
                     childs.each(function(node){ childs[node].disabled = control.disabled; });
                 } else {

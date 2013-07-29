@@ -25,7 +25,7 @@
     <data>
 
         <!-- SEARCH VIEW -->
-        <record id="view_sondaggio_enable_condition_filter" model="ir.ui.view">
+        <record id="sondaggio.view_sondaggio_enable_condition_filter" model="ir.ui.view">
             <field name="name">sondaggio.enable_condition.select</field>
             <field name="model">sondaggio.enable_condition</field>
             <field name="arch" type="xml">
@@ -37,11 +37,9 @@
                             />
                     <field name="value" string="Value"
                             />
-                    <field name="survey_id" string="Survey"
-                            />
                     </group>
                     <group string="By object">
-                    <field name="node_ids" string="Affect to"
+                    <field name="node_ids" string="node_ids"
                             />
                     <field name="operated_node_id" string="Variable"
                             />
@@ -51,7 +49,7 @@
         </record>
 
         <!-- FORMVIEW -->
-        <record id="view_sondaggio_enable_condition_form" model="ir.ui.view">
+        <record id="sondaggio.view_sondaggio_enable_condition_form" model="ir.ui.view">
             <field name="name">sondaggio.enable_condition.form</field>
             <field name="model">sondaggio.enable_condition</field>
             <field name="arch" type="xml">
@@ -62,16 +60,16 @@
                      <group>
                         <field name="name"
                             />
+                        <field name="operated_node_id"
+                            domain="[('type','=','Variable')]"
+                                />
                         <field name="operator"
                             />
                         <field name="value"
                             />
-                        <field name="survey_id"
-                            />
-                    <field name="node_ids"
-                            />
-                    <field name="operated_node_id"
-                            />
+                        <field name="node_ids"
+                            domain="[('type','=','Variable')]"
+                                />
                      </group>
                     </sheet>
 
@@ -81,46 +79,50 @@
 
         <!-- TREEVIEW -->
 
-        <record id="view_sondaggio_enable_condition_tree" model="ir.ui.view">
+        <record id="sondaggio.view_sondaggio_enable_condition_tree" model="ir.ui.view">
             <field name="name">sondaggio.enable_condition.tree</field>
             <field name="model">sondaggio.enable_condition</field>
             <field name="arch" type="xml">
                 <tree string="enable_condition"
                     >
+                    <field name="survey_id"
+                        />
                     <field name="name"
+                        />
+                    <field name="operated_node_id"
+                        domain="[('type','=','Variable')]"
                         />
                     <field name="operator"
                         />
                     <field name="value"
                         />
-                    <field name="survey_id"
-                        />
                     <field name="node_ids"
-                        />
-                    <field name="operated_node_id"
+                        domain="[('type','=','Variable')]"
                         />
                 </tree>
             </field>
         </record>
 
-        <record id="view_sondaggio_enable_condition_tree_edit" model="ir.ui.view">
+        <record id="sondaggio.view_sondaggio_enable_condition_tree_edit" model="ir.ui.view">
             <field name="name">sondaggio.enable_condition.tree_edit</field>
             <field name="model">sondaggio.enable_condition</field>
             <field name="arch" type="xml">
                 <tree string="enable_condition"
                     editable="bottom"
                     >
+                    <field name="survey_id"
+                        />
                     <field name="name"
+                        />
+                    <field name="operated_node_id"
+                        domain="[('type','=','Variable')]"
                         />
                     <field name="operator"
                         />
                     <field name="value"
                         />
-                    <field name="survey_id"
-                        />
                     <field name="node_ids"
-                        />
-                    <field name="operated_node_id"
+                        domain="[('type','=','Variable')]"
                         />
                 </tree>
             </field>

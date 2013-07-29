@@ -74,3 +74,8 @@
 "access_sondaggio_node_copy_developer","sondaggio.node_copy.developer","model_sondaggio_node_copy","group_developer",1,1,1,1
 "access_sondaggio_node_copy_operator","sondaggio.node_copy.operator","model_sondaggio_node_copy","group_operator",1,1,1,1
 "access_sondaggio_node_copy_validator","sondaggio.node_copy.validator","model_sondaggio_node_copy","group_validator",1,1,1,1
+"access_sondaggio_rule_copy_designer","sondaggio.rule_copy.designer","model_sondaggio_rule_copy","group_designer",1,1,1,1
+"access_sondaggio_rule_copy_poolster","sondaggio.rule_copy.poolster","model_sondaggio_rule_copy","group_poolster",1,1,1,1
+"access_sondaggio_rule_copy_developer","sondaggio.rule_copy.developer","model_sondaggio_rule_copy","group_developer",1,1,1,1
+"access_sondaggio_rule_copy_operator","sondaggio.rule_copy.operator","model_sondaggio_rule_copy","group_operator",1,1,1,1
+"access_sondaggio_rule_copy_validator","sondaggio.rule_copy.validator","model_sondaggio_rule_copy","group_validator",1,1,1,1
