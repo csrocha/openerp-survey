@@ -7,6 +7,7 @@ function openerp_zondaggio_widgets(instance, module){
         events: {
             'change input': 'on_change',
             'change textarea': 'on_change',
+            'click button.do_start': 'do_save',
             'click button.do_save': 'do_save',
             'click button.do_print': 'do_print',
         },
