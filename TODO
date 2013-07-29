@@ -6,25 +6,45 @@
 
  + No graba ni enteros ni porcentuales
 
- - Saltar a la proxima pagina con entradas habilitadas
+ + Centrar el boton de grabar.
 
- - Implementar concatenaciones and y or en las reglas de habilitacion
+ - Romper secciones por páginas. (~3hs)
+
+ - Orientar al encuestado por pagina (~8hs).
+
+ - Mantener los logos siempre visibles. (~5hs)
+
+ - Saltar a la proxima pagina con entradas habilitadas. (~5hs)
+
+ - Implementar concatenaciones and y or en las reglas de habilitacion. (~24hs)
 
 	- Pregunta 8 no puede tener habilitar otros cuando se selecciona la opciòn 6. La razón es que no acepto concatenación de operaciones AND y OR en las reglas.
 
 	- La pregunta 15 necesita de reglas AND y OR para resolverse.
 
- - Computar reglas globales.
+ - Computar reglas globales. (~16hs)
 
 	- 100% sobre la pregunta 23.
 
 	- Verificar validez de la pregunta 26.
 
- - Habilitar y deshabilitar reglas.
+	- Agregar los mensajes de error al grabar los datos.
 
- - Como considerar que la encuesta esta terminada?
- 
- - Centrar el boton de grabar.
+ - Habilitar y deshabilitar reglas (~6hs).
+
+ - Como considerar que la encuesta esta terminada? (A resolver)
+
+ - Testing (~24hs)
+
+ - Registrar el dominio mierp.net como seguro (~3hs)
+
+ - Cargar todas las entradas en el sistema para luego enviar las cargas (~8hs)
+
+ - Desarrollar logica para que envie mails de forma automatica (~8hs)
+
+ - Enviar los mails a los destinatarios (~8hs)
+
+ - 
 
 ------------
 
