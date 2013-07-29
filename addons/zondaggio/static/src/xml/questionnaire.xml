@@ -26,7 +26,7 @@
         <div style="clear:both"/>
         <t t-raw="description"/>
         <div style="clear:both"/>
-        <button class="do_save cupid-blue" name="do_save" style="clear:inherit">Empezar</button>
+        <button class="do_start cupid-blue" name="do_save" style="clear:inherit">Empezar</button>
         <button class="do_print cupid-blue" name="do_print" style="clear:inherit;float:right">Imprimir</button>
         <div style="clear:both"/>
     </div>

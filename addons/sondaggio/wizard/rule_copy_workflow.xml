@@ -1,4 +1,5 @@
-# -*- coding: utf-8 -*-
+<?xml version="1.0" encoding="utf-8"?>
+<!--
 ##############################################################################
 #
 #    Survey Methodology
@@ -19,11 +20,13 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-
-
-import node_copy
-import rule_copy
-import questionnaire_import
-import import_file_column
-
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
+-->
+<!-- sondaggio.rule_copy -->
+<!-- sondaggio.rule_copy -->
+<!-- sondaggio.rule_copy -->
+<openerp>
+    <data>
+    </data>
+</openerp>
+<!-- vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4
+     -->

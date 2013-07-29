@@ -54,9 +54,11 @@
         u'view/survey_view.xml',
         u'view/answer_view.xml',
         u'view/format_view.xml',
+        u'view/enable_condition_view.xml',
         u'wizard/questionnaire_import_view.xml',
         u'data/online.xml',
         u'wizard/node_copy_view.xml',
+        u'wizard/rule_copy_view.xml',
     ],
     'css' : [
         'static/src/css/*.css',

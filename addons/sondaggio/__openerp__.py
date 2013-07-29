@@ -75,6 +75,7 @@
                       u'workflow/questionnaire_workflow.xml',
                       'security/ir.model.access.csv',
                       u'wizard/node_copy_view.xml',
+                      u'wizard/rule_copy_view.xml',
                       u'wizard/questionnaire_import_view.xml',
                       u'wizard/import_file_column_view.xml',
                       u'wizard/questionnaire_import_workflow.xml'],

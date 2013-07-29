@@ -1,3 +1,33 @@
+------------
+- Online
+------------
+
+ + Revisar pregunta 22.1 - porque no esta cargada.
+
+ + No graba ni enteros ni porcentuales
+
+ - Saltar a la proxima pagina con entradas habilitadas
+
+ - Implementar concatenaciones and y or en las reglas de habilitacion
+
+	- Pregunta 8 no puede tener habilitar otros cuando se selecciona la opciòn 6. La razón es que no acepto concatenación de operaciones AND y OR en las reglas.
+
+	- La pregunta 15 necesita de reglas AND y OR para resolverse.
+
+ - Computar reglas globales.
+
+	- 100% sobre la pregunta 23.
+
+	- Verificar validez de la pregunta 26.
+
+ - Habilitar y deshabilitar reglas.
+
+ - Como considerar que la encuesta esta terminada?
+ 
+ - Centrar el boton de grabar.
+
+------------
+
   + Campos nulos '.'
 
   + Mensaje inteso para los errores!

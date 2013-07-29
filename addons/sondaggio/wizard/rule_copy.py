@@ -25,21 +25,16 @@ import re
 from openerp import netsvc
 from openerp.osv import osv, fields
 
-class enable_condition(osv.osv):
+class rule_copy(osv.TransientModel):
     """"""
     
-    _name = 'sondaggio.enable_condition'
-    _description = 'enable_condition'
+    _name = 'sondaggio.rule_copy'
+    _description = 'rule_copy'
 
 
 
     _columns = {
-        'name': fields.char(string='name'),
-        'operator': fields.selection([(u'==', '=='), (u'!=', '!='), (u'>', '>'), (u'>=', '>='), (u'<', '<'), (u'<=', '<='), (u'in', 'in'), (u'not in', 'not in')], string='Operator'),
-        'value': fields.char(string='Value'),
-        'survey_id': fields.many2one('sondaggio.survey', string='Survey'),
-        'node_ids': fields.many2many('sondaggio.node', 'sondaggio_node_ids_enable_condition_ids_rel', 'enable_condition_id', 'node_id', string='Affect to', domain=[('type','=','Variable')]), 
-        'operated_node_id': fields.many2one('sondaggio.node', string='Variable', domain=[('type','=','Variable')], required=True), 
+        'enable_condition_id': fields.many2one('sondaggio.enable_condition', string='enable_condition_id'),
     }
 
     _defaults = {
@@ -50,8 +45,12 @@ class enable_condition(osv.osv):
     ]
 
 
+    def do_copy(self, cr, uid, ids, context=None):
+        """"""
+        raise NotImplementedError
 
 
-enable_condition()
+
+rule_copy()
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

@@ -38,6 +38,7 @@ function openerp_zondaggio_models(instance, module){
         // loads all the needed data on the sever. returns a deferred indicating when all the data has loaded. 
         load_server_data: function(){
             var self = this;
+            self.survey_id = null;
 
             var loaded = self.fetch('sondaggio.category', ['name'],[])
                 .then(function(categories){
@@ -53,8 +54,10 @@ function openerp_zondaggio_models(instance, module){
                     return self.fetch('sondaggio.questionnaire',['name','description','survey_id'],[['id','=',self.active_id]]);        
                 }).then(function(questionnaires){
                     self.set('questionnaire',questionnaires[0]);
+                    
+                    self.survey_id = questionnaires[0].survey_id[0];
 
-                    return self.fetch('sondaggio.survey',['name','description'],[['id','=',questionnaires[0].survey_id[0]]]);
+                    return self.fetch('sondaggio.survey',['name','description'],[['id','=',self.survey_id]]);
                 }).then(function(surveys){
                     self.set('survey',surveys[0]);
 
@@ -65,7 +68,7 @@ function openerp_zondaggio_models(instance, module){
                         'category_ids','enable_condition_ids',
                         'child_ids',
                         'variable_name',
-                        ],[['survey_id','=',surveys[0].id]]);
+                        ],[['survey_id','=',self.survey_id]]);
                 }).then(function(nodes){
                     // Group by pages
                     pages = {};
@@ -132,20 +135,28 @@ function openerp_zondaggio_models(instance, module){
                     self.set('variable_nodes',variable_nodes);
 
                     // Take restrictions
-                    return self.fetch('sondaggio.enable_condition',['node_id','operated_node_id','operator','value'],[['node_id','in',node_ids]]);
+                    return self.fetch('sondaggio.enable_condition',[
+                            'name', 'operated_node_id',
+                            'operator','value',
+                            'node_ids'],
+                            [['survey_id','=',self.survey_id]]);
                 }).then(function(conditions){
+                    /*
                     node_conditions = {};
                     conditions.forEach(function(condition){
-                        if (!(condition.node_id[0] in node_conditions)) {
-                            node_conditions[condition.node_id[0]]=[];
-                        }
-                        node_conditions[condition.node_id[0]].push({
-                            node_id: condition.operated_node_id[0],
-                            operator: condition.operator,
-                            value: condition.value
+                        condition.node_ids.forEach(function(node_id) {
+                            if (!(node_id in node_conditions)) {
+                                node_conditions[node_id]=[];
+                            };
+                            node_conditions[node_id].push({
+                                node_id: condition.operated_node_id[0],
+                                operator: condition.operator,
+                                value: condition.value
+                            });
                         });
                     });
-                    self.set('node_conditions',node_conditions);
+                    */
+                    self.set('node_conditions',conditions);
 
                     return self.fetch('sondaggio.answer',[
                         'name',

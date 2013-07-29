@@ -151,6 +151,7 @@ div.zoe_transpose div.option .zoe_option {
 div.zoe_char {
 	display: inline-block;
 	width: 100%;
+	text-align: right;
 }
 
 div.zoe_char p {
@@ -172,6 +173,7 @@ div.zoe_char input {
 div.zoe_text {
 	display: inline-block;
 	width: 100%;
+	text-align: right;
 }
 
 div.zoe_text p {
@@ -193,6 +195,7 @@ div.zoe_text input {
 div.zoe_checkbox {
 	display: inline-block;
 	width: 100%;
+	text-align: right;
 }
 
 div.zoe_checkbox p {
@@ -214,6 +217,7 @@ div.zoe_checkbox input {
 div.zoe_integer {
 	display: inline-block;
 	width: 100%;
+	text-align: right;
 }
 
 div.zoe_integer p {
@@ -235,6 +239,7 @@ div.zoe_integer input {
 div.zoe_year {
 	display: inline-block;
 	width: 100%;
+	text-align: right;
 }
 
 div.zoe_year p {
@@ -256,6 +261,7 @@ div.zoe_year input {
 div.zoe_porcentual {
 	display: inline-block;
 	width: 100%;
+	text-align: right;
 }
 
 div.zoe_porcentual p {
@@ -319,3 +325,22 @@ div.zoe_hidden {
 	display: none;
 }
 
+div.zoe_formula {
+	width:80%;
+	margin-left:10%;
+	text-align:right;
+	padding: 15px 5px 15px 5px;
+}
+
+div.zoe_table {
+	padding: 15px 5px 15px 5px;
+}
+
+button.do_save {
+	text-align: center;
+	width: 10%;
+	margin-left:45%;
+}
+
+button.do_start {
+}
