@@ -70,6 +70,8 @@ class questionnaire(osv.osv):
                     string='Respondent Code', readonly=True, store=True
                     ),
         'parameter_ids': fields.one2many('sondaggio.parameter', 'questionnaire_id', string='Parameters'), 
+        'waiting_batch_ids': fields.many2many('sondaggio.communication_batch', 'sondaggio_waiting_batch_ids_waiting_ids_rel', 'questionnaire_id', 'communication_batch_id', string='waiting_batch_ids'), 
+        'done_batch_ids': fields.many2many('sondaggio.communication_batch', 'sondaggio_done_batch_ids_done_ids_rel', 'questionnaire_id', 'communication_batch_id', string='done_batch_ids'), 
         'answer_ids': fields.one2many('sondaggio.answer', 'questionnaire_id', string='answer_ids', select=True), 
     }
 
@@ -89,6 +91,34 @@ class questionnaire(osv.osv):
     def start(self, cr, uid, ids, context=None):
         """Start is an action which leave you to start to complete the questionnaire.
 Registry in the log start action."""
+        raise NotImplementedError
+
+    def on_open_ui(self, cr, uid, ids, context=None):
+        """"""
+        raise NotImplementedError
+
+    def next_page(self, cr, uid, ids, context=None):
+        """"""
+        raise NotImplementedError
+
+    def refresh_page(self, cr, uid, ids, context=None):
+        """"""
+        raise NotImplementedError
+
+    def fields_view_get_callcenter(self, cr, uid, ids, context=None):
+        """"""
+        raise NotImplementedError
+
+    def fields_view_get_dataentry(self, cr, uid, ids, context=None):
+        """"""
+        raise NotImplementedError
+
+    def fields_view_get_online(self, cr, uid, ids, context=None):
+        """"""
+        raise NotImplementedError
+
+    def onchange_input(self, cr, uid, ids, context=None):
+        """"""
         raise NotImplementedError
 
     def action_wfk_set_cancelled(self, cr, uid, ids, *args):

@@ -27,6 +27,7 @@ import format
 import input_test
 import control_condition
 import survey
+import communication_batch
 import enable_condition
 import answer
 import partner

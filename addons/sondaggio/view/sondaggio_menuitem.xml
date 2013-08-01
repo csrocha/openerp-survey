@@ -112,6 +112,25 @@
             groups="group_designer"
             />
 
+        <record id="action_sondaggio_communication_batch_communication" model="ir.actions.act_window">
+            <field name="name">Communication</field>
+            <field name="res_model">sondaggio.communication_batch</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_sondaggio_communication_batch_tree"/>
+            <field name="search_view_id" ref="view_sondaggio_communication_batch_filter"/>
+            <field name="domain">[]</field>
+        </record>
+
+        <menuitem
+            name="Communication"
+            id="menu_communication"
+            sequence="100"
+            action="action_sondaggio_communication_batch_communication"
+            parent="menu_for_designers"
+            groups="group_designer"
+            />
+
         <record id="action_sondaggio_enable_condition_enable_rules_edit" model="ir.actions.act_window">
             <field name="name">Enable Rules</field>
             <field name="res_model">sondaggio.enable_condition</field>

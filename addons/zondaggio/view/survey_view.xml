@@ -99,6 +99,12 @@
                                 </tree>
                             </field>
                         </page>
+                        <page string="Presentation">
+                            <group>
+                                <field name="header"/>
+                                <field name="footer"/>
+                            </group>
+                        </page>
                         <page string="Respondent">
                             <field name="respondent_ids" domain="[('is_respondent','=',True)]"
                                 context="{'survey_id': id, 'survey_state': state}"

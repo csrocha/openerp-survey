@@ -22,7 +22,6 @@
 
 
 import node_copy
-import rule_copy
 import questionnaire_import
 import import_file_column
 
