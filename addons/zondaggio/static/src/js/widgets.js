@@ -9,6 +9,7 @@ function openerp_zondaggio_widgets(instance, module){
             'change textarea': 'on_change',
             'click button.do_start': 'do_save',
             'click button.do_save': 'do_save',
+            'click button.do_prev': 'go_prev',
             'click button.do_print': 'do_print',
         },
         template: 'QuestionnaireView',
@@ -47,8 +48,18 @@ function openerp_zondaggio_widgets(instance, module){
             /* Assign parameters to values by default */
             var parameters = this.questionnaire.get('parameters');
             $.each(parameters, function(key, value){
-                $(_.str.sprintf("input.var_%s",key)).attr('placeholder',value)
+                $(_.str.sprintf("input.var_%s",key)).attr('placeholder',value);
             });
+            /* Top section */
+            this.active_page(1, 0);
+        },
+        active_page:function(section_idx, page_idx) {
+            $('div.zoe_title').removeClass('zoe_active').addClass('zoe_inactive');
+            $(_.str.sprintf('div.zoe_title:eq(%s)', section_idx)).removeClass('zoe_inactive').addClass('zoe_active');
+            $(_.str.sprintf('div.zoe_title:eq(%s) .zoe_page', section_idx)).removeClass('zoe_active').addClass('zoe_inactive');
+            $(_.str.sprintf('div.zoe_title:eq(%s) .zoe_page:eq(%s)', section_idx, page_idx)).removeClass('zoe_inactive').addClass('zoe_active');
+            this.actual_section=section_idx;
+            this.actual_page=page_idx;
         },
         push_parent:function(node) {
             this.actual_parent.push(node.parent_id);
@@ -59,6 +70,18 @@ function openerp_zondaggio_widgets(instance, module){
             } else {
                 return this.questionnaire.get('survey').name;
             }
+        },
+        get_header:function() {
+            if (this.questionnaire.get('survey') == null)
+                return "<div></div>";
+            else
+                return this.questionnaire.get('survey').header;
+        },
+        get_footer:function() {
+            if (this.questionnaire.get('survey') == null)
+                return "<div></div>";
+            else
+                return this.questionnaire.get('survey').footer;
         },
         get_description:function() {
             if (this.questionnaire.get('survey') == null) {
@@ -180,24 +203,42 @@ function openerp_zondaggio_widgets(instance, module){
         do_save:function(e) {
             var button = e.currentTarget;
             this.save_data();
-            //this.go_next(button.parentNode);
             this.go_next(button);
         },
         do_print:function(e) {
             window.print();
         },
         go_prev:function(actual) {
-            var next = actual.previousElementSibling;
-            if (next) {
-                next.scrollIntoView();
+            actual_section = this.actual_section;
+            actual_page = this.actual_page - 1;
+            // Veo si no es la primera pagina de la sección.
+            if(actual_page < 0) {
+                actual_section = this.actual_section - 1;
+                actual_page = $(_.str.sprintf('div.zoe_title:eq(%s)', actual_section)).length;
             }
+            // Veo si no es la primera página de la primer sección.
+            if(actual_section < 1) {
+                actual_section = this.actual_section;
+                actual_page = this.actual_page;
+            }
+            // Confirmo el cambio de pagina.
+            this.active_page(actual_section, actual_page);
         },
         go_next:function(actual) {
-            var next = actual.nextElementSibling;
-            //next = $(next).find(':not(:disabled)').parent()[0]
-            if (next) {
-                next.scrollIntoView();
+            actual_section = this.actual_section;
+            actual_page = this.actual_page + 1;
+            // Si no hay más páginas, me voy a la próxima sección.
+            if($(_.str.sprintf('div.zoe_title:eq(%s) .zoe_page:eq(%s)', actual_section, actual_page)).length == 0) {
+                actual_section = this.actual_section + 1;
+                actual_page = 0;
             }
+            // Si no hay nuevas secciones me quedo en esta pagina.
+            if($(_.str.sprintf('div.zoe_title:eq(%s) .zoe_page:eq(%s)', actual_section, actual_page)).length == 0) {
+                actual_section = this.actual_section;
+                actual_page = this.actual_page;
+            }
+            // Confirmo el cambio de pagina.
+            this.active_page(actual_section, actual_page);
         },
         on_change:function(e) {
             var input_id = e.currentTarget.classList[0];

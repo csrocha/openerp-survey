@@ -58,7 +58,6 @@
         u'wizard/questionnaire_import_view.xml',
         u'data/online.xml',
         u'wizard/node_copy_view.xml',
-        u'wizard/rule_copy_view.xml',
     ],
     'css' : [
         'static/src/css/*.css',

@@ -63,11 +63,15 @@ class survey(osv.osv):
         'sample_size': fields.integer(string='Sample size', readonly=True, states={'draft':[('readonly',False)]}),
         'sample_filter': fields.char(string='Filter for the Sample', help=u"""Context filter for partner. This help to select partners to create the sample. For example: [(&quot;is_company&quot;,&quot;=&quot;,True)] Only select companies.""", readonly=True, size=512, states={'draft':[('readonly',False)]}),
         'presentation': fields.selection([(u'dataentry', 'dataentry'), (u'callcenter', 'callcenter'), (u'online', 'online')], string='presentation', readonly=True),
+        'header': fields.html(string='Header', readonly=True, states={'draft':[('readonly',False)]}),
+        'footer': fields.html(string='Footer', readonly=True, states={'draft':[('readonly',False)]}),
+        'css': fields.text(string='css', readonly=True),
         'state': fields.selection(_states_, "State"),
         'question_ids': fields.one2many('sondaggio.node', 'survey_id', string='Questions', readonly=True, states={'draft':[('readonly',False)]}), 
         'questionnaire_ids': fields.one2many('sondaggio.questionnaire', 'survey_id', string='Answers', readonly=True), 
         'respondent_ids': fields.many2many('res.partner', 'sondaggio_respond_ids_respondent_ids_rel', 'survey_id', 'partner_id', string='Responders', readonly=True, states={'draft':[('readonly',False)], 'published':[('readonly',False)],}), 
         'control_condition_ids': fields.one2many('sondaggio.control_condition', 'survey_id', string='control_condition_ids'), 
+        'communication_ids': fields.one2many('sondaggio.communication_batch', 'survey_id', string='communication_ids'), 
         'pollster_ids': fields.many2many('res.users', 'sondaggio_work_ids_pollster_ids_rel', 'survey_id', 'users_id', string='Surveyors', readonly=True, states={'draft':[('readonly',False)]}), 
     }
 

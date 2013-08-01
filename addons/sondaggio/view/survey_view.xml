@@ -103,10 +103,18 @@
                             />
                         <field name="presentation"
                             />
+                        <field name="header"
+                            />
+                        <field name="footer"
+                            />
+                        <field name="css"
+                            />
                     <field name="question_ids"
                             />
                     <field name="respondent_ids"
                             domain="[('is_respondent','=',True)]"
+                            />
+                    <field name="communication_ids"
                             />
                     <field name="pollster_ids"
                             />
