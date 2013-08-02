@@ -53,12 +53,12 @@ function openerp_zondaggio_widgets(instance, module){
             /* Top section */
             this.active_page(1, 0);
         },
-        active_page:function(section_idx, page_idx) {
-            $('div.zoe_title').removeClass('zoe_active').addClass('zoe_inactive');
-            $(_.str.sprintf('div.zoe_title:eq(%s)', section_idx)).removeClass('zoe_inactive').addClass('zoe_active');
-            $(_.str.sprintf('div.zoe_title:eq(%s) .zoe_page', section_idx)).removeClass('zoe_active').addClass('zoe_inactive');
-            $(_.str.sprintf('div.zoe_title:eq(%s) .zoe_page:eq(%s)', section_idx, page_idx)).removeClass('zoe_inactive').addClass('zoe_active');
-            this.actual_section=section_idx;
+        active_page:function(page_idx) {
+            $('.zoe_title').removeClass('zoe_active').addClass('zoe_inactive');
+            $('.zoe_page').removeClass('zoe_active').addClass('zoe_inactive');
+            var page = $(_.str.sprintf('.zoe_page:eq(%s)', page_idx));
+            page.removeClass('zoe_inactive').addClass('zoe_active');
+            page.parents('.zoe_title').removeClass('zoe_inactive').addClass('zoe_active');
             this.actual_page=page_idx;
         },
         push_parent:function(node) {
@@ -209,21 +209,17 @@ function openerp_zondaggio_widgets(instance, module){
             window.print();
         },
         go_prev:function(actual) {
-            actual_section = this.actual_section;
-            actual_page = this.actual_page - 1;
-            // Veo si no es la primera pagina de la sección.
-            if(actual_page < 0) {
-                actual_section = this.actual_section - 1;
-                actual_page = $(_.str.sprintf('div.zoe_title:eq(%s)', actual_section)).length;
-            }
-            // Veo si no es la primera página de la primer sección.
-            if(actual_section < 1) {
-                actual_section = this.actual_section;
+            var actual_page = Math.max(0, this.actual_page - 1);
+            this.active_page(actual_page);
+        },
+        go_next:function(actual) {
+            var actual_page = this.actual_page + 1;
+            if($(_.str.sprintf('.zoe_page:eq(%s)', actual_page)).length == 0) {
                 actual_page = this.actual_page;
             }
-            // Confirmo el cambio de pagina.
-            this.active_page(actual_section, actual_page);
+            this.active_page(actual_page);
         },
+        /*
         go_next:function(actual) {
             actual_section = this.actual_section;
             actual_page = this.actual_page + 1;
@@ -240,6 +236,7 @@ function openerp_zondaggio_widgets(instance, module){
             // Confirmo el cambio de pagina.
             this.active_page(actual_section, actual_page);
         },
+        */
         on_change:function(e) {
             var input_id = e.currentTarget.classList[0];
             // check if input enable of disable something.
