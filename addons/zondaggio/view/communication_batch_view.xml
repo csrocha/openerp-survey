@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+##############################################################################
+#
+#    Survey Methodology
+#    Copyright (C) 2013 Coop. Trab. Moldeo Interactive Ltda.
+#    No email
+#
+#    This program is free software: you can redistribute it and/or modify
+#    it under the terms of the GNU Affero General Public License as
+#    published by the Free Software Foundation, either version 3 of the
+#    License, or (at your option) any later version.
+#
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU Affero General Public License for more details.
+#
+#    You should have received a copy of the GNU Affero General Public License
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#
+##############################################################################
+-->
+<openerp>
+    <data>
+
+        <!-- SEARCH VIEW -->
+        <record id="view_sondaggio_communication_batch_filter" model="ir.ui.view">
+            <field name="name">sondaggio.communication_batch.select</field>
+            <field name="model">sondaggio.communication_batch</field>
+            <field name="arch" type="xml">
+                <search string="communication_batch" version="7.0">
+                    <group string="By Attribute">
+                    </group>
+                    <group string="By object">
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <!-- FORMVIEW -->
+        <record id="sondaggio.view_sondaggio_communication_batch_form" model="ir.ui.view">
+            <field name="name">sondaggio.communication_batch.form</field>
+            <field name="model">sondaggio.communication_batch</field>
+            <field name="arch" type="xml">
+                <form string="communication_batch" version="7.0">
+                    <header>
+                        <button name="sgn_accept"
+                            states="draft"
+                            string="Accept"
+                            />
+                        <button name="action_wfk_set_draft"
+                            type="object"
+                            states="cancelled"
+                            string="To Draft"
+                            />
+                        <button name="sgn_publish"
+                            states="accepted"
+                            string="Publish"
+                            />
+                        <button name="sgn_done"
+                            states="runnning"
+                            string="Done"
+                            />
+                        <button name="action_wfk_set_cancelled"
+                            type="object"
+                            states="accepted,done,runnning"
+                            string="Cancel"
+                            />
+                        <field name="state" widget="statusbar"
+                            statusbar_colors='{}'
+                            />
+                    </header>
+                    <sheet string="communication_batch">
+                     <group>
+                        <field name="email_parameter_name"
+                            />
+                        <field name="email_subject"
+                            />
+                        <field name="email_body"
+                            />
+                        <field name="email_reply_to"
+                            />
+                        <field name="email_copy_to"
+                            />
+                    <field name="survey_id"
+                            />
+                    <field name="waiting_ids"
+			    domain="[('survey_id','=',survey_id')]"
+                            />
+                    <field name="done_ids" readonly="1"
+			    domain="[('survey_id','=',survey_id')]"
+                            />
+                        <button name="send_mails"
+                            type="object"
+			    string="Send mails"
+			    />
+                     </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- TREEVIEW -->
+
+        <record id="view_sondaggio_communication_batch_tree" model="ir.ui.view">
+            <field name="name">sondaggio.communication_batch.tree</field>
+            <field name="model">sondaggio.communication_batch</field>
+            <field name="arch" type="xml">
+                <tree string="communication_batch"
+                    colors="grey:state=='cancelled';blue:state in ('draft',);black:state in ('cancelled', 'runnning', 'accepted'); red:state in ()"
+                    >
+                    <field name="state" />
+                </tree>
+            </field>
+        </record>
+
+    </data>
+</openerp>
+<!-- vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4
+     -->

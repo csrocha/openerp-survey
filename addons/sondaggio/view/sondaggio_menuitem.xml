@@ -112,8 +112,8 @@
             groups="group_designer"
             />
 
-        <record id="action_sondaggio_communication_batch_communication" model="ir.actions.act_window">
-            <field name="name">Communication</field>
+        <record id="action_sondaggio_communication_batch_communications" model="ir.actions.act_window">
+            <field name="name">Communications</field>
             <field name="res_model">sondaggio.communication_batch</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
@@ -123,10 +123,10 @@
         </record>
 
         <menuitem
-            name="Communication"
-            id="menu_communication"
+            name="Communications"
+            id="menu_communications"
             sequence="100"
-            action="action_sondaggio_communication_batch_communication"
+            action="action_sondaggio_communication_batch_communications"
             parent="menu_for_designers"
             groups="group_designer"
             />

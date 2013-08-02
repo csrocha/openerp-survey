@@ -30,7 +30,7 @@
             <table width="100%">
                 <tr>
                 <td style="text-align:center;width:400px"><button class="do_prev cupid-blue" name="do_prev">Retroceder</button> </td>
-                <td><p></p></td>
+                <td class="zoe_page_tags"><div class="zoe_progressbar"/></td>
                 <td style="text-align:center;width:400px"><button class="do_save cupid-blue" name="do_save">Grabar y Continuar</button></td>
                 </tr>
             </table>

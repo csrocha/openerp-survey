@@ -46,7 +46,6 @@
                       u'view/message_view.xml',
                       u'view/parameter_view.xml',
                       u'view/questionnaire_view.xml',
-                      u'view/sondaggio_menuitem.xml',
                       u'data/node_properties.xml',
                       u'data/category_properties.xml',
                       u'data/format_properties.xml',
@@ -81,7 +80,8 @@
                       u'wizard/node_copy_view.xml',
                       u'wizard/questionnaire_import_view.xml',
                       u'wizard/import_file_column_view.xml',
-                      u'wizard/questionnaire_import_workflow.xml'],
+                      u'wizard/questionnaire_import_workflow.xml',
+                      u'view/sondaggio_menuitem.xml'],
     'version': u'1.0',
     'website': ''}
 

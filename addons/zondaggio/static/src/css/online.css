@@ -316,7 +316,6 @@ div.zoe_formula {
 }
 
 div.zoe_table {
-	padding: 15px 5px 15px 5px;
 }
 
 button.do_prev {
@@ -373,6 +372,12 @@ div.zoe_title {
 	background: black;
 }
 
+div.zoe_title>p {
+	font-size: 16px;
+	padding: 10px;
+	color: whitesmoke;
+}
+
 div.zoe_body {
 	position: fixed;
 	top: 25%;
@@ -389,6 +394,11 @@ div.zoe_page {
 	left: 0px;
 	width: 100%;
 	background: white;
+	overflow: auto;
+}
+
+div.zoe_page>* {
+	padding: 45px;
 }
 
 div.zoe_page h2 {
@@ -413,4 +423,9 @@ div.zoe_footer div {
 	padding:5px 0px 5px 0px;
 	text-align:center;
 	vertical-align:middle;
+}
+
+div.zoe_page_tag {
+	float: left;
+	width: 10px;
 }
