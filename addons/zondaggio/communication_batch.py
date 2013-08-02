@@ -39,6 +39,9 @@ class communication_batch(osv.osv):
     def send_mails(self, cr, uid, ids, context=None):
         """Envia un mail por cada waiting_questionnaires_ids usando los datos de la comunicación (email, subject, body, reply_to, etc) una vez enviado se borra de waiting y pasa a done_questionnaire_ids. Si no hay más emails en waiting se cambia a estado "done"."""
 
+        # Agregar al final de la URL
+        questionnaire_url = "#action=questionnaire.ui&active_id=%(questionnaire_id)"
+
         communication_batch_obj = self.pool.get('sondaggio.communication_batch')
 	parameter_obj = self.pool.get('sondaggio.parameter')	
 
