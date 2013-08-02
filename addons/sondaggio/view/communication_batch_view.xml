@@ -29,7 +29,7 @@
             <field name="name">sondaggio.communication_batch.select</field>
             <field name="model">sondaggio.communication_batch</field>
             <field name="arch" type="xml">
-                <search string="communication_batch" version="7.0">
+                <search string="" version="7.0">
                     <group string="By Attribute">
                     </group>
                     <group string="By object">
@@ -43,7 +43,7 @@
             <field name="name">sondaggio.communication_batch.form</field>
             <field name="model">sondaggio.communication_batch</field>
             <field name="arch" type="xml">
-                <form string="communication_batch" version="7.0">
+                <form string="" version="7.0">
                     <header>
                         <button name="sgn_accept"
                             states="draft"
@@ -71,8 +71,10 @@
                             statusbar_colors='{}'
                             />
                     </header>
-                    <sheet string="communication_batch">
+                    <sheet string="">
                      <group>
+                        <field name="name"
+                            />
                         <field name="email_parameter_name"
                             />
                         <field name="email_subject"
@@ -82,6 +84,8 @@
                         <field name="email_reply_to"
                             />
                         <field name="email_copy_to"
+                            />
+                        <field name="login_user_id"
                             />
                     <field name="survey_id"
                             />
@@ -98,9 +102,11 @@
             <field name="name">sondaggio.communication_batch.tree</field>
             <field name="model">sondaggio.communication_batch</field>
             <field name="arch" type="xml">
-                <tree string="communication_batch"
+                <tree string=""
                     colors="grey:state=='cancelled';blue:state in ('draft',);black:state in ('cancelled', 'runnning', 'accepted'); red:state in ()"
                     >
+                    <field name="name"
+                        />
                     <field name="state" />
                 </tree>
             </field>
