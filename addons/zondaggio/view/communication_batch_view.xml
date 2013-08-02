@@ -29,7 +29,7 @@
             <field name="name">sondaggio.communication_batch.select</field>
             <field name="model">sondaggio.communication_batch</field>
             <field name="arch" type="xml">
-                <search string="" version="7.0">
+                <search string="communication_batch" version="7.0">
                     <group string="By Attribute">
                     </group>
                     <group string="By object">
@@ -39,11 +39,11 @@
         </record>
 
         <!-- FORMVIEW -->
-        <record id="view_sondaggio_communication_batch_form" model="ir.ui.view">
+        <record id="sondaggio.view_sondaggio_communication_batch_form" model="ir.ui.view">
             <field name="name">sondaggio.communication_batch.form</field>
             <field name="model">sondaggio.communication_batch</field>
             <field name="arch" type="xml">
-                <form string="" version="7.0">
+                <form string="communication_batch" version="7.0">
                     <header>
                         <button name="sgn_accept"
                             states="draft"
@@ -71,7 +71,7 @@
                             statusbar_colors='{}'
                             />
                     </header>
-                    <sheet string="">
+                    <sheet string="communication_batch">
                      <group>
                         <field name="name"
                             />
@@ -85,13 +85,22 @@
                             />
                         <field name="email_copy_to"
                             />
-                        <field name="login_user_id"
+                    <field name="loggin_user_id"
                             />
                     <field name="survey_id"
                             />
+                    <field name="waiting_ids"
+			    domain="[('survey_id','=',survey_id')]"
+                            />
+                    <field name="done_ids" readonly="1"
+			    domain="[('survey_id','=',survey_id')]"
+                            />
+                        <button name="send_mails"
+                            type="object"
+			    string="Send mails"
+			    />
                      </group>
                     </sheet>
-
                 </form>
             </field>
         </record>
@@ -102,11 +111,9 @@
             <field name="name">sondaggio.communication_batch.tree</field>
             <field name="model">sondaggio.communication_batch</field>
             <field name="arch" type="xml">
-                <tree string=""
+                <tree string="communication_batch"
                     colors="grey:state=='cancelled';blue:state in ('draft',);black:state in ('cancelled', 'runnning', 'accepted'); red:state in ()"
                     >
-                    <field name="name"
-                        />
                     <field name="state" />
                 </tree>
             </field>
