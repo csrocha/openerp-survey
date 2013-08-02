@@ -26,6 +26,7 @@ import questionnaire
 import node
 import survey
 import partner
+import communication_batch
 import format
 
 import wizard
