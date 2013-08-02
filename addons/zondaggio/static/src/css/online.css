@@ -394,6 +394,11 @@ div.zoe_page {
 	left: 0px;
 	width: 100%;
 	background: white;
+	overflow: auto;
+}
+
+div.zoe_page>* {
+	padding: 45px;
 }
 
 div.zoe_page h2 {
@@ -418,4 +423,9 @@ div.zoe_footer div {
 	padding:5px 0px 5px 0px;
 	text-align:center;
 	vertical-align:middle;
+}
+
+div.zoe_page_tag {
+	float: left;
+	width: 10px;
 }
