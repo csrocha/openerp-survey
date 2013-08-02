@@ -50,8 +50,19 @@ function openerp_zondaggio_widgets(instance, module){
             $.each(parameters, function(key, value){
                 $(_.str.sprintf("input.var_%s",key)).attr('placeholder',value);
             });
-            /* Top section */
-            this.active_page(1, 0);
+            /* Page setup */
+            var page_numbers = $(".zoe_page").length;
+            var page_active = 1;
+            this.active_page(page_active);
+            var self=this;
+            $(".zoe_progressbar").slider({
+                value: page_active,
+                min: 1,
+                max: page_numbers,
+                change: function() {
+                    self.active_page($(this).slider("value"));
+                }
+            });
         },
         active_page:function(page_idx) {
             $('.zoe_title').removeClass('zoe_active').addClass('zoe_inactive');
@@ -211,13 +222,12 @@ function openerp_zondaggio_widgets(instance, module){
         go_prev:function(actual) {
             var actual_page = Math.max(0, this.actual_page - 1);
             this.active_page(actual_page);
+            $(".zoe_progressbar").slider({value: actual_page});
         },
         go_next:function(actual) {
-            var actual_page = this.actual_page + 1;
-            if($(_.str.sprintf('.zoe_page:eq(%s)', actual_page)).length == 0) {
-                actual_page = this.actual_page;
-            }
+            var actual_page = Math.min($(".zoe_page").length, this.actual_page + 1);
             this.active_page(actual_page);
+            $(".zoe_progressbar").slider({value: actual_page});
         },
         /*
         go_next:function(actual) {
