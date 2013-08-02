@@ -44,15 +44,15 @@ class communication_batch(osv.osv):
     _columns = {
         'name': fields.char(string='Description', required=True),
         'email_parameter_name': fields.char(string='Parameter name', required=True),
-        'email_subject': fields.char(string='email_subject', required=True),
+        'email_subject': fields.char(string='Subject', required=True),
         'email_body': fields.text(string='Body', required=True),
         'email_reply_to': fields.char(string='Replay to', required=True),
         'email_copy_to': fields.char(string='Copy to'),
         'login_user_id': fields.many2one('res.users', string='Login User', required=True),
         'state': fields.selection(_states_, "State"),
-        'survey_id': fields.many2one('sondaggio.survey', string='survey_id', required=True), 
-        'waiting_ids': fields.many2many('sondaggio.questionnaire', 'sondaggio_waiting_batch_ids_waiting_ids_rel', 'communication_batch_id', 'questionnaire_id', string='waiting_ids'), 
-        'done_ids': fields.many2many('sondaggio.questionnaire', 'sondaggio_done_batch_ids_done_ids_rel', 'communication_batch_id', 'questionnaire_id', string='done_ids'), 
+        'survey_id': fields.many2one('sondaggio.survey', string='Survey', required=True), 
+        'waiting_ids': fields.many2many('sondaggio.questionnaire', 'sondaggio_waiting_batch_ids_waiting_ids_rel', 'communication_batch_id', 'questionnaire_id', string='Questionnaire waiting to communication'), 
+        'done_ids': fields.many2many('sondaggio.questionnaire', 'sondaggio_done_batch_ids_done_ids_rel', 'communication_batch_id', 'questionnaire_id', string='Questionnaire communicated'), 
     }
 
     _defaults = {

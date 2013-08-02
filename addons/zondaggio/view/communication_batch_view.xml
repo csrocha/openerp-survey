@@ -85,7 +85,7 @@
                             />
                         <field name="email_copy_to"
                             />
-                    <field name="loggin_user_id"
+                    <field name="login_user_id"
                             />
                     <field name="survey_id"
                             />
