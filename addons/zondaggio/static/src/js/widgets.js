@@ -220,33 +220,41 @@ function openerp_zondaggio_widgets(instance, module){
             window.print();
         },
         go_prev:function(actual) {
-            var actual_page = Math.max(0, this.actual_page - 1);
+            var page = $(_.str.sprintf('.zoe_page:eq(%s)', this.actual_page));
+            var actual_page = page.index('.zoe_page');
+            var search_prefix = _.str.sprintf('.zoe_page:lt(%s)', actual_page)
+            var select_page=[];
+            /* Search for input */
+            var next_page = $('.zoe_page').index($(search_prefix + ' input:enabled:last').parents('.zoe_page'));
+            if (next_page >= 0) { select_page.push(next_page); };
+            /* Search for textarea */
+            var next_page = $('.zoe_page').index($(search_prefix + ' textarea:enabled:last').parents('.zoe_page'));
+            if (next_page >= 0) { select_page.push(next_page); };
+            /* If I can jump, then jump */
+            if (select_page) {
+                actual_page = Math.max.apply(Math, select_page);
+            }
             this.active_page(actual_page);
             $(".zoe_progressbar").slider({value: actual_page});
         },
         go_next:function(actual) {
-            var actual_page = Math.min($(".zoe_page").length, this.actual_page + 1);
+            var page = $(_.str.sprintf('.zoe_page:eq(%s)', this.actual_page));
+            var actual_page = page.index('.zoe_page');
+            var search_prefix = _.str.sprintf('.zoe_page:gt(%s)', actual_page)
+            var select_page=[];
+            /* Search for input */
+            var next_page = $('.zoe_page').index($(search_prefix + ' input:enabled:first').parents('.zoe_page'));
+            if (next_page >= 0) { select_page.push(next_page); };
+            /* Search for textarea */
+            var next_page = $('.zoe_page').index($(search_prefix + ' textarea:enabled:first').parents('.zoe_page'));
+            if (next_page >= 0) { select_page.push(next_page); };
+            /* If I can jump, then jump */
+            if (select_page) {
+                actual_page = Math.min.apply(Math, select_page);
+            }
             this.active_page(actual_page);
             $(".zoe_progressbar").slider({value: actual_page});
         },
-        /*
-        go_next:function(actual) {
-            actual_section = this.actual_section;
-            actual_page = this.actual_page + 1;
-            // Si no hay más páginas, me voy a la próxima sección.
-            if($(_.str.sprintf('div.zoe_title:eq(%s) .zoe_page:eq(%s)', actual_section, actual_page)).length == 0) {
-                actual_section = this.actual_section + 1;
-                actual_page = 0;
-            }
-            // Si no hay nuevas secciones me quedo en esta pagina.
-            if($(_.str.sprintf('div.zoe_title:eq(%s) .zoe_page:eq(%s)', actual_section, actual_page)).length == 0) {
-                actual_section = this.actual_section;
-                actual_page = this.actual_page;
-            }
-            // Confirmo el cambio de pagina.
-            this.active_page(actual_section, actual_page);
-        },
-        */
         on_change:function(e) {
             var input_id = e.currentTarget.classList[0];
             // check if input enable of disable something.

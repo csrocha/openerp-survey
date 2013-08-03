@@ -102,7 +102,7 @@
 			</model>
 		</userDefined>
 </profile>
-<XMI xmi.version = '1.2' xmlns:UML = 'org.omg.xmi.namespace.UML' timestamp = 'Fri Aug 02 13:26:29 ART 2013'>
+<XMI xmi.version = '1.2' xmlns:UML = 'org.omg.xmi.namespace.UML' timestamp = 'Fri Aug 02 17:15:56 ART 2013'>
   <XMI.header>    <XMI.documentation>
       <XMI.exporter>ArgoUML (using Netbeans XMI Writer version 1.0)</XMI.exporter>
       <XMI.exporterVersion>0.34(6) revised on $Date: 2010-01-11 22:20:14 +0100 (Mon, 11 Jan 2010) $ </XMI.exporterVersion>
@@ -5414,7 +5414,45 @@ Registry in the log start action.</UML:TaggedValue.dataValue>
             <UML:Class xmi.id = '127-0-1-1--6a6ed129:140213e475f:-8000:0000000000000F9D'
               name = 'communication_batch' visibility = 'public' isSpecification = 'false'
               isRoot = 'false' isLeaf = 'false' isAbstract = 'false' isActive = 'false'>
+              <UML:ModelElement.taggedValue>
+                <UML:TaggedValue xmi.id = '127-0-1-1-b88d982:1403799034b:-8000:0000000000001008'
+                  isSpecification = 'false'>
+                  <UML:TaggedValue.dataValue></UML:TaggedValue.dataValue>
+                  <UML:TaggedValue.type>
+                    <UML:TagDefinition href = 'http://argouml.org/user-profiles/OpenObjectStadardElements.xmi#127-0-1-1-2b464aa4:13b09d81b72:-8000:0000000000001573'/>
+                  </UML:TaggedValue.type>
+                </UML:TaggedValue>
+              </UML:ModelElement.taggedValue>
               <UML:Classifier.feature>
+                <UML:Attribute xmi.id = '127-0-1-1-b88d982:1403799034b:-8000:0000000000001001'
+                  name = 'name' visibility = 'public' isSpecification = 'false' ownerScope = 'instance'
+                  changeability = 'changeable' targetScope = 'instance'>
+                  <UML:StructuralFeature.multiplicity>
+                    <UML:Multiplicity xmi.id = '127-0-1-1-b88d982:1403799034b:-8000:0000000000001002'>
+                      <UML:Multiplicity.range>
+                        <UML:MultiplicityRange xmi.id = '127-0-1-1-b88d982:1403799034b:-8000:0000000000001003'
+                          lower = '1' upper = '1'/>
+                      </UML:Multiplicity.range>
+                    </UML:Multiplicity>
+                  </UML:StructuralFeature.multiplicity>
+                  <UML:ModelElement.stereotype>
+                    <UML:Stereotype href = 'http://argouml.org/user-profiles/OpenObjectStadardElements.xmi#127-0-1-1--66344949:13b09938a14:-8000:00000000000011E5'/>
+                    <UML:Stereotype href = 'http://argouml.org/user-profiles/OpenObjectStadardElements.xmi#127-0-1-1--66344949:13b09938a14:-8000:00000000000011E6'/>
+                    <UML:Stereotype href = 'http://argouml.org/user-profiles/OpenObjectStadardElements.xmi#127-0-1-1--66344949:13b09938a14:-8000:0000000000000BA2'/>
+                  </UML:ModelElement.stereotype>
+                  <UML:ModelElement.taggedValue>
+                    <UML:TaggedValue xmi.id = '127-0-1-1-b88d982:1403799034b:-8000:0000000000001009'
+                      isSpecification = 'false'>
+                      <UML:TaggedValue.dataValue>Description</UML:TaggedValue.dataValue>
+                      <UML:TaggedValue.type>
+                        <UML:TagDefinition href = 'http://argouml.org/user-profiles/OpenObjectStadardElements.xmi#127-0-1-1-2b464aa4:13b09d81b72:-8000:0000000000001573'/>
+                      </UML:TaggedValue.type>
+                    </UML:TaggedValue>
+                  </UML:ModelElement.taggedValue>
+                  <UML:StructuralFeature.type>
+                    <UML:DataType href = 'http://argouml.org/user-profiles/OpenObjectStadardElements.xmi#127-0-1-1--66344949:13b09938a14:-8000:0000000000000B9C'/>
+                  </UML:StructuralFeature.type>
+                </UML:Attribute>
                 <UML:Attribute xmi.id = '127-0-1-1--6a6ed129:140213e475f:-8000:0000000000000F9E'
                   name = 'email_parameter_name' visibility = 'public' isSpecification = 'false'
                   ownerScope = 'instance' changeability = 'changeable' targetScope = 'instance'>
@@ -5430,6 +5468,15 @@ Registry in the log start action.</UML:TaggedValue.dataValue>
                     <UML:Stereotype href = 'http://argouml.org/user-profiles/OpenObjectStadardElements.xmi#127-0-1-1--66344949:13b09938a14:-8000:00000000000011E5'/>
                     <UML:Stereotype href = 'http://argouml.org/user-profiles/OpenObjectStadardElements.xmi#127-0-1-1--66344949:13b09938a14:-8000:0000000000000BA2'/>
                   </UML:ModelElement.stereotype>
+                  <UML:ModelElement.taggedValue>
+                    <UML:TaggedValue xmi.id = '127-0-1-1-b88d982:1403799034b:-8000:000000000000100A'
+                      isSpecification = 'false'>
+                      <UML:TaggedValue.dataValue>Parameter name</UML:TaggedValue.dataValue>
+                      <UML:TaggedValue.type>
+                        <UML:TagDefinition href = 'http://argouml.org/user-profiles/OpenObjectStadardElements.xmi#127-0-1-1-2b464aa4:13b09d81b72:-8000:0000000000001573'/>
+                      </UML:TaggedValue.type>
+                    </UML:TaggedValue>
+                  </UML:ModelElement.taggedValue>
                   <UML:StructuralFeature.type>
                     <UML:DataType href = 'http://argouml.org/user-profiles/OpenObjectStadardElements.xmi#127-0-1-1--66344949:13b09938a14:-8000:0000000000000B9C'/>
                   </UML:StructuralFeature.type>
@@ -5467,6 +5514,15 @@ Registry in the log start action.</UML:TaggedValue.dataValue>
                     <UML:Stereotype href = 'http://argouml.org/user-profiles/OpenObjectStadardElements.xmi#127-0-1-1--66344949:13b09938a14:-8000:00000000000011E5'/>
                     <UML:Stereotype href = 'http://argouml.org/user-profiles/OpenObjectStadardElements.xmi#127-0-1-1--66344949:13b09938a14:-8000:0000000000000BA2'/>
                   </UML:ModelElement.stereotype>
+                  <UML:ModelElement.taggedValue>
+                    <UML:TaggedValue xmi.id = '127-0-1-1-b88d982:1403799034b:-8000:0000000000001010'
+                      isSpecification = 'false'>
+                      <UML:TaggedValue.dataValue>Subject</UML:TaggedValue.dataValue>
+                      <UML:TaggedValue.type>
+                        <UML:TagDefinition href = 'http://argouml.org/user-profiles/OpenObjectStadardElements.xmi#127-0-1-1-2b464aa4:13b09d81b72:-8000:0000000000001573'/>
+                      </UML:TaggedValue.type>
+                    </UML:TaggedValue>
+                  </UML:ModelElement.taggedValue>
                   <UML:StructuralFeature.type>
                     <UML:DataType href = 'http://argouml.org/user-profiles/OpenObjectStadardElements.xmi#127-0-1-1--66344949:13b09938a14:-8000:0000000000000B9C'/>
                   </UML:StructuralFeature.type>
@@ -5486,6 +5542,15 @@ Registry in the log start action.</UML:TaggedValue.dataValue>
                     <UML:Stereotype href = 'http://argouml.org/user-profiles/OpenObjectStadardElements.xmi#127-0-1-1--66344949:13b09938a14:-8000:00000000000011E5'/>
                     <UML:Stereotype href = 'http://argouml.org/user-profiles/OpenObjectStadardElements.xmi#127-0-1-1--66344949:13b09938a14:-8000:0000000000000BA2'/>
                   </UML:ModelElement.stereotype>
+                  <UML:ModelElement.taggedValue>
+                    <UML:TaggedValue xmi.id = '127-0-1-1-b88d982:1403799034b:-8000:000000000000100C'
+                      isSpecification = 'false'>
+                      <UML:TaggedValue.dataValue>Body</UML:TaggedValue.dataValue>
+                      <UML:TaggedValue.type>
+                        <UML:TagDefinition href = 'http://argouml.org/user-profiles/OpenObjectStadardElements.xmi#127-0-1-1-2b464aa4:13b09d81b72:-8000:0000000000001573'/>
+                      </UML:TaggedValue.type>
+                    </UML:TaggedValue>
+                  </UML:ModelElement.taggedValue>
                   <UML:StructuralFeature.type>
                     <UML:DataType href = 'http://argouml.org/user-profiles/OpenObjectStadardElements.xmi#127-0-1-1--66344949:13b09938a14:-8000:0000000000000B9D'/>
                   </UML:StructuralFeature.type>
@@ -5505,6 +5570,15 @@ Registry in the log start action.</UML:TaggedValue.dataValue>
                     <UML:Stereotype href = 'http://argouml.org/user-profiles/OpenObjectStadardElements.xmi#127-0-1-1--66344949:13b09938a14:-8000:00000000000011E5'/>
                     <UML:Stereotype href = 'http://argouml.org/user-profiles/OpenObjectStadardElements.xmi#127-0-1-1--66344949:13b09938a14:-8000:0000000000000BA2'/>
                   </UML:ModelElement.stereotype>
+                  <UML:ModelElement.taggedValue>
+                    <UML:TaggedValue xmi.id = '127-0-1-1-b88d982:1403799034b:-8000:000000000000100D'
+                      isSpecification = 'false'>
+                      <UML:TaggedValue.dataValue>Replay to</UML:TaggedValue.dataValue>
+                      <UML:TaggedValue.type>
+                        <UML:TagDefinition href = 'http://argouml.org/user-profiles/OpenObjectStadardElements.xmi#127-0-1-1-2b464aa4:13b09d81b72:-8000:0000000000001573'/>
+                      </UML:TaggedValue.type>
+                    </UML:TaggedValue>
+                  </UML:ModelElement.taggedValue>
                   <UML:StructuralFeature.type>
                     <UML:DataType href = 'http://argouml.org/user-profiles/OpenObjectStadardElements.xmi#127-0-1-1--66344949:13b09938a14:-8000:0000000000000B9C'/>
                   </UML:StructuralFeature.type>
@@ -5541,8 +5615,45 @@ Registry in the log start action.</UML:TaggedValue.dataValue>
                   <UML:ModelElement.stereotype>
                     <UML:Stereotype href = 'http://argouml.org/user-profiles/OpenObjectStadardElements.xmi#127-0-1-1--66344949:13b09938a14:-8000:00000000000011E5'/>
                   </UML:ModelElement.stereotype>
+                  <UML:ModelElement.taggedValue>
+                    <UML:TaggedValue xmi.id = '127-0-1-1-b88d982:1403799034b:-8000:000000000000100E'
+                      isSpecification = 'false'>
+                      <UML:TaggedValue.dataValue>Copy to</UML:TaggedValue.dataValue>
+                      <UML:TaggedValue.type>
+                        <UML:TagDefinition href = 'http://argouml.org/user-profiles/OpenObjectStadardElements.xmi#127-0-1-1-2b464aa4:13b09d81b72:-8000:0000000000001573'/>
+                      </UML:TaggedValue.type>
+                    </UML:TaggedValue>
+                  </UML:ModelElement.taggedValue>
                   <UML:StructuralFeature.type>
                     <UML:DataType href = 'http://argouml.org/user-profiles/OpenObjectStadardElements.xmi#127-0-1-1--66344949:13b09938a14:-8000:0000000000000B9C'/>
+                  </UML:StructuralFeature.type>
+                </UML:Attribute>
+                <UML:Attribute xmi.id = '127-0-1-1-b88d982:1403799034b:-8000:0000000000001004'
+                  name = 'login_user_id' visibility = 'public' isSpecification = 'false' ownerScope = 'instance'
+                  changeability = 'changeable' targetScope = 'instance'>
+                  <UML:StructuralFeature.multiplicity>
+                    <UML:Multiplicity xmi.id = '127-0-1-1-b88d982:1403799034b:-8000:0000000000001005'>
+                      <UML:Multiplicity.range>
+                        <UML:MultiplicityRange xmi.id = '127-0-1-1-b88d982:1403799034b:-8000:0000000000001006'
+                          lower = '1' upper = '1'/>
+                      </UML:Multiplicity.range>
+                    </UML:Multiplicity>
+                  </UML:StructuralFeature.multiplicity>
+                  <UML:ModelElement.stereotype>
+                    <UML:Stereotype href = 'http://argouml.org/user-profiles/OpenObjectStadardElements.xmi#127-0-1-1--66344949:13b09938a14:-8000:00000000000011E5'/>
+                    <UML:Stereotype href = 'http://argouml.org/user-profiles/OpenObjectStadardElements.xmi#127-0-1-1--66344949:13b09938a14:-8000:0000000000000BA2'/>
+                  </UML:ModelElement.stereotype>
+                  <UML:ModelElement.taggedValue>
+                    <UML:TaggedValue xmi.id = '127-0-1-1-b88d982:1403799034b:-8000:000000000000100F'
+                      isSpecification = 'false'>
+                      <UML:TaggedValue.dataValue>Login User</UML:TaggedValue.dataValue>
+                      <UML:TaggedValue.type>
+                        <UML:TagDefinition href = 'http://argouml.org/user-profiles/OpenObjectStadardElements.xmi#127-0-1-1-2b464aa4:13b09d81b72:-8000:0000000000001573'/>
+                      </UML:TaggedValue.type>
+                    </UML:TaggedValue>
+                  </UML:ModelElement.taggedValue>
+                  <UML:StructuralFeature.type>
+                    <UML:Class xmi.idref = '127-0-1-1-acc5f19:13d3dd3a916:-8000:0000000000000D73'/>
                   </UML:StructuralFeature.type>
                 </UML:Attribute>
               </UML:Classifier.feature>
@@ -5602,6 +5713,15 @@ Registry in the log start action.</UML:TaggedValue.dataValue>
                   <UML:ModelElement.stereotype>
                     <UML:Stereotype href = 'http://argouml.org/user-profiles/OpenObjectStadardElements.xmi#127-0-1-1--66344949:13b09938a14:-8000:00000000000011E5'/>
                   </UML:ModelElement.stereotype>
+                  <UML:ModelElement.taggedValue>
+                    <UML:TaggedValue xmi.id = '127-0-1-1-b88d982:1403799034b:-8000:0000000000001011'
+                      isSpecification = 'false'>
+                      <UML:TaggedValue.dataValue>Survey</UML:TaggedValue.dataValue>
+                      <UML:TaggedValue.type>
+                        <UML:TagDefinition href = 'http://argouml.org/user-profiles/OpenObjectStadardElements.xmi#127-0-1-1-2b464aa4:13b09d81b72:-8000:0000000000001573'/>
+                      </UML:TaggedValue.type>
+                    </UML:TaggedValue>
+                  </UML:ModelElement.taggedValue>
                   <UML:AssociationEnd.participant>
                     <UML:Class xmi.idref = '127-0-1-1--3b5079bc:13cd6248bba:-8000:0000000000001870'/>
                   </UML:AssociationEnd.participant>
@@ -5848,6 +5968,15 @@ Registry in the log start action.</UML:TaggedValue.dataValue>
                       </UML:Multiplicity.range>
                     </UML:Multiplicity>
                   </UML:AssociationEnd.multiplicity>
+                  <UML:ModelElement.taggedValue>
+                    <UML:TaggedValue xmi.id = '127-0-1-1-b88d982:1403799034b:-8000:0000000000001012'
+                      isSpecification = 'false'>
+                      <UML:TaggedValue.dataValue>Questionnaire waiting to communication</UML:TaggedValue.dataValue>
+                      <UML:TaggedValue.type>
+                        <UML:TagDefinition href = 'http://argouml.org/user-profiles/OpenObjectStadardElements.xmi#127-0-1-1-2b464aa4:13b09d81b72:-8000:0000000000001573'/>
+                      </UML:TaggedValue.type>
+                    </UML:TaggedValue>
+                  </UML:ModelElement.taggedValue>
                   <UML:AssociationEnd.participant>
                     <UML:Class xmi.idref = '127-0-1-1--4f3fef17:13d47b31775:-8000:0000000000000F17'/>
                   </UML:AssociationEnd.participant>
@@ -5884,6 +6013,15 @@ Registry in the log start action.</UML:TaggedValue.dataValue>
                       </UML:Multiplicity.range>
                     </UML:Multiplicity>
                   </UML:AssociationEnd.multiplicity>
+                  <UML:ModelElement.taggedValue>
+                    <UML:TaggedValue xmi.id = '127-0-1-1-b88d982:1403799034b:-8000:0000000000001013'
+                      isSpecification = 'false'>
+                      <UML:TaggedValue.dataValue>Questionnaire communicated</UML:TaggedValue.dataValue>
+                      <UML:TaggedValue.type>
+                        <UML:TagDefinition href = 'http://argouml.org/user-profiles/OpenObjectStadardElements.xmi#127-0-1-1-2b464aa4:13b09d81b72:-8000:0000000000001573'/>
+                      </UML:TaggedValue.type>
+                    </UML:TaggedValue>
+                  </UML:ModelElement.taggedValue>
                   <UML:AssociationEnd.participant>
                     <UML:Class xmi.idref = '127-0-1-1--4f3fef17:13d47b31775:-8000:0000000000000F17'/>
                   </UML:AssociationEnd.participant>
@@ -26555,7 +26693,7 @@ Registry in the log start action.</UML:TaggedValue.dataValue>
       name="Communication"
 >
   <group name="Fig0"
-       description="org.argouml.uml.diagram.static_structure.ui.FigClass[1000, 264, 328, 152]pathVisible=true;stereotypeView=0;operationsVisible=true;attributesVisible=true;"
+       description="org.argouml.uml.diagram.static_structure.ui.FigClass[1000, 264, 328, 184]pathVisible=true;stereotypeView=0;operationsVisible=true;attributesVisible=true;"
        href="127-0-1-1--6a6ed129:140213e475f:-8000:0000000000000F9D"
        fill="1"
        fillcolor="white"
@@ -26569,7 +26707,7 @@ Registry in the log start action.</UML:TaggedValue.dataValue>
       x="1000"
       y="264"
       width="328"
-      height="152"
+      height="184"
       fill="1"
       fillcolor="white"
       stroke="1"
@@ -26625,7 +26763,7 @@ Registry in the log start action.</UML:TaggedValue.dataValue>
       strokecolor="black"
     />
     <group name="Fig0.4"
-         description="org.argouml.uml.diagram.ui.FigAttributesCompartment[1001, 288, 326, 88]"
+         description="org.argouml.uml.diagram.ui.FigAttributesCompartment[1001, 288, 326, 120]"
          href="127-0-1-1--6a6ed129:140213e475f:-8000:0000000000000F9D"
          fill="0"
          fillcolor="white"
@@ -26639,7 +26777,7 @@ Registry in the log start action.</UML:TaggedValue.dataValue>
         x="1001"
         y="288"
         width="326"
-        height="88"
+        height="120"
         fill="0"
         fillcolor="white"
         stroke="0"
@@ -26660,7 +26798,7 @@ Registry in the log start action.</UML:TaggedValue.dataValue>
         bold="false"
         textsize="12"
         justification="Left"
-      >&lt;&lt;form, required&gt;&gt; email_parameter_name : Char</text>
+      >&lt;&lt;form, tree, required&gt;&gt; name : Char</text>
       <text name="Fig0.4.2"
         x="1001"
         y="304"
@@ -26676,7 +26814,7 @@ Registry in the log start action.</UML:TaggedValue.dataValue>
         bold="false"
         textsize="12"
         justification="Left"
-      >&lt;&lt;form, required&gt;&gt; email_subject : Char</text>
+      >&lt;&lt;form, required&gt;&gt; email_parameter_name : Char</text>
       <text name="Fig0.4.3"
         x="1001"
         y="320"
@@ -26692,7 +26830,7 @@ Registry in the log start action.</UML:TaggedValue.dataValue>
         bold="false"
         textsize="12"
         justification="Left"
-      >&lt;&lt;form, required&gt;&gt; email_body : Text</text>
+      >&lt;&lt;form, required&gt;&gt; email_subject : Char</text>
       <text name="Fig0.4.4"
         x="1001"
         y="336"
@@ -26708,10 +26846,42 @@ Registry in the log start action.</UML:TaggedValue.dataValue>
         bold="false"
         textsize="12"
         justification="Left"
-      >&lt;&lt;form, required&gt;&gt; email_reply_to : Char</text>
+      >&lt;&lt;form, required&gt;&gt; email_body : Text</text>
       <text name="Fig0.4.5"
         x="1001"
         y="352"
+        width="326"
+        height="16"
+        fill="0"
+        fillcolor="white"
+        stroke="0"
+        strokecolor="black"
+        textcolor="black"
+        font="Dialog"
+        italic="false"
+        bold="false"
+        textsize="12"
+        justification="Left"
+      >&lt;&lt;form, required&gt;&gt; email_reply_to : Char</text>
+      <text name="Fig0.4.6"
+        x="1001"
+        y="368"
+        width="326"
+        height="16"
+        fill="0"
+        fillcolor="white"
+        stroke="0"
+        strokecolor="black"
+        textcolor="black"
+        font="Dialog"
+        italic="false"
+        bold="false"
+        textsize="12"
+        justification="Left"
+      >&lt;&lt;form&gt;&gt; email_copy_to : Char</text>
+      <text name="Fig0.4.7"
+        x="1001"
+        y="384"
         width="326"
         height="22"
         fill="0"
@@ -26724,11 +26894,11 @@ Registry in the log start action.</UML:TaggedValue.dataValue>
         bold="false"
         textsize="12"
         justification="Left"
-      >&lt;&lt;form&gt;&gt; email_copy_to : Char</text>
+      >&lt;&lt;form, required&gt;&gt; login_user_id : users</text>
     </group>
     <rectangle name="Fig0.5"
       x="1000"
-      y="375"
+      y="407"
       width="328"
       height="1"
       fill="1"
@@ -26737,7 +26907,7 @@ Registry in the log start action.</UML:TaggedValue.dataValue>
       strokecolor="black"
     />
     <group name="Fig0.6"
-         description="org.argouml.uml.diagram.ui.FigOperationsCompartment[1001, 376, 326, 40]"
+         description="org.argouml.uml.diagram.ui.FigOperationsCompartment[1001, 408, 326, 40]"
          href="127-0-1-1--6a6ed129:140213e475f:-8000:0000000000000F9D"
          fill="0"
          fillcolor="white"
@@ -26749,7 +26919,7 @@ Registry in the log start action.</UML:TaggedValue.dataValue>
       
       <rectangle name="Fig0.6.0"
         x="1001"
-        y="376"
+        y="408"
         width="326"
         height="40"
         fill="0"
@@ -26759,7 +26929,7 @@ Registry in the log start action.</UML:TaggedValue.dataValue>
       />
       <text name="Fig0.6.1"
         x="1001"
-        y="376"
+        y="408"
         width="326"
         height="16"
         fill="0"
@@ -26775,7 +26945,7 @@ Registry in the log start action.</UML:TaggedValue.dataValue>
       >do_publish()</text>
       <text name="Fig0.6.2"
         x="1001"
-        y="392"
+        y="424"
         width="326"
         height="22"
         fill="0"
@@ -27791,7 +27961,7 @@ Registry in the log start action.</UML:TaggedValue.dataValue>
       strokecolor="51 51 153"
     >
       <moveto x="1040"
-              y="415" />
+              y="447" />
       <lineto x="1040"
               y="504" />
       <lineto x="542"
@@ -27850,7 +28020,7 @@ Registry in the log start action.</UML:TaggedValue.dataValue>
       strokecolor="51 51 153"
     >
       <moveto x="1288"
-              y="415" />
+              y="447" />
       <lineto x="1288"
               y="576" />
       <lineto x="542"
