@@ -2,78 +2,39 @@
 - Online
 ------------
 
- + Revisar pregunta 22.1 - porque no esta cargada.
++ Romper secciones por páginas.
++ Registrar el dominio mierp.net como seguro.
++ Orientar al encuestado por página.
 
- + No graba ni enteros ni porcentuales
++ Mantener los logos siempre visibles.
++ Desarrollar logica para que envie mails de forma automática
++ Desarrollar logica para que envie mails de forma automática
++ Saltar a la proxima pagina con entradas habilitadas.
++ Arreglar pregunta 8. (1/2 hs)
 
- + Centrar el boton de grabar.
+Esto para el domingo.
 
- - Romper secciones por páginas. (~3hs)
+* Arreglar pregunta 15 (1hs). Para simplificar voy a hacer codigo en el widget para ese control. En la próxima versión lo cambiamos a las variables computadas.
+- Computar reglas globales (4hs).
+  - 100% sobre la pregunta 23.
+  - Verificar validez de la pregunta 26.
+- Agregar los mensajes de error al grabar los datos. (2hs)
 
- - Orientar al encuestado por pagina (~8hs).
 
- - Mantener los logos siempre visibles. (~5hs)
 
- - Saltar a la proxima pagina con entradas habilitadas. (~5hs)
+- Cargar todas las entradas en el sistema para luego enviar las cargas (1/2hs)
+- Realizar Testing de encuesta (5hs)
+- Enviar los mails a los destinatarios (~8hs)
 
- - Implementar concatenaciones and y or en las reglas de habilitacion. (~24hs)
+- Regla en la pregunta 12. Deshabilitar no posee certificación si no pone fecha.
+- Regla en la pregunta 13. Deshabilitar no posee manuales si no pone fecha.
 
-	- Pregunta 8 no puede tener habilitar otros cuando se selecciona la opciòn 6. La razón es que no acepto concatenación de operaciones AND y OR en las reglas.
+- Agragar variables computadas.
 
-	- La pregunta 15 necesita de reglas AND y OR para resolverse.
+-----------
+- Diseño
+-----------
 
- - Computar reglas globales. (~16hs)
+- Cambiar de modelo pregunta a modelo variable.
+- Luego es la variable es donde se computan las reglas de validación.
 
-	- 100% sobre la pregunta 23.
-
-	- Verificar validez de la pregunta 26.
-
-	- Agregar los mensajes de error al grabar los datos.
-
- - Habilitar y deshabilitar reglas (~6hs).
-
- - Como considerar que la encuesta esta terminada? (A resolver)
-
- - Testing (~24hs)
-
- - Registrar el dominio mierp.net como seguro (~3hs)
-
- - Cargar todas las entradas en el sistema para luego enviar las cargas (~8hs)
-
- - Desarrollar logica para que envie mails de forma automatica (~8hs)
-
- - Enviar los mails a los destinatarios (~8hs)
-
- - 
-
-------------
-
-  + Campos nulos '.'
-
-  + Mensaje inteso para los errores!
-
-  - Calcular los campos de suma 100
-
-  - Controlar que el valor de X sea menor a Y (C / 11 / B)
-
-  - Controlar que el valor de entrada de EE12/C/12/4 y EE12/E/22/2 a partir de los valore ingresados previamente.
-
-  + Limitar a 100% EE12/D/14/1, EE12/D/14/2, EE12/E/18/1, EE12/E/18/2,
-
-  - Limitar a la suma de EE12/D/15/2/1, EE12/D/15/2/2 a EE12/D/15/2/3
-
-  + Validar entrada a mano, y no permitir seguir al siguiete campo.
-
-  - Logica de saltos con control referenciado a las preguntas.
-
-  - Generar output de datos.
-
-  - Curso de diseño de encuestas.
-
-  - Implementar pivoteo:
-
-     - usar extension: tablefunc // Requiere mucho!!! //
-
-     - usar sql:
-		
-		select QA.name, Q.variable_name, input from survey_methodology_answer as A left join survey_methodology_question as Q on (A.question_id = Q.id) left join survey_methodology_questionnaire as QA on (A.questionnaire_id = QA.id) where type = 'Variable';
