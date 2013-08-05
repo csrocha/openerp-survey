@@ -2,6 +2,8 @@
 - Online
 ------------
 
+Realizado:
+
 + Romper secciones por páginas.
 + Registrar el dominio mierp.net como seguro.
 + Orientar al encuestado por página.
@@ -10,26 +12,28 @@
 + Desarrollar logica para que envie mails de forma automática
 + Desarrollar logica para que envie mails de forma automática
 + Saltar a la proxima pagina con entradas habilitadas.
+
+Domingo.
+
 + Arreglar pregunta 8. (1/2 hs)
++ Arreglar pregunta 15 (1hs). Para simplificar voy a hacer codigo en el widget para ese control. En la próxima versión lo cambiamos a las variables computadas.
++ Computar reglas globales (4hs).
+  + 100% sobre la pregunta 23.
+  + Verificar validez de la pregunta 26.
++ Agregar los mensajes de error al grabar los datos. (2hs)
 
-Esto para el domingo.
+Lunes:
 
-* Arreglar pregunta 15 (1hs). Para simplificar voy a hacer codigo en el widget para ese control. En la próxima versión lo cambiamos a las variables computadas.
-- Computar reglas globales (4hs).
-  - 100% sobre la pregunta 23.
-  - Verificar validez de la pregunta 26.
-- Agregar los mensajes de error al grabar los datos. (2hs)
+- Realizar Testing de encuesta (5hs)
+- Regla en la pregunta 12. Deshabilitar no posee certificación si no pone fecha. (1/2 hs)
+- Regla en la pregunta 13. Deshabilitar no posee manuales si no pone fecha. (1/2 hs)
 
-
+Esto para la semana próxima
 
 - Cargar todas las entradas en el sistema para luego enviar las cargas (1/2hs)
-- Realizar Testing de encuesta (5hs)
 - Enviar los mails a los destinatarios (~8hs)
 
-- Regla en la pregunta 12. Deshabilitar no posee certificación si no pone fecha.
-- Regla en la pregunta 13. Deshabilitar no posee manuales si no pone fecha.
-
-- Agragar variables computadas.
+Esto para etapas posteriores
 
 -----------
 - Diseño
@@ -37,4 +41,5 @@ Esto para el domingo.
 
 - Cambiar de modelo pregunta a modelo variable.
 - Luego es la variable es donde se computan las reglas de validación.
+- Agregar variables computadas.
 
