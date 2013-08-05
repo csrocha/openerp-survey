@@ -29,6 +29,7 @@ function openerp_zondaggio_widgets(instance, module){
                 self.dynamicCss();
                 self.load_data();
                 self.evaluate_conditions();
+                self.calc_globals();
             });
         },
         dynamicCss:function() {
@@ -260,6 +261,7 @@ function openerp_zondaggio_widgets(instance, module){
             // check if input enable of disable something.
             this.on_change_select_one(e.currentTarget);
             this.evaluate_conditions();
+            this.calc_globals();
             e.stopPropagation();
         },
         on_change_select_one:function(widget){
@@ -374,6 +376,54 @@ function openerp_zondaggio_widgets(instance, module){
                 },
             };
         }, 
+        calc_globals:function(){
+            var self = this;
+            /* P15 */
+            var cant_P15_NO = $("input[class^='inp_P15_'][value='NO']").length;
+            if (cant_P15_NO == 8) {
+                var last_P15_idx = $("input").index($("input[class^='inp_P15_']:last"))+2; // Ignore 2 checkboxs
+                var first_P24_idx = $("input").index($("input[class^='inp_P24_']:first"));
+                $("input").each(function(index, value) {
+                    if (last_P15_idx < index && index < first_P24_idx) {
+                        value.disabled=true;
+                    };
+                });
+            };
+            /* Porcentuales */
+            var por_input = $(".inp_P10_2011,.inp_P10_ACT,.inp_P16_1,.inp_P16_2,.inp_P23_1,.inp_P23_2,.inp_P23_3,.inp_P23_4,.inp_P23_5,.inp_P23_6,.inp_P23_7,.inp_P23_8,.inp_P23_9");
+            por_input.each(function(index, input) {
+                if (input.value != '' && !(0 <= input.valueAsNumber && input.valueAsNumber <= 100)) {
+                    self.do_warn('A ingresa un porcentaje invalido.', 'El valor debe estar entre 0 y 100.');
+                    input.style.borderColor = 'red';
+                } else {
+                    input.style.borderColor = 'lightgray';
+                };
+            });
+            /* P23: Suma debe dar 100!!! */
+            var por_input = $(".inp_P23_1,.inp_P23_2,.inp_P23_3,.inp_P23_4,.inp_P23_5,.inp_P23_6,.inp_P23_7,.inp_P23_8,.inp_P23_9");
+            var total = 0;
+            por_input.each(function(index, input) {
+                if (input.value != '') {
+                    total = total + input.valueAsNumber;
+                };
+            });
+            if (total != 0 && total != 100) {
+                self.do_warn('Invalida la pregunta 23.', 'La suma de las proporciones debe ser igual a 100%. Actualmente suma: ' + total);
+                por_input.css({borderColor:'red'});
+            } else {
+                por_input.css({borderColor:'lightgray'});
+            };
+            /* P26: No puede asignarse una misma opción a cada afirmación */
+            var opt_input = $('.inp_P26_1,.inp_P26_2,.inp_P26_3');
+            var taken = [];
+            por_input.each(function(index, input) {
+                if (input.value in taken) {
+                    self.do_warn('Invalida la Pregunta 26', 'Por cada afirmación debe asignar una prioridad diferente');
+                } else {
+                    taken.push(input.value);
+                }
+            });
+        },
     })
 
 };
