@@ -407,7 +407,7 @@ function openerp_zondaggio_widgets(instance, module){
                     total = total + input.valueAsNumber;
                 };
             });
-            if (!isNaN(total) && total != 100) {
+            if (total != 0 && total != 100) {
                 self.do_warn('Invalida la pregunta 23.', 'La suma de las proporciones debe ser igual a 100%. Actualmente suma: ' + total);
                 por_input.css({borderColor:'red'});
             } else {
