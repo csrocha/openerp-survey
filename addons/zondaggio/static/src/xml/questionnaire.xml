@@ -31,7 +31,10 @@
                 <tr>
                 <td style="text-align:center;width:400px"><button class="do_prev cupid-blue" name="do_prev">Retroceder</button> </td>
                 <td class="zoe_page_tags"><div class="zoe_progressbar"/></td>
-                <td style="text-align:center;width:400px"><button class="do_save cupid-blue" name="do_save">Grabar y Continuar</button></td>
+                <td style="text-align:center;width:400px">
+                   <button class="do_save cupid-blue" name="do_save">Grabar y Continuar</button>
+                   <button class="do_done cupid-blue" name="do_done">Guardar para finalizar la entrevista</button>
+                </td>
                 </tr>
             </table>
             <div>
@@ -290,57 +293,29 @@
         <t t-set="fcol_width" t-value="60"/>
         <t t-set="inp_class" t-value="n.variable_name"/>
         <t t-if="nodes[node].classes.indexOf('zoe_transpose') lt 0">
-            <div class="row zoe_col_label">
-                <div class="label"></div>
-                <div t-foreach="childs" t-as="child" class="option">
-                    <t t-set="c" t-value="nodes[child]"/>
-                    <t t-raw="c.question"/>
-                </div>
-            </div>
-            <div class="row zoe_question">
-                <div class="zoe_row_label">
-                    <t t-raw="n.question"/>
-                    <input type="hidden"
-                        t-attf-class="inp_#{inp_class} var_#{n.variable_name}"
-                        />
-                </div>
-                <div t-foreach="childs" t-as="child" class="option">
-                    <t t-set="c" t-value="nodes[child]"/>
-                    <input t-if="c.type == 'Null'"
-                        type="radio"
-                        t-attf-name="inp_#{inp_class}"
-                        t-attf-class="inp_#{c.variable_name}"
-                        t-att-alt="c.name"
-                        />
-                </div>
-            </div>
-        </t>
-        <t t-if="nodes[node].classes.indexOf('zoe_transpose') gte 0">
-            <t t-set="table" t-value="widget.get_table(nodes[node])"/>
-            <p>Hola mundo</p>
-            <!--div t-foreach="get_dim(nodes[node],0)" t-as="dim"/-->
-
-            <!--div class="row zoe_label" style="display: table-row-group">
-                <div class="option">
-                    <div class="zoe_label">
-                    </div>
-                    <div class="zoe_option">
-                        <t t-raw="n.question"/>
-                    </div>
-                </div>
-            </div>
-            <div class="row zoe_question" style="display: table-row-group">
-                <div t-foreach="childs" t-as="child" class="option">
-                    <t t-set="c" t-value="nodes[child]"/>
-                    <div class="zoe_label"><t t-raw="c.question"/></div>
-                    <div class="zoe_option"><input t-if="c.type == 'Null'"
-                        type="radio"
-                        t-attf-name="inp_#{inp_class}"
-                        t-attf-class="inp_#{c.variable_name}"
-                        t-att-alt="node.name"
-                        /></div>
-                </div>
-            </div-->
+            <t t-raw="n.question"/>
+            <input type="hidden"
+                t-attf-class="inp_#{inp_class} var_#{n.variable_name}"
+                />
+            <table>
+                <tr>
+                    <td t-foreach="childs" t-as="child" class="option">
+                        <t t-set="c" t-value="nodes[child]"/>
+                        <t t-raw="c.question"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td t-foreach="childs" t-as="child" class="zeo_option">
+                        <t t-set="c" t-value="nodes[child]"/>
+                        <input t-if="c.type == 'Null'"
+                            type="radio"
+                            t-attf-name="inp_#{inp_class}"
+                            t-attf-class="inp_#{c.variable_name}"
+                            t-att-alt="c.name"
+                            />
+                    </td>
+                </tr>
+            </table>
         </t>
         <t t-set="not_null_childs" t-value="widget.filter_nodes_by_type(childs, [], ['Null'])"/>
         <t t-call="z_node_iterate">
