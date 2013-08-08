@@ -31,10 +31,6 @@ class answer(osv.osv):
     _name = 'sondaggio.answer'
     _description = 'answer'
 
-    def _get_progress(self, cr, uid, ids, name, attrs, context=None):
-        """"""
-        raise NotImplementedError
-
     _states_ = [
         # State machine: untitle
         ('enabled','enabled'),
