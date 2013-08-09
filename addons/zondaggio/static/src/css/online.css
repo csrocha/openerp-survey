@@ -184,7 +184,15 @@ div.zoe_transpose div.option .zoe_option {
 	text-align: center !important;
 }
 
-/* END: Tablas horizontales */
+/* END: Tablas transpuestas */
+
+/* BEGIN: Otras tablas */
+.zoe_selectone table td {
+	padding: 5px;
+	text-align: center;
+}
+
+/* END: Otras tablas */
 
 div.zoe_char,div.zoe_integer,div.zoe_porcentual,div.zoe_year,div.zoe_text,div.zoe_checkbox {
 	display: table-row-group;
