@@ -44,7 +44,7 @@ function openerp_zondaggio_widgets(instance, module){
                 return esp[index];
             });
             $('th.zoe_otros p,div.zoe_otros>p').hide();
-            $('div.zoe_especificar>p').hide();
+            $('div.zoe_especificar>div>p').hide();
             $('th.zoe_otros input, div.zoe_otros input[type="text"]').attr('placeholder','Especifique otra opción.');
             $('th.zoe_otros input').css('width','95%');
             /* Assign parameters to values by default */

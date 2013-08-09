@@ -31,6 +31,24 @@ div.zoe_zondaggio p {
     text-align: justify;
 }
 
+div.zoe_zondaggio b {
+    font-family:Arial;
+    font-weight:bold;
+}
+
+div.zoe_zondaggio th {
+    font-family:Arial;
+    font-weight:normal;
+    padding-left: 15px;
+    padding-right: 5px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+div.zoe_zondaggio tr:first th p {
+    text-align:center;
+}
+
 div.zoe_progressbar a.ui-slider-handle {
 	margin-top:5px;
 }
@@ -141,6 +159,9 @@ table.zoe tr:first-child th {
 	text-align: center;
 	padding-left: 5px;
 }
+table.zoe tr:first-child th p {
+	text-align: center;
+}
 
 table.zoe tr th {
 	text-align: left;
@@ -165,23 +186,47 @@ div.zoe_transpose div.option .zoe_option {
 
 /* END: Tablas horizontales */
 
+div.zoe_char,div.zoe_integer,div.zoe_porcentual,div.zoe_year,div.zoe_text,div.zoe_checkbox {
+	display: table-row-group;
+	width:100%;
+}
+
+div.zoe_char .zoe_label,div.zoe_integer .zoe_label,div.zoe_porcentual .zoe_label,div.zoe_year .zoe_label,div.zoe_text .zoe_label,div.zoe_checkbox .zoe_label {
+	display: table-cell;
+	vertical-align:top;
+	padding:2px 15px 2px 15px;
+	margin:0;
+	width:50%;
+}
+
+div.zoe_char .zoe_input,div.zoe_integer .zoe_input,div.zoe_porcentual .zoe_input,div.zoe_year .zoe_input,div.zoe_text .zoe_input,div.zoe_checkbox .zoe_input {
+	vertical-align:middle;
+}
+
+div.zoe_label p {
+	text-align:right;
+}
+
+div.zoe_label img {
+	padding:5px;
+}
+
+
 /*
  * BEGIN: Char
  */
 div.zoe_char {
-	display: inline-block;
-	width: 100%;
-	text-align: right;
+	display: table-row-group;
 }
 
-div.zoe_char p {
-	display: inline-block;
+div.zoe_char .zoe_label {
+	display: table-cell;
 	vertical-align:top;
-	width: 50%;
 }
 
-div.zoe_char input {
-	display: inline-block;
+div.zoe_char .zoe_input {
+	display: table-cell;
+	text-align:left;
 }
 /*
  * END: Char
@@ -191,19 +236,18 @@ div.zoe_char input {
  * BEGIN: Text
  */
 div.zoe_text {
-	display: inline-block;
-	width: 100%;
-	text-align: right;
+	display: table-row-group;
 }
 
-div.zoe_text p {
-	display: inline-block;
+div.zoe_text .zoe_label {
+	display: table-cell;
 	vertical-align:top;
-	width: 50%;
+	text-align:right;
 }
 
-div.zoe_text input {
-	display: inline-block;
+div.zoe_text .zoe_input {
+	display: table-cell;
+	text-align:left;
 }
 /*
  * END: Text
@@ -213,19 +257,18 @@ div.zoe_text input {
  * BEGIN: Checkbox
  */
 div.zoe_checkbox {
-	display: inline-block;
-	width: 100%;
-	text-align: right;
+	display: table-row-group;
 }
 
-div.zoe_checkbox p {
-	display: inline-block;
+div.zoe_checkbox .zoe_label {
+	display: table-cell;
 	vertical-align:top;
-	width: 50%;
+	text-align:right;
 }
 
-div.zoe_checkbox input {
-	display: inline-block;
+div.zoe_checkbox .zoe_input {
+	display: table-cell;
+	text-align:left;
 }
 /*
  * END: Checkbox
@@ -235,19 +278,18 @@ div.zoe_checkbox input {
  * BEGIN: Integer
  */
 div.zoe_integer {
-	display: inline-block;
-	width: 100%;
+	display: table-row-group;
+}
+
+div.zoe_integer .zoe_label {
+	display: table-cell;
+	vertical-align:top;
 	text-align: right;
 }
 
-div.zoe_integer p {
-	display: inline-block;
-	vertical-align:top;
-	width: 50%;
-}
-
-div.zoe_integer input {
-	display: inline-block;
+div.zoe_integer .zoe_input {
+	display: table-cell;
+	text-align: left;
 }
 /*
  * END: Integer
@@ -257,19 +299,18 @@ div.zoe_integer input {
  * BEGIN: Year
  */
 div.zoe_year {
-	display: inline-block;
-	width: 100%;
+	display: table-row-group;
+}
+
+div.zoe_year .zoe_label {
+	display: table-cell;
+	vertical-align:top;
 	text-align: right;
 }
 
-div.zoe_year p {
-	display: inline-block;
-	vertical-align:top;
-	width: 50%;
-}
-
-div.zoe_year input {
-	display: inline-block;
+div.zoe_year .zoe_input {
+	display: table-cell;
+	text-align: left;
 }
 /*
  * END: Year
@@ -279,25 +320,18 @@ div.zoe_year input {
  * BEGIN: Porcentual
  */
 div.zoe_porcentual {
-	display: inline-block;
-	width: 100%;
+	display: table-row-group;
+}
+
+div.zoe_porcentual .zoe_label {
+	display: table-cell;
+	vertical-align:top;
 	text-align: right;
 }
 
-div.zoe_porcentual p {
-	display: inline-block;
-	vertical-align:top;
-	width: 50%;
-}
-
-div.zoe_porcentual input[type="text"] {
-	display: inline-block;
-	vertical-align:top;
-	width: 49%;
-}
-
-div.zoe_porcentual input {
-	display: inline-block;
+div.zoe_porcentual .zoe_input {
+	display: table-cell;
+	text-align: left;
 }
 /*
  * END: Porcentual
@@ -485,5 +519,4 @@ div.zoe_footer p {
 .zoe_progressbar {
 	display: none;
 }
-
 
