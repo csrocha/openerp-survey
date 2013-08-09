@@ -40,10 +40,10 @@ function openerp_zondaggio_widgets(instance, module){
             divs.remove();
             /* Put especificar in otros */
             var esp = $('div.zoe_especificar input');
-            $('th.zoe_otros,div.zoe_otros').prepend(function(index, item) {
+            $('th.zoe_otros,div.zoe_otros>div.zoe_label').prepend(function(index, item) {
                 return esp[index];
             });
-            $('th.zoe_otros p,div.zoe_otros>p').hide();
+            $('th.zoe_otros p,div.zoe_otros>p,div.zoe_otros>div>p').hide();
             $('div.zoe_especificar>div>p').hide();
             $('th.zoe_otros input, div.zoe_otros input[type="text"]').attr('placeholder','Especifique otra opción.');
             $('th.zoe_otros input').css('width','95%');
