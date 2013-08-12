@@ -34,6 +34,9 @@ function openerp_zondaggio_widgets(instance, module){
             });
         },
         dynamicCss:function() {
+            /* Acomodar tabla P2 */
+            $('table.zoe:first').prepend('<tr><td></td><td colspan="10" class="zoe_arrow"><div class="zoe_left_arrow">Nada relevante</div><div class="zoe_right_arrow">Muy relevante</div></td></tr>')
+	    $('')
 	    /* Set limits to variables */
             $('input.type_year').numeric({ decimal : false, negative : false }, function() { alert("Solo años"); this.value = ""; this.focus(); });
             $('input.type_integer').numeric({ decimal : false, negative : false }, function() { alert("Solo números enteros"); this.value = ""; this.focus(); });
