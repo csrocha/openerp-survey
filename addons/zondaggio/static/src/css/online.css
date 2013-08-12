@@ -45,9 +45,10 @@ div.zoe_zondaggio th {
     padding-bottom: 5px;
 }
 
-div.zoe_zondaggio tr:first th p {
+div.zoe_zondaggio th p {
     text-align:center;
 }
+
 
 div.zoe_progressbar a.ui-slider-handle {
 	margin-top:5px;
@@ -539,3 +540,57 @@ div.zoe_footer p {
              filter:  progid:DXImageTransform.Microsoft.BasicImage(rotation=0.5);  /* IE6,IE7 */
          -ms-filter: "progid:DXImageTransform.Microsoft.BasicImage(rotation=0.5)"; /* IE8 */
 }
+.zoe_arrow {
+	background-image:url(/zondaggio/static/src/img/double_arrow_line.png);
+	background-repeat: repeat-x;
+	background-position: 0px 7px;
+}
+
+.zoe_left_arrow {
+	float: left;
+	padding: 0px;
+	background-color: white;
+	margin-top: 9px;
+	padding-left: 7px;
+}
+
+.zoe_left_arrow:after {
+	content:" ";
+	background-image:url(/zondaggio/static/src/img/double_arrow.png);
+	background-repeat: no-repeat;
+	width: 60px;
+	height: 22px;
+	position: relative;
+	float: right;
+	top: -7px;
+	left: 5px;
+}
+
+.zoe_right_arrow {
+	float: right;
+	padding: 0px;
+	background-color: white;
+	margin-top: 9px;
+	padding-right: 7px;
+}
+
+.zoe_right_arrow:before {
+	content:" ";
+	background-image:url(/zondaggio/static/src/img/double_arrow.png);
+	background-repeat: no-repeat;
+	background-position: -202px 0px;
+	width: 60px;
+	height: 22px;
+	position: relative;
+	float: left;
+	top: -7px;
+	left: -5px;
+}
+
+.zoe_arrow_middle {
+	background-image:url(/zondaggio/static/src/img/double_arrow.png);
+	background-repeat: no-repeat;
+	background-position: -202px 0px;
+}
+
+
