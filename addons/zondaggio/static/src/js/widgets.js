@@ -34,6 +34,11 @@ function openerp_zondaggio_widgets(instance, module){
             });
         },
         dynamicCss:function() {
+	    /* Set limits to variables */
+            $('input.type_year').numeric({ decimal : false, negative : false }, function() { alert("Solo años"); this.value = ""; this.focus(); });
+            $('input.type_integer').numeric({ decimal : false, negative : false }, function() { alert("Solo números enteros"); this.value = ""; this.focus(); });
+            $('input.type_porcentual').numeric({ decimal : ',', negative : false }, function() { alert("Solo números reales"); this.value = ""; this.focus(); });
+	    
             /* Remove inner labels for tables */
             // var divs = $('div.group .zoe_selectone:not(:first-child) .zoe_col_label');
             var divs = $('div.group .zoe_selectone+.zoe_selectone:not(.zoe_section_description) .zoe_col_label');
@@ -135,6 +140,21 @@ function openerp_zondaggio_widgets(instance, module){
                 return "<div></div>";
             else
                 return this.questionnaire.get('survey').footer;
+        },
+	get_welcome:function() {
+            if (this.questionnaire.get('survey') == null)
+                return "<div></div>";
+            else {
+		var state=this.questionnaire.get('questionnaire').state;
+		if (state=='open') {
+                    return this.questionnaire.get('survey').closed_message;
+		} else {
+                    return this.questionnaire.get('survey').closed_message;
+		}
+	    }
+        },
+	get_goodbye:function() {
+	    return "<div></div>";
         },
         get_description:function() {
             if (this.questionnaire.get('survey') == null) {
@@ -469,6 +489,15 @@ function openerp_zondaggio_widgets(instance, module){
                     taken.push(input.value);
                 }
             });
+	    /* P14: suma */
+	    var s = 0;
+	    S = $('.inp_P14_1_AL31,.inp_P14_2_AL31,.inp_P14_3_AL31,.inp_P14_4_AL31');
+	    S.each(function(index, item){s = s + item.valueAsNumber;});
+	    $('.inp_P14_5_AL31')[0].value = s;
+	    var s = 0;
+	    S = $('.inp_P14_1_ACT,.inp_P14_2_ACT,.inp_P14_3_ACT,.inp_P14_4_ACT');
+	    S.each(function(index, item){s = s + item.valueAsNumber;});
+	    $('.inp_P14_5_ACT')[0].value = s;
         },
     })
 

@@ -64,9 +64,7 @@
         'static/src/css/*.css',
     ],
     'js': [
-        'static/src/js/models.js',
-        'static/src/js/widgets.js',
-        'static/src/js/main.js',
+        'static/src/js/*.js',
     ],
     'qweb': [
         'static/src/xml/*.xml',

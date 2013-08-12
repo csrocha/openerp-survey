@@ -51,13 +51,13 @@ function openerp_zondaggio_models(instance, module){
                     self.set('classes', map_classes);
                     self.set('widgets', map_widgets);
             
-                    return self.fetch('sondaggio.questionnaire',['name','description','survey_id'],[['id','=',self.active_id]]);        
+                    return self.fetch('sondaggio.questionnaire',['name','description','survey_id','state'],[['id','=',self.active_id]]);        
                 }).then(function(questionnaires){
                     self.set('questionnaire',questionnaires[0]);
                     
                     self.survey_id = questionnaires[0].survey_id[0];
 
-                    return self.fetch('sondaggio.survey',['name','description','header','footer'],[['id','=',self.survey_id]]);
+                    return self.fetch('sondaggio.survey',['name','description','header','footer','closed_message','last_message'],[['id','=',self.survey_id]]);
                 }).then(function(surveys){
                     self.set('survey',surveys[0]);
 

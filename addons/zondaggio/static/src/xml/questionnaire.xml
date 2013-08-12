@@ -26,6 +26,12 @@
         </div>
         <div class="zoe_page">
         </div>
+        <div class="zoe_welcome zoe_hidden">
+            <t t-raw="widget.get_welcome()"/>
+        </div>
+        <div class="zoe_goodby zoe_hidden">
+            <t t-raw="widget.get_goodbye()"/>
+        </div>
         <div class="zoe_footer">
             <table width="100%">
                 <tr>
@@ -158,11 +164,11 @@
         </t>
         <input t-if="node and node.format_id[1]=='Integer'"
             type="number"
-            t-attf-class="inp_#{node.variable_name} var_#{node.variable_name}"
+            t-attf-class="inp_#{node.variable_name} var_#{node.variable_name} type_integer"
             />
         <input t-if="node and node.format_id[1]=='Char'"
             type="text"
-            t-attf-class="inp_#{node.variable_name} var_#{node.variable_name}"
+            t-attf-class="inp_#{node.variable_name} var_#{node.variable_name} type_char"
             />
     </t>
 
@@ -213,7 +219,7 @@
 	</div>
 	<div class="zoe_input">
 		<input type="text"
-		    t-attf-class="inp_#{n.variable_name} var_#{n.variable_name}"
+		    t-attf-class="inp_#{n.variable_name} var_#{n.variable_name} type_char"
 		    />
 	</div>
         <t t-call="z_node_iterate">
@@ -230,7 +236,7 @@
 	</div>
 	<div class="zoe_input">
 		<input type="number"
-		    t-attf-class="inp_#{n.variable_name} var_#{n.variable_name}"
+		    t-attf-class="inp_#{n.variable_name} var_#{n.variable_name} type_integer"
 		    />
 	</div>
         <t t-call="z_node_iterate">
@@ -248,7 +254,7 @@
 	<div class="zoe_input">
 		<input type="number"
 		    min="0" max="100"
-		    t-attf-class="inp_#{n.variable_name} var_#{n.variable_name}"
+		    t-attf-class="inp_#{n.variable_name} var_#{n.variable_name} type_porcentual"
 		    />%
 	</div>
         <t t-call="z_node_iterate">
@@ -265,7 +271,7 @@
 	</div>
 	<div class="zoe_input">
 		<input type="number"
-		    t-attf-class="inp_#{n.variable_name} var_#{n.variable_name}"
+		    t-attf-class="inp_#{n.variable_name} var_#{n.variable_name} type_year"
 		    placeholder="0"
 		    />
 	</div>
@@ -283,7 +289,7 @@
 	</div>
 	<div class="zoe_input">
 		<textarea
-		    t-attf-class="inp_#{n.variable_name} var_#{n.variable_name}"
+		    t-attf-class="inp_#{n.variable_name} var_#{n.variable_name} type_text"
 		    rows="10" cols="40"
 		    />
 	</div>
@@ -301,7 +307,7 @@
 	</div>
 	<div class="zoe_input">
 		<input type="checkbox"
-		    t-attf-class="inp_#{n.variable_name} var_#{n.variable_name}"
+		    t-attf-class="inp_#{n.variable_name} var_#{n.variable_name} type_checkbox"
 		    />
 	</div>
         <t t-call="z_node_iterate">
@@ -319,7 +325,7 @@
         <t t-if="nodes[node].classes.indexOf('zoe_transpose') lt 0">
             <t t-raw="n.question"/>
             <input type="hidden"
-                t-attf-class="inp_#{inp_class} var_#{n.variable_name}"
+                t-attf-class="inp_#{inp_class} var_#{n.variable_name} type_selectone"
                 />
             <table>
                 <tr>
