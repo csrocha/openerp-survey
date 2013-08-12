@@ -69,7 +69,7 @@ class communication_batch(osv.osv):
 
 			login = comm.login_user_id.login
 			password = comm.login_user_id.password
-                        base_url += '/login?db=%s&login=%s&key=%s#action=questionnaire.ui&active_id=%s'%(cr.dbname,login,password,questionnaire.id.id)
+                        base_url = 'http://fop.mierp.net/login?db=%s&login=%s&key=%s#action=questionnaire.ui&active_id=%s'%(cr.dbname,login,password,questionnaire.id.id)
                     _logger.info('Base URL: %s' % base_url)
 
                     parameter_id = parameter_obj.search(cr, uid, [('questionnaire_id','=',questionnaire.id.id),('name','=',email_parm)])
