@@ -67,19 +67,9 @@ class communication_batch(osv.osv):
                     base_url = self.pool.get('ir.config_parameter').get_param(cr, uid, 'web.base.url', default='', context=context)
                     if base_url:
 
-                        # base_url += '/login?db=%(dbname)s&login=%(login)s&key=%(password)s'
 			login = comm.login_user_id.login
 			password = comm.login_user_id.password
-                        base_url += '/login?db=%%(%s)s&login=%%(%s)s&key=%%(%s)s'%(cr.dbname,login,password)
-                        extra = context and context.get('share_url_template_extra_arguments')
-                        if extra:
-                                base_url += '&' + '&'.join('%s=%%(%s)s' % (x,x) for x in extra)
-                        hash_ = context and context.get('share_url_template_hash_arguments')
-                        if hash_:
-                                base_url += '#' + '&'.join('%s=%%(%s)s' % (x,x) for x in hash_)
-                    else:
-                            base_url = ''
-
+                        base_url += '/login?db=%s&login=%s&key=%s#action=questionnaire.ui&active_id=%s'%(cr.dbname,login,password,questionnaire.id)
 
                     parameter_id = parameter_obj.search(cr, uid, [('questionnaire_id','=',questionnaire.id.id),('name','=',email_parm)])
                     if parameter_id:
