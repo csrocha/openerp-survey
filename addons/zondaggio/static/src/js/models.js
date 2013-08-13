@@ -10,6 +10,7 @@ function openerp_zondaggio_models(instance, module){
             this.ready = $.Deferred();                          // used to notify the GUI that the PosModel has loaded all resources
             this.flush_mutex = new $.Mutex();                   // used to make sure the orders are sent to the server once at time
             this.active_id = session.questionnaire_context.active_id || session.questionnaire_params.active_id;
+            this.active_code = session.questionnaire_context.active_code || session.questionnaire_params.active_code;
 
             if (this.active_id == null) {
                 return self.ready.reject();
@@ -51,7 +52,9 @@ function openerp_zondaggio_models(instance, module){
                     self.set('classes', map_classes);
                     self.set('widgets', map_widgets);
             
-                    return self.fetch('sondaggio.questionnaire',['name','description','survey_id','state'],[['id','=',self.active_id]]);        
+                    return self.fetch('sondaggio.questionnaire',
+			    ['name','description','survey_id','state','code'],
+			    [['id','=',self.active_id],['code','=',self.active_code]]);
                 }).then(function(questionnaires){
                     self.set('questionnaire',questionnaires[0]);
                     
@@ -196,7 +199,7 @@ function openerp_zondaggio_models(instance, module){
             return new instance.web.Model('sondaggio.questionnaire').call('write', [[this.active_id], data]);
         },
         send_signal:function(signal){
-            return new instance.web.Model('sondaggio.questionnaire').call('_workflow_signal', [[this.active_id], signal]);
+            /* return new instance.web.Model('sondaggio.questionnaire').call('exec_workflow_cr', [[this.active_id], signal]); */
         },
     });
 };

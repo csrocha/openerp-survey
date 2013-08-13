@@ -109,6 +109,10 @@
                             />
                         <field name="css"
                             />
+                        <field name="closed_message"
+                            />
+                        <field name="last_message"
+                            />
                     <field name="question_ids"
                             />
                     <field name="respondent_ids"

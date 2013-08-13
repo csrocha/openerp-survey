@@ -88,8 +88,6 @@ class communication_batch(osv.osv):
     
         return 0
 
-
-
 communication_batch()
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

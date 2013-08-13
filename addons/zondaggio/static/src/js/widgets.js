@@ -287,7 +287,7 @@ function openerp_zondaggio_widgets(instance, module){
 	do_done:function(e) {
             var button = e.currentTarget;
             this.save_data();
-            /* this.questionnaire.send_signal('end'); */
+            this.questionnaire.send_signal('end');
 	},
         go_prev:function(actual) {
             var page = $(_.str.sprintf('.zoe_page:eq(%s)', this.actual_page));
