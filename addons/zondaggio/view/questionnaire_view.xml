@@ -121,7 +121,8 @@
                     </header>
                     <sheet string="questionnaire">
                      <group id="main">
-                         <field name="name" readonly="0" string="Codigo de Empresa" attrs="{'readonly':['|',('actual_page','!=',1),('state','!=','draft')]}"/>
+                         <field name="name" readonly="0" string="Empresa" attrs="{'readonly':['|',('actual_page','!=',1),('state','!=','draft')]}"/>
+                         <field name="code" readonly="0" string="Codigo de Acceso" attrs="{'readonly':['|',('actual_page','!=',1),('state','!=','draft')]}"/>
                          <field name="survey_id" readonly="0" attrs="{'readonly':['|',('actual_page','!=',1),('state','!=','draft')]}"/>
                          <field name="parameter_ids" type="xml" states="draft">
                              <tree editable="bottom">
@@ -130,6 +131,7 @@
                              </tree>
                          </field>
                          <field name="actual_page" readonly="0" string="Page" states="in_process"/>
+                         <field name="url" />
                      </group>
                      <group col="3" colspan="4" id="top">
                          <button name="prev_page" string="Prev Page" type="object" states="in_process,in_coding,validated"/>

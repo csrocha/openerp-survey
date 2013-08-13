@@ -60,6 +60,7 @@ class questionnaire(osv.osv):
         'name': fields.char(string='Name', readonly=True),
         'respondent_id': fields.many2one('res.partner', string='Respondent', readonly=True),
         'pollster_id': fields.many2one('res.users', string='Pollster', readonly=True),
+        'code': fields.char(string='Code', readonly=True),
         'state': fields.selection(_states_, "State"),
         'survey_id': fields.many2one('sondaggio.survey', string='Survey', readonly=True, ondelete='cascade', required=True), 
         'respondent_code': fields.related(
@@ -78,6 +79,7 @@ class questionnaire(osv.osv):
     _defaults = {
         'state': 'draft',
         'respondent_id': lambda self, cr, uid, context=None: context and context.get('respondent_id', False),
+        'code': lambda self, cr, uid, context=None: context and context.get('code', False),
         'pollster_id': lambda self, cr, uid, context=None: context and context.get('pollster_id', False),
         'survey_id': lambda self, cr, uid, context=None: context and context.get('survey_id', False),
     }

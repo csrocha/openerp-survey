@@ -239,8 +239,22 @@ class questionnaire(osv.osv):
     _name = 'sondaggio.questionnaire'
     _inherit = [ _name ]
 
+    def get_url(self, cr, uid, ids, field_name, arg, context=None):
+        user_obj = self.pool.get('res.users')    
+        user_id = context.get('user_id', uid)
+        user = user_obj.browse(cr, uid, user_id, context=context)
+        login = user.login
+        password = user.password
+
+        r = {}
+        base_url = self.pool.get('ir.config_parameter').get_param(cr, uid, 'web.base.url', default='', context=context)
+        for questionnaire in self.browse(cr, uid, ids, context=context):
+            r[questionnaire.id] = '%s/login?db=%s&login=%s&key=%s#action=questionnaire.ui&active_id=%s&active_code=%s'%(base_url, cr.dbname,login,password,questionnaire.id,questionnaire.code)
+        return r
+
     _columns = {
         'actual_page': fields.integer('Actual Page', readonly=True),
+        'url': fields.function(get_url, method=True, string='URL', readonly=True, type='char'),
     }
 
     _defaults = {

@@ -29,6 +29,7 @@ import logging
 import csv
 import StringIO
 import base64
+import hashlib
 
 _logger = logging.getLogger(__name__)
 
@@ -77,10 +78,14 @@ class questionnaire_import(osv.osv_memory):
             fields = rows.next()
             column_name = w.selected_column_id.name
             survey_id = w.survey_id.id
+            crc = None
             for r in rows:
                 rdict = dict(zip(fields, r))
-                dwrite = { 
+                m = hashlib.md5()
+                m.update(rdict[column_name])
+                dwrite = {
                     'name': rdict[column_name],
+                    'code': m.hexdigest(),
                     'survey_id': survey_id,
                     'parameter_ids': [ (0,0,{ 'name': k, 'value': v }) for k, v in rdict.items() if k != column_name ],
                 }

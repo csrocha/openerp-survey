@@ -66,6 +66,8 @@ class survey(osv.osv):
         'header': fields.html(string='Header', readonly=True, states={'draft':[('readonly',False)]}),
         'footer': fields.html(string='Footer', readonly=True, states={'draft':[('readonly',False)]}),
         'css': fields.text(string='css', readonly=True),
+        'closed_message': fields.html(string='closed_message', readonly=True),
+        'last_message': fields.html(string='last_message', readonly=True),
         'state': fields.selection(_states_, "State"),
         'question_ids': fields.one2many('sondaggio.node', 'survey_id', string='Questions', readonly=True, states={'draft':[('readonly',False)]}), 
         'questionnaire_ids': fields.one2many('sondaggio.questionnaire', 'survey_id', string='Answers', readonly=True), 

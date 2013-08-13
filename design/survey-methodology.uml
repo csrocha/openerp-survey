@@ -102,7 +102,7 @@
 			</model>
 		</userDefined>
 </profile>
-<XMI xmi.version = '1.2' xmlns:UML = 'org.omg.xmi.namespace.UML' timestamp = 'Sun Aug 11 22:51:28 ART 2013'>
+<XMI xmi.version = '1.2' xmlns:UML = 'org.omg.xmi.namespace.UML' timestamp = 'Mon Aug 12 22:17:14 ART 2013'>
   <XMI.header>    <XMI.documentation>
       <XMI.exporter>ArgoUML (using Netbeans XMI Writer version 1.0)</XMI.exporter>
       <XMI.exporterVersion>0.34(6) revised on $Date: 2010-01-11 22:20:14 +0100 (Mon, 11 Jan 2010) $ </XMI.exporterVersion>
@@ -3745,6 +3745,37 @@ Registry in the log start action.</UML:TaggedValue.dataValue>
                       name = 'return' isSpecification = 'false' kind = 'return'/>
                   </UML:BehavioralFeature.parameter>
                 </UML:Operation>
+                <UML:Attribute xmi.id = '127-0-1-1-5d851c08:140753d03ae:-8000:0000000000001014'
+                  name = 'code' visibility = 'public' isSpecification = 'false' ownerScope = 'instance'
+                  changeability = 'changeable' targetScope = 'instance'>
+                  <UML:StructuralFeature.multiplicity>
+                    <UML:Multiplicity xmi.id = '127-0-1-1-5d851c08:140753d03ae:-8000:0000000000001015'>
+                      <UML:Multiplicity.range>
+                        <UML:MultiplicityRange xmi.id = '127-0-1-1-5d851c08:140753d03ae:-8000:0000000000001016'
+                          lower = '1' upper = '1'/>
+                      </UML:Multiplicity.range>
+                    </UML:Multiplicity>
+                  </UML:StructuralFeature.multiplicity>
+                  <UML:ModelElement.stereotype>
+                    <UML:Stereotype href = 'http://argouml.org/user-profiles/OpenObjectStadardElements.xmi#127-0-1-1--66344949:13b09938a14:-8000:00000000000011E5'/>
+                    <UML:Stereotype href = 'http://argouml.org/user-profiles/OpenObjectStadardElements.xmi#127-0-1-1--66344949:13b09938a14:-8000:00000000000011E6'/>
+                    <UML:Stereotype href = 'http://argouml.org/user-profiles/OpenObjectStadardElements.xmi#127-0-1-1--66344949:13b09938a14:-8000:0000000000000BA1'/>
+                    <UML:Stereotype href = 'http://argouml.org/user-profiles/OpenObjectStadardElements.xmi#127-0-1-1-29a13c2b:13cb7762c9e:-8000:0000000000000EE1'/>
+                    <UML:Stereotype href = 'http://argouml.org/user-profiles/OpenObjectStadardElements.xmi#127-0-1-1--7f493fcf:13b6d9e307b:-8000:0000000000000F56'/>
+                  </UML:ModelElement.stereotype>
+                  <UML:ModelElement.taggedValue>
+                    <UML:TaggedValue xmi.id = '127-0-1-1-5d851c08:140753d03ae:-8000:0000000000001017'
+                      isSpecification = 'false'>
+                      <UML:TaggedValue.dataValue>Code</UML:TaggedValue.dataValue>
+                      <UML:TaggedValue.type>
+                        <UML:TagDefinition href = 'http://argouml.org/user-profiles/OpenObjectStadardElements.xmi#127-0-1-1-2b464aa4:13b09d81b72:-8000:0000000000001573'/>
+                      </UML:TaggedValue.type>
+                    </UML:TaggedValue>
+                  </UML:ModelElement.taggedValue>
+                  <UML:StructuralFeature.type>
+                    <UML:DataType href = 'http://argouml.org/user-profiles/OpenObjectStadardElements.xmi#127-0-1-1--66344949:13b09938a14:-8000:0000000000000B9C'/>
+                  </UML:StructuralFeature.type>
+                </UML:Attribute>
               </UML:Classifier.feature>
             </UML:Class>
             <UML:Generalization xmi.id = '127-0-1-1--2a53c790:13da6b1b735:-8000:0000000000002244'
@@ -10390,7 +10421,7 @@ Registry in the log start action.</UML:TaggedValue.dataValue>
       strokecolor="black"
     />
     <group name="Fig31.4"
-         description="org.argouml.uml.diagram.ui.FigAttributesCompartment[441, 808, 429, 87]"
+         description="org.argouml.uml.diagram.ui.FigAttributesCompartment[441, 808, 429, 95]"
          href="127-0-1-1--4f3fef17:13d47b31775:-8000:0000000000000F17"
          fill="0"
          fillcolor="white"
@@ -10404,7 +10435,7 @@ Registry in the log start action.</UML:TaggedValue.dataValue>
         x="441"
         y="808"
         width="429"
-        height="87"
+        height="95"
         fill="0"
         fillcolor="white"
         stroke="0"
@@ -10446,7 +10477,7 @@ Registry in the log start action.</UML:TaggedValue.dataValue>
         x="441"
         y="840"
         width="429"
-        height="22"
+        height="16"
         fill="0"
         fillcolor="white"
         stroke="0"
@@ -10458,10 +10489,26 @@ Registry in the log start action.</UML:TaggedValue.dataValue>
         textsize="12"
         justification="Left"
       >&lt;&lt;form, tree, readonly, context, search&gt;&gt; pollster_id : users</text>
+      <text name="Fig31.4.4"
+        x="441"
+        y="856"
+        width="429"
+        height="22"
+        fill="0"
+        fillcolor="white"
+        stroke="0"
+        strokecolor="black"
+        textcolor="black"
+        font="Dialog"
+        italic="false"
+        bold="false"
+        textsize="12"
+        justification="Left"
+      >&lt;&lt;form, tree, readonly, context, search&gt;&gt; code : Char</text>
     </group>
     <rectangle name="Fig31.5"
       x="440"
-      y="895"
+      y="903"
       width="431"
       height="1"
       fill="1"
@@ -10470,7 +10517,7 @@ Registry in the log start action.</UML:TaggedValue.dataValue>
       strokecolor="black"
     />
     <group name="Fig31.6"
-         description="org.argouml.uml.diagram.ui.FigOperationsCompartment[441, 896, 429, 167]"
+         description="org.argouml.uml.diagram.ui.FigOperationsCompartment[441, 904, 429, 159]"
          href="127-0-1-1--4f3fef17:13d47b31775:-8000:0000000000000F17"
          fill="0"
          fillcolor="white"
@@ -10482,9 +10529,9 @@ Registry in the log start action.</UML:TaggedValue.dataValue>
       
       <rectangle name="Fig31.6.0"
         x="441"
-        y="896"
+        y="904"
         width="429"
-        height="167"
+        height="159"
         fill="0"
         fillcolor="white"
         stroke="0"
@@ -10492,7 +10539,7 @@ Registry in the log start action.</UML:TaggedValue.dataValue>
       />
       <text name="Fig31.6.1"
         x="441"
-        y="896"
+        y="904"
         width="429"
         height="16"
         fill="0"
@@ -10508,7 +10555,7 @@ Registry in the log start action.</UML:TaggedValue.dataValue>
       >start()</text>
       <text name="Fig31.6.2"
         x="441"
-        y="912"
+        y="920"
         width="429"
         height="16"
         fill="0"
@@ -10524,7 +10571,7 @@ Registry in the log start action.</UML:TaggedValue.dataValue>
       >on_open_ui()</text>
       <text name="Fig31.6.3"
         x="441"
-        y="928"
+        y="936"
         width="429"
         height="16"
         fill="0"
@@ -10540,7 +10587,7 @@ Registry in the log start action.</UML:TaggedValue.dataValue>
       >next_page()</text>
       <text name="Fig31.6.4"
         x="441"
-        y="944"
+        y="952"
         width="429"
         height="16"
         fill="0"
@@ -10556,7 +10603,7 @@ Registry in the log start action.</UML:TaggedValue.dataValue>
       >refresh_page()</text>
       <text name="Fig31.6.5"
         x="441"
-        y="960"
+        y="968"
         width="429"
         height="16"
         fill="0"
@@ -10572,7 +10619,7 @@ Registry in the log start action.</UML:TaggedValue.dataValue>
       >fields_view_get_callcenter()</text>
       <text name="Fig31.6.6"
         x="441"
-        y="976"
+        y="984"
         width="429"
         height="16"
         fill="0"
@@ -10588,7 +10635,7 @@ Registry in the log start action.</UML:TaggedValue.dataValue>
       >fields_view_get_dataentry()</text>
       <text name="Fig31.6.7"
         x="441"
-        y="992"
+        y="1000"
         width="429"
         height="16"
         fill="0"
@@ -10604,7 +10651,7 @@ Registry in the log start action.</UML:TaggedValue.dataValue>
       >fields_view_get_online()</text>
       <text name="Fig31.6.8"
         x="441"
-        y="1008"
+        y="1016"
         width="429"
         height="22"
         fill="0"
@@ -27614,7 +27661,7 @@ Registry in the log start action.</UML:TaggedValue.dataValue>
       strokecolor="black"
     />
     <group name="Fig5.4"
-         description="org.argouml.uml.diagram.ui.FigAttributesCompartment[113, 472, 429, 87]"
+         description="org.argouml.uml.diagram.ui.FigAttributesCompartment[113, 472, 429, 95]"
          href="127-0-1-1--4f3fef17:13d47b31775:-8000:0000000000000F17"
          fill="0"
          fillcolor="white"
@@ -27628,7 +27675,7 @@ Registry in the log start action.</UML:TaggedValue.dataValue>
         x="113"
         y="472"
         width="429"
-        height="87"
+        height="95"
         fill="0"
         fillcolor="white"
         stroke="0"
@@ -27670,7 +27717,7 @@ Registry in the log start action.</UML:TaggedValue.dataValue>
         x="113"
         y="504"
         width="429"
-        height="22"
+        height="16"
         fill="0"
         fillcolor="white"
         stroke="0"
@@ -27682,10 +27729,26 @@ Registry in the log start action.</UML:TaggedValue.dataValue>
         textsize="12"
         justification="Left"
       >&lt;&lt;form, tree, readonly, context, search&gt;&gt; pollster_id : users</text>
+      <text name="Fig5.4.4"
+        x="113"
+        y="520"
+        width="429"
+        height="22"
+        fill="0"
+        fillcolor="white"
+        stroke="0"
+        strokecolor="black"
+        textcolor="black"
+        font="Dialog"
+        italic="false"
+        bold="false"
+        textsize="12"
+        justification="Left"
+      >&lt;&lt;form, tree, readonly, context, search&gt;&gt; code : Char</text>
     </group>
     <rectangle name="Fig5.5"
       x="112"
-      y="559"
+      y="567"
       width="431"
       height="1"
       fill="1"
@@ -27694,7 +27757,7 @@ Registry in the log start action.</UML:TaggedValue.dataValue>
       strokecolor="black"
     />
     <group name="Fig5.6"
-         description="org.argouml.uml.diagram.ui.FigOperationsCompartment[113, 560, 429, 167]"
+         description="org.argouml.uml.diagram.ui.FigOperationsCompartment[113, 568, 429, 159]"
          href="127-0-1-1--4f3fef17:13d47b31775:-8000:0000000000000F17"
          fill="0"
          fillcolor="white"
@@ -27706,9 +27769,9 @@ Registry in the log start action.</UML:TaggedValue.dataValue>
       
       <rectangle name="Fig5.6.0"
         x="113"
-        y="560"
+        y="568"
         width="429"
-        height="167"
+        height="159"
         fill="0"
         fillcolor="white"
         stroke="0"
@@ -27716,7 +27779,7 @@ Registry in the log start action.</UML:TaggedValue.dataValue>
       />
       <text name="Fig5.6.1"
         x="113"
-        y="560"
+        y="568"
         width="429"
         height="16"
         fill="0"
@@ -27732,7 +27795,7 @@ Registry in the log start action.</UML:TaggedValue.dataValue>
       >start()</text>
       <text name="Fig5.6.2"
         x="113"
-        y="576"
+        y="584"
         width="429"
         height="16"
         fill="0"
@@ -27748,7 +27811,7 @@ Registry in the log start action.</UML:TaggedValue.dataValue>
       >on_open_ui()</text>
       <text name="Fig5.6.3"
         x="113"
-        y="592"
+        y="600"
         width="429"
         height="16"
         fill="0"
@@ -27764,7 +27827,7 @@ Registry in the log start action.</UML:TaggedValue.dataValue>
       >next_page()</text>
       <text name="Fig5.6.4"
         x="113"
-        y="608"
+        y="616"
         width="429"
         height="16"
         fill="0"
@@ -27780,7 +27843,7 @@ Registry in the log start action.</UML:TaggedValue.dataValue>
       >refresh_page()</text>
       <text name="Fig5.6.5"
         x="113"
-        y="624"
+        y="632"
         width="429"
         height="16"
         fill="0"
@@ -27796,7 +27859,7 @@ Registry in the log start action.</UML:TaggedValue.dataValue>
       >fields_view_get_callcenter()</text>
       <text name="Fig5.6.6"
         x="113"
-        y="640"
+        y="648"
         width="429"
         height="16"
         fill="0"
@@ -27812,7 +27875,7 @@ Registry in the log start action.</UML:TaggedValue.dataValue>
       >fields_view_get_dataentry()</text>
       <text name="Fig5.6.7"
         x="113"
-        y="656"
+        y="664"
         width="429"
         height="16"
         fill="0"
@@ -27828,7 +27891,7 @@ Registry in the log start action.</UML:TaggedValue.dataValue>
       >fields_view_get_online()</text>
       <text name="Fig5.6.8"
         x="113"
-        y="672"
+        y="680"
         width="429"
         height="22"
         fill="0"

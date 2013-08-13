@@ -72,6 +72,8 @@ class communication_batch(osv.osv):
                         base_url = 'http://fop.mierp.net/login?db=%s&login=%s&key=%s#action=questionnaire.ui&active_id=%s'%(cr.dbname,login,password,questionnaire.id.id)
                     _logger.info('Base URL: %s' % base_url)
 
+                    text_url = "<a href=\"%s\">%s</a>" % (base_url, base_url)
+
                     parameter_id = parameter_obj.search(cr, uid, [('questionnaire_id','=',questionnaire.id.id),('name','=',email_parm)])
                     if parameter_id:
                             data = parameter_obj.read(cr,uid,parameter_id,['value'])
@@ -80,13 +82,11 @@ class communication_batch(osv.osv):
                                     'email_from': 'csrocha@gmail.com',
                                     'email_to': email_value,
                                     'subject': email_subject,
-                                    'body_html': '<pre>%s</pre><p>%s</p>' % (email_body,base_url)}, context=context))
+                                    'body_html': '<pre>%s</pre><p>%s</p>' % (email_body,text_url)}, context=context))
         mail_mail.send(cr, uid, mail_ids, context=context)
         _logger.info('%d Communication(s) sent.', len(mail_ids))
     
         return 0
-
-
 
 communication_batch()
 

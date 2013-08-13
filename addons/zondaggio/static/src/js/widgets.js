@@ -287,7 +287,7 @@ function openerp_zondaggio_widgets(instance, module){
 	do_done:function(e) {
             var button = e.currentTarget;
             this.save_data();
-            /* this.questionnaire.send_signal('end'); */
+            this.questionnaire.send_signal('end');
 	},
         go_prev:function(actual) {
             var page = $(_.str.sprintf('.zoe_page:eq(%s)', this.actual_page));
@@ -449,7 +449,7 @@ function openerp_zondaggio_widgets(instance, module){
             var self = this;
             /* P15 */
             var cant_P15_NO = $("input[class^='inp_P15_2011_'][value='NO']").length;
-            if (cant_P15_NO == 8) {
+            if (cant_P15_NO == 4) {
                 var last_P15_idx = $("input").index($("input[class^='inp_P15_']:last"))+2; // Ignore 2 checkboxs
                 var first_P24_idx = $("input").index($("input[class^='inp_P24_']:first"));
                 $("input").each(function(index, value) {
