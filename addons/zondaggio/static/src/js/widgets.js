@@ -184,7 +184,7 @@ function openerp_zondaggio_widgets(instance, module){
             var nodes=this.questionnaire.get('node_dict');
             for (item in items) {
                 var node = nodes[items[item]];
-                if ((eq_type.indexOf(node.type) >= 0) || !(neq_type.indexOf(node.type) >= 0 )) {
+                if (node && ((eq_type.indexOf(node.type) >= 0) || !(neq_type.indexOf(node.type) >= 0 ))) {
                     r.push(items[item]);
                 }
             };
@@ -483,10 +483,10 @@ function openerp_zondaggio_widgets(instance, module){
                 por_input.css({borderColor:'lightgray'});
             };
             /* P26: No puede asignarse una misma opción a cada afirmación */
-            var opt_input = $('.inp_P26_1,.inp_P26_2,.inp_P26_3');
+            var opt_input = $(".inp_P26_1[type='hidden'],.inp_P26_2[type='hidden'],.inp_P26_3[type='hidden']");
             var taken = [];
-            por_input.each(function(index, input) {
-                if (input.value in taken) {
+            opt_input.each(function(index, input) {
+                if (taken.indexOf(input.value)>=0) {
                     self.do_warn('Invalida la Pregunta 26', 'Por cada afirmación debe asignar una prioridad diferente');
                 } else {
                     taken.push(input.value);

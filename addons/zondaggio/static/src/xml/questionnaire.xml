@@ -158,7 +158,7 @@
             <input t-if="parent.format_id[1]=='Select one'"
                 type="radio"
                 t-attf-name="inp_#{parent.variable_name}"
-                t-attf-class="inp_#{node.variable_name} var_#{node.variable_name}"
+                t-attf-class="inp_#{parent.variable_name} var_#{parent.variable_name}"
                 t-att-alt="node.name"
                 />
         </t>
