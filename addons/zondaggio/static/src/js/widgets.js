@@ -462,8 +462,8 @@ function openerp_zondaggio_widgets(instance, module){
             var por_input = $(".inp_P10_2011,.inp_P10_ACT,.inp_P16_1,.inp_P16_2,.inp_P23_1,.inp_P23_2,.inp_P23_3,.inp_P23_4,.inp_P23_5,.inp_P23_6,.inp_P23_7,.inp_P23_8,.inp_P23_9");
             por_input.each(function(index, input) {
                 if (input.value != '' && !(0 <= input.valueAsNumber && input.valueAsNumber <= 100)) {
-                    self.do_warn('A ingresa un porcentaje invalido.', 'El valor debe estar entre 0 y 100.');
-                    input.style.borderColor = 'red';
+                    // self.do_warn('A ingresa un porcentaje invalido.', 'El valor debe estar entre 0 y 100.');
+                    // input.style.borderColor = 'red';
                 } else {
                     input.style.borderColor = 'lightgray';
                 };
