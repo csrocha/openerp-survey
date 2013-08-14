@@ -1,0 +1,114 @@
+/**/
+
+.zoe_vicff_a_1 .group .zoe_text {
+	display: block;
+	float: left;
+	width: 100%;
+	height: 150px;
+	margin: 5px 0px 15px 0px;
+	padding: 0px;
+}
+
+.zoe_vicff_a_1 .group .zoe_text .zoe_label {
+	display: block;
+	float: left;
+	width: 100%;
+	margin: 0px;
+	padding: 0px;
+}
+
+.zoe_vicff_a_1 .group .zoe_text .zoe_label p {
+	display: block;
+	float: left;
+	width: 100%;
+	margin: 0px;
+	padding: 0px;
+	text-align:left;
+}
+
+.zoe_vicff_a_1 .group .zoe_text .zoe_input {
+	display: block;
+	float: left;
+	width: 100%;
+	margin: 0px;
+	padding: 0px;
+}
+
+.zoe_vicff_a_1 .group .zoe_text .zoe_input textarea {
+	width: 100%;
+	height: 100px;
+}
+
+/**/
+
+.zoe_vicff_a_1 .group .zoe_checkbox {
+	display: block;
+	float: left;
+	width: 100%;
+	margin: 5px 0px 15px 0px;
+	padding: 0px;
+}
+
+.zoe_vicff_a_1 .group .zoe_checkbox .zoe_label {
+	display: block;
+	float: left;
+	width: auto;
+	margin: 0px;
+	padding: 0px;
+}
+
+.zoe_vicff_a_1 .group .zoe_checkbox .zoe_label p {
+	padding: 0px;
+}
+
+.zoe_vicff_a_1 .group .zoe_checkbox .zoe_input {
+	display: block;
+	float: left;
+	width: auto;
+	margin: 0px;
+	padding: 0px 0px 0px 15px;
+}
+
+.zoe_vicff_a_1 .group .zoe_checkbox .zoe_input input {
+	padding: 0px 0px 0px 0px;
+}
+
+.zoe_vicff_a_2 table>tbody>tr>th:not(.zoe_row_continue) {
+	text-align: center;
+	margin:0;
+	padding:0;
+}
+
+.zoe_vicff_a_2 table>tbody>tr>th:not(.zoe_row_continue)>p {
+	text-align: center;
+}
+
+/**/
+
+/*
+.zoe_vicff_b_3 table {
+	width: auto;
+	margin-left: 45px;
+}
+
+.zoe_vicff_b_3 table th {
+	text-align: left !important;
+	padding: 0px !important;
+	margin: 0px;
+}
+
+.zoe_vicff_b_3 table th p {
+	text-align: left !important;
+	padding: 10px !important;
+	margin: 0px;
+}
+
+.zoe_vicff_b_3 table td {
+	text-align: center !important;
+	padding: 10px !important;
+	margin: 0px;
+}
+*/
+
+
+
