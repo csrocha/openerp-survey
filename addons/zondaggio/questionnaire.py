@@ -794,7 +794,13 @@ class questionnaire(osv.osv):
 
     def on_open_ui(self, cr, uid, ids, context=None):
         context = context or {}
-        context['active_id'] = ids[0]
+        q = self.read(cr, uid, ids, ['code'])
+        import pdb; pdb.set_trace()
+        if q:
+            context.update(
+                active_id=q[0]['id'], 
+                active_code=q[0]['code'], 
+            )
         return {
             'type' : 'ir.actions.client',
             'name' : _('Start Questionnaire'),

@@ -35,8 +35,11 @@ function openerp_zondaggio_widgets(instance, module){
         },
         dynamicCss:function() {
             /* Acomodar tabla P2 */
-            $('table.zoe:first').prepend('<tr><td></td><td colspan="10" class="zoe_arrow"><div class="zoe_left_arrow">Nada relevante</div><div class="zoe_right_arrow">Muy relevante</div></td></tr>')
-	    $('')
+            $('table.zoe:first').prepend('<tr><td rowspan="2">Problemas</td><td colspan="10" class="zoe_arrow"><div class="zoe_left_arrow">Nada relevante</div><div class="zoe_right_arrow">Muy relevante</div></td></tr>')
+            $('.zoe_vicff_a_2 table>tbody>tr>th:first').remove()
+	    $('.zoe_vicff_a_2 table>tbody>tr>th.zoe_row_continue>p').css('textAlign','left')
+            /* Acomodar P3 */
+	    $('.zoe_vicff_b_3 table tr:first').css('display','none')
 	    /* Set limits to variables */
             $('input.type_year').numeric({ decimal : false, negative : false }, function() { alert("Solo años"); this.value = ""; this.focus(); });
             $('input.type_integer').numeric({ decimal : false, negative : false }, function() { alert("Solo números enteros"); this.value = ""; this.focus(); });
@@ -53,7 +56,8 @@ function openerp_zondaggio_widgets(instance, module){
             });
             $('th.zoe_otros p,div.zoe_otros>p,div.zoe_otros>div>p').hide();
             $('div.zoe_especificar>div>p').hide();
-            $('th.zoe_otros input, div.zoe_otros input[type="text"]').attr('placeholder','Especifique otra opción.');
+            $('th.zoe_otros input, div.zoe_otros input[type="text"]').attr('placeholder',
+			    'Otro/a (especificar)');
             $('th.zoe_otros input').css('width','95%');
             /* Assign parameters to values by default */
             var parameters = this.questionnaire.get('parameters');
@@ -486,7 +490,7 @@ function openerp_zondaggio_widgets(instance, module){
             var opt_input = $(".inp_P26_1[type='hidden'],.inp_P26_2[type='hidden'],.inp_P26_3[type='hidden']");
             var taken = [];
             opt_input.each(function(index, input) {
-                if (taken.indexOf(input.value)>=0) {
+                if (input.value != undefined && taken.indexOf(input.value)>=0) {
                     self.do_warn('Invalida la Pregunta 26', 'Por cada afirmación debe asignar una prioridad diferente');
                 } else {
                     taken.push(input.value);
@@ -495,12 +499,12 @@ function openerp_zondaggio_widgets(instance, module){
 	    /* P14: suma */
 	    var s = 0;
 	    S = $('.inp_P14_1_AL31,.inp_P14_2_AL31,.inp_P14_3_AL31,.inp_P14_4_AL31');
-	    S.each(function(index, item){s = s + item.valueAsNumber;});
-	    $('.inp_P14_5_AL31')[0].value = s;
+	    S.each(function(index, item){s = s + (parseInt(item.value,10) || 0);});
+	    $('.inp_P14_5_AL31')[0].value = s || 0;
 	    var s = 0;
 	    S = $('.inp_P14_1_ACT,.inp_P14_2_ACT,.inp_P14_3_ACT,.inp_P14_4_ACT');
-	    S.each(function(index, item){s = s + item.valueAsNumber;});
-	    $('.inp_P14_5_ACT')[0].value = s;
+	    S.each(function(index, item){s = s + (parseInt(item.value,10) || 0);});
+	    $('.inp_P14_5_ACT')[0].value = s || 0;
         },
     })
 

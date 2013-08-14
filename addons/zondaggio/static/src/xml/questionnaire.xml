@@ -35,11 +35,13 @@
         <div class="zoe_footer">
             <table width="100%">
                 <tr>
-                <td style="text-align:center;width:400px"><button class="do_prev cupid-blue" name="do_prev">Retroceder</button> </td>
+		<td style="text-align:center;width:400px">
+		   <button class="do_prev cupid-blue zoe_hidden" name="do_prev">Retroceder</button>
+		</td>
                 <td class="zoe_page_tags"><div class="zoe_progressbar"/></td>
                 <td style="text-align:center;width:400px">
-                   <button class="do_save cupid-blue" name="do_save">Grabar y Continuar</button>
-                   <button class="do_done cupid-blue" name="do_done">Guardar para finalizar la entrevista</button>
+                   <button class="do_save cupid-blue zoe_hidden" name="do_save">Grabar y Continuar</button>
+                   <button class="do_done cupid-blue zoe_hidden" name="do_done">Guardar para finalizar la entrevista</button>
                 </td>
                 </tr>
             </table>
@@ -290,7 +292,6 @@
 	<div class="zoe_input">
 		<textarea
 		    t-attf-class="inp_#{n.variable_name} var_#{n.variable_name} type_text"
-		    rows="10" cols="40"
 		    />
 	</div>
         <t t-call="z_node_iterate">
