@@ -58,7 +58,7 @@ class communication_batch(osv.osv):
             email_parm = comm.email_parameter_name
             email_subject = comm.email_subject
             email_body = comm.email_body
-            email_reply_to = comm.email_reply_to    
+            email_reply_to = comm.email_reply_to
             email_copy_to = comm.email_copy_to    
         
             for questionnaire in questionnaire_obj.browse(cr,uid,comm.waiting_ids):
@@ -69,7 +69,13 @@ class communication_batch(osv.osv):
 
 			login = comm.login_user_id.login
 			password = comm.login_user_id.password
-                        base_url = 'http://fop.mierp.net/login?db=%s&login=%s&key=%s#action=questionnaire.ui&active_id=%s'%(cr.dbname,login,password,questionnaire.id.id)
+                        base_url = 'http://fop.mierp.net/login?db=%s&login=%s&key=%s#action=questionnaire.ui&active_id=%s&active_code=%s' % (
+                                cr.dbname,
+                                login,
+                                password,
+                                questionnaire.id.id,
+                                questionnaire.id.code
+                        )
                     _logger.info('Base URL: %s' % base_url)
 
                     text_url = "<a href=\"%s\">%s</a>" % (base_url, base_url)
@@ -79,10 +85,11 @@ class communication_batch(osv.osv):
                             data = parameter_obj.read(cr,uid,parameter_id,['value'])
                             email_value = data[0]['value']
                             mail_ids.append(mail_mail.create(cr, uid, {
-                                    'email_from': 'csrocha@gmail.com',
+                                    'email_from': email_reply_to,
                                     'email_to': email_value,
                                     'subject': email_subject,
-                                    'body_html': '<pre>%s</pre><p>%s</p>' % (email_body,text_url)}, context=context))
+                                    'body_html': '<pre>%s</pre><p>%s</p>' % (email_body,text_url)},
+                                    context=context))
         mail_mail.send(cr, uid, mail_ids, context=context)
         _logger.info('%d Communication(s) sent.', len(mail_ids))
     
