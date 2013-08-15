@@ -36,6 +36,11 @@ div.zoe_zondaggio b {
     font-weight:bold;
 }
 
+div.zoe_zondaggio i {
+    font-family:Arial;
+    font-style:italic;
+}
+
 div.zoe_zondaggio th {
     font-family:Arial;
     font-weight:normal;
@@ -83,7 +88,7 @@ div.zoe_progressbar a.ui-slider-handle {
 div.group {
 	display: table;
 	width: auto;
-	margin-left: 2.5%;
+	margin-bottom:25px;
 }
 
 div.group div.row {
@@ -131,6 +136,7 @@ div.zoe_question div.option {
  * */
 table.zoe {
 	margin-left:45px;
+	margin-bottom:25px;
 }
 
 table.zoe p {
@@ -327,6 +333,11 @@ div.zoe_year .zoe_input {
 	display: table-cell;
 	text-align: left;
 }
+
+div.zoe_year input {
+	width: 50px;
+}
+
 /*
  * END: Year
  */
@@ -348,6 +359,11 @@ div.zoe_porcentual .zoe_input {
 	display: table-cell;
 	text-align: left;
 }
+
+div.zoe_porcentual input {
+	width: 40px;
+}
+
 /*
  * END: Porcentual
  */

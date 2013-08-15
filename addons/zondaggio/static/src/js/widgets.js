@@ -6,7 +6,9 @@ function openerp_zondaggio_widgets(instance, module){
     module.questionnaire_ui = instance.web.Widget.extend({
         events: {
             'change input': 'on_change',
+            'click input': 'on_change', /* Fucking IE */
             'change textarea': 'on_change',
+            'click textarea': 'on_change', /* Fucking IE */
             'click button.do_start': 'do_save',
             'click button.do_save': 'do_save',
             'click button.do_prev': 'go_prev',
@@ -35,15 +37,35 @@ function openerp_zondaggio_widgets(instance, module){
         },
         dynamicCss:function() {
             /* Acomodar tabla P2 */
-            $('table.zoe:first').prepend('<tr><td rowspan="2">Problemas</td><td colspan="10" class="zoe_arrow"><div class="zoe_left_arrow">Nada relevante</div><div class="zoe_right_arrow">Muy relevante</div></td></tr>')
-            $('.zoe_vicff_a_2 table>tbody>tr>th:first').remove()
-	    $('.zoe_vicff_a_2 table>tbody>tr>th.zoe_row_continue>p').css('textAlign','left')
+            $('table.zoe:first').prepend('<tr><td rowspan="2"><p style="text-align:center">Problemas</p></td><td colspan="10" class="zoe_arrow"><div class="zoe_left_arrow"><p style="display:inline">Nada relevante</p></div><div class="zoe_right_arrow"><p style="display:inline">Muy relevante</p></div></td></tr>');
+            $('.zoe_vicff_a_2 table>tbody>tr>th:first').remove();
+	    $('.zoe_vicff_a_2 table>tbody>tr>th.zoe_row_continue>p').css('textAlign','left');
             /* Acomodar P3 */
-	    $('.zoe_vicff_b_3 table tr:first').css('display','none')
+	    $('.zoe_vicff_b_3 table tr:first').css('display','none');
+	    /* Acomodar P8 */
+	    $('.zoe_vicff_b_8 table th:first').html('<p>Forma jurídica</p>');
+	    /* Acomodar P9 */
+	    $('.zoe_vicff_b_9 table th:first').html('<p>Fase</p>');
+	    /* Acomodar P12 */
+	    $('.zoe_vicff_b_12 table th:first').html('<p>Normas de calidad</p>');
+	    /* Acomodar P14 */
+	    $('.zoe_vicff_b_14 table th:first').html('<p>Máximo nivel de formación alcanzado</p>');
+	    /* Acomodar P17 */
+	    $('.zoe_vicff_c_17 table th:first').html('<p>Motivaciones</p>');
+	    /* Acomodar P18 */
+	    $('.zoe_vicff_c_18 table th:first').html('<p>Tipo de innovación</p>');
+	    /* Acomodar P19 */
+	    $('.zoe_vicff_d_19 table th:first').html('<p>Líder/ejecutor de las actividades de innovación</p>');
+	    /* Acomodar P25 */
+	    $('.zoe_vicff_f_25 table th:first').html('<p>Conductas</p>');
+	    /* Acomodar P27 */
+	    $('.zoe_vicff_f_27 table th:first').html('<p>Afirmaciones</p>');
+	    /* Acomodar P28 */
+	    $('.zoe_vicff_f_28 table th:first').html('<p>Actividades</p>');
 	    /* Set limits to variables */
-            $('input.type_year').numeric({ decimal : false, negative : false }, function() { alert("Solo años"); this.value = ""; this.focus(); });
-            $('input.type_integer').numeric({ decimal : false, negative : false }, function() { alert("Solo números enteros"); this.value = ""; this.focus(); });
-            $('input.type_porcentual').numeric({ decimal : ',', negative : false }, function() { alert("Solo números reales"); this.value = ""; this.focus(); });
+            $('input.type_year').numeric({ decimal : false, negative : false }, function() { alert("Solo años"); this.value = "2013"; this.focus(); });
+            $('input.type_integer').numeric({ decimal : false, negative : false }, function() { alert("Solo números enteros"); this.value = "0"; this.focus(); });
+            $('input.type_porcentual').numeric({ decimal : ',', negative : false }, function() { alert("Solo números reales"); this.value = "0"; this.focus(); });
 	    
             /* Remove inner labels for tables */
             // var divs = $('div.group .zoe_selectone:not(:first-child) .zoe_col_label');
@@ -51,6 +73,13 @@ function openerp_zondaggio_widgets(instance, module){
             divs.remove();
             /* Put especificar in otros */
             var esp = $('div.zoe_especificar input');
+	    var otr = $('.zoe_otros').find('p:first');
+	    otr.parent().prepend(function(index,item) { return esp[index]; });
+            otr.hide();
+	    esp.attr('placeholder', 'Otro/a (especificar)');
+            $('.zoe_especificar').hide();
+	    $('.zoe_otros').find('input[type="text"]').css('width','95%');
+	    /****
             $('th.zoe_otros,div.zoe_otros>div.zoe_label').prepend(function(index, item) {
                 return esp[index];
             });
@@ -59,6 +88,7 @@ function openerp_zondaggio_widgets(instance, module){
             $('th.zoe_otros input, div.zoe_otros input[type="text"]').attr('placeholder',
 			    'Otro/a (especificar)');
             $('th.zoe_otros input').css('width','95%');
+	    *****/
             /* Assign parameters to values by default */
             var parameters = this.questionnaire.get('parameters');
             $.each(parameters, function(key, value){
@@ -228,7 +258,8 @@ function openerp_zondaggio_widgets(instance, module){
                 var id = widget.classList[0].replace(/^inp_/,'');
                 var question_id = variable_nodes[id];
                 if (question_id in answers) {
-                    widget.value = answers[question_id].input || '';
+		    var default_value = '';
+                    widget.value = answers[question_id].input || default_value;
                     widget.disabled = answers[question_id].state != 'enabled';
                 } else {
                     $(widget).css('background-color', 'red');
@@ -384,12 +415,10 @@ function openerp_zondaggio_widgets(instance, module){
             };
             // Asign state
             for (variable_name in solved_nodes) {
-                var control = $(_.str.sprintf(".inp_%s", variable_name))[0];
-                var childs = $(_.str.sprintf("input[name='inp_%s'],input.inp_%s", variable_name));
-                if (control) {
+                var controls = $(_.str.sprintf("input[name='inp_%s'],.inp_%s", variable_name, variable_name));
+		controls.prop("disabled", solved_nodes[variable_name]);
+                if (controls) {
                     console.log("Disabling ", variable_name, " ? ",  solved_nodes[variable_name]);
-                    control.disabled = solved_nodes[variable_name];
-                    childs.each(function(node){ childs[node].disabled = control.disabled; });
                 } else {
                     console.log("Cant found:",_.str.sprintf(".inp_%s", variable_name));
                     debugger;
@@ -452,22 +481,60 @@ function openerp_zondaggio_widgets(instance, module){
         calc_globals:function(){
             var self = this;
             /* P15 */
+	    /* Habilito todo */
+            var P16 = $("input").index($("input[class^='inp_P16_']:first"));
+            var P23 = $("input").index($("input[class^='inp_P23_']:last"));
+	    /*$("input").each(function(index, value) {
+		    if (P16 <= index && index <= P23) value.disabled=false;
+	    });*/
+	    /* 2011 y Actuales : NO -> deshabilitar de 16 a 23 */
+	    var cant_P15_NO = $("input[class^='inp_P15_'][value='NO']").length;
+            if (cant_P15_NO == 8) {
+                var last_P16_idx = $("input").index($("input[class^='inp_P16_']:first"));
+                var first_P23_idx = $("input").index($("input[class^='inp_P23_']:last"));
+                $("input").each(function(index, value) {
+                    if (last_P16_idx <= index && index <= first_P23_idx) {
+                        value.disabled=true;
+                    };
+                });
+            }
+	    /* 2011 : NO -> deshabilitar 17 a 24 */
             var cant_P15_NO = $("input[class^='inp_P15_2011_'][value='NO']").length;
             if (cant_P15_NO == 4) {
-                var last_P15_idx = $("input").index($("input[class^='inp_P15_']:last"))+2; // Ignore 2 checkboxs
-                var first_P24_idx = $("input").index($("input[class^='inp_P24_']:first"));
+                var last_P17_idx = $("input").index($("input[class^='inp_P17_']:first"));
+                var first_P23_idx = $("input").index($("input[class^='inp_P23_']:last"));
                 $("input").each(function(index, value) {
-                    if (last_P15_idx < index && index < first_P24_idx) {
+                    if (last_P17_idx <= index && index <= first_P23_idx) {
                         value.disabled=true;
                     };
                 });
             };
+	    /* 2011 : SI -> habilita 16.1 */
+            var cant_P15_NO = $("input[class^='inp_P15_2011_'][value='NO']").length;
+	    if (cant_P15_NO == 4) {
+	    	$("input.inp_P16_1").prop('disabled',true);
+	    }
+	    /* Actuales : SI -> habilita 16.2 */
+            var cant_P15_NO = $("input[class^='inp_P15_ACT_'][value='NO']").length;
+	    if (cant_P15_NO == 4) {
+		$("input.inp_P16_2").prop('disabled',true);
+	    }
+            /* Años */
+            var year_input = $(".type_year");
+            year_input.each(function(index, input) {
+                if (input.value != '' && !(1810 <= parseInt(input.value) && parseInt(input.value) <= 2013)) {
+                    self.do_warn('Año inválido.', 'El valor debe estar entre 1810 y 2013.');
+                    input.style.borderColor = 'red';
+                } else {
+                    input.style.borderColor = 'lightgray';
+                };
+            });
             /* Porcentuales */
             var por_input = $(".inp_P10_2011,.inp_P10_ACT,.inp_P16_1,.inp_P16_2,.inp_P23_1,.inp_P23_2,.inp_P23_3,.inp_P23_4,.inp_P23_5,.inp_P23_6,.inp_P23_7,.inp_P23_8,.inp_P23_9");
             por_input.each(function(index, input) {
-                if (input.value != '' && !(0 <= input.valueAsNumber && input.valueAsNumber <= 100)) {
-                    // self.do_warn('A ingresa un porcentaje invalido.', 'El valor debe estar entre 0 y 100.');
-                    // input.style.borderColor = 'red';
+                if (input.value != '' && !(0 <= parseFloat(input.value) && parseFloat(input.value) <= 100)) {
+                    self.do_warn('Porcentaje inválido.', 'El valor debe estar entre 0 y 100.');
+                    input.style.borderColor = 'red';
                 } else {
                     input.style.borderColor = 'lightgray';
                 };
@@ -475,27 +542,37 @@ function openerp_zondaggio_widgets(instance, module){
             /* P23: Suma debe dar 100!!! */
             var por_input = $(".inp_P23_1,.inp_P23_2,.inp_P23_3,.inp_P23_4,.inp_P23_5,.inp_P23_6,.inp_P23_7,.inp_P23_8,.inp_P23_9");
             var total = 0;
+	    var allval = 0;
             por_input.each(function(index, input) {
                 if (input.value != '') {
-                    total = total + input.valueAsNumber;
-                };
-            });
-            if (total != 0 && total != 100) {
-                self.do_warn('Invalida la pregunta 23.', 'La suma de las proporciones debe ser igual a 100%. Actualmente suma: ' + total);
-                por_input.css({borderColor:'red'});
+                    total = total + parseFloat(input.value);
+		    allval = allval + 1;
+                } else {
+			input.value = 0;
+		}
+	    });
+	    $(".inp_P23_TOTAL").prop("value",total);
+            if (allval >= 8 && total != 0 && total != 100) {
+                self.do_warn('Inválida la pregunta 23.', 'La suma de las proporciones debe ser igual a 100%. Actualmente suma: ' + total);
+                $(".inp_P23_TOTAL").css({borderColor:'red'});
             } else {
-                por_input.css({borderColor:'lightgray'});
+                $(".inp_P23_TOTAL").css({borderColor:'lightgray'});
             };
             /* P26: No puede asignarse una misma opción a cada afirmación */
-            var opt_input = $(".inp_P26_1[type='hidden'],.inp_P26_2[type='hidden'],.inp_P26_3[type='hidden']");
-            var taken = [];
+            var opt_input = $(".inp_P26_1,.inp_P26_2,.inp_P26_3");
+            var s = 0;
+            var in_range = true;
+	    var has_value = true;
             opt_input.each(function(index, input) {
-                if (input.value != undefined && taken.indexOf(input.value)>=0) {
-                    self.do_warn('Invalida la Pregunta 26', 'Por cada afirmación debe asignar una prioridad diferente');
-                } else {
-                    taken.push(input.value);
-                }
-            });
+		    var v = parseInt(input.value,10)
+		    s = s + v;
+		    in_range = in_range && 1 <= v && v <= 3 ;
+		    has_value = has_value && !isNaN(v);
+	    });
+	    if (has_value && !(in_range && s == 6)) {
+		    self.do_warn('Pregunta 26', 'Respuesta incorrecta');
+	    }
+
 	    /* P14: suma */
 	    var s = 0;
 	    S = $('.inp_P14_1_AL31,.inp_P14_2_AL31,.inp_P14_3_AL31,.inp_P14_4_AL31');

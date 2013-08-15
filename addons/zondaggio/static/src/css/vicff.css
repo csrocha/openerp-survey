@@ -85,6 +85,40 @@
 
 /**/
 
+.zoe_vicff_b_5 .zoe_selectone {
+	margin-bottom: 25px;
+}
+
+/**/
+
+.zoe_vicff_b_8 th:first:after {
+	content:"<p>Forma jurídica</p>";
+}
+
+
+/**/
+
+.zoe_d_20 .zoe_selectone {
+	margin-bottom: 25px;
+}
+
+/**/
+
+.zoe_vicff_c_22 .zoe_selectone {
+	margin-bottom: 25px;
+}
+
+/**/
+.inp_P24_ESP {
+	margin-bottom: 12px !important;
+}
+
+/**/
+
+.zoe_vicff_f_26 input {
+	width: 40px;
+}
+
 /*
 .zoe_vicff_b_3 table {
 	width: auto;

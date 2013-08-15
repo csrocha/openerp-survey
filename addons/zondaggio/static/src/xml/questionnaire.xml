@@ -256,6 +256,7 @@
 	<div class="zoe_input">
 		<input type="number"
 		    min="0" max="100"
+		    value="0"
 		    t-attf-class="inp_#{n.variable_name} var_#{n.variable_name} type_porcentual"
 		    />%
 	</div>
