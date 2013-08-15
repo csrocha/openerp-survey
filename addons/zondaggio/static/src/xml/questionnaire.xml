@@ -275,7 +275,7 @@
 	<div class="zoe_input">
 		<input type="number"
 		    t-attf-class="inp_#{n.variable_name} var_#{n.variable_name} type_year"
-		    placeholder="0"
+		    placeholder=""
 		    />
 	</div>
         <t t-call="z_node_iterate">
