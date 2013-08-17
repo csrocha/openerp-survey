@@ -582,6 +582,13 @@ function openerp_zondaggio_widgets(instance, module){
 	    S = $('.inp_P14_1_ACT,.inp_P14_2_ACT,.inp_P14_3_ACT,.inp_P14_4_ACT');
 	    S.each(function(index, item){s = s + (parseInt(item.value,10) || 0);});
 	    $('.inp_P14_5_ACT')[0].value = s || 0;
+
+            /* P8: control de evaluacion */
+            var to_enable=$("input[alt='6'][name='inp_P8_ACT'],input[alt='6'][name='inp_P8_2011']");
+            var to_check=$("input.inp_P8_1_ESP")
+            var r = true;
+            to_check.each(function(index, value) { r = r && (value.value==''); });
+            if (r) to_enable.prop('disabled', true);
         },
     })
 
