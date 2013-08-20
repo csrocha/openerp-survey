@@ -58,4 +58,6 @@ Esto para etapas posteriores
 - Cambiar de modelo pregunta a modelo variable.
 - Luego es la variable es donde se computan las reglas de validación.
 - Agregar variables computadas.
+- El diseño de la encuesta debe ser libre, y debe permitir colocar los widgets donde se desee.
+- Utilizar templates para encuestas.
 

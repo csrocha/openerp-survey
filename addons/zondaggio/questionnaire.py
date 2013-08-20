@@ -795,7 +795,6 @@ class questionnaire(osv.osv):
     def on_open_ui(self, cr, uid, ids, context=None):
         context = context or {}
         q = self.read(cr, uid, ids, ['code'])
-        import pdb; pdb.set_trace()
         if q:
             context.update(
                 active_id=q[0]['id'], 
@@ -807,6 +806,15 @@ class questionnaire(osv.osv):
             'tag' : 'questionnaire.ui',
             'context' : context
         }
+
+    def exec_workflow_cr(self, cr, uid, ids, signal, context=None):
+        wf_service = netsvc.LocalService("workflow")
+        _logger.debug('Recibing signal %s for %s' % (signal, ids))
+        for id in ids:
+            wf_service.trg_validate(uid, self._name, id, signal, cr)
+            data = self.read(cr, uid, id, ['state'])
+        _logger.debug('Solve to state %s' % data['state'])
+        return data['state']
 
 questionnaire()
 

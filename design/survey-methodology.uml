@@ -102,7 +102,7 @@
 			</model>
 		</userDefined>
 </profile>
-<XMI xmi.version = '1.2' xmlns:UML = 'org.omg.xmi.namespace.UML' timestamp = 'Mon Aug 12 22:17:14 ART 2013'>
+<XMI xmi.version = '1.2' xmlns:UML = 'org.omg.xmi.namespace.UML' timestamp = 'Tue Aug 20 15:42:46 ART 2013'>
   <XMI.header>    <XMI.documentation>
       <XMI.exporter>ArgoUML (using Netbeans XMI Writer version 1.0)</XMI.exporter>
       <XMI.exporterVersion>0.34(6) revised on $Date: 2010-01-11 22:20:14 +0100 (Mon, 11 Jan 2010) $ </XMI.exporterVersion>
@@ -1149,6 +1149,22 @@
                     <UML:Stereotype href = 'http://argouml.org/user-profiles/OpenObjectStadardElements.xmi#127-0-1-1--66344949:13b09938a14:-8000:00000000000011E5'/>
                     <UML:Stereotype href = 'http://argouml.org/user-profiles/OpenObjectStadardElements.xmi#127-0-1-1--66344949:13b09938a14:-8000:0000000000000BA1'/>
                   </UML:ModelElement.stereotype>
+                  <UML:ModelElement.taggedValue>
+                    <UML:TaggedValue xmi.id = '127-0-1-1--227f5ba1:1409d07f581:-8000:0000000000001018'
+                      isSpecification = 'false'>
+                      <UML:TaggedValue.dataValue>{&apos;draft&apos;:[(&apos;readonly&apos;,False)]}</UML:TaggedValue.dataValue>
+                      <UML:TaggedValue.type>
+                        <UML:TagDefinition href = 'http://argouml.org/user-profiles/OpenObjectStadardElements.xmi#127-0-1-1--3588a9e:13cead26784:-8000:0000000000000F31'/>
+                      </UML:TaggedValue.type>
+                    </UML:TaggedValue>
+                    <UML:TaggedValue xmi.id = '127-0-1-1--227f5ba1:1409d07f581:-8000:0000000000001019'
+                      isSpecification = 'false'>
+                      <UML:TaggedValue.dataValue>Closed Survey message</UML:TaggedValue.dataValue>
+                      <UML:TaggedValue.type>
+                        <UML:TagDefinition href = 'http://argouml.org/user-profiles/OpenObjectStadardElements.xmi#127-0-1-1-2b464aa4:13b09d81b72:-8000:0000000000001573'/>
+                      </UML:TaggedValue.type>
+                    </UML:TaggedValue>
+                  </UML:ModelElement.taggedValue>
                   <UML:StructuralFeature.type>
                     <UML:DataType href = 'http://argouml.org/user-profiles/OpenObjectStadardElements.xmi#127-0-1-1-608aa393:13b6da4b8d4:-8000:0000000000000D16'/>
                   </UML:StructuralFeature.type>
@@ -1168,6 +1184,22 @@
                     <UML:Stereotype href = 'http://argouml.org/user-profiles/OpenObjectStadardElements.xmi#127-0-1-1--66344949:13b09938a14:-8000:00000000000011E5'/>
                     <UML:Stereotype href = 'http://argouml.org/user-profiles/OpenObjectStadardElements.xmi#127-0-1-1--66344949:13b09938a14:-8000:0000000000000BA1'/>
                   </UML:ModelElement.stereotype>
+                  <UML:ModelElement.taggedValue>
+                    <UML:TaggedValue xmi.id = '127-0-1-1--227f5ba1:1409d07f581:-8000:000000000000101A'
+                      isSpecification = 'false'>
+                      <UML:TaggedValue.dataValue>{&apos;draft&apos;:[(&apos;readonly&apos;,False)]}</UML:TaggedValue.dataValue>
+                      <UML:TaggedValue.type>
+                        <UML:TagDefinition href = 'http://argouml.org/user-profiles/OpenObjectStadardElements.xmi#127-0-1-1--3588a9e:13cead26784:-8000:0000000000000F31'/>
+                      </UML:TaggedValue.type>
+                    </UML:TaggedValue>
+                    <UML:TaggedValue xmi.id = '127-0-1-1--227f5ba1:1409d07f581:-8000:000000000000101B'
+                      isSpecification = 'false'>
+                      <UML:TaggedValue.dataValue>Last message</UML:TaggedValue.dataValue>
+                      <UML:TaggedValue.type>
+                        <UML:TagDefinition href = 'http://argouml.org/user-profiles/OpenObjectStadardElements.xmi#127-0-1-1-2b464aa4:13b09d81b72:-8000:0000000000001573'/>
+                      </UML:TaggedValue.type>
+                    </UML:TaggedValue>
+                  </UML:ModelElement.taggedValue>
                   <UML:StructuralFeature.type>
                     <UML:DataType href = 'http://argouml.org/user-profiles/OpenObjectStadardElements.xmi#127-0-1-1-608aa393:13b6da4b8d4:-8000:0000000000000D16'/>
                   </UML:StructuralFeature.type>

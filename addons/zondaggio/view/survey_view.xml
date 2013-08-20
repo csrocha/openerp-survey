@@ -103,6 +103,8 @@
                             <group>
                                 <field name="header"/>
                                 <field name="footer"/>
+                                <field name="last_message"/>
+                                <field name="closed_message"/>
                             </group>
                         </page>
                         <page string="Respondent">

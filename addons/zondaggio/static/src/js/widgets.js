@@ -33,8 +33,35 @@ function openerp_zondaggio_widgets(instance, module){
                 self.load_data();
                 self.evaluate_conditions();
                 self.calc_globals();
+                self.update_workflow('start');
             });
         },
+	update_workflow:function(moment) {
+            var self = this;
+	    var state=self.questionnaire.get('questionnaire').state;
+	    switch (moment + '|' + state) {
+            case 'start|draft':
+                self.questionnaire.send_signal('sgn_begin').then(function(){
+			    return self.questionnaire.send_signal('sgn_wait');
+		});
+		break;
+            case 'start|complete':
+                $('.zoe_active').removeClass('zoe_active').addClass('zoe_inactive');
+		$('.zoe_closed').removeClass('zoe_inactive').addClass('zoe_active')
+		$('div.zoe_title>div>*').remove();
+		$('button').addClass('zoe_hidden');
+		break;
+	    case 'on_change|waiting':
+		self.has_change = true;
+		break;
+	    case 'save|waiting':
+		if (self.has_change) self.questionnaire.send_signal('sgn_continue');
+		break;
+	    case 'on_close|in_progress':
+		self.questionnaire.send_signal('sgn_end');
+		break;
+	    }
+	},
         dynamicCss:function() {
             /* Acomodar tabla P2 */
             $('table.zoe:first').prepend('<tr><td rowspan="2"><p style="text-align:center">Problemas</p></td><td colspan="10" class="zoe_arrow"><div class="zoe_left_arrow"><p style="display:inline">Nada relevante</p></div><div class="zoe_right_arrow"><p style="display:inline">Muy relevante</p></div></td></tr>');
@@ -95,8 +122,8 @@ function openerp_zondaggio_widgets(instance, module){
                 $(_.str.sprintf("input.var_%s",key)).attr('placeholder',value);
             });
             /* Page setup */
-            var page_numbers = $(".zoe_page").length;
-            var page_active = 1;
+            var page_numbers = $(".zoe_page").length-2;
+            var page_active = 0;
             this.active_page(page_active);
             var self=this;
             $(".zoe_progressbar").slider({
@@ -109,8 +136,7 @@ function openerp_zondaggio_widgets(instance, module){
             });
         },
         active_page:function(page_idx) {
-            $('.zoe_title').removeClass('zoe_active').addClass('zoe_inactive');
-            $('.zoe_page').removeClass('zoe_active').addClass('zoe_inactive');
+            $('.zoe_active').removeClass('zoe_active').addClass('zoe_inactive');
             var page = $(_.str.sprintf('.zoe_page:eq(%s)', page_idx));
             page.removeClass('zoe_inactive').addClass('zoe_active');
             page.parents('.zoe_title').removeClass('zoe_inactive').addClass('zoe_active');
@@ -178,20 +204,18 @@ function openerp_zondaggio_widgets(instance, module){
             else
                 return this.questionnaire.get('survey').footer;
         },
-	get_welcome:function() {
+	get_closed:function() {
             if (this.questionnaire.get('survey') == null)
                 return "<div></div>";
             else {
-		var state=this.questionnaire.get('questionnaire').state;
-		if (state=='open') {
-                    return this.questionnaire.get('survey').closed_message;
-		} else {
-                    return this.questionnaire.get('survey').closed_message;
-		}
+                return this.questionnaire.get('survey').closed_message;
 	    }
         },
 	get_goodbye:function() {
-	    return "<div></div>";
+            if (this.questionnaire.get('survey') == null)
+                return "<div></div>";
+	    else 
+		return this.questionnaire.get('survey').last_message;
         },
         get_description:function() {
             if (this.questionnaire.get('survey') == null) {
@@ -310,6 +334,7 @@ function openerp_zondaggio_widgets(instance, module){
                 data[widget.classList[0].replace(/^inp_/,'sta_')] = (widget.disabled && 'disabled') || 'enabled';
             });
             this.questionnaire.save_server_data(data);
+            this.update_workflow('save');
         },
         do_save:function(e) {
             var button = e.currentTarget;
@@ -320,9 +345,16 @@ function openerp_zondaggio_widgets(instance, module){
             window.print();
         },
 	do_done:function(e) {
-            var button = e.currentTarget;
             this.save_data();
-            this.questionnaire.send_signal('end');
+            var r=confirm("¿Está seguro de cerrar la encuesta?\nUna vez cerrada no puede ser abierta nuevamente.\nSeleccione 'aceptar' solo si está seguro de no continuar.\n");
+	    if (r==true) {
+		    this.questionnaire.send_signal('sgn_end');
+                    $('.zoe_active').removeClass('zoe_active').addClass('zoe_inactive');
+		    $('.zoe_goodbye').removeClass('zoe_inactive').addClass('zoe_active')
+		    $('div.zoe_title>div>*').remove();
+		    $('button').addClass('zoe_hidden');
+		    $('div.zoe_title>div:first').html('<div class="zoe_page">'+this.get_goodbye()+'</div>');
+	    }
 	},
         go_prev:function(actual) {
             var page = $(_.str.sprintf('.zoe_page:eq(%s)', this.actual_page));
@@ -367,6 +399,7 @@ function openerp_zondaggio_widgets(instance, module){
             this.evaluate_conditions();
             this.calc_globals();
             e.stopPropagation();
+	    this.update_workflow('on_change');
         },
         on_change_select_one:function(widget){
             if (widget.type=='radio') {

@@ -199,7 +199,10 @@ function openerp_zondaggio_models(instance, module){
             return new instance.web.Model('sondaggio.questionnaire').call('write', [[this.active_id], data]);
         },
         send_signal:function(signal){
-            /* return new instance.web.Model('sondaggio.questionnaire').call('exec_workflow_cr', [[this.active_id], signal]); */
+            var self = this;
+            return new instance.web.Model('sondaggio.questionnaire').call('exec_workflow_cr', [[this.active_id], signal]).then(function(result){
+		    self.get('questionnaire').state = result;
+	    });
         },
     });
 };
