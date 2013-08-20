@@ -23,6 +23,7 @@
 
 import answer
 import questionnaire
+import questionnaire_stats
 import node
 import survey
 import partner

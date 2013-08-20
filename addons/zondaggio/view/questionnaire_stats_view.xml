@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+##############################################################################
+#
+#    Survey Methodology
+#    Copyright (C) 2013 Coop. Trab. Moldeo Interactive Ltda.
+#    No email
+#
+#    This program is free software: you can redistribute it and/or modify
+#    it under the terms of the GNU Affero General Public License as
+#    published by the Free Software Foundation, either version 3 of the
+#    License, or (at your option) any later version.
+#
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU Affero General Public License for more details.
+#
+#    You should have received a copy of the GNU Affero General Public License
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#
+##############################################################################
+
+-->
+<openerp>
+    <data>
+        <!-- GRAPHVIEW -->
+        <record id="view_sondaggio_questionnaire_stats_graph" model="ir.ui.view">
+            <field name="name">sondaggio.questionnaire_stats.graph</field>
+            <field name="model">sondaggio.questionnaire_stats</field>
+            <field name="arch" type="xml">
+                <graph string="questionnaire_stats">
+                    <field name="state" group="1"/>
+                    <field name="count" operator="+"/>
+                </graph>
+            </field>
+        </record>
+
+        <!-- TREEVIEW -->
+        <record id="view_sondaggio_questionnaire_stats_tree" model="ir.ui.view">
+            <field name="name">sondaggio.questionnaire_stats.tree</field>
+            <field name="model">sondaggio.questionnaire_stats</field>
+            <field name="arch" type="xml">
+                <tree string="questionnaire_stats"
+                    colors="grey:state=='cancelled';blue:state in ('draft',);black:state in ('cancelled', 'waiting', 'in_coding', 'in_process', 'complete'); red:state in ()"
+                    >
+                    <field name="survey_id" />
+                    <field name="state" />
+                    <field name="count" />
+                </tree>
+            </field>
+        </record>
+
+        <!-- SEARCH VIEW -->
+        <record id="view_sondaggio_questionnaire_stats_filter" model="ir.ui.view">
+            <field name="name">sondaggio.questionnaire_stats.select</field>
+            <field name="model">sondaggio.questionnaire_stats</field>
+            <field name="arch" type="xml">
+                <search string="questionnaire_stats" version="7.0">
+                    <group string="By Attribute">
+                    <field name="survey_id" string="Survey"
+                            />
+                    <field name="state" string="State"
+                            />
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="action_sondaggio_questionnaire_stats" model="ir.actions.act_window">
+            <field name="name">Questionnaires Stats</field>
+            <field name="res_model">sondaggio.questionnaire_stats</field>
+            <field name="view_type">tree</field>
+            <field name="view_mode">tree,graph</field>
+            <field name="view_id" ref="view_sondaggio_questionnaire_stats_tree"/>
+            <field name="search_view_id" ref="view_sondaggio_questionnaire_stats_filter"/>
+            <field name="domain">[]</field>
+        </record>
+
+        <menuitem
+            name="Questionnairies Stats"
+            id="menu_questionnaires_stats"
+            sequence="100"
+            action="action_sondaggio_questionnaire_stats"
+            parent="sondaggio.menu_for_poolster"
+            groups="sondaggio.group_poolster"
+            />
+
+    </data>
+</openerp>
+<!-- vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4
+     -->

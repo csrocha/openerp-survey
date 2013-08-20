@@ -48,6 +48,7 @@
     'update_xml': [
         u'data/formats.xml',
         u'view/questionnaire_view.xml',
+        u'view/questionnaire_stats_view.xml',
         u'view/question_editor.xml',
         u'view/question_view.xml',
         u'view/partner_view.xml',
