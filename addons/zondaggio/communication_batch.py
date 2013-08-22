@@ -49,6 +49,7 @@ class communication_batch(osv.osv):
 
         comm_obj = self.pool.get('sondaggio.communication_batch')    
         parameter_obj = self.pool.get('sondaggio.parameter')    
+        attachment_obj = self.pool.get('ir.attachment')    
         questionnaire_obj = self.pool.get('sondaggio.questionnaire')
     
         comm_ids = comm_obj.search(cr,uid,[('state','=','runnning')])
@@ -80,15 +81,23 @@ class communication_batch(osv.osv):
 
                     text_url = "<a href=\"%s\">%s</a>" % (base_url, base_url)
 
-                    parameter_id = parameter_obj.search(cr, uid, [('questionnaire_id','=',questionnaire.id.id),('name','=',email_parm)])
+                    parameter_id = parameter_obj.search(cr, uid,
+                                                        [('questionnaire_id','=',questionnaire.id.id),('name','=',email_parm)])
+                    attachment_ids = parameter_obj.search(cr, uid,
+                                                          [('res_model','=','sondaggio.communication_batch'),('res_id','=',comm.id)])
+
+                    import pdb; pdb.set_trace()
                     if parameter_id:
                             data = parameter_obj.read(cr,uid,parameter_id,['value'])
                             email_value = data[0]['value']
                             mail_ids.append(mail_mail.create(cr, uid, {
                                     'email_from': email_reply_to,
-                                    'email_to': email_value,
-                                    'subject': email_subject,
-                                    'body_html': '<pre>%s</pre><p>%s</p>' % (email_body,text_url)},
+                                    'email_to':   email_value,
+                                    'email_cc':   email_copy_to,
+                                    'replay_to':  email_reply_to,
+                                    'subject':    email_subject,
+                                    'body_html':  email_body.format(text_url=text_url) },
+                                    'attachment_ids': (6, 0, attachment_ids) },
                                     context=context))
         mail_mail.send(cr, uid, mail_ids, context=context)
         _logger.info('%d Communication(s) sent.', len(mail_ids))
