@@ -86,7 +86,6 @@ class communication_batch(osv.osv):
                     attachment_ids = attachment_obj.search(cr, uid,
                                                           [('res_model','=','sondaggio.communication_batch'),('res_id','=',comm.id)])
 
-                    import pdb; pdb.set_trace()
                     if parameter_id:
                             data = parameter_obj.read(cr,uid,parameter_id,['value'])
                             email_value = data[0]['value']
@@ -97,7 +96,7 @@ class communication_batch(osv.osv):
                                     'replay_to':  email_reply_to,
                                     'subject':    email_subject,
                                     'body_html':  email_body.format(text_url=text_url),
-                                    'attachment_ids': (6, 0, attachment_ids) },
+                                    'attachment_ids': [(6, 0, attachment_ids)] },
                                     context=context))
         mail_mail.send(cr, uid, mail_ids, context=context)
         _logger.info('%d Communication(s) sent.', len(mail_ids))
