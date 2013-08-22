@@ -148,8 +148,12 @@
 }
 */
 
+.zoe_vicff_fmsg .zoe_input {
+	width: 60%;
+}
+
 textarea.inp_FOBS {
-	width: 400px;
+	width: 100%;
 	height: 100px;
 }
 
