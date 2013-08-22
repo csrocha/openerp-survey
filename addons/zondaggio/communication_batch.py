@@ -83,7 +83,7 @@ class communication_batch(osv.osv):
 
                     parameter_id = parameter_obj.search(cr, uid,
                                                         [('questionnaire_id','=',questionnaire.id.id),('name','=',email_parm)])
-                    attachment_ids = parameter_obj.search(cr, uid,
+                    attachment_ids = attachment_obj.search(cr, uid,
                                                           [('res_model','=','sondaggio.communication_batch'),('res_id','=',comm.id)])
 
                     import pdb; pdb.set_trace()
