@@ -96,7 +96,7 @@ class communication_batch(osv.osv):
                                     'email_cc':   email_copy_to,
                                     'replay_to':  email_reply_to,
                                     'subject':    email_subject,
-                                    'body_html':  email_body.format(text_url=text_url) },
+                                    'body_html':  email_body.format(text_url=text_url),
                                     'attachment_ids': (6, 0, attachment_ids) },
                                     context=context))
         mail_mail.send(cr, uid, mail_ids, context=context)
