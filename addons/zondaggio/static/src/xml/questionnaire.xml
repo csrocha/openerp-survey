@@ -41,8 +41,9 @@
 		</td>
                 <td class="zoe_page_tags"><div class="zoe_progressbar"/></td>
                 <td style="text-align:center;width:400px">
-                   <button class="do_save cupid-blue zoe_hidden" name="do_save">Grabar y Continuar</button>
-                   <button class="do_done cupid-blue zoe_hidden" name="do_done">Guardar para finalizar la entrevista</button>
+                   <button class="do_cont cupid-blue zoe_hidden" name="do_save">Continuar</button>
+                   <button class="do_save cupid-blue zoe_hidden" name="do_save">Guardar y continuar</button>
+                   <button class="do_done cupid-blue zoe_hidden" name="do_done">Guardar y finalizar la encuesta</button>
                 </td>
                 </tr>
             </table>

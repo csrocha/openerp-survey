@@ -11,6 +11,7 @@ function openerp_zondaggio_widgets(instance, module){
             'click textarea': 'on_change', /* Fucking IE */
             'click button.do_start': 'do_save',
             'click button.do_save': 'do_save',
+            'click button.do_cont': 'do_save',
             'click button.do_prev': 'go_prev',
             'click button.do_print': 'do_print',
             'click button.do_done': 'do_done',
@@ -181,6 +182,15 @@ function openerp_zondaggio_widgets(instance, module){
             	$('.do_save').addClass('zoe_hidden');
             	$('.do_done').removeClass('zoe_hidden');
 	    }
+            /*
+             * If first page, hide .do_save and show .do_cont
+             * */
+            if (actual_page == 0) {
+            	$('.do_save').addClass('zoe_hidden');
+            	$('.do_cont').removeClass('zoe_hidden');
+            } else {
+            	$('.do_cont').addClass('zoe_hidden');
+            }
         },
         push_parent:function(node) {
             this.actual_parent.push(node.parent_id);
@@ -346,7 +356,7 @@ function openerp_zondaggio_widgets(instance, module){
         },
 	do_done:function(e) {
             this.save_data();
-            var r=confirm("¿Está seguro de cerrar la encuesta?\nUna vez cerrada no puede ser abierta nuevamente.\nSeleccione 'aceptar' solo si está seguro de no continuar.\n");
+            var r=confirm("ATENCIÓN: Si 'Acepta' guardar y finalizar la encuesta no podrá volver a ingresar a este cuestionario.\n");
 	    if (r==true) {
 		    this.questionnaire.send_signal('sgn_end');
                     $('.zoe_active').removeClass('zoe_active').addClass('zoe_inactive');
@@ -611,10 +621,31 @@ function openerp_zondaggio_widgets(instance, module){
 	    S = $('.inp_P14_1_AL31,.inp_P14_2_AL31,.inp_P14_3_AL31,.inp_P14_4_AL31');
 	    S.each(function(index, item){s = s + (parseInt(item.value,10) || 0);});
 	    $('.inp_P14_5_AL31')[0].value = s || 0;
+            if (s > 250) {
+		    self.do_warn('Pregunta 14', 'El total de ocupados no puede superar los 250.');
+                    $('.inp_P14_5_AL31').css({borderColor:'red'});
+            } else {
+                    $('.inp_P14_5_AL31').css({borderColor:'lightgray'});
+            }
 	    var s = 0;
 	    S = $('.inp_P14_1_ACT,.inp_P14_2_ACT,.inp_P14_3_ACT,.inp_P14_4_ACT');
 	    S.each(function(index, item){s = s + (parseInt(item.value,10) || 0);});
 	    $('.inp_P14_5_ACT')[0].value = s || 0;
+            if (s > 250) {
+		    self.do_warn('Pregunta 14', 'El total de ocupados no puede superar los 250.');
+                    $('.inp_P14_5_ACT').css({borderColor:'red'});
+            } else {
+                    $('.inp_P14_5_ACT').css({borderColor:'lightgray'});
+            }
+            
+            /* P20.1: total <= 250 */
+            var s = parseInt($('.inp_P20_CANT')[0].value);
+            if (!isNaN(s) && s > 250) {
+		    self.do_warn('Pregunta 20.1', 'El total de personas no puede superar los 250.');
+                    $('.inp_P20_CANT').css({borderColor:'red'});
+            } else {
+                    $('.inp_P20_CANT').css({borderColor:'lightgray'});
+            }
 
             /* P8: control de evaluacion */
             var to_enable=$("input[alt='6'][name='inp_P8_ACT'],input[alt='6'][name='inp_P8_2011']");
