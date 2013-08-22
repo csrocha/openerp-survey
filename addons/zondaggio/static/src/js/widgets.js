@@ -356,7 +356,7 @@ function openerp_zondaggio_widgets(instance, module){
         },
 	do_done:function(e) {
             this.save_data();
-            var r=confirm("ATENCIÓN: Si 'Acepta' guardar y finalizar la encuesta no podrá volver a ingresar a este cuestionario.\n");
+            var r=confirm("ATENCIÓN:\nSi 'Acepta' guardar y finalizar la encuesta no podrá volver a ingresar a este cuestionario.\n");
 	    if (r==true) {
 		    this.questionnaire.send_signal('sgn_end');
                     $('.zoe_active').removeClass('zoe_active').addClass('zoe_inactive');
