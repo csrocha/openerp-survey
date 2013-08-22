@@ -102,7 +102,7 @@
 			</model>
 		</userDefined>
 </profile>
-<XMI xmi.version = '1.2' xmlns:UML = 'org.omg.xmi.namespace.UML' timestamp = 'Tue Aug 20 15:42:46 ART 2013'>
+<XMI xmi.version = '1.2' xmlns:UML = 'org.omg.xmi.namespace.UML' timestamp = 'Thu Aug 22 15:32:26 ART 2013'>
   <XMI.header>    <XMI.documentation>
       <XMI.exporter>ArgoUML (using Netbeans XMI Writer version 1.0)</XMI.exporter>
       <XMI.exporterVersion>0.34(6) revised on $Date: 2010-01-11 22:20:14 +0100 (Mon, 11 Jan 2010) $ </XMI.exporterVersion>
@@ -5640,7 +5640,7 @@ Registry in the log start action.</UML:TaggedValue.dataValue>
                     </UML:TaggedValue>
                   </UML:ModelElement.taggedValue>
                   <UML:StructuralFeature.type>
-                    <UML:DataType href = 'http://argouml.org/user-profiles/OpenObjectStadardElements.xmi#127-0-1-1--66344949:13b09938a14:-8000:0000000000000B9D'/>
+                    <UML:DataType href = 'http://argouml.org/user-profiles/OpenObjectStadardElements.xmi#127-0-1-1-608aa393:13b6da4b8d4:-8000:0000000000000D16'/>
                   </UML:StructuralFeature.type>
                 </UML:Attribute>
                 <UML:Attribute xmi.id = '127-0-1-1-34ffa852:14034eb0c29:-8000:0000000000000FDA'
@@ -26885,7 +26885,7 @@ Registry in the log start action.</UML:TaggedValue.dataValue>
         bold="false"
         textsize="12"
         justification="Left"
-      >&lt;&lt;form, required&gt;&gt; email_body : Text</text>
+      >&lt;&lt;form, required&gt;&gt; email_body : HTML</text>
       <text name="Fig0.4.5"
         x="1001"
         y="352"

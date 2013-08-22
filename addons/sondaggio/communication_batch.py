@@ -45,7 +45,7 @@ class communication_batch(osv.osv):
         'name': fields.char(string='Description', required=True),
         'email_parameter_name': fields.char(string='Parameter name', required=True),
         'email_subject': fields.char(string='Subject', required=True),
-        'email_body': fields.text(string='Body', required=True),
+        'email_body': fields.html(string='Body', required=True),
         'email_reply_to': fields.char(string='Replay to', required=True),
         'email_copy_to': fields.char(string='Copy to'),
         'login_user_id': fields.many2one('res.users', string='Login User', required=True),
