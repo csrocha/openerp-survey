@@ -385,6 +385,13 @@ function openerp_zondaggio_widgets(instance, module){
             $(".zoe_progressbar").slider({value: actual_page});
         },
         go_next:function(actual) {
+		var sel_input='.zoe_page.zoe_active :not(.zoe_is_null)>.zoe_input input:enabled[value!=""]';
+		var sel_textarea='.zoe_page.zoe_active :not(.zoe_is_null) .zoe_input>textarea:enabled[value!=""]';
+		var not_missings=$('.zoe_page.zoe_active :not(.zoe_is_null).zoe_input input:enabled[value!=""],.zoe_page.zoe_active textarea:enabled[value!=""]');
+		if (!(not_missings)) {
+			self.do_warn('Quedan preguntas sin responder', 'Por favor, completelas antes de continuar.');
+			return;
+		}
             var page = $(_.str.sprintf('.zoe_page:eq(%s)', this.actual_page));
             var actual_page = page.index('.zoe_page');
             var search_prefix = _.str.sprintf('.zoe_page:gt(%s)', actual_page)
