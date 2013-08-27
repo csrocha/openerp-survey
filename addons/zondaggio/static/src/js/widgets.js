@@ -541,14 +541,14 @@ function openerp_zondaggio_widgets(instance, module){
         calc_globals:function(){
             var self = this;
             /* P15 */
-	    /* Habilito todo */
+            /* Habilito todo */
             var P16 = $("input").index($("input[class^='inp_P16_']:first"));
             var P23 = $("input").index($("input[class^='inp_P23_']:last"));
-	    /*$("input").each(function(index, value) {
-		    if (P16 <= index && index <= P23) value.disabled=false;
-	    });*/
-	    /* 2011 y Actuales : NO -> deshabilitar de 16 a 23 */
-	    var cant_P15_NO = $("input[class^='inp_P15_'][value='NO']").length;
+            /*$("input").each(function(index, value) {
+                if (P16 <= index && index <= P23) value.disabled=false;
+            });*/
+            /* 2011 y Actuales : NO -> deshabilitar de 16 a 23 */
+            var cant_P15_NO = $("input[class^='inp_P15_'][value='NO']").length;
             if (cant_P15_NO == 8) {
                 var last_P16_idx = $("input").index($("input[class^='inp_P16_']:first"));
                 var first_P23_idx = $("input").index($("input[class^='inp_P23_']:last"));
@@ -558,7 +558,7 @@ function openerp_zondaggio_widgets(instance, module){
                     };
                 });
             }
-	    /* 2011 : NO -> deshabilitar 17 a 24 */
+            /* 2011 : NO -> deshabilitar 17 a 24 */
             var cant_P15_NO = $("input[class^='inp_P15_2011_'][value='NO']").length;
             if (cant_P15_NO == 4) {
                 var last_P17_idx = $("input").index($("input[class^='inp_P17_']:first"));
@@ -569,16 +569,16 @@ function openerp_zondaggio_widgets(instance, module){
                     };
                 });
             };
-	    /* 2011 : SI -> habilita 16.1 */
+            /* 2011 : SI -> habilita 16.1 */
             var cant_P15_NO = $("input[class^='inp_P15_2011_'][value='NO']").length;
-	    if (cant_P15_NO == 4) {
-	    	$("input.inp_P16_1").prop('disabled',true);
-	    }
-	    /* Actuales : SI -> habilita 16.2 */
+            if (cant_P15_NO == 4) {
+                $("input.inp_P16_1").prop('disabled',true);
+            }
+            /* Actuales : SI -> habilita 16.2 */
             var cant_P15_NO = $("input[class^='inp_P15_ACT_'][value='NO']").length;
-	    if (cant_P15_NO == 4) {
-		$("input.inp_P16_2").prop('disabled',true);
-	    }
+            if (cant_P15_NO == 4) {
+                $("input.inp_P16_2").prop('disabled',true);
+            }
             /* Años */
             var year_input = $(".type_year");
             year_input.each(function(index, input) {
@@ -602,16 +602,16 @@ function openerp_zondaggio_widgets(instance, module){
             /* P23: Suma debe dar 100!!! */
             var por_input = $(".inp_P23_1,.inp_P23_2,.inp_P23_3,.inp_P23_4,.inp_P23_5,.inp_P23_6,.inp_P23_7,.inp_P23_8,.inp_P23_9");
             var total = 0;
-	    var allval = 0;
+            var allval = 0;
             por_input.each(function(index, input) {
                 if (input.value != '') {
                     total = total + parseFloat(input.value);
-		    allval = allval + 1;
+                    allval = allval + 1;
                 } else {
-			input.value = 0;
-		}
-	    });
-	    $(".inp_P23_TOTAL").prop("value",total);
+                    input.value = 0;
+                }
+            });
+            $(".inp_P23_TOTAL").prop("value",total);
             if (allval >= 8 && total != 0 && total != 100) {
                 self.do_warn('Inválida la pregunta 23.', 'La suma de las proporciones debe ser igual a 100%. Actualmente suma: ' + total);
                 $(".inp_P23_TOTAL").css({borderColor:'red'});
@@ -622,48 +622,53 @@ function openerp_zondaggio_widgets(instance, module){
             var opt_input = $(".inp_P26_1,.inp_P26_2,.inp_P26_3");
             var s = 0;
             var in_range = true;
-	    var has_value = true;
+            var has_value = true;
             opt_input.each(function(index, input) {
-		    var v = parseInt(input.value,10)
-		    s = s + v;
-		    in_range = in_range && 1 <= v && v <= 3 ;
-		    has_value = has_value && !isNaN(v);
-	    });
-	    if (has_value && !(in_range && s == 6)) {
-		    self.do_warn('Pregunta 26', 'Respuesta incorrecta');
-	    }
-
-	    /* P14: suma */
-	    var s = 0;
-	    S = $('.inp_P14_1_AL31,.inp_P14_2_AL31,.inp_P14_3_AL31,.inp_P14_4_AL31');
-	    S.each(function(index, item){s = s + (parseInt(item.value,10) || 0);});
-	    $('.inp_P14_5_AL31')[0].value = s || 0;
-            if (s > 250) {
-		    self.do_warn('Pregunta 14', 'El total de ocupados no puede superar los 250.');
-                    $('.inp_P14_5_AL31').css({borderColor:'red'});
-            } else {
-                    $('.inp_P14_5_AL31').css({borderColor:'lightgray'});
+                var v = parseInt(input.value,10)
+                s = s + v;
+                in_range = in_range && 1 <= v && v <= 3 ;
+                has_value = has_value && !isNaN(v);
+            });
+            if (has_value && !(in_range && s == 6)) {
+                self.do_warn('Pregunta 26', 'Respuesta incorrecta');
             }
-	    var s = 0;
-	    S = $('.inp_P14_1_ACT,.inp_P14_2_ACT,.inp_P14_3_ACT,.inp_P14_4_ACT');
-	    S.each(function(index, item){s = s + (parseInt(item.value,10) || 0);});
-	    $('.inp_P14_5_ACT')[0].value = s || 0;
+            /* P14: suma */
+            var s = 0;
+            S = $('.inp_P14_1_AL31,.inp_P14_2_AL31,.inp_P14_3_AL31,.inp_P14_4_AL31');
+            S.each(function(index, item){s = s + (parseInt(item.value,10) || 0);});
+            $('.inp_P14_5_AL31')[0].value = s || 0;
             if (s > 250) {
-		    self.do_warn('Pregunta 14', 'El total de ocupados no puede superar los 250.');
-                    $('.inp_P14_5_ACT').css({borderColor:'red'});
+                self.do_warn('Pregunta 14', 'El total de ocupados no puede superar los 250. Si el valor ingresado es correcto, por favor en lo sucesivo ignore este mensaje.');
+                $('.inp_P14_5_AL31').addClass('zoe_alert');
             } else {
-                    $('.inp_P14_5_ACT').css({borderColor:'lightgray'});
+                $('.inp_P14_5_AL31').removeClass('zoe_alert');
             }
-            
+            var s = 0;
+            S = $('.inp_P14_1_ACT,.inp_P14_2_ACT,.inp_P14_3_ACT,.inp_P14_4_ACT');
+            S.each(function(index, item){s = s + (parseInt(item.value,10) || 0);});
+            $('.inp_P14_5_ACT')[0].value = s || 0;
+            if (s > 250) {
+                self.do_warn('Pregunta 14', 'El total de ocupados no puede superar los 250. Si el valor ingresado es correcto, por favor en lo sucesivo ignore este mensaje.');
+                $('.inp_P14_5_ACT').addClass('zoe_alert');
+            } else {
+                $('.inp_P14_5_ACT').removeClass('zoe_alert');
+            }
             /* P20.1: total <= 250 */
             var s = parseInt($('.inp_P20_CANT')[0].value);
             if (!isNaN(s) && s > 250) {
-		    self.do_warn('Pregunta 20.1', 'El total de personas no puede superar los 250.');
-                    $('.inp_P20_CANT').css({borderColor:'red'});
+                self.do_warn('Pregunta 20.1', 'El total de ocupados no puede superar los 250. Si el valor ingresado es correcto, por favor en lo sucesivo ignore este mensaje.');
+                $('.inp_P20_CANT').addClass('zoe_alert');
             } else {
-                    $('.inp_P20_CANT').css({borderColor:'lightgray'});
+                $('.inp_P20_CANT').removeClass('zoe_alert');
             }
-
+            /* P22.1: total <= 250 */
+            var s = parseInt($('.inp_P22_CANT')[0].value);
+            if (!isNaN(s) && s > 250) {
+                self.do_warn('Pregunta 22.1', 'El total de ocupados no puede superar los 250. Si el valor ingresado es correcto, por favor en lo sucesivo ignore este mensaje.');
+                $('.inp_P22_CANT').addClass('zoe_alert');
+            } else {
+                $('.inp_P22_CANT').removeClass('zoe_alert');
+            }
             /* P8: control de evaluacion */
             var to_enable=$("input[alt='6'][name='inp_P8_ACT'],input[alt='6'][name='inp_P8_2011']");
             var to_check=$("input.inp_P8_1_ESP")
