@@ -71,7 +71,10 @@ class questionnaire_import(osv.osv_memory):
 
     def do_import(self, cr, uid, ids, context=None):
         """"""
+        _logger.info('Importing questionnaires.')
+
         obj_questionnaire = self.pool.get('sondaggio.questionnaire')
+        c = 0
         for w in self.browse(cr, uid, ids, context=context):
             data = StringIO.StringIO(base64.b64decode(w.in_file))
             rows = csv.reader(data)
@@ -90,6 +93,10 @@ class questionnaire_import(osv.osv_memory):
                     'parameter_ids': [ (0,0,{ 'name': k, 'value': v }) for k, v in rdict.items() if k != column_name ],
                 }
                 obj_questionnaire.create(cr, uid, dwrite)
+                if not(c % 40): _logger.info('Created %i questionnaires and continue.' % c)
+                c = c + 1
+
+        _logger.info('Created %i questionnaires.' % c)
 
         self.write(cr, uid, ids, {'state': 'done'}, context=context)
         return {

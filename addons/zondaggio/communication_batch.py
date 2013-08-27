@@ -25,6 +25,7 @@ import re
 from openerp import netsvc
 from openerp.osv import osv, fields
 import logging
+from email.Utils import formatdate, make_msgid, COMMASPACE
 
 class communication_batch(osv.osv):
     """"""
@@ -89,11 +90,12 @@ class communication_batch(osv.osv):
                     if parameter_id:
                             data = parameter_obj.read(cr,uid,parameter_id,['value'])
                             email_value = data[0]['value']
+                            email_value = COMMASPACE.join(email_value.split(';'))
                             mail_ids.append(mail_mail.create(cr, uid, {
-                                    'email_from': email_reply_to,
+                                    'email_from': 'info@fop.mierp.net',
                                     'email_to':   email_value,
                                     'email_cc':   email_copy_to,
-                                    'replay_to':  email_reply_to,
+                                    'reply_to':  email_reply_to,
                                     'subject':    email_subject,
                                     'body_html':  email_body.format(text_url=text_url),
                                     'attachment_ids': [(6, 0, attachment_ids)] },
