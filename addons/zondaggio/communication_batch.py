@@ -26,6 +26,8 @@ from openerp import netsvc
 from openerp.osv import osv, fields
 import logging
 
+_logger = logging.getLogger(__name__)
+
 class communication_batch(osv.osv):
     """"""
     
@@ -40,7 +42,6 @@ class communication_batch(osv.osv):
     def send_mails(self, cr, uid, ids, context=None):
         """Envia un mail por cada waiting_questionnaires_ids usando los datos de la comunicación (email, subject, body, reply_to, etc) una vez enviado se borra de waiting y pasa a done_questionnaire_ids. Si no hay más emails en waiting se cambia a estado "done"."""
 
-        _logger = logging.getLogger(__name__)
         _logger.info('Sending communications by email...')
         mail_mail = self.pool.get('mail.mail')
 
