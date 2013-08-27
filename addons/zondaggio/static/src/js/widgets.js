@@ -385,9 +385,21 @@ function openerp_zondaggio_widgets(instance, module){
             $(".zoe_progressbar").slider({value: actual_page});
         },
         go_next:function(actual) {
-            var missings=$('.zoe_page.zoe_active :not(.zoe_is_null)>.zoe_input>').filter('[value=""]')
-            if (missings) {
-               self.do_warn('Quedan preguntas sin responder', 'Por favor, completar las respuestas antes de continuar.');
+            var str_input='.zoe_page.zoe_active :not(.zoe_is_null)>.zoe_input>:not(:disabled)';
+            var str_selection='.zoe_page.zoe_active :not(.zoe_is_null) input[type="hidden"][class*="inp_"]:not(:disabled)'
+            var str_table_input='.zoe_page.zoe_active table input[type="number"][class*="inp_"]:not(:disabled)'
+            var widgets=$(str_input+','+str_selection+','+str_table_input); //.filter('[value=""]');
+            var missings = [];
+            widgets.each(function(index, item){ if (item.value=="") { missings.push(item) }; })
+            missings = $(missings)
+            if (missings.length>0) {
+               this.do_warn('Quedan preguntas sin responder', 'Por favor, completar las respuestas antes de continuar.');
+               missings.addClass('zoe_alert');
+               missings.parent('th').siblings().addClass('zoe_alert');
+               setTimeout(function(){
+                   missings.removeClass('zoe_alert');
+                   missings.parent('th').siblings().removeClass('zoe_alert');
+               }, 4000);
                return;
             }
             var page = $(_.str.sprintf('.zoe_page:eq(%s)', this.actual_page));

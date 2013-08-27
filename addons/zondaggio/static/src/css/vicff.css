@@ -157,4 +157,7 @@ textarea.inp_FOBS {
 	height: 100px;
 }
 
+.zoe_alert {
+	border-color: red !important;
+}
 
