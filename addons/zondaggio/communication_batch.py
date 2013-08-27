@@ -69,9 +69,8 @@ class communication_batch(osv.osv):
 
                     base_url = self.pool.get('ir.config_parameter').get_param(cr, uid, 'web.base.url', default='', context=context)
                     if base_url:
-
-			login = comm.login_user_id.login
-			password = comm.login_user_id.password
+                        login = comm.login_user_id.login
+                        password = comm.login_user_id.password
                         base_url = 'http://fop.mierp.net/login?db=%s&login=%s&key=%s#action=questionnaire.ui&active_id=%s&active_code=%s' % (
                                 cr.dbname,
                                 login,
