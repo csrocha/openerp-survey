@@ -638,7 +638,7 @@ function openerp_zondaggio_widgets(instance, module){
             S.each(function(index, item){s = s + (parseInt(item.value,10) || 0);});
             $('.inp_P14_5_AL31')[0].value = s || 0;
             if (s > 250) {
-                self.do_warn('Pregunta 14', 'El total de ocupados no puede superar los 250. Si el valor ingresado es correcto, por favor en lo sucesivo ignore este mensaje.');
+                self.do_warn('Pregunta 14', 'El total de ocupados no puede superar los 250.<br/>Si el valor ingresado es correcto, por favor en lo sucesivo ignore este mensaje.');
                 $('.inp_P14_5_AL31').addClass('zoe_alert');
             } else {
                 $('.inp_P14_5_AL31').removeClass('zoe_alert');
@@ -648,7 +648,7 @@ function openerp_zondaggio_widgets(instance, module){
             S.each(function(index, item){s = s + (parseInt(item.value,10) || 0);});
             $('.inp_P14_5_ACT')[0].value = s || 0;
             if (s > 250) {
-                self.do_warn('Pregunta 14', 'El total de ocupados no puede superar los 250. Si el valor ingresado es correcto, por favor en lo sucesivo ignore este mensaje.');
+                self.do_warn('Pregunta 14', 'El total de ocupados no puede superar los 250.<br/>Si el valor ingresado es correcto, por favor en lo sucesivo ignore este mensaje.');
                 $('.inp_P14_5_ACT').addClass('zoe_alert');
             } else {
                 $('.inp_P14_5_ACT').removeClass('zoe_alert');
@@ -656,7 +656,7 @@ function openerp_zondaggio_widgets(instance, module){
             /* P20.1: total <= 250 */
             var s = parseInt($('.inp_P20_CANT')[0].value);
             if (!isNaN(s) && s > 250) {
-                self.do_warn('Pregunta 20.1', 'El total de ocupados no puede superar los 250. Si el valor ingresado es correcto, por favor en lo sucesivo ignore este mensaje.');
+                self.do_warn('Pregunta 20.1', 'El total de ocupados no puede superar los 250.<br/>Si el valor ingresado es correcto, por favor en lo sucesivo ignore este mensaje.');
                 $('.inp_P20_CANT').addClass('zoe_alert');
             } else {
                 $('.inp_P20_CANT').removeClass('zoe_alert');
@@ -664,7 +664,7 @@ function openerp_zondaggio_widgets(instance, module){
             /* P22.1: total <= 250 */
             var s = parseInt($('.inp_P22_CANT')[0].value);
             if (!isNaN(s) && s > 250) {
-                self.do_warn('Pregunta 22.1', 'El total de ocupados no puede superar los 250. Si el valor ingresado es correcto, por favor en lo sucesivo ignore este mensaje.');
+                self.do_warn('Pregunta 22.1', 'El total de ocupados no puede superar los 250.<br/>Si el valor ingresado es correcto, por favor en lo sucesivo ignore este mensaje.');
                 $('.inp_P22_CANT').addClass('zoe_alert');
             } else {
                 $('.inp_P22_CANT').removeClass('zoe_alert');
