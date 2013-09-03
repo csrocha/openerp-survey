@@ -65,6 +65,11 @@
                             />
                     <field name="respondent_code" string="Respondent Code"
                             />
+                    <field name="par_razon_social" />
+                    <field name="par_razon_social_ver" />
+                    <field name="par_estrato_f" />
+                    <field name="par_fecha_ver" />
+                    <field name="par_fecha_env" />
                     </group>
                 </search>
             </field>

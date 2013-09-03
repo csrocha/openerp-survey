@@ -85,20 +85,27 @@
                             />
                         <field name="email_copy_to"
                             />
-                    <field name="login_user_id"
-                            />
-                    <field name="survey_id"
-                            />
-                    <field name="waiting_ids"
-			    domain="[('survey_id','=',survey_id')]"
-                            />
-                    <field name="done_ids" readonly="1"
-			    domain="[('survey_id','=',survey_id')]"
-                            />
-                        <button name="send_mails"
-                            type="object"
-			    string="Send mails"
-			    />
+                        <field name="login_user_id" />
+                        <field name="survey_id" />
+                        <field name="waiting_ids" domain="[('survey_id','=',survey_id')]">
+                            <search string="communication_batch" version="7.0">
+                            <field name="name"/>
+                            <field name="parameter_ids"/>
+                            </search>
+                            <tree>
+                            <field name="name"/>
+                            <field name="state"/>
+                            <field name="parameter_ids"/>
+                            </tree>
+                        </field>
+                        <field name="done_ids" readonly="1" domain="[('survey_id','=',survey_id')]">
+                            <tree>
+                            <field name="name"/>
+                            <field name="state"/>
+                            <field name="parameter_ids"/>
+                            </tree>
+                        </field>
+                        <button name="send_mails" type="object" string="Send mails" />
                      </group>
                     </sheet>
                 </form>

@@ -239,6 +239,28 @@ class questionnaire(osv.osv):
     _name = 'sondaggio.questionnaire'
     _inherit = [ _name ]
 
+    def get_parameters(self, cr, uid, ids, field_name, arg, context=None):
+        import pdb; pdb.set_trace()
+
+        param_obj = self.pool.get('sondaggio.parameters')
+        res = {}
+        for questionnaire in self.browse(cr, uid, ids, context=context):
+            parameter_texts = [ "%s=%s" % (par.name, par.value) for par in questionnaire.parameter_ids ]
+            _logger.info('Calc parameters %s' % parameter_texts)
+            res[questionnaire.id] = ';'.join(parameter_texts)
+        return res
+
+    def search_parameters(self, cr, uid, obj, name, args, context):
+        param_obj = self.pool.get('sondaggio.parameter')
+
+        args =  [ item for sublist in [[('name','=',p[4:]), ('value', o, v)] for p,o,v in args ] for item in sublist ]
+
+        p_ids = param_obj.search(cr, uid, args, context=context)
+        p_reads = param_obj.read(cr, uid, p_ids, ['questionnaire_id'])
+        p_ids = [ p['questionnaire_id'][0] for p in p_reads ]
+
+        return [ ('id', 'in', p_ids) ]
+
     def get_url(self, cr, uid, ids, field_name, arg, context=None):
         user_obj = self.pool.get('res.users')    
         user_id = context.get('user_id', uid)
@@ -255,6 +277,17 @@ class questionnaire(osv.osv):
     _columns = {
         'actual_page': fields.integer('Actual Page', readonly=True),
         'url': fields.function(get_url, method=True, string='URL', readonly=True, type='char'),
+        'fecha_ver': fields.char('Questionnaire group', size=16),
+        'par_razon_social': fields.function(get_parameters, method=True, string='Razón social',
+                                      readonly=True, type='text', fnct_search=search_parameters, store=False),
+        'par_razon_social_ver': fields.function(get_parameters, method=True, string='Razón social verificada',
+                                      readonly=True, type='text', fnct_search=search_parameters, store=False),
+        'par_estrato_f': fields.function(get_parameters, method=True, string='Estrato',
+                                      readonly=True, type='text', fnct_search=search_parameters, store=False),
+        'par_fecha_ver': fields.function(get_parameters, method=True, string='Fecha verificación',
+                                      readonly=True, type='text', fnct_search=search_parameters, store=False),
+        'par_fecha_env': fields.function(get_parameters, method=True, string='Fecha envío',
+                                      readonly=True, type='text', fnct_search=search_parameters, store=False),
     }
 
     _defaults = {
