@@ -48,6 +48,10 @@
 				widget="selection"
 				context="[('id','in','import_file_column_ids')]"
                             />
+                        <field name="version_column_id"
+				widget="selection"
+				context="[('id','in','import_file_column_ids')]"
+                            />
                     </group>
                     <group states="done">
 			<label string="File has been loaded. Continue to list Questionnaires."/>
