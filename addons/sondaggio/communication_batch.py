@@ -53,6 +53,8 @@ class communication_batch(osv.osv):
         'survey_id': fields.many2one('sondaggio.survey', string='Survey', required=True), 
         'waiting_ids': fields.many2many('sondaggio.questionnaire', 'sondaggio_waiting_batch_ids_waiting_ids_rel', 'communication_batch_id', 'questionnaire_id', string='Questionnaire waiting to communication'), 
         'done_ids': fields.many2many('sondaggio.questionnaire', 'sondaggio_done_batch_ids_done_ids_rel', 'communication_batch_id', 'questionnaire_id', string='Questionnaire communicated'), 
+        'delayed_ids': fields.many2many('sondaggio.questionnaire', 'sondaggio_delayed_batch_ids_delayed_ids_rel', 'communication_batch_id', 'questionnaire_id', string='delayed_ids'), 
+        'dropped_ids': fields.many2many('sondaggio.questionnaire', 'sondaggio_dropped_ids_dropped_batch_ids_rel', 'communication_batch_id', 'questionnaire_id', string='dropped_ids'), 
     }
 
     _defaults = {

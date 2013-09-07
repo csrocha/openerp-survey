@@ -39,6 +39,8 @@
                             />
                     <field name="code" string="Code"
                             />
+                    <field name="channel" string="channel"
+                            />
                     </group>
                     <group string="By object">
                     <field name="respondent_code" string="Respondent Code"
@@ -108,6 +110,8 @@
                             />
                         <field name="code"
                             />
+                        <field name="channel"
+                            />
                     <field name="survey_id"
                             />
                     <field name="respondent_code"
@@ -141,6 +145,8 @@
                     <field name="pollster_id"
                         />
                     <field name="code"
+                        />
+                    <field name="channel"
                         />
                     <field name="respondent_code"
                         />

@@ -61,6 +61,7 @@ class questionnaire(osv.osv):
         'respondent_id': fields.many2one('res.partner', string='Respondent', readonly=True),
         'pollster_id': fields.many2one('res.users', string='Pollster', readonly=True),
         'code': fields.char(string='Code', readonly=True),
+        'channel': fields.selection([(u'online', 'online'), (u'personal', 'personal'), (u'telephonic', 'telephonic'), (u'offline', 'offline')], string='channel', readonly=True),
         'state': fields.selection(_states_, "State"),
         'survey_id': fields.many2one('sondaggio.survey', string='Survey', readonly=True, ondelete='cascade', required=True), 
         'respondent_code': fields.related(
@@ -73,6 +74,8 @@ class questionnaire(osv.osv):
         'parameter_ids': fields.one2many('sondaggio.parameter', 'questionnaire_id', string='Parameters'), 
         'waiting_batch_ids': fields.many2many('sondaggio.communication_batch', 'sondaggio_waiting_batch_ids_waiting_ids_rel', 'questionnaire_id', 'communication_batch_id', string='waiting_batch_ids'), 
         'done_batch_ids': fields.many2many('sondaggio.communication_batch', 'sondaggio_done_batch_ids_done_ids_rel', 'questionnaire_id', 'communication_batch_id', string='done_batch_ids'), 
+        'delayed_batch_ids': fields.many2many('sondaggio.communication_batch', 'sondaggio_delayed_batch_ids_delayed_ids_rel', 'questionnaire_id', 'communication_batch_id', string='delayed_batch_ids'), 
+        'dropped_batch_ids': fields.many2many('sondaggio.communication_batch', 'sondaggio_dropped_ids_dropped_batch_ids_rel', 'questionnaire_id', 'communication_batch_id', string='dropped_batch_ids'), 
         'answer_ids': fields.one2many('sondaggio.answer', 'questionnaire_id', string='answer_ids', select=True), 
     }
 
@@ -81,6 +84,7 @@ class questionnaire(osv.osv):
         'respondent_id': lambda self, cr, uid, context=None: context and context.get('respondent_id', False),
         'code': lambda self, cr, uid, context=None: context and context.get('code', False),
         'pollster_id': lambda self, cr, uid, context=None: context and context.get('pollster_id', False),
+        'channel': lambda self, cr, uid, context=None: context and context.get('channel', False),
         'survey_id': lambda self, cr, uid, context=None: context and context.get('survey_id', False),
     }
 
