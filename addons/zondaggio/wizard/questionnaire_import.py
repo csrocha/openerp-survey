@@ -100,7 +100,7 @@ class questionnaire_import(osv.osv_memory):
                     if int(parameters.get(column_version, 0)) < int(rdict[column_version]):
                         dwrite = {
                             'parameter_ids': [
-                                (2, pid) for parameter_ids
+                                (2, pid) for pid in parameter_ids
                             ] + [
                                 (0,0,{ 'name': k.lower(), 'value': v })
                                 for k, v in rdict.items() if k != column_name
