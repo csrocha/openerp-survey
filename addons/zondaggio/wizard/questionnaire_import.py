@@ -95,13 +95,13 @@ class questionnaire_import(osv.osv_memory):
                 questionnaire_ids = questionnaire_obj.search(cr, uid, [('name','=',rdict[column_name])])
                 if questionnaire_ids:
                     q = questionnaire_obj.browse(cr, uid, questionnaire_ids)[0]
-                    parameters = { p.name: p.value for p in q.parameter_ids }
+                    parameters = dict( (p.name, p.value) for p in q.parameter_ids )
                     if int(parameters.get(column_version, 0)) < int(rdict[column_version]):
                         dwrite = {
                             'parameter_ids': [ (0,0,{ 'name': k.lower(), 'value': v }) for k, v in rdict.items() if k != column_name ],
                         }
                         questionnaire_obj.write(cr, uid, [q.id], dwrite)
-                        if not(u % 40): _logger.info('Updating %i questionnaires and continue.' % u+1)
+                        if not(u % 40): _logger.info('Updating %i questionnaires and continue.' % (u+1))
                         u = u +1
                 else:
                     m = hashlib.md5()
@@ -113,7 +113,7 @@ class questionnaire_import(osv.osv_memory):
                         'parameter_ids': [ (0,0,{ 'name': k, 'value': v }) for k, v in rdict.items() if k != column_name ],
                     }
                     questionnaire_obj.create(cr, uid, dwrite)
-                    if not(c % 40): _logger.info('Created %i questionnaires and continue.' % c+1)
+                    if not(c % 40): _logger.info('Created %i questionnaires and continue.' % (c+1))
                     c = c + 1
 
         _logger.info('Created %i questionnaires.' % c)

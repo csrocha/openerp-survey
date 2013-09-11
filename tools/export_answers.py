@@ -9,7 +9,7 @@ def list_inputs(cur):
                         from sondaggio_answer as A 
                         left join sondaggio_node as Q on (A.question_id = Q.id) 
                         left join sondaggio_questionnaire as QA on (A.questionnaire_id = QA.id) 
-                        where type = 'Variable'
+                        where type = 'Variable' and QA.state='complete' 
                         order by QA.name, Q.variable_name;
                 """
         cur.execute(_q_input)
