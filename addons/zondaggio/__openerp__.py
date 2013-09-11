@@ -58,6 +58,7 @@
         u'view/enable_condition_view.xml',
         u'view/communication_batch_view.xml',
         u'wizard/questionnaire_import_view.xml',
+        u'wizard/questionnaire_export_view.xml',
         u'data/online.xml',
         u'wizard/node_copy_view.xml',
     ],

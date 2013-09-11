@@ -40,7 +40,7 @@ class questionnaire_import(osv.osv_memory):
     _inherit = [ _name ]
 
     _columns = {
-        'version_column_id': fields.many2one('sondaggio.import_file_column', string='Version column'),
+        'version_column_id': fields.many2one('sondaggio.import_file_column', string=u'Version column'),
     }
 
     def do_load_file(self, cr, uid, ids, context=None):
@@ -96,9 +96,15 @@ class questionnaire_import(osv.osv_memory):
                 if questionnaire_ids:
                     q = questionnaire_obj.browse(cr, uid, questionnaire_ids)[0]
                     parameters = dict( (p.name, p.value) for p in q.parameter_ids )
+                    parameter_ids = [ p.id for p in q.parameter_ids ]
                     if int(parameters.get(column_version, 0)) < int(rdict[column_version]):
                         dwrite = {
-                            'parameter_ids': [ (0,0,{ 'name': k.lower(), 'value': v }) for k, v in rdict.items() if k != column_name ],
+                            'parameter_ids': [
+                                (2, pid) for pid in parameter_ids
+                            ] + [
+                                (0,0,{ 'name': k.lower(), 'value': v })
+                                for k, v in rdict.items() if k != column_name
+                            ],
                         }
                         questionnaire_obj.write(cr, uid, [q.id], dwrite)
                         if not(u % 40): _logger.info('Updating %i questionnaires and continue.' % (u+1))

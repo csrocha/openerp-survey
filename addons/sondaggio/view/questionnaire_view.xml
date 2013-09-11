@@ -39,6 +39,8 @@
                             />
                     <field name="code" string="Code"
                             />
+                    <field name="channel" string="Channel"
+                            />
                     </group>
                     <group string="By object">
                     <field name="respondent_code" string="Respondent Code"
@@ -65,11 +67,6 @@
                             states="cancelled"
                             string="To Draft"
                             />
-                        <button name="action_wfk_set_cancelled"
-                            type="object"
-                            states="complete,in_coding,in_process,validated,waiting"
-                            string="Cancel"
-                            />
                         <button name="sgn_wait"
                             states="in_process"
                             string="Wait"
@@ -89,10 +86,18 @@
                             string="Encode"
                             class="oe_highlight"
                             />
+                        <button name="sgn_reject"
+                            states="in_process,waiting"
+                            string="Reject"
+                            />
                         <button name="sgn_validate"
                             states="in_coding"
                             string="Validate"
                             class="oe_highlight"
+                            />
+                        <button name="sgn_cancel"
+                            states="complete,in_coding,in_process,rejected,validated,waiting"
+                            string="Cancel"
                             />
                         <field name="state" widget="statusbar"
                             statusbar_colors='{}'
@@ -107,6 +112,8 @@
                         <field name="pollster_id"
                             />
                         <field name="code"
+                            />
+                        <field name="channel"
                             />
                     <field name="survey_id"
                             />
@@ -132,7 +139,7 @@
             <field name="model">sondaggio.questionnaire</field>
             <field name="arch" type="xml">
                 <tree string="questionnaire"
-                    colors="grey:state=='cancelled';blue:state in ('draft',);black:state in ('cancelled', 'waiting', 'in_coding', 'in_process', 'complete'); red:state in ()"
+                    colors="grey:state=='cancelled';blue:state in ('draft',);black:state in ('in_coding', 'in_process', 'rejected', 'waiting', 'validated', 'complete'); red:state in ()"
                     >
                     <field name="name"
                         />
@@ -141,6 +148,8 @@
                     <field name="pollster_id"
                         />
                     <field name="code"
+                        />
+                    <field name="channel"
                         />
                     <field name="respondent_code"
                         />

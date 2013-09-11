@@ -36,22 +36,24 @@ class questionnaire(osv.osv):
     _states_ = [
         # State machine: untitle
         ('draft','Draft'),
-        ('cancelled','Cancelled'),
         ('waiting','Waiting'),
         ('in_process','In Process'),
         ('complete','Complete'),
         ('in_coding','In Coding'),
         ('validated','Validated'),
+        ('rejected','Rejected'),
+        ('cancelled','Cancelled'),
     ]
     _track = {
         'state': {
             'sondaggio.questionnaire_draft': lambda self, cr, uid, obj, ctx=None: obj['state'] == 'draft',
-            'sondaggio.questionnaire_cancelled': lambda self, cr, uid, obj, ctx=None: obj['state'] == 'cancelled',
             'sondaggio.questionnaire_waiting': lambda self, cr, uid, obj, ctx=None: obj['state'] == 'waiting',
             'sondaggio.questionnaire_in_process': lambda self, cr, uid, obj, ctx=None: obj['state'] == 'in_process',
             'sondaggio.questionnaire_complete': lambda self, cr, uid, obj, ctx=None: obj['state'] == 'complete',
             'sondaggio.questionnaire_in_coding': lambda self, cr, uid, obj, ctx=None: obj['state'] == 'in_coding',
             'sondaggio.questionnaire_validated': lambda self, cr, uid, obj, ctx=None: obj['state'] == 'validated',
+            'sondaggio.questionnaire_rejected': lambda self, cr, uid, obj, ctx=None: obj['state'] == 'rejected',
+            'sondaggio.questionnaire_cancelled': lambda self, cr, uid, obj, ctx=None: obj['state'] == 'cancelled',
         },
     }
 
@@ -61,6 +63,7 @@ class questionnaire(osv.osv):
         'respondent_id': fields.many2one('res.partner', string='Respondent', readonly=True),
         'pollster_id': fields.many2one('res.users', string='Pollster', readonly=True),
         'code': fields.char(string='Code', readonly=True),
+        'channel': fields.selection([(u'online', 'online'), (u'personal', 'personal'), (u'telephonic', 'telephonic'), (u'offline', 'offline')], string='Channel', readonly=True),
         'state': fields.selection(_states_, "State"),
         'survey_id': fields.many2one('sondaggio.survey', string='Survey', readonly=True, ondelete='cascade', required=True), 
         'respondent_code': fields.related(
@@ -73,6 +76,8 @@ class questionnaire(osv.osv):
         'parameter_ids': fields.one2many('sondaggio.parameter', 'questionnaire_id', string='Parameters'), 
         'waiting_batch_ids': fields.many2many('sondaggio.communication_batch', 'sondaggio_waiting_batch_ids_waiting_ids_rel', 'questionnaire_id', 'communication_batch_id', string='waiting_batch_ids'), 
         'done_batch_ids': fields.many2many('sondaggio.communication_batch', 'sondaggio_done_batch_ids_done_ids_rel', 'questionnaire_id', 'communication_batch_id', string='done_batch_ids'), 
+        'delayed_batch_ids': fields.many2many('sondaggio.communication_batch', 'sondaggio_delayed_batch_ids_delayed_ids_rel', 'questionnaire_id', 'communication_batch_id', string='delayed_batch_ids'), 
+        'dropped_batch_ids': fields.many2many('sondaggio.communication_batch', 'sondaggio_dropped_ids_dropped_batch_ids_rel', 'questionnaire_id', 'communication_batch_id', string='dropped_batch_ids'), 
         'answer_ids': fields.one2many('sondaggio.answer', 'questionnaire_id', string='answer_ids', select=True), 
     }
 
@@ -81,6 +86,7 @@ class questionnaire(osv.osv):
         'respondent_id': lambda self, cr, uid, context=None: context and context.get('respondent_id', False),
         'code': lambda self, cr, uid, context=None: context and context.get('code', False),
         'pollster_id': lambda self, cr, uid, context=None: context and context.get('pollster_id', False),
+        'channel': lambda self, cr, uid, context=None: context and context.get('channel', False),
         'survey_id': lambda self, cr, uid, context=None: context and context.get('survey_id', False),
     }
 
@@ -122,14 +128,6 @@ Registry in the log start action."""
     def onchange_input(self, cr, uid, ids, context=None):
         """"""
         raise NotImplementedError
-
-    def action_wfk_set_cancelled(self, cr, uid, ids, *args):
-        self.write(cr, uid, ids, {'state':'cancelled'})
-        wf_service = netsvc.LocalService("workflow")
-        for obj_id in ids:
-            wf_service.trg_delete(uid, 'sondaggio.questionnaire', obj_id, cr)
-            wf_service.trg_create(uid, 'sondaggio.questionnaire', obj_id, cr)
-        return True
 
     def action_wfk_set_draft(self, cr, uid, ids, *args):
         self.write(cr, uid, ids, {'state':'draft'})

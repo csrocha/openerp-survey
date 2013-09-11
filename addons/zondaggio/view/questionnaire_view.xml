@@ -38,11 +38,13 @@
                 <tree string="questionnaire"
                     colors="grey:state=='cancelled';blue:state in ('draft',);black:state in ('cancelled', 'waiting', 'in_coding', 'in_process', 'complete'); red:state in ()"
                     >
-                    <field name="name" />
-                    <field name="respondent_id" />
-                    <field name="pollster_id" />
-                    <field name="respondent_code" />
+                    <field name="name" string="CUIT"/>
+                    <field name="par_razon_social_ver"/>
+                    <field name="par_estrato_f" />
+                    <field name="par_fecha_ver" />
+                    <field name="par_fecha_env" />
                     <field name="state" />
+                    <field name="channel" />
                     <button name="on_open_ui" string="Open" type="object" icon="gtk-jump-to"/>
                 </tree>
             </field>
@@ -65,11 +67,14 @@
                             />
                     <field name="respondent_code" string="Respondent Code"
                             />
+                    <field name="channel" string="Channel"
+                            />
                     <field name="par_razon_social" />
                     <field name="par_razon_social_ver" />
                     <field name="par_estrato_f" />
                     <field name="par_fecha_ver" />
                     <field name="par_fecha_env" />
+                    <filter string="State" context="{'group_by': 'state'}"/>
                     </group>
                 </search>
             </field>
@@ -92,6 +97,15 @@
                             states="cancelled"
                             string="To Draft"
                             />
+                        <button name="sgn_wait"
+                            states="in_process"
+                            string="Wait"
+                            />
+                        <button name="sgn_continue"
+                            states="waiting"
+                            string="Continue"
+                            class="oe_highlight"
+                            />
                         <button name="sgn_end"
                             states="in_process"
                             string="End"
@@ -102,22 +116,17 @@
                             string="Encode"
                             class="oe_highlight"
                             />
-                        <button name="sgn_wait"
-                            states="in_process"
-                            string="Wait"
-                            />
-                        <button name="sgn_continue"
-                            states="waiting"
-                            string="Continue"
+                        <button name="sgn_reject"
+                            states="in_process,waiting"
+                            string="Reject"
                             />
                         <button name="sgn_validate"
                             states="in_coding"
                             string="Validate"
                             class="oe_highlight"
                             />
-                        <button name="action_wfk_set_cancelled"
-                            type="object"
-                            states="complete,in_coding,in_process,validated,wainting"
+                        <button name="sgn_cancel"
+                            states="complete,in_coding,in_process,rejected,validated,waiting"
                             string="Cancel"
                             />
                         <field name="state" widget="statusbar"
@@ -129,13 +138,14 @@
                          <field name="name" readonly="0" string="Empresa" attrs="{'readonly':['|',('actual_page','!=',1),('state','!=','draft')]}"/>
                          <field name="code" readonly="0" string="Codigo de Acceso" attrs="{'readonly':['|',('actual_page','!=',1),('state','!=','draft')]}"/>
                          <field name="survey_id" readonly="0" attrs="{'readonly':['|',('actual_page','!=',1),('state','!=','draft')]}"/>
-                         <field name="parameter_ids" type="xml" states="draft">
+                         <field name="parameter_ids" type="xml" states="draft,complete,validated,rejected">
                              <tree editable="bottom">
                                  <field name="name"/>
                                  <field name="value"/>
                              </tree>
                          </field>
                          <field name="actual_page" readonly="0" string="Page" states="in_process"/>
+                         <field name="channel" attrs="{'readonly':['|',('actual_page','!=',1),('state','!=','draft')]}"/>
                          <field name="url" />
                      </group>
                      <group col="3" colspan="4" id="top">
