@@ -240,14 +240,13 @@ class questionnaire(osv.osv):
     _inherit = [ _name ]
 
     def get_parameters(self, cr, uid, ids, field_name, arg, context=None):
-        import pdb; pdb.set_trace()
-
+        if field_name[:4] != 'par_':
+            return {}
         param_obj = self.pool.get('sondaggio.parameters')
         res = {}
-        for questionnaire in self.browse(cr, uid, ids, context=context):
-            parameter_texts = [ "%s=%s" % (par.name, par.value) for par in questionnaire.parameter_ids ]
-            _logger.info('Calc parameters %s' % parameter_texts)
-            res[questionnaire.id] = ';'.join(parameter_texts)
+        for q in self.browse(cr, uid, ids, context=context):
+            p_l = [ par.value for par in q.parameter_ids if par.name == field_name[4:] ]
+            res[q.id] = p_l[0] if p_l else False
         return res
 
     def search_parameters(self, cr, uid, obj, name, args, context):

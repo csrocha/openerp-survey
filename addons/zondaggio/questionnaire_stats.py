@@ -38,6 +38,7 @@ class questionnaire_stats(osv.osv):
         ('in_process','In Process'),
         ('complete','Complete'),
         ('in_coding','In Coding'),
+        ('rejected','Rejected'),
         ('validated','Validated'),
     ]
     _columns = {
@@ -63,8 +64,9 @@ class questionnaire_stats(osv.osv):
  
 questionnaire_stats()
 
+"""
 class questionnaire_channel_stats(osv.osv):
-    """
+    " " "
 
     Encuesta    Estados      Online Offline Personal Telefonico
 
@@ -73,7 +75,7 @@ class questionnaire_channel_stats(osv.osv):
     x           Esperando
     x           Completo
 
-    """
+    " " "
     _name = "sondaggio.questionnaire_channel_stats"
     _description = "Questionnaire Channel Stat"
     _auto = False
@@ -104,7 +106,7 @@ class questionnaire_channel_stats(osv.osv):
  
     def init(self, cr):
         tools.sql.drop_view_if_exists(cr, 'sondaggio_questionnaire_stats')
-        cr.execute("""
+        cr.execute(" " "
             CREATE OR REPLACE VIEW sondaggio_questionnaire_stats AS (
                 SELECT
                     min(sondaggio_questionnaire.id) AS id,
@@ -116,9 +118,10 @@ class questionnaire_channel_stats(osv.osv):
                 FROM sondaggio_questionnaire
                 GROUP BY survey_id, state
             )
-        """)
+        " " ")
  
 questionnaire_channel_stats()
+"""
 
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

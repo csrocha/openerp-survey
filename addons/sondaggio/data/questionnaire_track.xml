@@ -29,12 +29,6 @@
             <field name="default" eval="True"/>
 	    <field name="description">Draft</field>
         </record>
-        <record id="sondaggio.questionnaire_cancelled" model="mail.message.subtype">
-	    <field name="name">Cancelled</field>
-	    <field name="res_model">sondaggio.questionnaire</field>
-            <field name="default" eval="True"/>
-	    <field name="description">Cancelled</field>
-        </record>
         <record id="sondaggio.questionnaire_waiting" model="mail.message.subtype">
 	    <field name="name">Waiting</field>
 	    <field name="res_model">sondaggio.questionnaire</field>
@@ -64,6 +58,18 @@
 	    <field name="res_model">sondaggio.questionnaire</field>
             <field name="default" eval="True"/>
 	    <field name="description">Validated</field>
+        </record>
+        <record id="sondaggio.questionnaire_rejected" model="mail.message.subtype">
+	    <field name="name">Rejected</field>
+	    <field name="res_model">sondaggio.questionnaire</field>
+            <field name="default" eval="True"/>
+	    <field name="description">Rejected</field>
+        </record>
+        <record id="sondaggio.questionnaire_cancelled" model="mail.message.subtype">
+	    <field name="name">Cancelled</field>
+	    <field name="res_model">sondaggio.questionnaire</field>
+            <field name="default" eval="True"/>
+	    <field name="description">Cancelled</field>
         </record>
     </data>
 </openerp>

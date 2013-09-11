@@ -40,7 +40,7 @@ class questionnaire_import(osv.osv_memory):
     _inherit = [ _name ]
 
     _columns = {
-        'version_column_id': fields.many2one('sondaggio.import_file_column', string='Version column'),
+        'version_column_id': fields.many2one('sondaggio.import_file_column', string=u'Version column'),
     }
 
     def do_load_file(self, cr, uid, ids, context=None):

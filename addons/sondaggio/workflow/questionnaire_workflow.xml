@@ -45,14 +45,6 @@
             </field>
             <field name="kind">function</field>
         </record>
-        <record id="a_0F17_24E7" model="workflow.activity">
-            <field name="wkf_id" ref="questionnaire_untitle_wkf"/>
-            <field name="name">Cancelled</field>
-            <field name="action">
-                write({'state':'cancelled'})
-            </field>
-            <field name="kind">function</field>
-        </record>
         <record id="a_0F17_0F37" model="workflow.activity">
             <field name="wkf_id" ref="questionnaire_untitle_wkf"/>
             <field name="name">Waiting</field>
@@ -87,10 +79,26 @@
         </record>
         <record id="a_0F17_1F3E" model="workflow.activity">
             <field name="wkf_id" ref="questionnaire_untitle_wkf"/>
-            <field name="flow_stop">True</field>
             <field name="name">Validated</field>
             <field name="action">
                 write({'state':'validated'})
+            </field>
+            <field name="kind">function</field>
+        </record>
+        <record id="a_0F17_160B" model="workflow.activity">
+            <field name="wkf_id" ref="questionnaire_untitle_wkf"/>
+            <field name="name">Rejected</field>
+            <field name="action">
+                write({'state':'rejected'})
+            </field>
+            <field name="kind">function</field>
+        </record>
+        <record id="a_0F17_24E7" model="workflow.activity">
+            <field name="wkf_id" ref="questionnaire_untitle_wkf"/>
+            <field name="flow_stop">True</field>
+            <field name="name">Cancelled</field>
+            <field name="action">
+                write({'state':'cancelled'})
             </field>
             <field name="kind">function</field>
         </record>
@@ -165,6 +173,24 @@
         </record>
         <record id="t_0F17_0F3C" model="workflow.transition">
             <field name="act_from" ref="a_0F17_0F37"/>
+            <field name="act_to" ref="a_0F17_24E7"/>
+            <field name="signal">sgn_cancel</field>
+            <field name="condition">True</field>
+        </record>
+        <record id="t_0F17_160C" model="workflow.transition">
+            <field name="act_from" ref="a_0F17_1F37"/>
+            <field name="act_to" ref="a_0F17_160B"/>
+            <field name="signal">sgn_reject</field>
+            <field name="condition">True</field>
+        </record>
+        <record id="t_0F17_160D" model="workflow.transition">
+            <field name="act_from" ref="a_0F17_0F37"/>
+            <field name="act_to" ref="a_0F17_160B"/>
+            <field name="signal">sgn_reject</field>
+            <field name="condition">True</field>
+        </record>
+        <record id="t_0F17_160E" model="workflow.transition">
+            <field name="act_from" ref="a_0F17_160B"/>
             <field name="act_to" ref="a_0F17_24E7"/>
             <field name="signal">sgn_cancel</field>
             <field name="condition">True</field>
