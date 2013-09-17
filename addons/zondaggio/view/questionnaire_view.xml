@@ -45,7 +45,10 @@
                     <field name="par_fecha_env" />
                     <field name="state" />
                     <field name="channel" />
-                    <button name="on_open_ui" string="Open" type="object" icon="gtk-jump-to"/>
+                    <button name="on_open_offline" string="Open Offline Channel" type="object" icon="gtk-disconnect"/>
+                    <button name="on_open_online" string="Open Online Channel" type="object" icon="gtk-connect"/>
+                    <button name="on_open_telephonic" string="Open Telephonic Channel" type="object" icon="terp-call-start"/>
+                    <button name="on_open_personal" string="Open Personal Channel" type="object" icon="stock_person"/>
                 </tree>
             </field>
         </record>
@@ -75,6 +78,7 @@
                     <field name="par_fecha_ver" />
                     <field name="par_fecha_env" />
                     <filter string="State" context="{'group_by': 'state'}"/>
+                    <filter string="Channel" context="{'group_by': 'channel'}"/>
                     </group>
                 </search>
             </field>
@@ -135,7 +139,7 @@
                     </header>
                     <sheet string="questionnaire">
                      <group id="main">
-                         <field name="name" readonly="0" string="Empresa" attrs="{'readonly':['|',('actual_page','!=',1),('state','!=','draft')]}"/>
+                         <field name="name" readonly="0" string="CUIT" attrs="{'readonly':['|',('actual_page','!=',1),('state','!=','draft')]}"/>
                          <field name="code" readonly="0" string="Codigo de Acceso" attrs="{'readonly':['|',('actual_page','!=',1),('state','!=','draft')]}"/>
                          <field name="survey_id" readonly="0" attrs="{'readonly':['|',('actual_page','!=',1),('state','!=','draft')]}"/>
                          <field name="parameter_ids" type="xml" states="draft,complete,validated,rejected">
@@ -145,8 +149,14 @@
                              </tree>
                          </field>
                          <field name="actual_page" readonly="0" string="Page" states="in_process"/>
-                         <field name="channel" attrs="{'readonly':['|',('actual_page','!=',1),('state','!=','draft')]}"/>
+                         <field name="channel" states="draft,in_process,waiting"/>
                          <field name="url" />
+                         <group col="8" colspan="4">
+                            <button name="on_open_offline" string="Open Offline Channel" type="object" icon="gtk-disconnect"/>
+                            <button name="on_open_online" string="Open Online Channel" type="object" icon="gtk-connect"/>
+                            <button name="on_open_telephonic" string="Open Telephonic Channel" type="object" icon="terp-call-start"/>
+                            <button name="on_open_personal" string="Open Personal Channel" type="object" icon="stock_person"/>
+                         </group>
                      </group>
                      <group col="3" colspan="4" id="top">
                          <button name="prev_page" string="Prev Page" type="object" states="in_process,in_coding,validated"/>

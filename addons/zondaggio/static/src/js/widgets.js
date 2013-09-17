@@ -37,32 +37,48 @@ function openerp_zondaggio_widgets(instance, module){
                 self.update_workflow('start');
             });
         },
-	update_workflow:function(moment) {
+        update_workflow:function(moment) {
             var self = this;
-	    var state=self.questionnaire.get('questionnaire').state;
-	    switch (moment + '|' + state) {
-            case 'start|draft':
-                self.questionnaire.send_signal('sgn_begin').then(function(){
-			    return self.questionnaire.send_signal('sgn_wait');
-		});
-		break;
-            case 'start|complete':
-                $('.zoe_active').removeClass('zoe_active').addClass('zoe_inactive');
-		$('.zoe_closed').removeClass('zoe_inactive').addClass('zoe_active')
-		$('div.zoe_title>div>*').remove();
-		$('button').addClass('zoe_hidden');
-		break;
-	    case 'on_change|waiting':
-		self.has_change = true;
-		break;
-	    case 'save|waiting':
-		if (self.has_change) self.questionnaire.send_signal('sgn_continue');
-		break;
-	    case 'on_close|in_progress':
-		self.questionnaire.send_signal('sgn_end');
-		break;
-	    }
-	},
+            // Set channel
+            var channel=self.questionnaire.get('questionnaire').channel;
+            var new_channel=self.session.questionnaire_context.channel;
+            if (!new_channel) {
+                new_channel='online';
+            }
+            if (!channel && new_channel) {
+                self.questionnaire.set_channel(new_channel);
+            } else if (channel != new_channel) {
+                var r = confirm(_.str.sprintf("ATENCIÓN\n Esta a punto de cambiar el el canal de entrada de %s a %s. Esta seguro? Sino vuelva atrás con el navegador.", channel, new_channel));
+                if (r) {
+                    self.questionnaire.set_channel(new_channel);
+                }
+            }
+ 
+            // Set state
+            var state=self.questionnaire.get('questionnaire').state;
+            switch (moment + '|' + state) {
+                case 'start|draft':
+                    self.questionnaire.send_signal('sgn_begin').then(function(){
+                    return self.questionnaire.send_signal('sgn_wait');
+            });
+            break;
+                case 'start|complete':
+                    $('.zoe_active').removeClass('zoe_active').addClass('zoe_inactive');
+            $('.zoe_closed').removeClass('zoe_inactive').addClass('zoe_active')
+            $('div.zoe_title>div>*').remove();
+            $('button').addClass('zoe_hidden');
+            break;
+            case 'on_change|waiting':
+            self.has_change = true;
+            break;
+            case 'save|waiting':
+            if (self.has_change) self.questionnaire.send_signal('sgn_continue');
+            break;
+            case 'on_close|in_progress':
+            self.questionnaire.send_signal('sgn_end');
+            break;
+            }
+        },
         dynamicCss:function() {
             /* Acomodar tabla P2 */
             $('table.zoe:first').prepend('<tr><td rowspan="2"><p style="text-align:center">Problemas</p></td><td colspan="10" class="zoe_arrow"><div class="zoe_left_arrow"><p style="display:inline">Nada relevante</p></div><div class="zoe_right_arrow"><p style="display:inline">Muy relevante</p></div></td></tr>');

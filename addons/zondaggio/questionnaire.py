@@ -839,6 +839,18 @@ class questionnaire(osv.osv):
             'context' : context
         }
 
+    def on_open_online(self, cr, uid, ids, context=None):
+        return self.on_open_ui(cr, uid, ids, context=dict(context, channel='online'))
+
+    def on_open_offline(self, cr, uid, ids, context=None):
+        return self.on_open_ui(cr, uid, ids, context=dict(context, channel='offline'))
+
+    def on_open_telephonic(self, cr, uid, ids, context=None):
+        return self.on_open_ui(cr, uid, ids, context=dict(context, channel='telephinic'))
+
+    def on_open_personal(self, cr, uid, ids, context=None):
+        return self.on_open_ui(cr, uid, ids, context=dict(context, channel='personal'))
+
     def exec_workflow_cr(self, cr, uid, ids, signal, context=None):
         wf_service = netsvc.LocalService("workflow")
         _logger.debug('Recibing signal %s for %s' % (signal, ids))

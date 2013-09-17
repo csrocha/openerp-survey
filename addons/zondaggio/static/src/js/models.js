@@ -53,7 +53,7 @@ function openerp_zondaggio_models(instance, module){
                     self.set('widgets', map_widgets);
             
                     return self.fetch('sondaggio.questionnaire',
-			    ['name','description','survey_id','state','code'],
+			    ['name','description','survey_id','state','code','channel'],
 			    [['id','=',self.active_id],['code','=',self.active_code]]);
                 }).then(function(questionnaires){
                     self.set('questionnaire',questionnaires[0]);
@@ -204,6 +204,9 @@ function openerp_zondaggio_models(instance, module){
 		    self.get('questionnaire').state = result;
 	    });
         },
+        set_channel:function(channel){
+            return new instance.web.Model('sondaggio.questionnaire').call('write', [[this.active_id], {'channel': channel}]);
+        }
     });
 };
 
