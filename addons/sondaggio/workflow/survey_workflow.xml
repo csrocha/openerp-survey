@@ -90,7 +90,7 @@
         <record id="t_1870_0CAF" model="workflow.transition">
             <field name="act_from" ref="a_1870_0CAB"/>
             <field name="act_to" ref="a_1870_0CAC"/>
-            <field name="signal">sgn_publish</field>
+            <field name="signal">sgn_send</field>
             <field name="condition">True</field>
         </record>
         <record id="t_1870_0CB0" model="workflow.transition">

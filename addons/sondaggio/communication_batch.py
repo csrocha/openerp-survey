@@ -35,7 +35,6 @@ class communication_batch(osv.osv):
         # State machine: untitle
         ('draft','Draft'),
         ('accepted','Accepted'),
-        ('running','Running'),
         ('cancelled','Cancelled'),
         ('done','Done'),
     ]

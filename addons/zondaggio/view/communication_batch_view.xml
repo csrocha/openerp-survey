@@ -56,15 +56,11 @@
                             />
                         <button name="sgn_publish"
                             states="accepted"
-                            string="Publish"
-                            />
-                        <button name="sgn_done"
-                            states="runnning"
-                            string="Done"
+                            string="Send"
                             />
                         <button name="action_wfk_set_cancelled"
                             type="object"
-                            states="accepted,done,runnning"
+                            states="accepted,done"
                             string="Cancel"
                             />
                         <field name="state" widget="statusbar"
@@ -117,7 +113,7 @@
             <field name="model">sondaggio.communication_batch</field>
             <field name="arch" type="xml">
                 <tree string="communication_batch"
-                    colors="grey:state=='cancelled';blue:state in ('draft',);black:state in ('cancelled', 'runnning', 'accepted'); red:state in ()"
+                    colors="grey:state=='cancelled';blue:state in ('draft',);black:state in ('cancelled', 'accepted'); red:state in ()"
                     >
                     <field name="state" />
                 </tree>

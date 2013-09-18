@@ -53,12 +53,6 @@
             </field>
             <field name="kind">function</field>
         </record>
-        <record id="a_0F9D_0FF8" model="workflow.activity">
-            <field name="wkf_id" ref="communication_batch_untitle_wkf"/>
-            <field name="name">Running</field>
-            <field name="action">write({'state': 'running'}) and do_publish()</field>
-            <field name="kind">function</field>
-        </record>
         <record id="a_0F9D_0FFC" model="workflow.activity">
             <field name="wkf_id" ref="communication_batch_untitle_wkf"/>
             <field name="name">Cancelled</field>
@@ -71,9 +65,7 @@
             <field name="wkf_id" ref="communication_batch_untitle_wkf"/>
             <field name="flow_stop">True</field>
             <field name="name">Done</field>
-            <field name="action">
-                write({'state':'done'})
-            </field>
+            <field name="action">write({'state': 'done'}) and do_publish()</field>
             <field name="kind">function</field>
         </record>
 
@@ -87,14 +79,8 @@
         </record>
         <record id="t_0F9D_0FF9" model="workflow.transition">
             <field name="act_from" ref="a_0F9D_0FF6"/>
-            <field name="act_to" ref="a_0F9D_0FF8"/>
-            <field name="signal">sgn_publish</field>
-            <field name="condition">True</field>
-        </record>
-        <record id="t_0F9D_0FFB" model="workflow.transition">
-            <field name="act_from" ref="a_0F9D_0FF8"/>
             <field name="act_to" ref="a_0F9D_0FFA"/>
-            <field name="signal">sgn_done</field>
+            <field name="signal">sgn_send</field>
             <field name="condition">True</field>
         </record>
         <record id="t_0F9D_0FFD" model="workflow.transition">
@@ -105,12 +91,6 @@
         </record>
         <record id="t_0F9D_0FFE" model="workflow.transition">
             <field name="act_from" ref="a_0F9D_0FF6"/>
-            <field name="act_to" ref="a_0F9D_0FFC"/>
-            <field name="signal">sgn_cancel</field>
-            <field name="condition">True</field>
-        </record>
-        <record id="t_0F9D_0FFF" model="workflow.transition">
-            <field name="act_from" ref="a_0F9D_0FF8"/>
             <field name="act_to" ref="a_0F9D_0FFC"/>
             <field name="signal">sgn_cancel</field>
             <field name="condition">True</field>

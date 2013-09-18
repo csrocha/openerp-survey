@@ -37,8 +37,7 @@ class communication_batch(osv.osv):
 
     def do_publish(self, cr, uid, ids=None,context=None):
         """Completa la lista de waiting_questionnaire_ids a partir de los questionnaire_ids que hay en survey_id. Cambia a estado running."""
-        self.send_mails(cr, uid, ids, context=context);
-
+        return self.send_mails(cr, uid, ids, context=context);
 
     def send_mails(self, cr, uid, ids, context=None):
         """Envia un mail por cada waiting_questionnaires_ids usando los datos de la comunicación (email, subject, body, reply_to, etc) una vez enviado se borra de waiting y pasa a done_questionnaire_ids. Si no hay más emails en waiting se cambia a estado "done"."""
@@ -55,7 +54,7 @@ class communication_batch(osv.osv):
         questionnaire_obj = self.pool.get('sondaggio.questionnaire')
         wf_service = netsvc.LocalService('workflow')
     
-        comm_ids = comm_obj.search(cr,uid,[('state','=','runnning'),('id', 'in', ids)])
+        comm_ids = ids
         mail_ids = []
         done_ids = []
 
@@ -111,12 +110,9 @@ class communication_batch(osv.osv):
 
         mail_mail.send(cr, uid, mail_ids, context=context)
 
-        for i in done_ids:
-            wf_service.trg_validate(uid, 'sondaggio.communication_batch', i, 'sgn_done', cr)
-
         _logger.info('%d Communication(s) sent.', len(mail_ids))
     
-        return 0
+        return len(done_ids)>0
 
 communication_batch()
 
