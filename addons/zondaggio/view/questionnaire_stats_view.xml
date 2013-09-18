@@ -78,13 +78,75 @@
         </record>
 
         <menuitem
-            name="Questionnairies Stats"
+            name="Questionnaires Stats"
             id="menu_questionnaires_stats"
             sequence="100"
             action="action_sondaggio_questionnaire_stats"
             parent="sondaggio.menu_for_poolster"
             groups="sondaggio.group_poolster"
             />
+
+        <!-- ESTRATO STATICS -->
+
+        <!-- TREEVIEW -->
+        <record id="view_sondaggio_estrato_stats_tree" model="ir.ui.view">
+            <field name="name">sondaggio.estrato_stats.tree</field>
+            <field name="model">sondaggio.estrato_stats</field>
+            <field name="arch" type="xml">
+                <tree string="estrato_stats">
+                    <field name="estrato" />
+                    <field name="muesorig" />
+                    <field name="total" />
+                    <field name="pendiente" />
+                    <field name="channel_undefined" />
+                    <field name="channel_online" />
+                    <field name="channel_offline" />
+                    <field name="channel_telephonic" />
+                    <field name="channel_personal" />
+                    <field name="state_draft" />
+                    <field name="state_cancelled" />
+                    <field name="state_waiting" />
+                    <field name="state_in_process" />
+                    <field name="state_complete" />
+                    <field name="state_in_coding" />
+                    <field name="state_validated" />
+                </tree>
+            </field>
+        </record>
+
+        <!-- SEARCH VIEW -->
+        <record id="view_sondaggio_estrato_stats_filter" model="ir.ui.view">
+            <field name="name">sondaggio.estrato_stats.select</field>
+            <field name="model">sondaggio.estrato_stats</field>
+            <field name="arch" type="xml">
+                <search string="estrato_stats" version="7.0">
+                    <group string="By Attribute">
+                    <field name="estrato" string="Estrato" />
+                    <field name="muesorig" string="Muestra Orig" />
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="action_sondaggio_estrato_stats" model="ir.actions.act_window">
+            <field name="name">Estratos Stats</field>
+            <field name="res_model">sondaggio.estrato_stats</field>
+            <field name="view_type">tree</field>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="view_sondaggio_estrato_stats_tree"/>
+            <field name="search_view_id" ref="view_sondaggio_estrato_stats_filter"/>
+            <field name="domain">[]</field>
+        </record>
+
+        <menuitem
+            name="Estrato Stats"
+            id="menu_questionnaires_stats"
+            sequence="100"
+            action="action_sondaggio_estrato_stats"
+            parent="sondaggio.menu_for_poolster"
+            groups="sondaggio.group_poolster"
+            />
+
 
     </data>
 </openerp>

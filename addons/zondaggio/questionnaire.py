@@ -283,11 +283,14 @@ class questionnaire(osv.osv):
                                       readonly=True, type='text', fnct_search=search_parameters, store=True),
         'par_estrato_f': fields.function(get_parameters, method=True, string='Estrato',
                                       readonly=True, type='text', fnct_search=search_parameters, store=True),
+        'par_muesorig': fields.function(get_parameters, method=True, string='Muestra Orig',
+                                      readonly=True, type='text', fnct_search=search_parameters, store=True),
         'par_fecha_ver': fields.function(get_parameters, method=True, string='Fecha verificación',
                                       readonly=True, type='text', fnct_search=search_parameters, store=True),
         'par_fecha_env': fields.function(get_parameters, method=True, string='Fecha envío',
                                       readonly=True, type='text', fnct_search=search_parameters, store=True),
     }
+    _order = 'name asc, par_estrato_f asc'
 
     _defaults = {
         'actual_page': 1,
