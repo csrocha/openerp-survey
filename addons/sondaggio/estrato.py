@@ -38,7 +38,7 @@ class estrato(osv.osv):
         'tam_muestra': fields.integer(string='tam_muestra'),
         'cant_muestra_reemplazo': fields.integer(string='cant_muestra_reemplazo'),
         'questionnaire_ids': fields.one2many('sondaggio.questionnaire', 'estrato_id', string='questionnaire_ids', readonly=True), 
-        'survey_id': fields.many2one('sondaggio.survey', string='survey_id', readonly=True, required=True), 
+        'survey_id': fields.many2one('sondaggio.survey', string='survey_id', required=True), 
     }
 
     _defaults = {

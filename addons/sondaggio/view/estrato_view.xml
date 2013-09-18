@@ -85,6 +85,27 @@
                         />
                     <field name="cant_muestra_reemplazo"
                         />
+                    <field name="survey_id"
+                        />
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_sondaggio_estrato_tree_edit" model="ir.ui.view">
+            <field name="name">sondaggio.estrato.tree_edit</field>
+            <field name="model">sondaggio.estrato</field>
+            <field name="arch" type="xml">
+                <tree string="estrato"
+                    editable="bottom"
+                    >
+                    <field name="name"
+                        />
+                    <field name="tam_muestra"
+                        />
+                    <field name="cant_muestra_reemplazo"
+                        />
+                    <field name="survey_id"
+                        />
                 </tree>
             </field>
         </record>

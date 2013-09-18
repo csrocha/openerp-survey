@@ -102,7 +102,7 @@
 			</model>
 		</userDefined>
 </profile>
-<XMI xmi.version = '1.2' xmlns:UML = 'org.omg.xmi.namespace.UML' timestamp = 'Wed Sep 18 13:10:41 ART 2013'>
+<XMI xmi.version = '1.2' xmlns:UML = 'org.omg.xmi.namespace.UML' timestamp = 'Wed Sep 18 13:35:15 ART 2013'>
   <XMI.header>    <XMI.documentation>
       <XMI.exporter>ArgoUML (using Netbeans XMI Writer version 1.0)</XMI.exporter>
       <XMI.exporterVersion>0.34(6) revised on $Date: 2010-01-11 22:20:14 +0100 (Mon, 11 Jan 2010) $ </XMI.exporterVersion>
@@ -6388,6 +6388,15 @@ Registry in the log start action.</UML:TaggedValue.dataValue>
             </UML:Association>
             <UML:Association xmi.id = '127-0-1-1-13330aa7:14131bb3682:-8000:0000000000001044'
               name = '' isSpecification = 'false' isRoot = 'false' isLeaf = 'false' isAbstract = 'false'>
+              <UML:ModelElement.taggedValue>
+                <UML:TaggedValue xmi.id = '127-0-1-1-13330aa7:14131bb3682:-8000:0000000000001056'
+                  isSpecification = 'false'>
+                  <UML:TaggedValue.dataValue>{&apos;draft&apos;:[(&apos;readonly&apos;,False)]}</UML:TaggedValue.dataValue>
+                  <UML:TaggedValue.type>
+                    <UML:TagDefinition href = 'http://argouml.org/user-profiles/OpenObjectStadardElements.xmi#127-0-1-1--3588a9e:13cead26784:-8000:0000000000000F31'/>
+                  </UML:TaggedValue.type>
+                </UML:TaggedValue>
+              </UML:ModelElement.taggedValue>
               <UML:Association.connection>
                 <UML:AssociationEnd xmi.id = '127-0-1-1-13330aa7:14131bb3682:-8000:0000000000001045'
                   name = 'survey_id' visibility = 'public' isSpecification = 'false' isNavigable = 'true'
@@ -6402,8 +6411,8 @@ Registry in the log start action.</UML:TaggedValue.dataValue>
                   </UML:AssociationEnd.multiplicity>
                   <UML:ModelElement.stereotype>
                     <UML:Stereotype href = 'http://argouml.org/user-profiles/OpenObjectStadardElements.xmi#127-0-1-1--66344949:13b09938a14:-8000:00000000000011E5'/>
-                    <UML:Stereotype href = 'http://argouml.org/user-profiles/OpenObjectStadardElements.xmi#127-0-1-1--66344949:13b09938a14:-8000:0000000000000BA1'/>
                     <UML:Stereotype href = 'http://argouml.org/user-profiles/OpenObjectStadardElements.xmi#127-0-1-1-29a13c2b:13cb7762c9e:-8000:0000000000000EE1'/>
+                    <UML:Stereotype href = 'http://argouml.org/user-profiles/OpenObjectStadardElements.xmi#127-0-1-1--66344949:13b09938a14:-8000:00000000000011E6'/>
                   </UML:ModelElement.stereotype>
                   <UML:AssociationEnd.participant>
                     <UML:Class xmi.idref = '127-0-1-1--3b5079bc:13cd6248bba:-8000:0000000000001870'/>
@@ -6435,6 +6444,7 @@ Registry in the log start action.</UML:TaggedValue.dataValue>
               isAbstract = 'false'>
               <UML:ModelElement.stereotype>
                 <UML:Stereotype href = 'http://argouml.org/user-profiles/OpenObjectStadardElements.xmi#127-0-1-1-5ee79c33:13bb911d610:-8000:0000000000000F9E'/>
+                <UML:Stereotype href = 'http://argouml.org/user-profiles/OpenObjectStadardElements.xmi#127-0-1-1-29a13c2b:13cb7762c9e:-8000:0000000000000EE3'/>
               </UML:ModelElement.stereotype>
             </UML:UseCase>
             <UML:Association xmi.id = '127-0-1-1-13330aa7:14131bb3682:-8000:000000000000104B'
@@ -17167,7 +17177,7 @@ Registry in the log start action.</UML:TaggedValue.dataValue>
     </path>
   </group>
   <group name="Fig57"
-       description="org.argouml.uml.diagram.use_case.ui.FigUseCase[1176, 736, 120, 60]pathVisible=false;stereotypeView=0;extensionPointVisible=false"
+       description="org.argouml.uml.diagram.use_case.ui.FigUseCase[1176, 736, 154, 79]pathVisible=false;stereotypeView=0;extensionPointVisible=false"
        href="127-0-1-1-13330aa7:14131bb3682:-8000:000000000000103D"
        fill="1"
        fillcolor="white"
@@ -17178,20 +17188,20 @@ Registry in the log start action.</UML:TaggedValue.dataValue>
     </private>
     
     <ellipse name="Fig57.0"
-      x="1236"
-      y="766"
-      rx="60"
-      ry="30"
+      x="1253"
+      y="775"
+      rx="77"
+      ry="39"
       fill="1"
       fillcolor="white"
       stroke="1"
       strokecolor="black"
     />
     <text name="Fig57.1"
-      x="1195"
-      y="745"
-      width="81"
-      height="41"
+      x="1204"
+      y="746"
+      width="97"
+      height="58"
       fill="0"
       fillcolor="white"
       stroke="0"
@@ -17204,7 +17214,7 @@ Registry in the log start action.</UML:TaggedValue.dataValue>
       justification="Center"
     >Estrato</text>
     <group name="Fig57.2"
-         description="org.argouml.uml.diagram.ui.FigStereotypesGroup[1195, 745, 81, 19]"
+         description="org.argouml.uml.diagram.ui.FigStereotypesGroup[1204, 746, 97, 36]"
          href="127-0-1-1-13330aa7:14131bb3682:-8000:000000000000103D"
          fill="0"
          fillcolor="white"
@@ -17215,19 +17225,19 @@ Registry in the log start action.</UML:TaggedValue.dataValue>
       </private>
       
       <rectangle name="Fig57.2.0"
-        x="1195"
-        y="745"
-        width="81"
-        height="19"
+        x="1204"
+        y="746"
+        width="97"
+        height="36"
         fill="0"
         fillcolor="white"
         stroke="0"
         strokecolor="black"
       />
       <text name="Fig57.2.1"
-        x="1195"
-        y="745"
-        width="81"
+        x="1204"
+        y="746"
+        width="97"
         height="17"
         fill="0"
         fillcolor="white"
@@ -17240,6 +17250,22 @@ Registry in the log start action.</UML:TaggedValue.dataValue>
         textsize="12"
         justification="Center"
       >&lt;&lt;menu&gt;&gt;</text>
+      <text name="Fig57.2.2"
+        x="1204"
+        y="763"
+        width="97"
+        height="17"
+        fill="0"
+        fillcolor="white"
+        stroke="0"
+        strokecolor="black"
+        textcolor="black"
+        font="Dialog"
+        italic="false"
+        bold="false"
+        textsize="12"
+        justification="Center"
+      >&lt;&lt;editable&gt;&gt;</text>
     </group>
     <rectangle name="Fig57.3"
       x="1186"
@@ -17328,10 +17354,10 @@ Registry in the log start action.</UML:TaggedValue.dataValue>
       stroke="1"
       strokecolor="51 51 153"
     >
-      <moveto x="625"
-              y="628" />
-      <lineto x="1181"
-              y="753" />
+      <moveto x="624"
+              y="629" />
+      <lineto x="1183"
+              y="758" />
     </path>
   </group>
 </pgml>
@@ -29413,8 +29439,8 @@ Registry in the log start action.</UML:TaggedValue.dataValue>
                         classname="org.argouml.uml.diagram.ui.PathItemPlacement"
                         figclassname="org.argouml.uml.diagram.ui.FigAssociationEndAnnotation"
                         ownerhref="127-0-1-1-13330aa7:14131bb3682:-8000:0000000000001045"
-                        angle="-9.0"
-                        offset="126" />
+                        angle="-21.999999999999996"
+                        offset="45" />
       <argouml:pathitem figname="Fig13.4"
                         classname="org.argouml.uml.diagram.ui.PathItemPlacement"
                         figclassname="org.argouml.uml.diagram.ui.FigMultiplicity"
@@ -29446,7 +29472,7 @@ Registry in the log start action.</UML:TaggedValue.dataValue>
     </path>
   </group>
   <group name="Fig14"
-       description="org.argouml.uml.diagram.use_case.ui.FigUseCase[296, 1032, 168, 68]pathVisible=true;stereotypeView=0;extensionPointVisible=false"
+       description="org.argouml.uml.diagram.use_case.ui.FigUseCase[296, 1032, 184, 84]pathVisible=true;stereotypeView=0;extensionPointVisible=false"
        href="127-0-1-1-13330aa7:14131bb3682:-8000:000000000000103D"
        fill="1"
        fillcolor="white"
@@ -29457,20 +29483,20 @@ Registry in the log start action.</UML:TaggedValue.dataValue>
     </private>
     
     <ellipse name="Fig14.0"
-      x="380"
-      y="1066"
-      rx="84"
-      ry="34"
+      x="388"
+      y="1074"
+      rx="92"
+      ry="42"
       fill="1"
       fillcolor="white"
       stroke="1"
       strokecolor="black"
     />
     <text name="Fig14.1"
-      x="316"
+      x="324"
       y="1045"
       width="128"
-      height="41"
+      height="58"
       fill="0"
       fillcolor="white"
       stroke="0"
@@ -29483,7 +29509,7 @@ Registry in the log start action.</UML:TaggedValue.dataValue>
       justification="Center"
     >sondaggio::Estrato</text>
     <group name="Fig14.2"
-         description="org.argouml.uml.diagram.ui.FigStereotypesGroup[316, 1045, 128, 19]"
+         description="org.argouml.uml.diagram.ui.FigStereotypesGroup[324, 1045, 128, 36]"
          href="127-0-1-1-13330aa7:14131bb3682:-8000:000000000000103D"
          fill="0"
          fillcolor="white"
@@ -29494,17 +29520,17 @@ Registry in the log start action.</UML:TaggedValue.dataValue>
       </private>
       
       <rectangle name="Fig14.2.0"
-        x="316"
+        x="324"
         y="1045"
         width="128"
-        height="19"
+        height="36"
         fill="0"
         fillcolor="white"
         stroke="0"
         strokecolor="black"
       />
       <text name="Fig14.2.1"
-        x="316"
+        x="324"
         y="1045"
         width="128"
         height="17"
@@ -29519,6 +29545,22 @@ Registry in the log start action.</UML:TaggedValue.dataValue>
         textsize="12"
         justification="Center"
       >&lt;&lt;menu&gt;&gt;</text>
+      <text name="Fig14.2.2"
+        x="324"
+        y="1062"
+        width="128"
+        height="17"
+        fill="0"
+        fillcolor="white"
+        stroke="0"
+        strokecolor="black"
+        textcolor="black"
+        font="Dialog"
+        italic="false"
+        bold="false"
+        textsize="12"
+        justification="Center"
+      >&lt;&lt;editable&gt;&gt;</text>
     </group>
     <rectangle name="Fig14.3"
       x="-399"
@@ -29607,9 +29649,9 @@ Registry in the log start action.</UML:TaggedValue.dataValue>
       stroke="1"
       strokecolor="51 51 153"
     >
-      <moveto x="380"
+      <moveto x="387"
               y="1032" />
-      <lineto x="380"
+      <lineto x="387"
               y="948" />
     </path>
   </group>
