@@ -79,6 +79,9 @@
                     <field name="par_fecha_env" />
                     <filter string="State" context="{'group_by': 'state'}"/>
                     <filter string="Channel" context="{'group_by': 'channel'}"/>
+                    <filter string="Estrato" context="{'group_by': 'par_estrato_f'}"/>
+                    <filter string="Verified version" context="{'group_by': 'par_fecha_ver'}"/>
+                    <filter string="Send version" context="{'group_by': 'par_fecha_env'}"/>
                     </group>
                 </search>
             </field>

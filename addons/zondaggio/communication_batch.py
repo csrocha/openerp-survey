@@ -37,7 +37,7 @@ class communication_batch(osv.osv):
 
     def do_publish(self, cr, uid, ids=None,context=None):
         """Completa la lista de waiting_questionnaire_ids a partir de los questionnaire_ids que hay en survey_id. Cambia a estado running."""
-        raise NotImplementedError
+        self.send_mails(cr, uid, ids, context=context);
 
 
     def send_mails(self, cr, uid, ids, context=None):
@@ -53,9 +53,11 @@ class communication_batch(osv.osv):
         parameter_obj = self.pool.get('sondaggio.parameter')    
         attachment_obj = self.pool.get('ir.attachment')    
         questionnaire_obj = self.pool.get('sondaggio.questionnaire')
+        wf_service = netsvc.LocalService('workflow')
     
-        comm_ids = comm_obj.search(cr,uid,[('state','=','runnning')])
+        comm_ids = comm_obj.search(cr,uid,[('state','=','runnning'),('id', 'in', ids)])
         mail_ids = []
+        done_ids = []
 
         for comm in comm_obj.browse(cr,uid,comm_ids):
             email_parm = comm.email_parameter_name
@@ -64,8 +66,9 @@ class communication_batch(osv.osv):
             email_reply_to = comm.email_reply_to
             email_copy_to = comm.email_copy_to    
         
-            for questionnaire in questionnaire_obj.browse(cr,uid,comm.waiting_ids):
+            comm_mail_ids = []
 
+            for questionnaire in questionnaire_obj.browse(cr,uid,comm.waiting_ids):
 
                     base_url = self.pool.get('ir.config_parameter').get_param(cr, uid, 'web.base.url', default='', context=context)
                     if base_url:
@@ -91,7 +94,7 @@ class communication_batch(osv.osv):
                             data = parameter_obj.read(cr,uid,parameter_id,['value'])
                             email_value = data[0]['value']
                             email_value = COMMASPACE.join(email_value.split(';'))
-                            mail_ids.append(mail_mail.create(cr, uid, {
+                            mail_id = mail_mail.create(cr, uid, {
                                     'email_from': 'info@fop.mierp.net',
                                     'email_to':   email_value,
                                     'email_cc':   email_copy_to,
@@ -99,8 +102,18 @@ class communication_batch(osv.osv):
                                     'subject':    email_subject,
                                     'body_html':  email_body.format(text_url=text_url),
                                     'attachment_ids': [(6, 0, attachment_ids)] },
-                                    context=context))
+                                    context=context)
+                            mail_ids.append(mail_id)
+                            comm_mail_ids.append(mail_id)
+
+            self.write(cr, uid, comm.id, {'sent_mail_ids': [(6,0,comm_mail_ids)]})
+            done_ids.append(comm.id)
+
         mail_mail.send(cr, uid, mail_ids, context=context)
+
+        for i in done_ids:
+            wf_service.trg_validate(uid, 'sondaggio.communication_batch', i, 'sgn_done', cr)
+
         _logger.info('%d Communication(s) sent.', len(mail_ids))
     
         return 0

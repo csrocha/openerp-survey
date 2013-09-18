@@ -55,10 +55,8 @@
         </record>
         <record id="a_0F9D_0FF8" model="workflow.activity">
             <field name="wkf_id" ref="communication_batch_untitle_wkf"/>
-            <field name="name">Runnning</field>
-            <field name="action">
-                write({'state':'runnning'})
-            </field>
+            <field name="name">Running</field>
+            <field name="action">write({'state': 'running'}) and do_publish()</field>
             <field name="kind">function</field>
         </record>
         <record id="a_0F9D_0FFC" model="workflow.activity">

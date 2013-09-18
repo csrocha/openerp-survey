@@ -98,14 +98,12 @@
                             <field name="parameter_ids"/>
                             </tree>
                         </field>
-                        <field name="done_ids" readonly="1" domain="[('survey_id','=',survey_id')]">
+                        <field name="sent_mail_ids">
                             <tree>
-                            <field name="name"/>
-                            <field name="state"/>
-                            <field name="parameter_ids"/>
+                                <field name="email_to"/>
+                                <field name="state"/>
                             </tree>
                         </field>
-                        <button name="send_mails" type="object" string="Send mails" />
                      </group>
                     </sheet>
                 </form>

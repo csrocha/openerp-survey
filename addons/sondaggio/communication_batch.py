@@ -35,7 +35,7 @@ class communication_batch(osv.osv):
         # State machine: untitle
         ('draft','Draft'),
         ('accepted','Accepted'),
-        ('runnning','Runnning'),
+        ('running','Running'),
         ('cancelled','Cancelled'),
         ('done','Done'),
     ]
@@ -52,9 +52,7 @@ class communication_batch(osv.osv):
         'state': fields.selection(_states_, "State"),
         'survey_id': fields.many2one('sondaggio.survey', string='Survey', required=True), 
         'waiting_ids': fields.many2many('sondaggio.questionnaire', 'sondaggio_waiting_batch_ids_waiting_ids_rel', 'communication_batch_id', 'questionnaire_id', string='Questionnaire waiting to communication'), 
-        'done_ids': fields.many2many('sondaggio.questionnaire', 'sondaggio_done_batch_ids_done_ids_rel', 'communication_batch_id', 'questionnaire_id', string='Questionnaire communicated'), 
-        'delayed_ids': fields.many2many('sondaggio.questionnaire', 'sondaggio_delayed_batch_ids_delayed_ids_rel', 'communication_batch_id', 'questionnaire_id', string='delayed_ids'), 
-        'dropped_ids': fields.many2many('sondaggio.questionnaire', 'sondaggio_dropped_ids_dropped_batch_ids_rel', 'communication_batch_id', 'questionnaire_id', string='dropped_ids'), 
+        'sent_mail_ids': fields.many2many('mail.mail', 'sondaggio_sent_mail_ids___rel', 'communication_batch_id', 'mail_id', string=''), 
     }
 
     _defaults = {

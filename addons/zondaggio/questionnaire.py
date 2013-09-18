@@ -278,15 +278,15 @@ class questionnaire(osv.osv):
         'url': fields.function(get_url, method=True, string='URL', readonly=True, type='char'),
         'fecha_ver': fields.char('Questionnaire group', size=16),
         'par_razon_social': fields.function(get_parameters, method=True, string='Razón social',
-                                      readonly=True, type='text', fnct_search=search_parameters, store=False),
+                                      readonly=True, type='text', fnct_search=search_parameters, store=True),
         'par_razon_social_ver': fields.function(get_parameters, method=True, string='Razón social verificada',
-                                      readonly=True, type='text', fnct_search=search_parameters, store=False),
+                                      readonly=True, type='text', fnct_search=search_parameters, store=True),
         'par_estrato_f': fields.function(get_parameters, method=True, string='Estrato',
-                                      readonly=True, type='text', fnct_search=search_parameters, store=False),
+                                      readonly=True, type='text', fnct_search=search_parameters, store=True),
         'par_fecha_ver': fields.function(get_parameters, method=True, string='Fecha verificación',
-                                      readonly=True, type='text', fnct_search=search_parameters, store=False),
+                                      readonly=True, type='text', fnct_search=search_parameters, store=True),
         'par_fecha_env': fields.function(get_parameters, method=True, string='Fecha envío',
-                                      readonly=True, type='text', fnct_search=search_parameters, store=False),
+                                      readonly=True, type='text', fnct_search=search_parameters, store=True),
     }
 
     _defaults = {
