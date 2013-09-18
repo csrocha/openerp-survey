@@ -82,6 +82,7 @@ class estrato_stats(osv.osv):
         'estrato': fields.integer('Estrato', readonly=True), 
         'muesorig': fields.char('Muestra Orig', readonly=True),
         'total': fields.char('Total', readonly=True),
+        'total_obj': fields.char('Total Objetivo', readonly=True),
         'pendiente': fields.char('Pendiente', readonly=True),
         'channel_undefined': fields.integer('Undefined', readonly=True),
         'channel_online': fields.integer('Online', readonly=True),
@@ -113,11 +114,14 @@ class estrato_stats(osv.osv):
                        AND P.par_muesorig = '0') -
                     (SELECT count(*) FROM sondaggio_questionnaire AS P WHERE 
                         NULLIF(P.par_estrato_f,'')::int=NULLIF(Q.par_estrato_f,'')::int
-                         AND P.state not in ('draft', 'waiting', 'in_progress'))
+                         AND P.state not in ('draft', 'waiting', 'cancelled', 'in_process'))
                    ) as pendiente,
                    (SELECT count(*) FROM sondaggio_questionnaire AS P WHERE 
                         NULLIF(P.par_estrato_f,'')::int=NULLIF(Q.par_estrato_f,'')::int
                          AND NULLIF(P.par_muesorig,'') = NULLIF(Q.par_muesorig,'')) as total,
+                   (SELECT count(*) FROM sondaggio_questionnaire AS P WHERE 
+                        NULLIF(P.par_estrato_f,'')::int=NULLIF(Q.par_estrato_f,'')::int
+                         AND NULLIF(P.par_muesorig,'') = NULLIF(Q.par_muesorig,'')) as total_obj,
                    (SELECT count(*) FROM sondaggio_questionnaire AS P WHERE 
                         NULLIF(P.par_estrato_f,'')::int=NULLIF(Q.par_estrato_f,'')::int
                          AND NULLIF(P.par_muesorig,'') = NULLIF(Q.par_muesorig,'')

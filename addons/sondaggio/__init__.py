@@ -32,6 +32,7 @@ import enable_condition
 import answer
 import partner
 import message
+import estrato
 import parameter
 import questionnaire
 import wizard

@@ -79,3 +79,8 @@
 "access_sondaggio_communication_batch_developer","sondaggio.communication_batch.developer","model_sondaggio_communication_batch","group_developer",1,1,1,1
 "access_sondaggio_communication_batch_operator","sondaggio.communication_batch.operator","model_sondaggio_communication_batch","group_operator",1,1,1,1
 "access_sondaggio_communication_batch_validator","sondaggio.communication_batch.validator","model_sondaggio_communication_batch","group_validator",1,1,1,1
+"access_sondaggio_estrato_designer","sondaggio.estrato.designer","model_sondaggio_estrato","group_designer",1,1,1,1
+"access_sondaggio_estrato_poolster","sondaggio.estrato.poolster","model_sondaggio_estrato","group_poolster",1,1,1,1
+"access_sondaggio_estrato_developer","sondaggio.estrato.developer","model_sondaggio_estrato","group_developer",1,1,1,1
+"access_sondaggio_estrato_operator","sondaggio.estrato.operator","model_sondaggio_estrato","group_operator",1,1,1,1
+"access_sondaggio_estrato_validator","sondaggio.estrato.validator","model_sondaggio_estrato","group_validator",1,1,1,1

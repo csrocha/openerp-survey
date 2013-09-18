@@ -74,6 +74,7 @@ class survey(osv.osv):
         'respondent_ids': fields.many2many('res.partner', 'sondaggio_respond_ids_respondent_ids_rel', 'survey_id', 'partner_id', string='Responders', readonly=True, states={'draft':[('readonly',False)], 'published':[('readonly',False)],}), 
         'control_condition_ids': fields.one2many('sondaggio.control_condition', 'survey_id', string='control_condition_ids'), 
         'communication_ids': fields.one2many('sondaggio.communication_batch', 'survey_id', string='communication_ids'), 
+        'estrato_ids': fields.one2many('sondaggio.estrato', 'survey_id', string='estrato_ids', readonly=True), 
         'pollster_ids': fields.many2many('res.users', 'sondaggio_work_ids_pollster_ids_rel', 'survey_id', 'users_id', string='Surveyors', readonly=True, states={'draft':[('readonly',False)]}), 
     }
 

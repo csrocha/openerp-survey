@@ -150,6 +150,25 @@
             groups="group_designer"
             />
 
+        <record id="action_sondaggio_estrato_estrato" model="ir.actions.act_window">
+            <field name="name">Estrato</field>
+            <field name="res_model">sondaggio.estrato</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_sondaggio_estrato_tree"/>
+            <field name="search_view_id" ref="view_sondaggio_estrato_filter"/>
+            <field name="domain">[]</field>
+        </record>
+
+        <menuitem
+            name="Estrato"
+            id="menu_estrato"
+            sequence="100"
+            action="action_sondaggio_estrato_estrato"
+            parent="menu_for_designers"
+            groups="group_designer"
+            />
+
         <record id="action_sondaggio_format_formats" model="ir.actions.act_window">
             <field name="name">Formats</field>
             <field name="res_model">sondaggio.format</field>

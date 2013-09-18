@@ -120,6 +120,8 @@
                             />
                     <field name="communication_ids"
                             />
+                    <field name="estrato_ids"
+                            />
                     <field name="pollster_ids"
                             />
                      </group>

@@ -121,6 +121,8 @@
                             />
                     <field name="parameter_ids"
                             />
+                    <field name="estrato_id"
+                            />
                      </group>
                     </sheet>
 
@@ -152,6 +154,8 @@
                     <field name="channel"
                         />
                     <field name="respondent_code"
+                        />
+                    <field name="estrato_id"
                         />
                     <field name="state" />
                 </tree>

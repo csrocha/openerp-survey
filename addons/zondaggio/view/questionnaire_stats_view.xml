@@ -97,6 +97,7 @@
                     <field name="estrato" />
                     <field name="muesorig" />
                     <field name="total" />
+                    <field name="total_obj" />
                     <field name="pendiente" />
                     <field name="channel_undefined" />
                     <field name="channel_online" />
@@ -146,7 +147,6 @@
             parent="sondaggio.menu_for_poolster"
             groups="sondaggio.group_poolster"
             />
-
 
     </data>
 </openerp>
