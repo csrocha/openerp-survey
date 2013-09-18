@@ -95,9 +95,7 @@
             <field name="arch" type="xml">
                 <tree string="estrato_stats">
                     <field name="estrato" />
-                    <field name="muesorig" />
                     <field name="total" />
-                    <field name="total_obj" />
                     <field name="pendiente" />
                     <field name="channel_undefined" />
                     <field name="channel_online" />
@@ -123,7 +121,6 @@
                 <search string="estrato_stats" version="7.0">
                     <group string="By Attribute">
                     <field name="estrato" string="Estrato" />
-                    <field name="muesorig" string="Muestra Orig" />
                     </group>
                 </search>
             </field>
