@@ -273,6 +273,12 @@ class questionnaire(osv.osv):
             r[questionnaire.id] = '%s/login?db=%s&login=%s&key=%s#action=questionnaire.ui&active_id=%s&active_code=%s'%(base_url, cr.dbname,login,password,questionnaire.id,questionnaire.code)
         return r
 
+    def get_communication_date(self, cr, uid, ids, field_name, arg, context=None):
+        r = {}
+        for questionnaire in self.browse(cr, uid, ids, context=context):
+            r[questionnaire.id] = False
+        return r
+
     _columns = {
         'actual_page': fields.integer('Actual Page', readonly=True),
         'url': fields.function(get_url, method=True, string='URL', readonly=True, type='char'),
@@ -289,6 +295,8 @@ class questionnaire(osv.osv):
                                       readonly=True, type='text', fnct_search=search_parameters, store=True),
         'par_fecha_env': fields.function(get_parameters, method=True, string='Fecha envío',
                                       readonly=True, type='text', fnct_search=search_parameters, store=True),
+        'last_communication_date': fields.function(get_communication_date, method=True, string='Última fecha de comunicación',
+                                                   readonly=True, type='date', store=True)
     }
     _order = 'name asc, par_estrato_f asc'
 
