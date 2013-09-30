@@ -26,7 +26,7 @@
       <fontname>Dialog</fontname>
       <fontsize>12</fontsize>
       <defaultstereotypeview>0</defaultstereotypeview>
-      <activediagram>sondaggio 0 13</activediagram>
+      <activediagram>Communication</activediagram>
     </settings>
     <searchpath href="PROJECT_DIR" />
     <members>
@@ -102,7 +102,7 @@
 			</model>
 		</userDefined>
 </profile>
-<XMI xmi.version = '1.2' xmlns:UML = 'org.omg.xmi.namespace.UML' timestamp = 'Wed Sep 18 14:39:33 ART 2013'>
+<XMI xmi.version = '1.2' xmlns:UML = 'org.omg.xmi.namespace.UML' timestamp = 'Thu Sep 26 16:27:19 ART 2013'>
   <XMI.header>    <XMI.documentation>
       <XMI.exporter>ArgoUML (using Netbeans XMI Writer version 1.0)</XMI.exporter>
       <XMI.exporterVersion>0.34(6) revised on $Date: 2010-01-11 22:20:14 +0100 (Mon, 11 Jan 2010) $ </XMI.exporterVersion>
@@ -6964,6 +6964,8 @@ Registry in the log start action.</UML:TaggedValue.dataValue>
               name = 'telephonic' isSpecification = 'false'/>
             <UML:EnumerationLiteral xmi.id = '127-0-1-1-51cdd0bc:140e9d1b7f3:-8000:0000000000001023'
               name = 'offline' isSpecification = 'false'/>
+            <UML:EnumerationLiteral xmi.id = '127-0-1-1-165b031c:1415bbc96ea:-8000:000000000000104E'
+              name = 'mailing' isSpecification = 'false'/>
           </UML:Enumeration.literal>
         </UML:Enumeration>
       </UML:Namespace.ownedElement>
@@ -17233,8 +17235,8 @@ Registry in the log start action.</UML:TaggedValue.dataValue>
       >&lt;&lt;editable&gt;&gt;</text>
     </group>
     <rectangle name="Fig57.3"
-      x="1186"
-      y="746"
+      x="10"
+      y="10"
       width="11"
       height="1"
       fill="1"
@@ -17244,7 +17246,7 @@ Registry in the log start action.</UML:TaggedValue.dataValue>
       visibility="0"
     />
     <group name="Fig57.4"
-         description="org.argouml.uml.diagram.ui.FigExtensionPointsCompartment[1186, 746, 64, 19]"
+         description="org.argouml.uml.diagram.ui.FigExtensionPointsCompartment[10, 10, 64, 19]"
          href="127-0-1-1-13330aa7:14131bb3682:-8000:000000000000103D"
          fill="1"
          fillcolor="white"
@@ -17256,8 +17258,8 @@ Registry in the log start action.</UML:TaggedValue.dataValue>
       </private>
       
       <rectangle name="Fig57.4.0"
-        x="1186"
-        y="746"
+        x="10"
+        y="10"
         width="64"
         height="19"
         fill="0"
@@ -17313,7 +17315,7 @@ Registry in the log start action.</UML:TaggedValue.dataValue>
                         offset="5" />
     </private>
     <path name="Fig58.0"
-      description="org.tigris.gef.presentation.FigPoly"
+      description="org.argouml.gefext.ArgoFigPoly"
       fill="0"
       fillcolor="white"
       stroke="1"
@@ -28760,7 +28762,7 @@ Registry in the log start action.</UML:TaggedValue.dataValue>
     </path>
   </group>
   <group name="Fig8"
-       description="org.argouml.uml.diagram.static_structure.ui.FigEnumeration[640, 696, 128, 136]pathVisible=false;stereotypeView=0;operationsVisible=true;enumerationLiteralsVisible=true"
+       description="org.argouml.uml.diagram.static_structure.ui.FigEnumeration[640, 696, 128, 152]pathVisible=false;stereotypeView=0;operationsVisible=true;enumerationLiteralsVisible=true"
        href="127-0-1-1-51cdd0bc:140e9d1b7f3:-8000:000000000000101F"
        fill="1"
        fillcolor="white"
@@ -28774,7 +28776,7 @@ Registry in the log start action.</UML:TaggedValue.dataValue>
       x="640"
       y="696"
       width="128"
-      height="136"
+      height="152"
       fill="1"
       fillcolor="white"
       stroke="1"
@@ -28845,7 +28847,7 @@ Registry in the log start action.</UML:TaggedValue.dataValue>
       strokecolor="black"
     />
     <group name="Fig8.4"
-         description="org.argouml.uml.diagram.ui.FigEnumLiteralsCompartment[641, 739, 126, 72]"
+         description="org.argouml.uml.diagram.ui.FigEnumLiteralsCompartment[641, 739, 126, 88]"
          href="127-0-1-1-51cdd0bc:140e9d1b7f3:-8000:000000000000101F"
          fill="0"
          fillcolor="white"
@@ -28859,7 +28861,7 @@ Registry in the log start action.</UML:TaggedValue.dataValue>
         x="641"
         y="739"
         width="126"
-        height="72"
+        height="88"
         fill="0"
         fillcolor="white"
         stroke="0"
@@ -28917,7 +28919,7 @@ Registry in the log start action.</UML:TaggedValue.dataValue>
         x="641"
         y="787"
         width="126"
-        height="22"
+        height="16"
         fill="0"
         fillcolor="white"
         stroke="0"
@@ -28929,10 +28931,26 @@ Registry in the log start action.</UML:TaggedValue.dataValue>
         textsize="12"
         justification="Left"
       >offline</text>
+      <text name="Fig8.4.5"
+        x="641"
+        y="803"
+        width="126"
+        height="22"
+        fill="0"
+        fillcolor="white"
+        stroke="0"
+        strokecolor="black"
+        textcolor="black"
+        font="Dialog"
+        italic="false"
+        bold="false"
+        textsize="12"
+        justification="Left"
+      >mailing</text>
     </group>
     <rectangle name="Fig8.5"
       x="640"
-      y="810"
+      y="826"
       width="128"
       height="1"
       fill="1"
@@ -28941,7 +28959,7 @@ Registry in the log start action.</UML:TaggedValue.dataValue>
       strokecolor="black"
     />
     <group name="Fig8.6"
-         description="org.argouml.uml.diagram.ui.FigOperationsCompartment[641, 811, 126, 21]"
+         description="org.argouml.uml.diagram.ui.FigOperationsCompartment[641, 827, 126, 21]"
          href="127-0-1-1-51cdd0bc:140e9d1b7f3:-8000:000000000000101F"
          fill="0"
          fillcolor="white"
@@ -28953,7 +28971,7 @@ Registry in the log start action.</UML:TaggedValue.dataValue>
       
       <rectangle name="Fig8.6.0"
         x="641"
-        y="811"
+        y="827"
         width="126"
         height="21"
         fill="0"
@@ -29183,7 +29201,7 @@ Registry in the log start action.</UML:TaggedValue.dataValue>
       justification="Center"
     >estrato</text>
     <group name="Fig11.2"
-         description="org.argouml.uml.diagram.ui.FigStereotypesGroup[193, 833, 64, 0]"
+         description="org.argouml.uml.diagram.ui.FigStereotypesGroup[193, 833, 376, 0]"
          href="127-0-1-1-13330aa7:14131bb3682:-8000:000000000000102C"
          fill="0"
          fillcolor="white"
@@ -29197,7 +29215,7 @@ Registry in the log start action.</UML:TaggedValue.dataValue>
       <rectangle name="Fig11.2.0"
         x="193"
         y="833"
-        width="64"
+        width="376"
         height="0"
         fill="0"
         fillcolor="white"
@@ -29363,7 +29381,7 @@ Registry in the log start action.</UML:TaggedValue.dataValue>
                         offset="145" />
     </private>
     <path name="Fig12.0"
-      description="org.tigris.gef.presentation.FigPoly"
+      description="org.argouml.gefext.ArgoFigPoly"
       fill="0"
       fillcolor="white"
       stroke="1"
@@ -29420,7 +29438,7 @@ Registry in the log start action.</UML:TaggedValue.dataValue>
                         offset="105" />
     </private>
     <path name="Fig13.0"
-      description="org.tigris.gef.presentation.FigPoly"
+      description="org.argouml.gefext.ArgoFigPoly"
       fill="0"
       fillcolor="white"
       stroke="1"
@@ -29528,8 +29546,8 @@ Registry in the log start action.</UML:TaggedValue.dataValue>
       >&lt;&lt;editable&gt;&gt;</text>
     </group>
     <rectangle name="Fig14.3"
-      x="-399"
-      y="135"
+      x="10"
+      y="10"
       width="11"
       height="1"
       fill="1"
@@ -29539,7 +29557,7 @@ Registry in the log start action.</UML:TaggedValue.dataValue>
       visibility="0"
     />
     <group name="Fig14.4"
-         description="org.argouml.uml.diagram.ui.FigExtensionPointsCompartment[-399, 135, 64, 19]"
+         description="org.argouml.uml.diagram.ui.FigExtensionPointsCompartment[10, 10, 64, 19]"
          href="127-0-1-1-13330aa7:14131bb3682:-8000:000000000000103D"
          fill="1"
          fillcolor="white"
@@ -29551,8 +29569,8 @@ Registry in the log start action.</UML:TaggedValue.dataValue>
       </private>
       
       <rectangle name="Fig14.4.0"
-        x="-399"
-        y="135"
+        x="10"
+        y="10"
         width="64"
         height="19"
         fill="0"
@@ -29608,7 +29626,7 @@ Registry in the log start action.</UML:TaggedValue.dataValue>
                         offset="5" />
     </private>
     <path name="Fig15.0"
-      description="org.tigris.gef.presentation.FigPoly"
+      description="org.argouml.gefext.ArgoFigPoly"
       fill="0"
       fillcolor="white"
       stroke="1"
