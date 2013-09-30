@@ -849,7 +849,7 @@ class questionnaire(osv.osv):
         return self.on_open_ui(cr, uid, ids, context=dict(context, channel='offline'))
 
     def on_open_telephonic(self, cr, uid, ids, context=None):
-        return self.on_open_ui(cr, uid, ids, context=dict(context, channel='telephinic'))
+        return self.on_open_ui(cr, uid, ids, context=dict(context, channel='telephonic'))
 
     def on_open_personal(self, cr, uid, ids, context=None):
         return self.on_open_ui(cr, uid, ids, context=dict(context, channel='personal'))
