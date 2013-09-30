@@ -54,7 +54,7 @@
                             states="cancelled"
                             string="To Draft"
                             />
-                        <button name="sgn_publish"
+                        <button name="sgn_send"
                             states="accepted"
                             string="Send"
                             />
