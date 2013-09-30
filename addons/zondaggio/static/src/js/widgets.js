@@ -47,10 +47,14 @@ function openerp_zondaggio_widgets(instance, module){
             }
             if (!channel && new_channel) {
                 self.questionnaire.set_channel(new_channel);
+                self.session.questionnaire_context.channel=new_channel;
+                self.questionnaire.get('questionnaire').channel=new_channel;
             } else if (channel != new_channel) {
                 var r = confirm(_.str.sprintf("ATENCIÓN\n Esta a punto de cambiar el el canal de entrada de %s a %s. Esta seguro? Sino vuelva atrás con el navegador.", channel, new_channel));
                 if (r) {
                     self.questionnaire.set_channel(new_channel);
+                    self.session.questionnaire_context.channel=new_channel;
+                    self.questionnaire.get('questionnaire').channel=new_channel;
                 }
             }
  
