@@ -42,7 +42,7 @@
                     <field name="par_razon_social_ver"/>
                     <field name="par_estrato_f" />
                     <field name="par_fecha_ver" />
-                    <field name="par_fecha_env" />
+                    <field name="last_communication_date" />
                     <field name="state" />
                     <field name="channel" />
                     <button name="on_open_offline" string="Open Offline Channel" type="object" icon="gtk-disconnect"/>
@@ -145,21 +145,47 @@
                          <field name="name" readonly="0" string="CUIT" attrs="{'readonly':['|',('actual_page','!=',1),('state','!=','draft')]}"/>
                          <field name="code" readonly="0" string="Codigo de Acceso" attrs="{'readonly':['|',('actual_page','!=',1),('state','!=','draft')]}"/>
                          <field name="survey_id" readonly="0" attrs="{'readonly':['|',('actual_page','!=',1),('state','!=','draft')]}"/>
-                         <field name="parameter_ids" type="xml" states="draft,complete,validated,rejected">
-                             <tree editable="bottom">
-                                 <field name="name"/>
-                                 <field name="value"/>
-                             </tree>
-                         </field>
-                         <field name="actual_page" readonly="0" string="Page" states="in_process"/>
-                         <field name="channel" states="draft,in_process,waiting"/>
-                         <field name="url" />
-                         <group col="8" colspan="4">
-                            <button name="on_open_offline" string="Open Offline Channel" type="object" icon="gtk-disconnect"/>
-                            <button name="on_open_online" string="Open Online Channel" type="object" icon="gtk-connect"/>
-                            <button name="on_open_telephonic" string="Open Telephonic Channel" type="object" icon="terp-call-start"/>
-                            <button name="on_open_personal" string="Open Personal Channel" type="object" icon="stock_person"/>
-                         </group>
+                     </group>
+                     <notebook>
+                         <page string="Information">
+                             <group>
+                                 <field name="actual_page" readonly="0" string="Page" states="in_process"/>
+                                 <field name="channel" states="draft,in_process,waiting"/>
+                                 <field name="url" widget="url"/>
+                                 <field name="num_communications" />
+                                 <field name="last_communication_date" />
+                                 <field name="par_encuestador" />
+                                 <field name="date_draft" />
+                                 <field name="date_in_process" />
+                                 <field name="date_waiting" />
+                                 <field name="date_rejected" />
+                                 <field name="date_complete" />
+                                 <field name="date_in_coding" />
+                                 <field name="date_validated" />
+                                 <field name="date_cancelled" />
+                             </group>
+                         </page>
+                         <page string="Parameters" states="draft,complete,validated,rejected">
+                             <field name="parameter_ids">
+                                 <tree editable="bottom">
+                                     <field name="name"/>
+                                     <field name="value"/>
+                                 </tree>
+                             </field>
+                         </page>
+                         <page string="Comunications" readonly="True" states="draft,complete,validated,rejected">
+                             <field name="communication_batch_ids">
+                                 <tree>
+                                     <field name="name"/>
+                                 </tree>
+                             </field>
+                         </page>
+                     </notebook>
+                     <group col="8" colspan="4" id="open">
+                        <button name="on_open_offline" string="Open Offline Channel" type="object" icon="gtk-disconnect"/>
+                        <button name="on_open_online" string="Open Online Channel" type="object" icon="gtk-connect"/>
+                        <button name="on_open_telephonic" string="Open Telephonic Channel" type="object" icon="terp-call-start"/>
+                        <button name="on_open_personal" string="Open Personal Channel" type="object" icon="stock_person"/>
                      </group>
                      <group col="3" colspan="4" id="top">
                          <button name="prev_page" string="Prev Page" type="object" states="in_process,in_coding,validated"/>

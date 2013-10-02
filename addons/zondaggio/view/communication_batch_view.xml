@@ -69,38 +69,47 @@
                     </header>
                     <sheet string="communication_batch">
                      <group>
-                        <field name="name"
-                            />
-                        <field name="email_parameter_name"
-                            />
-                        <field name="email_subject"
-                            />
-                        <field name="email_body"
-                            />
-                        <field name="email_reply_to"
-                            />
-                        <field name="email_copy_to"
-                            />
-                        <field name="login_user_id" />
+                        <field name="name" />
                         <field name="survey_id" />
-                        <field name="waiting_ids" domain="[('survey_id','=',survey_id')]">
-                            <search string="communication_batch" version="7.0">
-                            <field name="name"/>
-                            <field name="parameter_ids"/>
-                            </search>
-                            <tree>
-                            <field name="name"/>
-                            <field name="state"/>
-                            <field name="parameter_ids"/>
-                            </tree>
-                        </field>
-                        <field name="sent_mail_ids">
-                            <tree>
+                     </group>
+                     <notebook>
+                         <page string="Email Setup">
+                             <group>
+                                <field name="email_parameter_name" />
+                                <field name="email_subject" />
+                                <field name="email_reply_to" />
+                                <field name="email_copy_to" />
+                                <field name="login_user_id" />
+                             </group>
+                         </page>
+                         <page string="Questionnaires">
+                            <field name="questionnaire_ids" domain="[('survey_id','=',survey_id')]">
+                                <search string="communication_batch" version="7.0">
+                                  <field name="name"/>
+                                  <field name="parameter_ids"/>
+                                </search>
+                                <tree>
+                                <field name="name"/>
+                                <field name="state"/>
+                                <field name="parameter_ids"/>
+                                </tree>
+                            </field>
+                         </page>
+                         <page string="Email Body">
+                            <field name="email_body" />
+                         </page>
+                         <page string="Result" states="done">
+                             <group>
+                                 <field name="send_date"/>
+                             </group>
+                             <field name="sent_mail_ids">
+                                <tree>
                                 <field name="email_to"/>
                                 <field name="state"/>
-                            </tree>
-                        </field>
-                     </group>
+                                </tree>
+                             </field>
+                         </page>
+                     </notebook>
                     </sheet>
                 </form>
             </field>
@@ -108,14 +117,17 @@
 
         <!-- TREEVIEW -->
 
-        <record id="view_sondaggio_communication_batch_tree" model="ir.ui.view">
+        <record id="sondaggio.view_sondaggio_communication_batch_tree" model="ir.ui.view">
             <field name="name">sondaggio.communication_batch.tree</field>
             <field name="model">sondaggio.communication_batch</field>
             <field name="arch" type="xml">
                 <tree string="communication_batch"
                     colors="grey:state=='cancelled';blue:state in ('draft',);black:state in ('cancelled', 'accepted'); red:state in ()"
                     >
+                    <field name="name" />
                     <field name="state" />
+                    <field name="questionnaire_ids" />
+                    <field name="send_date" />
                 </tree>
             </field>
         </record>
