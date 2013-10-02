@@ -56,6 +56,9 @@
             <field name="arch" type="xml">
                 <form string="questionnaire" version="7.0">
                     <header>
+                        <field name="state" widget="statusbar"
+                            statusbar_colors='{}'
+                            />
                     </header>
                     <sheet string="questionnaire">
                      <group>
@@ -83,6 +86,7 @@
             <field name="model">survey_methodology.questionnaire</field>
             <field name="arch" type="xml">
                 <tree string="questionnaire"
+                    colors="grey:state=='cancelled';blue:state in ('draft',);black:state in ('under_validation', 'in_process', 'complete'); red:state in ()"
                     >
                     <field name="name"
                         />
@@ -92,6 +96,7 @@
                         />
                     <field name="respondent_code"
                         />
+                    <field name="state" />
                 </tree>
             </field>
         </record>

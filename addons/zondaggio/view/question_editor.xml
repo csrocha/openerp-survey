@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+##############################################################################
+#
+#    Survey Methodology
+#    Copyright (C) 2013 Coop. Trab. Moldeo Interactive Ltda.
+#    No email
+#
+#    This program is free software: you can redistribute it and/or modify
+#    it under the terms of the GNU Affero General Public License as
+#    published by the Free Software Foundation, either version 3 of the
+#    License, or (at your option) any later version.
+#
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU Affero General Public License for more details.
+#
+#    You should have received a copy of the GNU Affero General Public License
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#
+##############################################################################
+-->
+<openerp>
+    <data>
+
+        <record id="view_sondaggio_node_editor" model="ir.ui.view">
+            <field name="name">sondaggio.node.tree</field>
+            <field name="model">sondaggio.node</field>
+            <field name="arch" type="xml">
+                <tree string="Question" editable="bottom">
+                    <field name="parent_id" domain="[('survey_id','=',survey_id)]"/>
+                    <field name="place"/>
+                    <field name="name"/>
+                    <field name="question"/>
+                    <field name="type"/>
+                    <field name="format_id"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_question_editor">
+            <field name="name">Question Editor</field>
+            <field name="res_model">sondaggio.node</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form,tree</field>
+            <field name="view_id" ref="view_sondaggio_node_editor"/>
+            <field name="domain">[('survey_id','=',active_id)]</field>
+            <field name="context">{'survey_id': active_id}</field>
+        </record>
+
+        <record id="view_sondaggio_variable_editor" model="ir.ui.view">
+            <field name="name">sondaggio.node.tree</field>
+            <field name="model">sondaggio.node</field>
+            <field name="arch" type="xml">
+                <tree string="Variable" editable="bottom">
+                    <field name="name"/>
+                    <field name="question"/>
+                    <field name="variable_name"/>
+                    <field name="initial_state"/>
+                    <field name="enable_in"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_variable_editor">
+            <field name="name">Variable Editor</field>
+            <field name="res_model">sondaggio.node</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form,tree</field>
+            <field name="view_id" ref="view_sondaggio_variable_editor"/>
+            <field name="domain">[('survey_id','=',active_id),('type','=','Variable')]</field>
+            <field name="context">{'survey_id': active_id}</field>
+        </record>
+
+
+
+    </data>
+</openerp>
+<!-- vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4
+     -->

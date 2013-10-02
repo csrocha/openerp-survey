@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+##############################################################################
+#
+#    Survey Methodology
+#    Copyright (C) 2013 Coop. Trab. Moldeo Interactive Ltda.
+#    No email
+#
+#    This program is free software: you can redistribute it and/or modify
+#    it under the terms of the GNU Affero General Public License as
+#    published by the Free Software Foundation, either version 3 of the
+#    License, or (at your option) any later version.
+#
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU Affero General Public License for more details.
+#
+#    You should have received a copy of the GNU Affero General Public License
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#
+##############################################################################
+
+-->
+<openerp>
+    <data>
+        <!-- GRAPHVIEW -->
+        <record id="view_sondaggio_questionnaire_stats_graph" model="ir.ui.view">
+            <field name="name">sondaggio.questionnaire_stats.graph</field>
+            <field name="model">sondaggio.questionnaire_stats</field>
+            <field name="arch" type="xml">
+                <graph string="Questionnaire Stats">
+                    <field name="state" group="1"/>
+                    <field name="count" operator="+"/>
+                </graph>
+            </field>
+        </record>
+
+        <!-- TREEVIEW -->
+        <record id="view_sondaggio_questionnaire_stats_tree" model="ir.ui.view">
+            <field name="name">sondaggio.questionnaire_stats.tree</field>
+            <field name="model">sondaggio.questionnaire_stats</field>
+            <field name="arch" type="xml">
+                <tree string="Questionnaire Stats"
+                    colors="grey:state=='cancelled';blue:state in ('draft',);black:state in ('cancelled', 'waiting', 'in_coding', 'in_process', 'complete'); red:state in ()"
+                    >
+                    <field name="survey_id" />
+                    <field name="state" />
+                    <field name="count" />
+                </tree>
+            </field>
+        </record>
+
+        <!-- SEARCH VIEW -->
+        <record id="view_sondaggio_questionnaire_stats_filter" model="ir.ui.view">
+            <field name="name">sondaggio.questionnaire_stats.select</field>
+            <field name="model">sondaggio.questionnaire_stats</field>
+            <field name="arch" type="xml">
+                <search string="questionnaire_stats" version="7.0">
+                    <group string="By Attribute">
+                    <field name="survey_id" string="Survey"
+                            />
+                    <field name="state" string="State"
+                            />
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="action_sondaggio_questionnaire_stats" model="ir.actions.act_window">
+            <field name="name">Questionnaires Stats</field>
+            <field name="res_model">sondaggio.questionnaire_stats</field>
+            <field name="view_type">tree</field>
+            <field name="view_mode">tree,graph</field>
+            <field name="view_id" ref="view_sondaggio_questionnaire_stats_tree"/>
+            <field name="search_view_id" ref="view_sondaggio_questionnaire_stats_filter"/>
+            <field name="domain">[]</field>
+        </record>
+
+        <menuitem
+            name="Questionnaires Stats"
+            id="menu_questionnaires_stats"
+            sequence="100"
+            action="action_sondaggio_questionnaire_stats"
+            parent="sondaggio.menu_for_poolster"
+            groups="sondaggio.group_poolster"
+            />
+
+        <!-- ESTRATO STATICS -->
+
+        <!-- GRAPHVIEW -->
+        <record id="view_sondaggio_estrato_estrato_total_ver_graph" model="ir.ui.view">
+            <field name="name">sondaggio.estrato_stats_total_ver.graph</field>
+            <field name="model">sondaggio.estrato_stats</field>
+            <field name="arch" type="xml">
+                <graph string="Estrato Graph Total">
+                    <field name="name" group="1"/>
+                    <field name="total_ver" operator="+"/>
+                </graph>
+            </field>
+        </record>
+
+        <!-- GRAPHVIEW -->
+        <record id="view_sondaggio_estrato_estrato_total_muestra_graph" model="ir.ui.view">
+            <field name="name">sondaggio.estrato_stats_total_muestra.graph</field>
+            <field name="model">sondaggio.estrato_stats</field>
+            <field name="arch" type="xml">
+                <graph string="Estrato Graph Total Muestra">
+                    <field name="name" group="1"/>
+                    <field name="total_muestra" operator="+"/>
+                </graph>
+            </field>
+        </record>
+
+        <!-- GRAPHVIEW -->
+        <record id="view_sondaggio_estrato_estrato_pendiente_graph" model="ir.ui.view">
+            <field name="name">sondaggio.estrato_stats_pendiente.graph</field>
+            <field name="model">sondaggio.estrato_stats</field>
+            <field name="arch" type="xml">
+                <graph string="Estrato Graph Pendiente">
+                    <field name="name" group="1"/>
+                    <field name="pendiente" operator="+"/>
+                </graph>
+            </field>
+        </record>
+
+
+
+
+        <!-- TREEVIEW -->
+        <record id="view_sondaggio_estrato_stats_tree" model="ir.ui.view">
+            <field name="name">sondaggio.estrato_stats.tree</field>
+            <field name="model">sondaggio.estrato_stats</field>
+            <field name="arch" type="xml">
+                <tree string="estrato_stats" version="7.0">
+                    <field name="name" />
+                    <field name="total_ver" />
+                    <field name="total_muestra" />
+                    <field name="pendiente" />
+                    <field name="channel_undefined" />
+                    <field name="channel_online" />
+                    <field name="channel_offline" />
+                    <field name="channel_telephonic" />
+                    <field name="channel_personal" />
+                    <field name="state_draft" />
+                    <field name="state_cancelled" />
+                    <field name="state_waiting" />
+                    <field name="state_in_process" />
+                    <field name="state_complete" />
+                    <field name="state_in_coding" />
+                    <field name="state_validated" />
+                    <!--button name="do_open" string="Open"/-->
+                </tree>
+            </field>
+        </record>
+
+        <!-- SEARCH VIEW -->
+        <record id="view_sondaggio_estrato_stats_filter" model="ir.ui.view">
+            <field name="name">sondaggio.estrato_stats.select</field>
+            <field name="model">sondaggio.estrato_stats</field>
+            <field name="arch" type="xml">
+                <search string="estrato_stats" version="7.0">
+                    <group string="By Attribute">
+                    <field name="name" string="Estrato" />
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="action_sondaggio_estrato_stats" model="ir.actions.act_window">
+            <field name="name">Estratos Stats</field>
+            <field name="res_model">sondaggio.estrato_stats</field>
+            <field name="view_type">tree</field>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="view_sondaggio_estrato_stats_tree"/>
+            <field name="search_view_id" ref="view_sondaggio_estrato_stats_filter"/>
+            <field name="domain">[]</field>
+        </record>
+
+        <menuitem
+            name="Estrato Stats"
+            id="menu_questionnaires_stats"
+            sequence="100"
+            action="action_sondaggio_estrato_stats"
+            parent="sondaggio.menu_for_poolster"
+            groups="sondaggio.group_poolster"
+            />
+
+        <record model="ir.actions.act_window" id="action_estrato_stats">
+            <field name="name">Estrato stats</field>
+            <field name="res_model">sondaggio.estrato_stats</field>
+            <field name="view_type">tree</field>
+            <field name="view_mode">tree,graph</field>
+            <field name="view_id" ref="view_sondaggio_estrato_stats_tree"/>
+            <field name="domain">[('survey_id','=',active_id)]</field>
+            <field name="context">{'survey_id': active_id}</field>
+            <field name="search_view_id" ref="view_sondaggio_estrato_stats_filter"/>
+        </record>
+
+
+    </data>
+</openerp>
+<!-- vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4
+     -->

@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+##############################################################################
+#
+#    Survey Methodology
+#    Copyright (C) 2013 Coop. Trab. Moldeo Interactive Ltda.
+#    No email
+#
+#    This program is free software: you can redistribute it and/or modify
+#    it under the terms of the GNU Affero General Public License as
+#    published by the Free Software Foundation, either version 3 of the
+#    License, or (at your option) any later version.
+#
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU Affero General Public License for more details.
+#
+#    You should have received a copy of the GNU Affero General Public License
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#
+##############################################################################
+-->
+<openerp>
+    <data>
+
+        <!-- SEARCH VIEW -->
+        <record id="view_sondaggio_enable_condition_filter" model="ir.ui.view">
+            <field name="name">sondaggio.enable_condition.select</field>
+            <field name="model">sondaggio.enable_condition</field>
+            <field name="arch" type="xml">
+                <search string="enable_condition" version="7.0">
+                    <group string="By Attribute">
+                    <field name="name" string="name"
+                            />
+                    <field name="operator" string="Operator"
+                            />
+                    <field name="value" string="Value"
+                            />
+                    <field name="survey_id" string="Survey"
+                            />
+                    </group>
+                    <group string="By object">
+                    <field name="node_ids" string="Affect to"
+                            />
+                    <field name="operated_node_id" string="Variable"
+                            />
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <!-- FORMVIEW -->
+        <record id="view_sondaggio_enable_condition_form" model="ir.ui.view">
+            <field name="name">sondaggio.enable_condition.form</field>
+            <field name="model">sondaggio.enable_condition</field>
+            <field name="arch" type="xml">
+                <form string="enable_condition" version="7.0">
+                    <header>
+                    </header>
+                    <sheet string="enable_condition">
+                     <group>
+                        <field name="name"
+                            />
+                        <field name="operator"
+                            />
+                        <field name="value"
+                            />
+                        <field name="survey_id"
+                            />
+                    <field name="node_ids"
+                            />
+                    <field name="operated_node_id"
+                            />
+                     </group>
+                    </sheet>
+
+                </form>
+            </field>
+        </record>
+
+        <!-- TREEVIEW -->
+
+        <record id="view_sondaggio_enable_condition_tree" model="ir.ui.view">
+            <field name="name">sondaggio.enable_condition.tree</field>
+            <field name="model">sondaggio.enable_condition</field>
+            <field name="arch" type="xml">
+                <tree string="enable_condition"
+                    >
+                    <field name="name"
+                        />
+                    <field name="operator"
+                        />
+                    <field name="value"
+                        />
+                    <field name="survey_id"
+                        />
+                    <field name="node_ids"
+                        />
+                    <field name="operated_node_id"
+                        />
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_sondaggio_enable_condition_tree_edit" model="ir.ui.view">
+            <field name="name">sondaggio.enable_condition.tree_edit</field>
+            <field name="model">sondaggio.enable_condition</field>
+            <field name="arch" type="xml">
+                <tree string="enable_condition"
+                    editable="bottom"
+                    >
+                    <field name="name"
+                        />
+                    <field name="operator"
+                        />
+                    <field name="value"
+                        />
+                    <field name="survey_id"
+                        />
+                    <field name="node_ids"
+                        />
+                    <field name="operated_node_id"
+                        />
+                </tree>
+            </field>
+        </record>
+
+    </data>
+</openerp>
+<!-- vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4
+     -->

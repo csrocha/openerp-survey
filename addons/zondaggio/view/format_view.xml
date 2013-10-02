@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+##############################################################################
+#
+#    Survey Methodology
+#    Copyright (C) 2013 Coop. Trab. Moldeo Interactive Ltda.
+#    No email
+#
+#    This program is free software: you can redistribute it and/or modify
+#    it under the terms of the GNU Affero General Public License as
+#    published by the Free Software Foundation, either version 3 of the
+#    License, or (at your option) any later version.
+#
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU Affero General Public License for more details.
+#
+#    You should have received a copy of the GNU Affero General Public License
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#
+##############################################################################
+-->
+<!-- sondaggio.format -->
+<!-- sondaggio.format -->
+<!-- sondaggio.format -->
+<openerp>
+    <data>
+
+        <!-- SEARCH VIEW -->
+        <record id="view_sondaggio_format_filter" model="ir.ui.view">
+            <field name="name">sondaggio.format.select</field>
+            <field name="model">sondaggio.format</field>
+            <field name="arch" type="xml">
+                <search string="format" version="7.0">
+                    <group string="By Attribute">
+                    </group>
+                    <group string="By object">
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <!-- FORMVIEW -->
+        <record id="sondaggio.view_sondaggio_format_form" model="ir.ui.view">
+            <field name="name">sondaggio.format.form</field>
+            <field name="model">sondaggio.format</field>
+            <field name="arch" type="xml">
+                <form string="format" version="7.0">
+                    <header>
+                    </header>
+                    <sheet string="format">
+                        <h1>
+                            <field name="name" />
+                        </h1>
+                        <group>
+                            <field name="validation" string="Validation"/>
+                            <field name="formating" string="Formating"/>
+                            <field name="message_ids">
+                                <tree editable="bottom">
+                                    <field name="name"/>
+                                    <field name="condition"/>
+                                </tree>
+                            </field>
+                        </group>
+                        <notebook>
+                            <page string="Run">
+                                <group colspan="4" col="4">
+                                    <button name="evaluation_test" string="Test" type="object"/>
+                                    <field name="tests_result" string="Pass all tests"/>
+                                </group>
+                                <separator string="Test report"/>
+                                <field name="compile_message" />
+                            </page>
+                            <page string="Test input">
+                                <field name="input_test_ids">
+                                    <tree editable="bottom">
+                                        <field name="question_id"/>
+                                        <field name="name"/>
+                                        <field name="formated"/>
+                                        <field name="valid"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+
+                </form>
+            </field>
+        </record>
+
+        <!-- TREEVIEW -->
+
+        <record id="view_sondaggio_format_tree" model="ir.ui.view">
+            <field name="name">sondaggio.format.tree</field>
+            <field name="model">sondaggio.format</field>
+            <field name="arch" type="xml">
+                <tree string="format"
+                    >
+                    <field name="name"
+                        />
+                </tree>
+            </field>
+        </record>
+
+    </data>
+</openerp>
+<!-- vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4
+     -->

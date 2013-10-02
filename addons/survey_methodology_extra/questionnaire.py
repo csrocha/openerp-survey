@@ -44,11 +44,11 @@ _enter_js = """
 	};
     $(document).ready(function(){
       (function(){
-        var keyup_orig = openerp.instances.instance0.web.form.FieldChar.prototype.events.keyup;
+        var char_keyup_orig = openerp.instances.instance0.web.form.FieldChar.prototype.events.keyup;
         openerp.instances.instance0.web.form.FieldChar.prototype.events.keyup = function(e) {
             if (e.which === $.ui.keyCode.ENTER) {
                     setTimeout(function() {
-                        textboxes = $("input:visible");
+                        textboxes = $("input:visible:enabled:not([id|=oe-field-input])");
                         currentBoxNumber = textboxes.index(e.target);
                         if (textboxes[currentBoxNumber + 1] != null) {
                                 nextBox = textboxes[currentBoxNumber + 1];
@@ -96,58 +96,67 @@ class questionnaire(osv.osv):
         question_obj = self.pool.get('survey_methodology.question')
         question_ids = question_obj.search(cr, uid, [('complete_place','=',fields)])
 
+        #answer_id = answer_obj.search(cr, uid, [('complete_place','=',fields),('questionnaire_id','=',ids)])
+
+        # Iterate over all hierarchical branch questions.
+        #child_ids = question_ids
+        #parent_ids = question_obj.search(cr, uid, [('child_ids', 'in', child_ids)])
+        #while len(parent_ids)>0:
+        #    child_ids = child_ids + parent_ids
+        #    parent_ids = question_obj.search(cr, uid, [('child_ids', 'in', parent_ids)])
+        #question_ids = child_ids
+
         for question in question_obj.browse(cr, uid, question_ids):
 
+            # Habilitación o deshabilitación de preguntas.
             if question.next_enable == False:
                 _logger.warning('Question %s no enable any other question' % question.complete_name)
-                continue
-
-            # Habilitación o deshabilitación de preguntas.
-            _logger.debug('Next enable: %s' % (question.next_enable))
-            for lines in question.next_enable.split('\n'):
-                if lines.strip():
-                    parsed = re.search(r'(?P<condition>[^:]*):(?P<to_enable>[^:]*)(:(?P<to_disable>.*))?', lines).groupdict()
-                    if parsed['condition'] and eval(parsed['condition'], tools.local_dict(input_text, question)):
-                        to_enable = filter(lambda i: i!='', (parsed['to_enable'] or '').split(','))
-                        to_disable = filter(lambda i: i!='', (parsed['to_disable'] or '').split(','))
-                        to_enable = [ to if ' / ' in to else to.replace('_', ' / ') for to in to_enable ]
-                        to_disable = [ to if ' / ' in to else to.replace('_', ' / ') for to in to_disable ]
-                        _logger.debug('Searching to enable: %s' % (','.join(to_enable)))
-                        _logger.debug('Searching to disable: %s' % (','.join(to_disable)))
-                        next_dict = dict(
-                            [ (qid, 'enabled') for qid in question_obj.search(cr, uid, [
-                                ('survey_id','=',question.survey_id.id),
-                                ('complete_name', 'in', to_enable)
-                            ]) ] +
-                            [ (qid, 'disabled') for qid in question_obj.search(cr, uid, [
-                                ('survey_id','=',question.survey_id.id),
-                                ('complete_name', 'in', to_disable)
-                            ]) ])
-                        _logger.debug('Found: %s' % (next_dict))
-                        next_field_code = question_obj.read(cr, uid, next_dict.keys(), ['complete_place', 'complete_name'])
-                        for item in next_field_code:
-                            complete_place = item['complete_place']
-                            value['sta_%s' % complete_place] = next_dict[item['id']]
-                            it_ids = answer_obj.search(cr, uid, [('complete_place','=',complete_place)])
-                            if it_ids == []:
-                                q_ids = question_obj.search(cr, uid, [('survey_id','=',question.survey_id.id),('complete_place','=',complete_place)])
-                                for nq in question_obj.browse(cr, uid, q_ids):
-                                    v = {
-                                        'name': nq.question,
-                                        'complete_place': nq.complete_place,
-                                        'code': nq.name,
-                                        'input': False,
-                                        'formated': False,
-                                        'message': False,
-                                        'valid': False,
-                                        'questionnaire_id': ids[0],
-                                        'question_id': nq.id,
-                                    }
-                                    it_ids.append(answer_obj.create(cr, uid, v))
+            else:
+                _logger.debug('Next enable: %s' % (question.next_enable))
+                for lines in question.next_enable.split('\n'):
+                    if lines.strip():
+                        parsed = re.search(r'(?P<condition>[^:]*):(?P<to_enable>[^:]*)(:(?P<to_disable>.*))?', lines).groupdict()
+                        if parsed['condition'] and eval(parsed['condition'], tools.local_dict(input_text, question)):
+                            to_enable = filter(lambda i: i!='', (parsed['to_enable'] or '').split(','))
+                            to_disable = filter(lambda i: i!='', (parsed['to_disable'] or '').split(','))
+                            to_enable = [ to if ' / ' in to else to.replace('_', ' / ') for to in to_enable ]
+                            to_disable = [ to if ' / ' in to else to.replace('_', ' / ') for to in to_disable ]
+                            _logger.debug('Searching to enable: %s' % (','.join(to_enable)))
+                            _logger.debug('Searching to disable: %s' % (','.join(to_disable)))
+                            next_dict = dict(
+                                [ (qid, 'enabled') for qid in question_obj.search(cr, uid, [
+                                    ('survey_id','=',question.survey_id.id),
+                                    ('complete_name', 'in', to_enable)
+                                ]) ] +
+                                [ (qid, 'disabled') for qid in question_obj.search(cr, uid, [
+                                    ('survey_id','=',question.survey_id.id),
+                                    ('complete_name', 'in', to_disable)
+                                ]) ])
+                            _logger.debug('Found: %s' % (next_dict))
+                            next_field_code = question_obj.read(cr, uid, next_dict.keys(), ['complete_place', 'complete_name'])
+                            for item in next_field_code:
+                                complete_place = item['complete_place']
+                                value['sta_%s' % complete_place] = next_dict[item['id']]
+                                it_ids = answer_obj.search(cr, uid, [('complete_place','=',complete_place)])
                                 if it_ids == []:
-                                    raise osv.except_osv("Inestable Questionary", "Not answer associated to the next field. Communicate with the administrator.")
-                            answer_obj.write(cr, uid, it_ids, {'state': next_dict[item['id']]})
-                            _logger.debug('Change %s(%s) to %s' % (complete_place, it_ids, next_dict[item['id']]))
+                                    q_ids = question_obj.search(cr, uid, [('survey_id','=',question.survey_id.id),('complete_place','=',complete_place)])
+                                    for nq in question_obj.browse(cr, uid, q_ids):
+                                        v = {
+                                            'name': nq.question,
+                                            'complete_place': nq.complete_place,
+                                            'code': nq.name,
+                                            'input': False,
+                                            'formated': False,
+                                            'message': False,
+                                            'valid': False,
+                                            'questionnaire_id': ids[0],
+                                            'question_id': nq.id,
+                                        }
+                                        it_ids.append(answer_obj.create(cr, uid, v))
+                                    if it_ids == []:
+                                        raise osv.except_osv("Inestable Questionary", "Not answer associated to the next field. Communicate with the administrator.")
+                                answer_obj.write(cr, uid, it_ids, {'state': next_dict[item['id']]})
+                                _logger.debug('Change %s(%s) to %s' % (complete_place, it_ids, next_dict[item['id']]))
 
             # Evaluamos el formato
             format_obj = question.format_id
@@ -158,7 +167,7 @@ class questionnaire(osv.osv):
             value['vms_%s' % fields] = format_res['message']
             value['for_%s' % fields] = format_res['formated']
             value['vfo_%s' % fields] = format_res['formated']
-            value['val_%s' % fields] = format_res['valid']
+            value['val_%s' % fields] = format_res['is_valid']
 
         r = { 'value': value }
         if complete_place:
@@ -359,7 +368,7 @@ class questionnaire(osv.osv):
         res = super(questionnaire, self).fields_view_get(cr, uid, view_id, view_type, context, toolbar=toolbar, submenu=submenu)
         if view_type == "form" and questionnaire_id is not None:
             qaire_ids = self.search(cr, uid, [('id','=',questionnaire_id)])[:1]
-            view_item = ['<group colspan="4" col="5">']
+            view_item = ['<group colspan="4" col="6">']
 
             for qaire in self.browse(cr, uid, qaire_ids):
                 level = 1
@@ -380,33 +389,31 @@ class questionnaire(osv.osv):
                     }
                     if question.type=='Null':
                         view_item.append(
-                            '<label string="" colspan="1"/>'
-                            '<label string="%(name)s" colspan="1"/>'
-                            '<label string="%(question)s" colspan="3"/>'
+                            '<label string="" colspan="1" class="sm_null"/>'
+                            '<label string="%(name)s" colspan="1" class="sm_null"/>'
+                            '<label string="%(question)s" colspan="3" class="sm_null"/>'
                             '<newline/>'
                             % item_map
                         )
                     if question.type=='View':
                         view_item.append(
-                            '<label string="%(complete_name)s" colspan="1"/>'
-                            '<h3 colspan="4" col="1">'
-                            '<label string="%(question)s"/>'
-                            '</h3>'
+                            '<label string="%(complete_name)s" colspan="1" class="sm_view"/>'
+                            '<label string="%(question)s" class="sm_view" colspan="4"/>'
                             '<newline/>'
                             % item_map
                         )
                     if question.type=='Variable':
                         view_item.append(
-                            '<label string="%(complete_name)s" colspan="1"/>'
-                            '<label string="%(question)s" colspan="1"/>'
+                            '<label string="%(complete_name)s" colspan="1" class="sm_complete_name"/>'
+                            '<label string="%(question)s" colspan="1" class="sm_question"/>'
                             '<field name="inp_%(complete_place)s" on_change="onchange_input(inp_%(complete_place)s, \'%(complete_place)s\')"'
                             ' modifiers="{&quot;readonly&quot;: [[&quot;sta_%(complete_place)s&quot;, &quot;not in&quot;, [&quot;enabled&quot;]]]}"'
-                            ' nolabel="1" colspan="1"/>'
-                            '<field name="vms_%(complete_place)s" modifiers="{&quot;readonly&quot;: true}" nolabel="1" colspan="1"/>'
-                            '<field name="vfo_%(complete_place)s" modifiers="{&quot;readonly&quot;: true}" nolabel="1" colspan="1"/>'
+                            ' nolabel="1" colspan="1" class="sm_input"/>'
+                            '<field name="vms_%(complete_place)s" modifiers="{&quot;readonly&quot;: true}" nolabel="1" colspan="1" widget="text_html" class="sm_message"/>'
+                            '<field name="vfo_%(complete_place)s" modifiers="{&quot;readonly&quot;: true}" nolabel="1" colspan="1" class="sm_formated"/>'
+                            '<field name="val_%(complete_place)s" nolabel="1" modifiers="{&quot;readonly&quot;: [[&quot;vms_%(complete_place)s&quot;, &quot;in&quot;, [false, &quot;&quot;]]], &quot;invisible&quot;: false }" colspan="1"/>'
                             '<field name="sta_%(complete_place)s" modifiers="{&quot;invisible&quot;: true}" nolabel="1" colspan="1"/>'
                             '<field name="msg_%(complete_place)s" modifiers="{&quot;readonly&quot;: false,&quot;invisible&quot;: true}"/>'
-                            '<field name="val_%(complete_place)s" modifiers="{&quot;readonly&quot;: false,&quot;invisible&quot;: true}"/>'
                             '<field name="for_%(complete_place)s" modifiers="{&quot;readonly&quot;: false,&quot;invisible&quot;: true}"/>'
                             '<newline/>'% item_map
                         )
@@ -455,7 +462,10 @@ class questionnaire(osv.osv):
             view_item.append('</group>')
             view_item.append(_enter_js)
 
-            insert_view = """<group position="after"> <separator string="Page %i."/> %s </group>""" % (actual_page, ' '.join(view_item))
+            if actual_page:
+                insert_view = """<group position="after"> <separator string="Page %i."/> %s </group>""" % (actual_page, ' '.join(view_item))
+            else:
+                insert_view = """<group position="after"> <separator string="End Page"/></group>"""
             source = etree.fromstring(encode(res['arch']))
             source = apply_inheritance_specs(source, insert_view, view_id)
             res.update(
@@ -466,7 +476,14 @@ class questionnaire(osv.osv):
     def prev_page(self, cr, uid, ids, context=None):
         context = context or {}
         for q in self.browse(cr, uid, ids, context=None):
-            actual_page = max(1, q.actual_page - 1)
+            cr.execute('SELECT MAX(Q.page) FROM survey_methodology_answer AS A '
+                       ' LEFT JOIN survey_methodology_question AS Q ON A.question_id=Q.id '
+                       'WHERE A.questionnaire_id = %s '
+                       '  AND Q.page < %s '
+                       '  AND A.state = \'enabled\'', (q.id, q.actual_page))
+            next_page = cr.fetchall()
+            if next_page and next_page > q.actual_page:
+            	actual_page = next_page[0][0]
             self.write(cr, uid, [q.id], {'actual_page': actual_page})
             context['questionnaire_id'] = q.id
             context['actual_page'] = actual_page
@@ -501,7 +518,14 @@ class questionnaire(osv.osv):
     def next_page(self, cr, uid, ids, context=None):
         context = context or {}
         for q in self.browse(cr, uid, ids, context=context):
-            actual_page = min(100, q.actual_page + 1)
+            cr.execute('SELECT MIN(Q.page) FROM survey_methodology_answer AS A '
+                       ' LEFT JOIN survey_methodology_question AS Q ON A.question_id=Q.id '
+                       'WHERE A.questionnaire_id = %s '
+                       '  AND Q.page > %s '
+                       '  AND A.state = \'enabled\'', (q.id, q.actual_page))
+            next_page = cr.fetchall()
+            if next_page and next_page > q.actual_page:
+            	actual_page = next_page[0][0]
             self.write(cr, uid, [q.id], {'actual_page': actual_page})
             context['questionnaire_id'] = q.id
             context['actual_page'] = actual_page

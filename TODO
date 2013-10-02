@@ -1,22 +1,63 @@
-  - Campos nulos '.'
+------------
+- Online
+------------
 
-  - Mensaje inteso para los errores!
+Realizado:
 
-  - Calcular los campos de suma 100
++ Romper secciones por páginas.
++ Registrar el dominio mierp.net como seguro.
++ Orientar al encuestado por página.
 
-  - Controlar que el valor de X sea menor a Y (C / 11 / B)
++ Mantener los logos siempre visibles.
++ Desarrollar logica para que envie mails de forma automática
++ Desarrollar logica para que envie mails de forma automática
++ Saltar a la proxima pagina con entradas habilitadas.
 
-  - Controlar que el valor de entrada de EE12/C/12/4 y EE12/E/22/2 a partir de los valore ingresados previamente.
+Domingo.
 
-  - Limitar a 100% EE12/D/14/1, EE12/D/14/2, EE12/E/18/1, EE12/E/18/2,
++ Arreglar pregunta 8. (1/2 hs)
++ Arreglar pregunta 15 (1hs). Para simplificar voy a hacer codigo en el widget para ese control. En la próxima versión lo cambiamos a las variables computadas.
++ Computar reglas globales (4hs).
+  + 100% sobre la pregunta 23.
+  + Verificar validez de la pregunta 26.
++ Agregar los mensajes de error al grabar los datos. (2hs)
 
-  - Limitar a la suma de EE12/D/15/2/1, EE12/D/15/2/2 a EE12/D/15/2/3
+Lunes:
 
-  - Validar entrada a mano, y no permitir seguir al siguiete campo.
+- Realizar Testing de encuesta (5hs)
+- Regla en la pregunta 12. Deshabilitar no posee certificación si no pone fecha. (1/2 hs)
+- Regla en la pregunta 13. Deshabilitar no posee manuales si no pone fecha. (1/2 hs)
 
-  - Logica de saltos controlado.
+Cosas que pide Cecilia:
 
-  - Generar output de datos.
+- Sacar la barra de desplazamiento.
+- Preguntas 5 y 5.1 que son cortitas están muy encimadas del encabezado de sección. Ver si se pueden centrar un poco en la hoja.
+- En caso que la encuesta deba terminar luego de la 5.1 no va la aclaración de que el Mincyt le enviará las respuestas. Poner el siguiente texto: “Estimado empresario, muchas gracias por sus respuestas. En este estudio el Ministerio tiene interés en las empresas pequeñas y medianas. Contamos con su valiosa colaboración para futuras investigaciones. Saludos cordiales”. DEJAR EL RECUADRO PARA DEJAR CUALQUIER DUDA O INQUIETUD.
+- Las aclaraciones que están entre paréntesis –en todas las preguntas- necesitaríamos ponerlas en negrita entre paréntesis o, lo que sería mejor, DIRECTAMENTE EN MAYÚSCULA Y NEGRITA (sin paréntesis).
+- P10. Revisar que no aparecen los mensajes en Explorer.
+- P12 debe saltar a P14 si no posee certificaciones.
+- P14. La suma de empleados debe calcularse y verificarse si da el mismo número que la suma de lo ingresado.
+- Sección C. Falta introducción.  En la sección C (Actividades de innovación) falta la introducción y pregunta que engloba todos los puntos siguientes. Esa debe quedar fija antes de los puntos 15.1 a 15.4.
+- Preguntar a Christian Haedo si la pregunta p15 no cumple su objetivo tal como se puso.
+- Falta el número de pregunta en la 16.3
+- P.24: el nombre de los programas queda muy chico en relación a la grilla. Se pierde un poco la información. Ver si se puede mejorar esto. En la última opción de “Otros, especificar” si pongo texto allí no se me habilitan puntos para registrar info.
+- P.25, 26, 27 y 28  falta formato de grilla.
+- El último botón para guardar debe decir: “Guardar para finalizar la entrevista”.
 
-  - Curso de diseño de encuestas.
+Esto para la semana próxima
+
+- Cargar todas las entradas en el sistema para luego enviar las cargas (1/2hs)
+- Enviar los mails a los destinatarios (~8hs)
+
+Esto para etapas posteriores
+
+-----------
+- Diseño
+-----------
+
+- Cambiar de modelo pregunta a modelo variable.
+- Luego es la variable es donde se computan las reglas de validación.
+- Agregar variables computadas.
+- El diseño de la encuesta debe ser libre, y debe permitir colocar los widgets donde se desee.
+- Utilizar templates para encuestas.
 

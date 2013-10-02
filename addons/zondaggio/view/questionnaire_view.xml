@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+##############################################################################
+#
+#    Survey Methodology
+#    Copyright (C) 2013 Coop. Trab. Moldeo Interactive Ltda.
+#    No email
+#
+#    This program is free software: you can redistribute it and/or modify
+#    it under the terms of the GNU Affero General Public License as
+#    published by the Free Software Foundation, either version 3 of the
+#    License, or (at your option) any later version.
+#
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU Affero General Public License for more details.
+#
+#    You should have received a copy of the GNU Affero General Public License
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#
+##############################################################################
+
+-->
+<openerp>
+    <data>
+        <!-- QUESTIONNAIRE UI CLIENT ACTION -->
+        <record model="ir.actions.client" id="action_questionnaire_ui">
+            <field name="name">Start Questionnaire</field>
+            <field name="tag">questionnaire.ui</field>
+        </record>
+
+        <!-- TREEVIEW -->
+        <record id="sondaggio.view_sondaggio_questionnaire_tree" model="ir.ui.view">
+            <field name="name">sondaggio.questionnaire.tree</field>
+            <field name="model">sondaggio.questionnaire</field>
+            <field name="arch" type="xml">
+                <tree string="questionnaire"
+                    colors="grey:state=='cancelled';blue:state in ('draft',);black:state in ('cancelled', 'waiting', 'in_coding', 'in_process', 'complete'); red:state in ()"
+                    >
+                    <field name="name" string="CUIT"/>
+                    <field name="par_razon_social_ver"/>
+                    <field name="par_estrato_f" />
+                    <field name="par_fecha_ver" />
+                    <field name="last_communication_date" />
+                    <field name="state" />
+                    <field name="channel" />
+                    <button name="on_open_offline" string="Open Offline Channel" type="object" icon="gtk-disconnect"/>
+                    <button name="on_open_online" string="Open Online Channel" type="object" icon="gtk-connect"/>
+                    <button name="on_open_telephonic" string="Open Telephonic Channel" type="object" icon="terp-call-start"/>
+                    <button name="on_open_personal" string="Open Personal Channel" type="object" icon="stock_person"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- SEARCH VIEW -->
+        <record id="sondaggio.view_sondaggio_questionnaire_filter" model="ir.ui.view">
+            <field name="name">sondaggio.questionnaire.select</field>
+            <field name="model">sondaggio.questionnaire</field>
+            <field name="arch" type="xml">
+                <search string="questionnaire" version="7.0">
+                    <group string="By Attribute">
+                    <field name="name" string="Name"
+                            />
+                    <field name="respondent_id" string="Respondent"
+                            />
+                    <field name="pollster_id" string="Pollster"
+                            />
+                    <field name="state" string="State"
+                            />
+                    <field name="respondent_code" string="Respondent Code"
+                            />
+                    <field name="channel" string="Channel"
+                            />
+                    <field name="par_razon_social" />
+                    <field name="par_razon_social_ver" />
+                    <field name="par_estrato_f" />
+                    <field name="par_fecha_ver" />
+                    <field name="par_fecha_env" />
+                    <filter string="State" context="{'group_by': 'state'}"/>
+                    <filter string="Channel" context="{'group_by': 'channel'}"/>
+                    <filter string="Estrato" context="{'group_by': 'par_estrato_f'}"/>
+                    <filter string="Verified version" context="{'group_by': 'par_fecha_ver'}"/>
+                    <filter string="Send version" context="{'group_by': 'par_fecha_env'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <!-- FORMVIEW -->
+        <record id="sondaggio.view_sondaggio_questionnaire_form" model="ir.ui.view">
+            <field name="name">sondaggio.questionnaire.form</field>
+            <field name="model">sondaggio.questionnaire</field>
+            <field name="arch" type="xml">
+                <form string="questionnaire" version="7.0">
+                    <header>
+                        <button name="sgn_begin"
+                            states="draft"
+                            string="Begin"
+                            class="oe_highlight"
+                            />
+                        <button name="action_wfk_set_draft"
+                            type="object"
+                            states="cancelled"
+                            string="To Draft"
+                            />
+                        <button name="sgn_wait"
+                            states="in_process"
+                            string="Wait"
+                            />
+                        <button name="sgn_continue"
+                            states="waiting"
+                            string="Continue"
+                            class="oe_highlight"
+                            />
+                        <button name="sgn_end"
+                            states="in_process"
+                            string="End"
+                            class="oe_highlight"
+                            />
+                        <button name="sgn_encode"
+                            states="complete"
+                            string="Encode"
+                            class="oe_highlight"
+                            />
+                        <button name="sgn_reject"
+                            states="in_process,waiting"
+                            string="Reject"
+                            />
+                        <button name="sgn_validate"
+                            states="in_coding"
+                            string="Validate"
+                            class="oe_highlight"
+                            />
+                        <button name="sgn_cancel"
+                            states="complete,in_coding,in_process,rejected,validated,waiting"
+                            string="Cancel"
+                            />
+                        <field name="state" widget="statusbar"
+                            statusbar_colors='{}'
+                            />
+                    </header>
+                    <sheet string="questionnaire">
+                     <group id="main">
+                         <field name="name" readonly="0" string="CUIT" attrs="{'readonly':['|',('actual_page','!=',1),('state','!=','draft')]}"/>
+                         <field name="code" readonly="0" string="Codigo de Acceso" attrs="{'readonly':['|',('actual_page','!=',1),('state','!=','draft')]}"/>
+                         <field name="survey_id" readonly="0" attrs="{'readonly':['|',('actual_page','!=',1),('state','!=','draft')]}"/>
+                     </group>
+                     <notebook>
+                         <page string="Information">
+                             <group>
+                                 <field name="actual_page" readonly="0" string="Page" states="in_process"/>
+                                 <field name="channel" states="draft,in_process,waiting"/>
+                                 <field name="url" widget="url"/>
+                                 <field name="num_communications" />
+                                 <field name="last_communication_date" />
+                                 <field name="par_encuestador" />
+                                 <field name="date_draft" />
+                                 <field name="date_in_process" />
+                                 <field name="date_waiting" />
+                                 <field name="date_rejected" />
+                                 <field name="date_complete" />
+                                 <field name="date_in_coding" />
+                                 <field name="date_validated" />
+                                 <field name="date_cancelled" />
+                             </group>
+                         </page>
+                         <page string="Parameters" states="draft,complete,validated,rejected">
+                             <field name="parameter_ids">
+                                 <tree editable="bottom">
+                                     <field name="name"/>
+                                     <field name="value"/>
+                                 </tree>
+                             </field>
+                         </page>
+                         <page string="Comunications" readonly="True" states="draft,complete,validated,rejected">
+                             <field name="communication_batch_ids">
+                                 <tree>
+                                     <field name="name"/>
+                                 </tree>
+                             </field>
+                         </page>
+                     </notebook>
+                     <group col="8" colspan="4" id="open">
+                        <button name="on_open_offline" string="Open Offline Channel" type="object" icon="gtk-disconnect"/>
+                        <button name="on_open_online" string="Open Online Channel" type="object" icon="gtk-connect"/>
+                        <button name="on_open_telephonic" string="Open Telephonic Channel" type="object" icon="terp-call-start"/>
+                        <button name="on_open_personal" string="Open Personal Channel" type="object" icon="stock_person"/>
+                     </group>
+                     <group col="3" colspan="4" id="top">
+                         <button name="prev_page" string="Prev Page" type="object" states="in_process,in_coding,validated"/>
+                         <button name="refresh_page" string="Refresh" type="object" states="in_process,in_coding,validated"/>
+                         <button name="next_page" string="Next Page" type="object" states="in_process,in_coding,validated"/>
+                     </group>
+                     <group col="6" colspan="4" id="body">
+                     </group>
+                     <group col="3" colspan="4" id="bottom">
+                         <button name="prev_page" string="Prev Page" type="object" states="in_process,in_coding,validated"/>
+                         <button name="refresh_page" string="Refresh" type="object" states="in_process,in_coding,validated"/>
+                         <button name="next_page" string="Next Page" type="object" states="in_process,in_coding,validated"/>
+                     </group>
+                    </sheet>
+                    <footer>
+                        <button name="sgn_begin"
+                            states="draft"
+                            string="Begin"
+                            class="oe_highlight"
+                            />
+                        <button name="action_wfk_set_draft"
+                            type="object"
+                            states="cancelled"
+                            string="To Draft"
+                            />
+                        <button name="sgn_end"
+                            states="in_process"
+                            string="End"
+                            class="oe_highlight"
+                            />
+                        <button name="sgn_encode"
+                            states="complete"
+                            string="Encode"
+                            class="oe_highlight"
+                            />
+                        <button name="sgn_wait"
+                            states="in_process"
+                            string="Wait"
+                            class="oe_highlight"
+                            />
+                        <button name="sgn_continue"
+                            states="wainting"
+                            string="Continue"
+                            />
+                        <button name="sgn_validate"
+                            states="in_coding"
+                            string="Validate"
+                            class="oe_highlight"
+                            />
+                        <button name="action_wfk_set_cancelled"
+                            type="object"
+                            states="complete,in_coding,in_process,validated,wainting"
+                            string="Cancel"
+                            />
+                    </footer>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+    </data>
+</openerp>
+<!-- vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4
+     -->

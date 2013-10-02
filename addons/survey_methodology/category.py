@@ -22,18 +22,47 @@
 
 
 import re
-import netsvc
-from osv import osv, fields
+from openerp import netsvc
+from openerp.osv import osv, fields
 
 class category(osv.osv):
     """"""
     
+    def name_get(self, cr, uid, ids, context=None):
+        if isinstance(ids, (list, tuple)) and not len(ids):
+            return []
+        if isinstance(ids, (long, int)):
+            ids = [ids]
+        reads = self.read(cr, uid, ids, ['name','parent_id'], context=context)
+        res = []
+        for record in reads:
+            name = record['name']
+            if record['parent_id']:
+                name = record['parent_id'][1]+' / '+name
+            res.append((record['id'], name))
+        return res
+
+    def _name_get_fnc(self, cr, uid, ids, prop, unknow_none, context=None):
+        res = self.name_get(cr, uid, ids, context=context)
+        return dict(res)
+
+    def _check_recursion(self, cr, uid, ids, context=None):
+        level = 100
+        while len(ids):
+            cr.execute('select distinct parent_id from survey_methodology_category where id IN %s',(tuple(ids),))
+            ids = filter(None, map(lambda x:x[0], cr.fetchall()))
+            if not level:
+                return False
+            level -= 1
+        return True
+
     _name = 'survey_methodology.category'
     _description = 'category'
 
     _columns = {
+        'complete_name': fields.function(_name_get_fnc, type="char", string='Name', store=True),
         'name': fields.char(string='Name', required=True),
-        'question_ids': fields.many2many('survey_methodology.question', 'survey_methodology_question_ids_category_ids_rel', 'question_ids', 'category_ids', string='Questions'), 
+        'question_ids': fields.many2many('survey_methodology.question', 'survey_methodology_question_ids_category_ids_rel', 'category_id', 'question_id', string='Questions'), 
         'child_ids': fields.one2many('survey_methodology.category', 'parent_id', string='child_ids'), 
         'parent_id': fields.many2one('survey_methodology.category', string='parent_id'), 
     }
@@ -43,6 +72,7 @@ class category(osv.osv):
 
 
     _constraints = [
+        (_check_recursion, 'Error ! You cannot create recursive category.', ['parent_id'])
     ]
 
 

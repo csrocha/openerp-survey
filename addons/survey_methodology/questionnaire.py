@@ -22,8 +22,8 @@
 
 
 import re
-import netsvc
-from osv import osv, fields
+from openerp import netsvc
+from openerp.osv import osv, fields
 
 class questionnaire(osv.osv):
     """"""
@@ -31,10 +31,19 @@ class questionnaire(osv.osv):
     _name = 'survey_methodology.questionnaire'
     _description = 'questionnaire'
 
+    _states_ = [
+        # State machine: untitle
+        ('draft','Draft'),
+        ('in_process','In Process'),
+        ('complete','Complete'),
+        ('under_validation','Under Validation'),
+        ('validated','Validated'),
+    ]
     _columns = {
         'name': fields.char(string='Name', readonly=True),
         'respondent_id': fields.many2one('res.partner', string='Respondent', readonly=True),
         'pollster_id': fields.many2one('res.users', string='Pollster', readonly=True),
+        'state': fields.selection(_states_, "State"),
         'survey_id': fields.many2one('survey_methodology.survey', string='Survey', readonly=True, ondelete='cascade', required=True), 
         'respondent_code': fields.related(
                     'respondent_id',
@@ -47,6 +56,7 @@ class questionnaire(osv.osv):
     }
 
     _defaults = {
+        'state': 'draft',
         'respondent_id': lambda self, cr, uid, context=None: context and context.get('respondent_id', False),
         'pollster_id': lambda self, cr, uid, context=None: context and context.get('pollster_id', False),
     }

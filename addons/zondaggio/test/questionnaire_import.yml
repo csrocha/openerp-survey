@@ -1,0 +1,23 @@
+#
+# Survey
+#
+
+- !record { model: sondaggio.survey, id: survey_1 }:
+        name: Survey 01
+
+#
+# Import Wizard
+#
+
+- !record { model: sondaggio.questionnaire_import, id: questionnaire_import_1 }:
+        in_file: data/questionnaire_import_test.csv
+        survey_id: survey_1
+        name_field: name
+
+#
+# Import
+#
+
+- !python {  model: sondaggio.questionnaire_import }:
+        self.do_import(cr, uid, [ref('questionnaire_import_1')])
+

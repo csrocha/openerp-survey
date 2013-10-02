@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+##############################################################################
+#
+#    Survey Methodology
+#    Copyright (C) 2013 Coop. Trab. Moldeo Interactive Ltda.
+#    No email
+#
+#    This program is free software: you can redistribute it and/or modify
+#    it under the terms of the GNU Affero General Public License as
+#    published by the Free Software Foundation, either version 3 of the
+#    License, or (at your option) any later version.
+#
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU Affero General Public License for more details.
+#
+#    You should have received a copy of the GNU Affero General Public License
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#
+##############################################################################
+-->
+<openerp>
+    <data>
+
+        <!-- SEARCH VIEW -->
+        <record id="view_sondaggio_questionnaire_filter" model="ir.ui.view">
+            <field name="name">sondaggio.questionnaire.select</field>
+            <field name="model">sondaggio.questionnaire</field>
+            <field name="arch" type="xml">
+                <search string="questionnaire" version="7.0">
+                    <group string="By Attribute">
+                    <field name="name" string="Name"
+                            />
+                    <field name="respondent_id" string="Respondent"
+                            />
+                    <field name="pollster_id" string="Pollster"
+                            />
+                    <field name="code" string="Code"
+                            />
+                    <field name="channel" string="Channel"
+                            />
+                    </group>
+                    <group string="By object">
+                    <field name="respondent_code" string="Respondent Code"
+                            />
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <!-- FORMVIEW -->
+        <record id="view_sondaggio_questionnaire_form" model="ir.ui.view">
+            <field name="name">sondaggio.questionnaire.form</field>
+            <field name="model">sondaggio.questionnaire</field>
+            <field name="arch" type="xml">
+                <form string="questionnaire" version="7.0">
+                    <header>
+                        <button name="sgn_begin"
+                            states="draft"
+                            string="Begin"
+                            class="oe_highlight"
+                            />
+                        <button name="action_wfk_set_draft"
+                            type="object"
+                            states="cancelled"
+                            string="To Draft"
+                            />
+                        <button name="sgn_wait"
+                            states="in_process"
+                            string="Wait"
+                            />
+                        <button name="sgn_continue"
+                            states="waiting"
+                            string="Continue"
+                            class="oe_highlight"
+                            />
+                        <button name="sgn_end"
+                            states="in_process"
+                            string="End"
+                            class="oe_highlight"
+                            />
+                        <button name="sgn_encode"
+                            states="complete"
+                            string="Encode"
+                            class="oe_highlight"
+                            />
+                        <button name="sgn_reject"
+                            states="in_process,waiting"
+                            string="Reject"
+                            />
+                        <button name="sgn_validate"
+                            states="in_coding"
+                            string="Validate"
+                            class="oe_highlight"
+                            />
+                        <button name="sgn_cancel"
+                            states="complete,in_coding,in_process,rejected,validated,waiting"
+                            string="Cancel"
+                            />
+                        <field name="state" widget="statusbar"
+                            statusbar_colors='{}'
+                            />
+                    </header>
+                    <sheet string="questionnaire">
+                     <group>
+                        <field name="name"
+                            />
+                        <field name="respondent_id"
+                            />
+                        <field name="pollster_id"
+                            />
+                        <field name="code"
+                            />
+                        <field name="channel"
+                            />
+                    <field name="survey_id"
+                            />
+                    <field name="respondent_code"
+                            />
+                    <field name="parameter_ids"
+                            />
+                    <field name="estrato_id"
+                            />
+                     </group>
+                    </sheet>
+
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <!-- TREEVIEW -->
+
+        <record id="view_sondaggio_questionnaire_tree" model="ir.ui.view">
+            <field name="name">sondaggio.questionnaire.tree</field>
+            <field name="model">sondaggio.questionnaire</field>
+            <field name="arch" type="xml">
+                <tree string="questionnaire"
+                    colors="grey:state=='cancelled';blue:state in ('draft',);black:state in ('in_coding', 'in_process', 'rejected', 'waiting', 'validated', 'complete'); red:state in ()"
+                    >
+                    <field name="name"
+                        />
+                    <field name="respondent_id"
+                        />
+                    <field name="pollster_id"
+                        />
+                    <field name="code"
+                        />
+                    <field name="channel"
+                        />
+                    <field name="respondent_code"
+                        />
+                    <field name="estrato_id"
+                        />
+                    <field name="state" />
+                </tree>
+            </field>
+        </record>
+
+    </data>
+</openerp>
+<!-- vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4
+     -->

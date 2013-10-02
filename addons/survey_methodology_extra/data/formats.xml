@@ -22,7 +22,7 @@
 ##############################################################################
 -->
 <openerp>
-    <data>
+    <data noupdate="1">
         <record model="survey_methodology.format" id="format_Boolean">
             <field name="name">Boolean</field>
             <field name="validation">imatch(r'1|0|x|\+|-|true|false|yes|no|si|verdadero|falso', input)</field>
@@ -66,10 +66,6 @@
             <field name="name">Text</field>
             <field name="validation">input.strip() and True or False</field>
             <field name="formating">input.strip()</field>
-        </record>
-
-        <record model="survey_methodology.format" id="format_Group">
-            <field name="name">Group</field>
         </record>
 
         <record model="survey_methodology.format" id="format_SelectOne">
@@ -124,6 +120,17 @@
                 <field name="name">Año ambiguo</field>
                 <field name="condition">match(r'^\d{2}[/-]?\d{2}[/-]?\d{2}$', input)</field>
                 <field name="format_id" ref="format_Date"/>
+            </record>
+
+        <record model="survey_methodology.format" id="format_porcentual">
+            <field name="name">Porcentual</field>
+            <field name="validation">match(r'[-+]?[0-9]\d{0,7}(\.\d{1,7})?%?', input) and 0 &lt;= float(sinput) and float(input) &lt;= 100</field>
+            <field name="formating">match(r'[-+]?[0-9]\d{0,7}(\.\d{1,7})?%?', input) and ("%f" % float(input)) or 'Nan'</field>
+        </record>
+            <record model="survey_methodology.message" id="message_no_porcentual">
+                <field name="name">No es un porcentaje. Asegurese indicar un número real entre 0 y 100.</field>
+                <field name="condition">not is_valid</field>
+                <field name="format_id" ref="format_porcentual"/>
             </record>
 
     </data>

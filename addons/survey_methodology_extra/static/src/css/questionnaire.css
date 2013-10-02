@@ -1,0 +1,14 @@
+.sm_message {
+	color: red;
+	font-style: italic;
+	font-weight: bold;
+}
+
+.sm_view {
+	font-size: 19px;
+}
+
+.sm_null {
+	font-size: 10px;
+}
+

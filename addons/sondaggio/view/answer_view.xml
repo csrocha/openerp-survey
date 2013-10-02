@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+##############################################################################
+#
+#    Survey Methodology
+#    Copyright (C) 2013 Coop. Trab. Moldeo Interactive Ltda.
+#    No email
+#
+#    This program is free software: you can redistribute it and/or modify
+#    it under the terms of the GNU Affero General Public License as
+#    published by the Free Software Foundation, either version 3 of the
+#    License, or (at your option) any later version.
+#
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU Affero General Public License for more details.
+#
+#    You should have received a copy of the GNU Affero General Public License
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#
+##############################################################################
+-->
+<openerp>
+    <data>
+
+        <!-- SEARCH VIEW -->
+        <record id="view_sondaggio_answer_filter" model="ir.ui.view">
+            <field name="name">sondaggio.answer.select</field>
+            <field name="model">sondaggio.answer</field>
+            <field name="arch" type="xml">
+                <search string="Answer" version="7.0">
+                    <group string="By Attribute">
+                    </group>
+                    <group string="By object">
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <!-- FORMVIEW -->
+        <record id="view_sondaggio_answer_form" model="ir.ui.view">
+            <field name="name">sondaggio.answer.form</field>
+            <field name="model">sondaggio.answer</field>
+            <field name="arch" type="xml">
+                <form string="Answer" version="7.0">
+                    <header>
+                        <button name="sgn_disable"
+                            states="enabled"
+                            string="Disable"
+                            />
+                        <button name="action_wfk_set_enabled"
+                            type="object"
+                            states="disabled"
+                            string="Enable"
+                            />
+                        <button name="action_wfk_set_enabled"
+                            type="object"
+                            states="cancelled"
+                            string="Re enable"
+                            />
+                        <button name="sgn_close"
+                            states="disabled"
+                            string="Close"
+                            />
+                        <button name="sgn_cancel"
+                            states="closed,disabled,enabled"
+                            string="Cancel"
+                            />
+                        <field name="state" widget="statusbar"
+                            statusbar_colors='{}'
+                            />
+                    </header>
+                    <sheet string="Answer">
+                     <group>
+                        <field name="name"
+                            />
+                        <field name="input"
+                            />
+                        <field name="formated"
+                            />
+                        <field name="message"
+                            />
+                        <field name="valid"
+                            />
+                    <field name="question_id"
+                            />
+                     </group>
+                    </sheet>
+
+                </form>
+            </field>
+        </record>
+
+        <!-- TREEVIEW -->
+
+        <record id="view_sondaggio_answer_tree" model="ir.ui.view">
+            <field name="name">sondaggio.answer.tree</field>
+            <field name="model">sondaggio.answer</field>
+            <field name="arch" type="xml">
+                <tree string="Answer"
+                    colors="grey:state=='cancelled';blue:state in ('enabled',);black:state in ('disabled', 'closed'); red:state in ()"
+                    >
+                    <field name="name"
+                        />
+                    <field name="input"
+                        />
+                    <field name="message"
+                        />
+                    <field name="valid"
+                        />
+                    <field name="state" readonly='True'/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_sondaggio_answer_tree_edit" model="ir.ui.view">
+            <field name="name">sondaggio.answer.tree_edit</field>
+            <field name="model">sondaggio.answer</field>
+            <field name="arch" type="xml">
+                <tree string="Answer"
+                    editable="bottom"
+                    colors="grey:state=='cancelled';blue:state in ('enabled',);black:state in ('disabled', 'closed'); red:state in ()"
+                    >
+                    <field name="name"
+                        />
+                    <field name="input"
+                        />
+                    <field name="message"
+                        />
+                    <field name="valid"
+                        />
+                    <field name="state" readonly='True'/>
+                </tree>
+            </field>
+        </record>
+
+    </data>
+</openerp>
+<!-- vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4
+     -->
