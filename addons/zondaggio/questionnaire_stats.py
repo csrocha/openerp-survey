@@ -79,8 +79,10 @@ class estrato_stats(osv.osv):
         ('validated','Validated'),
     ]
     _columns = {
-        'estrato': fields.integer('Estrato', readonly=True), 
-        'total': fields.integer('Total', readonly=True),
+        'name': fields.integer('Estrato', readonly=True), 
+        'survey_id': fields.many2one('sondaggio.survey', 'Survey ID', readonly=True), 
+        'total_ver': fields.integer('Total', readonly=True),
+        'total_muestra': fields.integer('Total Muestra', readonly=True),
         'pendiente': fields.integer('Pendiente', readonly=True),
         'channel_undefined': fields.integer('Undefined', readonly=True),
         'channel_online': fields.integer('Online', readonly=True),
@@ -96,7 +98,7 @@ class estrato_stats(osv.osv):
         'state_rejected': fields.integer('Rejected', readonly=True),
         'state_validated': fields.integer('Validated', readonly=True),
     }
-    _order = 'estrato asc'
+    _order = 'name asc'
  
     def init(self, cr):
         tools.sql.drop_view_if_exists(cr, 'sondaggio_estrato_stats')
@@ -104,8 +106,10 @@ class estrato_stats(osv.osv):
             CREATE OR REPLACE VIEW sondaggio_estrato_stats AS (
                 SELECT
                    E.id as id,
-                   E.name::int as estrato,
-                   COUNT(*) as total,
+                   E.name::int as name,
+                   E.survey_id as survey_id,
+                   COUNT(*) as total_ver,
+                   E.tam_muestra as total_muestra,
                    E.tam_muestra - SUM(CASE WHEN Q.state in  ('draft', 'waiting', 'in_process', 'cancelled', 'rejected') THEN 0 ELSE 1 END) as pendiente,
                    (SELECT count(*) FROM sondaggio_questionnaire AS P WHERE NULLIF(P.par_estrato_f,'')::int=NULLIF(E.name,'')::int AND channel is NULL) as channel_undefined,
                    (SELECT count(*) FROM sondaggio_questionnaire AS P WHERE NULLIF(P.par_estrato_f,'')::int=NULLIF(E.name,'')::int AND channel='online') as channel_online,
@@ -122,7 +126,7 @@ class estrato_stats(osv.osv):
                    (SELECT count(*) FROM sondaggio_questionnaire AS P WHERE NULLIF(P.par_estrato_f,'')::int=NULLIF(E.name,'')::int AND state='validated') as state_validated
                 FROM sondaggio_estrato AS E
                      LEFT JOIN sondaggio_questionnaire AS Q
-                    ON (E.name = Q.par_estrato_f)
+                   ON (NULLIF(E.name,'')::int = NULLIF(Q.par_estrato_f,'')::int)
                    GROUP BY E.id
             )
         """)
