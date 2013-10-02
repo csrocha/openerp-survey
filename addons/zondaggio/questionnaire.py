@@ -276,8 +276,24 @@ class questionnaire(osv.osv):
     def get_communication_date(self, cr, uid, ids, field_name, arg, context=None):
         r = {}
         for questionnaire in self.browse(cr, uid, ids, context=context):
-            r[questionnaire.id] = False
+            r[questionnaire.id] = max([ c.send_date for c in questionnaire.communication_batch_ids ]) if questionnaire.communication_batch_ids else False
         return r
+
+    def get_num_communications(self, cr, uid, ids, field_name, arg, context=None):
+        r = {}
+        for questionnaire in self.browse(cr, uid, ids, context=context):
+            r[questionnaire.id] = len(questionnaire.communication_batch_ids) if questionnaire.communication_batch_ids else False
+        return r
+
+    def get_date(self, cr, uid, ids, field_name, arg, context=None):
+        if field_name[:5] != 'date_':
+            return {}
+        r = {}
+        for questionnaire in self.browse(cr, uid, ids, context=context):
+            messages = [ (m.date, m.body) for m in questionnaire.message_ids if field_name[5:] in m.body.lower() ]
+            r[questionnaire.id] = messages[0][0] if messages else False
+        return r
+
 
     _columns = {
         'actual_page': fields.integer('Actual Page', readonly=True),
@@ -295,9 +311,30 @@ class questionnaire(osv.osv):
                                       readonly=True, type='text', fnct_search=search_parameters, store=True),
         'par_fecha_env': fields.function(get_parameters, method=True, string='Fecha envío',
                                       readonly=True, type='text', fnct_search=search_parameters, store=True),
-        'last_communication_date': fields.function(get_communication_date, method=True, string='Última fecha de comunicación',
-                                                   readonly=True, type='date', store=True)
+        'par_encuestador': fields.function(get_parameters, method=True, string='Encuestador',
+                                      readonly=True, type='text', fnct_search=search_parameters, store=True),
+        'last_communication_date': fields.function(get_communication_date, method=True, string='Fecha de comunicación',
+                                                   readonly=True, type='date', store=False),
+        'num_communications': fields.function(get_num_communications, method=True, string='Number of communications',
+                                                   readonly=True, type='integer', store=False),
+        'date_draft': fields.function(get_date, method=True, string='Date in Draft',
+                                      readonly=True, type='datetime', store=False),
+        'date_in_process': fields.function(get_date, method=True, string='Date in Process',
+                                      readonly=True, type='datetime', store=False),
+        'date_waiting': fields.function(get_date, method=True, string='Date in Waiting',
+                                      readonly=True, type='datetime', store=False),
+        'date_rejected': fields.function(get_date, method=True, string='Date Rejected',
+                                      readonly=True, type='datetime', store=False),
+        'date_complete': fields.function(get_date, method=True, string='Date Complete',
+                                      readonly=True, type='datetime', store=False),
+        'date_validated': fields.function(get_date, method=True, string='Date Validated',
+                                      readonly=True, type='datetime', store=False),
+        'date_in_coding': fields.function(get_date, method=True, string='Date in Coding',
+                                      readonly=True, type='datetime', store=False),
+        'date_cancelled': fields.function(get_date, method=True, string='Date Cancelled',
+                                      readonly=True, type='datetime', store=False),
     }
+
     _order = 'name asc, par_estrato_f asc'
 
     _defaults = {
@@ -870,6 +907,9 @@ class questionnaire(osv.osv):
             data = self.read(cr, uid, id, ['state'])
         _logger.debug('Solve to state %s' % data['state'])
         return data['state']
+
+    def do_backup(self, cr, uid, ids, context=None):
+        pass
 
 questionnaire()
 
