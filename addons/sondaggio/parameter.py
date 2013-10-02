@@ -43,6 +43,7 @@ class parameter(osv.osv):
         'questionnaire_id': lambda self, cr, uid, context=None: context and context.get('questionnaire_id', False),
     }
 
+    _order = "questionnaire_id, name"
 
     _constraints = [
     ]
