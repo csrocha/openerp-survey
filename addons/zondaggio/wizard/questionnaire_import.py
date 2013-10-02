@@ -97,7 +97,7 @@ class questionnaire_import(osv.osv_memory):
                     q = questionnaire_obj.browse(cr, uid, questionnaire_ids)[0]
                     parameters = dict( (p.name, p.value) for p in q.parameter_ids )
                     parameter_ids = [ p.id for p in q.parameter_ids ]
-                    if int(parameters.get(column_version, 0)) < int(rdict[column_version]):
+                    if int(parameters.get(column_version, 0)) < int(rdict[column_version] and rdict[column_version] or 0):
                         dwrite = {
                             'parameter_ids': [
                                 (2, pid) for pid in parameter_ids
@@ -116,7 +116,7 @@ class questionnaire_import(osv.osv_memory):
                         'name': rdict[column_name],
                         'code': m.hexdigest(),
                         'survey_id': survey_id,
-                        'parameter_ids': [ (0,0,{ 'name': k, 'value': v }) for k, v in rdict.items() if k != column_name ],
+                        'parameter_ids': [ (0,0,{ 'name': k.lower(), 'value': v }) for k, v in rdict.items() if k != column_name ],
                     }
                     questionnaire_obj.create(cr, uid, dwrite)
                     if not(c % 40): _logger.info('Created %i questionnaires and continue.' % (c+1))
