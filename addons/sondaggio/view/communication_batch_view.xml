@@ -83,6 +83,8 @@
                             />
                         <field name="login_user_id"
                             />
+                        <field name="send_date"
+                            />
                     <field name="survey_id"
                             />
                      </group>
