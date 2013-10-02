@@ -63,19 +63,29 @@ class UnicodeDictWriter:
         for row in rows:
             self.writerow(row)
 
-def list_inputs(cur, survey_id):
-        _q_input = """
-                select QA.name, Q.variable_name, valid, input, message, formated
-                        from sondaggio_answer as A 
-                        left join sondaggio_node as Q on (A.question_id = Q.id) 
-                        left join sondaggio_questionnaire as QA on (A.questionnaire_id = QA.id) 
-                        where Q.type = 'Variable'
-                            and QA.survey_id = %s
-                        order by QA.name, Q.variable_name;
-                """ % survey_id
-        cur.execute(_q_input)
-        for i in cur.fetchall():
-                yield i
+def list_inputs(cur,
+                survey_id = None,
+                survey_ids = None,
+                questionnaire_id = None,
+                questionnaire_ids = None):
+    _q_filter = (
+        (survey_id and "QA.survey_id = %s" % survey_id) or
+        (survey_ids and "QA.survey_id in (%s)" % ",".join(map(str,survey_ids))) or
+        (questionnaire_id and "QA.id = %s" % questionnaire_id) or
+        (questionnaire_ids and "QA.id in (%s)" % ",".join(map(str,questionnaire_ids)))
+    )
+    _q_input = """
+            select QA.name, QA.state, current_date, Q.variable_name, valid, input, message, formated
+                    from sondaggio_answer as A 
+                    left join sondaggio_node as Q on (A.question_id = Q.id) 
+                    left join sondaggio_questionnaire as QA on (A.questionnaire_id = QA.id) 
+                    where Q.type = 'Variable'
+                        and %s
+                    order by QA.name, Q.variable_name;
+            """ % _q_filter
+    cur.execute(_q_input)
+    for i in cur.fetchall():
+            yield i
 
 def list_variables(cur):
         _q_variables = """
@@ -84,29 +94,49 @@ def list_variables(cur):
         cur.execute(_q_variables)
         return [ i[0] for i in cur.fetchall() ]
 
-def iter_dump(iterator, out_csv, keys):
-        out_csv.writerow((lambda x: dict(zip(x,x)))(out_csv.fieldnames))
+def iter_dump(iterator, out_csv, keys, header=True, state=None):
+        if header:
+            out_csv.writerow((lambda x: dict(zip(x,x)))(out_csv.fieldnames))
 
         row = None
-        questionaire = None
+        _questionnaire = None
 
         for i in iterator:
-                if questionaire !=  i[0]:
-                        questionaire = i[0]
+                if _questionnaire !=  i[0]:
+                        _questionnaire = i[0]
+                        _state = i[1]
+                        _date = i[2]
                         if row is not None:
                                 out_csv.writerow(row)
                         row = dict( (k,None) for k in keys )
-                        row['questionaire'] = questionaire
-                row[i[1]] = i[3] #i[2:]
+                        row['questionnaire'] = _questionnaire
+                        row['state'] = state if state else _state
+                        row['date'] = _date
+                row[i[3]] = i[5] #i[2:]
+        _logger.info(row)
         out_csv.writerow(row)
  
-def dump_inputs(cur, survey_id):
-        keys = [u'questionaire'] + list_variables(cur)
+def dump_inputs(cur,
+                out_file = None,
+                header=True,
+                state=None,
+                survey_id = None,
+                survey_ids = None,
+                questionnaire_id = None,
+                questionnaire_ids = None):
+        keys = [u'questionnaire', u'state', u'date'] + list_variables(cur)
 
-        out_file = StringIO.StringIO()
+        if out_file is None:
+            out_file = StringIO.StringIO()
+
         out_csv = UnicodeDictWriter(out_file, fieldnames=keys)
 
-        iter_dump(list_inputs(cur, survey_id), out_csv, keys)
+        iter_dump(list_inputs(cur,
+                              survey_id=survey_id,
+                              survey_ids=survey_ids,
+                              questionnaire_id=questionnaire_id,
+                              questionnaire_ids=questionnaire_ids
+                             ), out_csv, keys, header=header, state=state)
 
         return out_file
 
@@ -129,7 +159,7 @@ class questionnaire_export(osv.osv_memory):
     def create_report(self, cr, uid, ids, context=None):
         """"""
         this = self.browse(cr, uid, ids)[0]
-        output = dump_inputs(cr, this.survey_id.id)
+        output = dump_inputs(cr, survey_id=this.survey_id.id)
         out = base64.encodestring(output.getvalue())
         self.write(cr, uid, ids, {
             'state': 'get',
