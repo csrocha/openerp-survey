@@ -86,8 +86,11 @@
                         <field name="close_dt" />
                         <field name="automatic" />
                         <field name="message" />
+                    </group>
+                     <group col="6">
                         <button name="zondaggio.action_question_editor" string="Edit Questions" type="action"/>
                         <button name="zondaggio.action_variable_editor" string="Edit Variables" type="action"/>
+                        <button name="zondaggio.action_estrato_stats" string="Open Estrato Statistics" type="action"/>
                     </group>
                     <notebook>
                         <page string="Conditions">
