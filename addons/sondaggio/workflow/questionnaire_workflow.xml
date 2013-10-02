@@ -64,9 +64,7 @@
         <record id="a_0F17_1F38" model="workflow.activity">
             <field name="wkf_id" ref="questionnaire_untitle_wkf"/>
             <field name="name">Complete</field>
-            <field name="action">
-                write({'state':'complete'})
-            </field>
+            <field name="action">do_backup(state='complete') and write({'state': 'complete'})</field>
             <field name="kind">function</field>
         </record>
         <record id="a_0F17_1F3D" model="workflow.activity">
@@ -80,9 +78,7 @@
         <record id="a_0F17_1F3E" model="workflow.activity">
             <field name="wkf_id" ref="questionnaire_untitle_wkf"/>
             <field name="name">Validated</field>
-            <field name="action">
-                write({'state':'validated'})
-            </field>
+            <field name="action">do_backup(state='validated') and write({'state': 'validated'})</field>
             <field name="kind">function</field>
         </record>
         <record id="a_0F17_160B" model="workflow.activity">

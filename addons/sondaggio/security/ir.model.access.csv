@@ -39,11 +39,6 @@
 "access_sondaggio_message_developer","sondaggio.message.developer","model_sondaggio_message","group_developer",1,1,1,1
 "access_sondaggio_message_operator","sondaggio.message.operator","model_sondaggio_message","group_operator",1,1,1,1
 "access_sondaggio_message_validator","sondaggio.message.validator","model_sondaggio_message","group_validator",1,1,1,1
-"access_sondaggio_questionnaire_designer","sondaggio.questionnaire.designer","model_sondaggio_questionnaire","group_designer",1,1,1,1
-"access_sondaggio_questionnaire_poolster","sondaggio.questionnaire.poolster","model_sondaggio_questionnaire","group_poolster",1,1,1,1
-"access_sondaggio_questionnaire_developer","sondaggio.questionnaire.developer","model_sondaggio_questionnaire","group_developer",1,1,1,1
-"access_sondaggio_questionnaire_operator","sondaggio.questionnaire.operator","model_sondaggio_questionnaire","group_operator",1,1,1,1
-"access_sondaggio_questionnaire_validator","sondaggio.questionnaire.validator","model_sondaggio_questionnaire","group_validator",1,1,1,1
 "access_sondaggio_parameter_designer","sondaggio.parameter.designer","model_sondaggio_parameter","group_designer",1,1,1,1
 "access_sondaggio_parameter_poolster","sondaggio.parameter.poolster","model_sondaggio_parameter","group_poolster",1,1,1,1
 "access_sondaggio_parameter_developer","sondaggio.parameter.developer","model_sondaggio_parameter","group_developer",1,1,1,1
@@ -84,3 +79,8 @@
 "access_sondaggio_estrato_developer","sondaggio.estrato.developer","model_sondaggio_estrato","group_developer",1,1,1,1
 "access_sondaggio_estrato_operator","sondaggio.estrato.operator","model_sondaggio_estrato","group_operator",1,1,1,1
 "access_sondaggio_estrato_validator","sondaggio.estrato.validator","model_sondaggio_estrato","group_validator",1,1,1,1
+"access_sondaggio_questionnaire_designer","sondaggio.questionnaire.designer","model_sondaggio_questionnaire","group_designer",1,1,1,1
+"access_sondaggio_questionnaire_poolster","sondaggio.questionnaire.poolster","model_sondaggio_questionnaire","group_poolster",1,1,1,1
+"access_sondaggio_questionnaire_developer","sondaggio.questionnaire.developer","model_sondaggio_questionnaire","group_developer",1,1,1,1
+"access_sondaggio_questionnaire_operator","sondaggio.questionnaire.operator","model_sondaggio_questionnaire","group_operator",1,1,1,1
+"access_sondaggio_questionnaire_validator","sondaggio.questionnaire.validator","model_sondaggio_questionnaire","group_validator",1,1,1,1

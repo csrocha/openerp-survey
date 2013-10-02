@@ -63,7 +63,7 @@ class questionnaire(osv.osv):
         'respondent_id': fields.many2one('res.partner', string='Respondent', readonly=True, states={'draft':[('readonly',False)]}),
         'pollster_id': fields.many2one('res.users', string='Pollster', readonly=True, states={'draft':[('readonly',False)]}),
         'code': fields.char(string='Code', readonly=True, states={'draft':[('readonly',False)]}),
-        'channel': fields.selection([(u'online', 'online'), (u'personal', 'personal'), (u'telephonic', 'telephonic'), (u'offline', 'offline')], string='Channel', readonly=True, states={'draft':[('readonly',False)]}),
+        'channel': fields.selection([(u'online', 'online'), (u'personal', 'personal'), (u'telephonic', 'telephonic'), (u'offline', 'offline'), (u'mailing', 'mailing')], string='Channel', readonly=True, states={'draft':[('readonly',False)]}),
         'state': fields.selection(_states_, "State"),
         'survey_id': fields.many2one('sondaggio.survey', string='Survey', readonly=True, ondelete='cascade', required=True), 
         'respondent_code': fields.related(
@@ -74,8 +74,9 @@ class questionnaire(osv.osv):
                     string='Respondent Code', readonly=True, store=True
                     ),
         'parameter_ids': fields.one2many('sondaggio.parameter', 'questionnaire_id', string='Parameters'), 
-        'waiting_batch_ids': fields.many2many('sondaggio.communication_batch', 'sondaggio_waiting_batch_ids_waiting_ids_rel', 'questionnaire_id', 'communication_batch_id', string='waiting_batch_ids'), 
+        'communication_batch_ids': fields.many2many('sondaggio.communication_batch', 'sondaggio_communication_batch_ids_questionnaire_ids_rel', 'questionnaire_id', 'communication_batch_id', string='communication_batch_ids'), 
         'estrato_id': fields.many2one('sondaggio.estrato', string='estrato_id', readonly=True, required=True), 
+        'sent_mail_ids': fields.many2many('mail.mail', 'sondaggio_questionnaire_ids_sent_mail_ids_rel', 'questionnaire_id', 'mail_id', string='Sent Mails'), 
         'answer_ids': fields.one2many('sondaggio.answer', 'questionnaire_id', string='answer_ids', select=True), 
     }
 

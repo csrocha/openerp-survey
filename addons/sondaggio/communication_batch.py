@@ -48,10 +48,11 @@ class communication_batch(osv.osv):
         'email_reply_to': fields.char(string='Replay to', required=True),
         'email_copy_to': fields.char(string='Copy to'),
         'login_user_id': fields.many2one('res.users', string='Login User', required=True),
+        'send_date': fields.date(string='Send date', readonly=True),
         'state': fields.selection(_states_, "State"),
         'survey_id': fields.many2one('sondaggio.survey', string='Survey', required=True), 
-        'waiting_ids': fields.many2many('sondaggio.questionnaire', 'sondaggio_waiting_batch_ids_waiting_ids_rel', 'communication_batch_id', 'questionnaire_id', string='Questionnaire waiting to communication'), 
-        'sent_mail_ids': fields.many2many('mail.mail', 'sondaggio_sent_mail_ids___rel', 'communication_batch_id', 'mail_id', string=''), 
+        'questionnaire_ids': fields.many2many('sondaggio.questionnaire', 'sondaggio_communication_batch_ids_questionnaire_ids_rel', 'communication_batch_id', 'questionnaire_id', string='Questionnaire waiting to communication'), 
+        'sent_mail_ids': fields.many2many('mail.mail', 'sondaggio_sent_mail_ids_communication_batch_ids_rel', 'communication_batch_id', 'mail_id', string='Sent Mails'), 
     }
 
     _defaults = {

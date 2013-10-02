@@ -22,6 +22,7 @@
 
 
 import re
+from datetime import datetime
 from openerp import netsvc
 from openerp.osv import osv, fields
 import logging
@@ -36,11 +37,11 @@ class communication_batch(osv.osv):
     _inherit = 'sondaggio.communication_batch'
 
     def do_publish(self, cr, uid, ids=None,context=None):
-        """Completa la lista de waiting_questionnaire_ids a partir de los questionnaire_ids que hay en survey_id. Cambia a estado running."""
+        """Completa la lista de questionnaire_ids a partir de los questionnaire_ids que hay en survey_id. Cambia a estado running."""
         return self.send_mails(cr, uid, ids, context=context);
 
     def send_mails(self, cr, uid, ids, context=None):
-        """Envia un mail por cada waiting_questionnaires_ids usando los datos de la comunicación (email, subject, body, reply_to, etc) una vez enviado se borra de waiting y pasa a done_questionnaire_ids. Si no hay más emails en waiting se cambia a estado "done"."""
+        """Envia un mail por cada questionnaires_ids usando los datos de la comunicación (email, subject, body, reply_to, etc) una vez enviado se borra de waiting y pasa a done_questionnaire_ids. Si no hay más emails en waiting se cambia a estado "done"."""
 
         _logger.info('Sending communications by email...')
         mail_mail = self.pool.get('mail.mail')
@@ -67,7 +68,7 @@ class communication_batch(osv.osv):
         
             comm_mail_ids = []
 
-            for questionnaire in questionnaire_obj.browse(cr,uid,comm.waiting_ids):
+            for questionnaire in questionnaire_obj.browse(cr,uid,comm.questionnaire_ids):
 
                     base_url = self.pool.get('ir.config_parameter').get_param(cr, uid, 'web.base.url', default='', context=context)
                     if base_url:
@@ -105,7 +106,8 @@ class communication_batch(osv.osv):
                             mail_ids.append(mail_id)
                             comm_mail_ids.append(mail_id)
 
-            self.write(cr, uid, comm.id, {'sent_mail_ids': [(6,0,comm_mail_ids)]})
+            self.write(cr, uid, comm.id, {'sent_mail_ids': [(6,0,comm_mail_ids)],
+                                          'send_date': datetime.now().strftime('%Y-%m-%d') })
             done_ids.append(comm.id)
 
         mail_mail.send(cr, uid, mail_ids, context=context)
