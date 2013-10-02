@@ -45,7 +45,7 @@ function openerp_zondaggio_widgets(instance, module){
             if (!new_channel) {
                 new_channel='online';
             }
-            if (!channel && new_channel) {
+            if ((!channel || channel == "{}") && new_channel) {
                 self.questionnaire.set_channel(new_channel);
                 self.session.questionnaire_context.channel=new_channel;
                 self.questionnaire.get('questionnaire').channel=new_channel;
