@@ -30,6 +30,9 @@ from openerp.tools.translate import _
 import tools
 import time
 import logging
+import os.path
+
+from wizard.questionnaire_export import dump_inputs 
 
 from openerp.osv.orm import setup_modifiers
 
@@ -908,8 +911,19 @@ class questionnaire(osv.osv):
         _logger.debug('Solve to state %s' % data['state'])
         return data['state']
 
-    def do_backup(self, cr, uid, ids, context=None):
-        pass
+    def do_backup(self, cr, uid, ids, state=None, context=None):
+        """
+        Append the rotated questionnaire in a file.
+        """
+        out_filename = "/tmp/questionnaire_bk.csv"
+        header = not os.path.exists(out_filename)
+        out_file = open(out_filename, 'a')
+
+        _logger.info("Backup questionnaire. header=%s" % str(header))
+
+        dump_inputs(cr, questionnaire_ids = ids, out_file=out_file, header=header, state=state)
+
+        return True
 
 questionnaire()
 
