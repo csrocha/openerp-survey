@@ -49,6 +49,7 @@
                     <button name="on_open_online" string="Open Online Channel" type="object" icon="gtk-connect"/>
                     <button name="on_open_telephonic" string="Open Telephonic Channel" type="object" icon="terp-call-start"/>
                     <button name="on_open_personal" string="Open Personal Channel" type="object" icon="stock_person"/>
+                    <button name="on_open_mailing" string="Open Mail Channel" type="object" icon="terp-mail-message-new"/>
                 </tree>
             </field>
         </record>

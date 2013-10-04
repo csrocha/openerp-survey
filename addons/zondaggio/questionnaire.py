@@ -902,6 +902,9 @@ class questionnaire(osv.osv):
     def on_open_personal(self, cr, uid, ids, context=None):
         return self.on_open_ui(cr, uid, ids, context=dict(context, channel='personal'))
 
+    def on_open_mailing(self, cr, uid, ids, context=None):
+        return self.on_open_ui(cr, uid, ids, context=dict(context, channel='mailing'))
+
     def exec_workflow_cr(self, cr, uid, ids, signal, context=None):
         wf_service = netsvc.LocalService("workflow")
         _logger.debug('Recibing signal %s for %s' % (signal, ids))
