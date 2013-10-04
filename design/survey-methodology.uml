@@ -26,7 +26,7 @@
       <fontname>Dialog</fontname>
       <fontsize>12</fontsize>
       <defaultstereotypeview>0</defaultstereotypeview>
-      <activediagram>survey_methodology 0 8</activediagram>
+      <activediagram>Communication</activediagram>
     </settings>
     <searchpath href="PROJECT_DIR" />
     <members>
@@ -102,7 +102,7 @@
 			</model>
 		</userDefined>
 </profile>
-<XMI xmi.version = '1.2' xmlns:UML = 'org.omg.xmi.namespace.UML' timestamp = 'Wed Oct 02 12:57:25 ART 2013'>
+<XMI xmi.version = '1.2' xmlns:UML = 'org.omg.xmi.namespace.UML' timestamp = 'Fri Oct 04 00:16:08 ART 2013'>
   <XMI.header>    <XMI.documentation>
       <XMI.exporter>ArgoUML (using Netbeans XMI Writer version 1.0)</XMI.exporter>
       <XMI.exporterVersion>0.34(6) revised on $Date: 2010-01-11 22:20:14 +0100 (Mon, 11 Jan 2010) $ </XMI.exporterVersion>
@@ -6525,13 +6525,13 @@ Registry in the log start action.</UML:TaggedValue.dataValue>
                   </UML:AssociationEnd.participant>
                 </UML:AssociationEnd>
                 <UML:AssociationEnd xmi.id = '127-0-1-1-828eecf:1416f4fbd4b:-8000:0000000000001062'
-                  name = 'sent_mail_ids' visibility = 'public' isSpecification = 'false' isNavigable = 'true'
+                  name = 'sent_mail_id' visibility = 'public' isSpecification = 'false' isNavigable = 'true'
                   ordering = 'unordered' aggregation = 'none' targetScope = 'instance' changeability = 'changeable'>
                   <UML:AssociationEnd.multiplicity>
-                    <UML:Multiplicity xmi.id = '127-0-1-1-828eecf:1416f4fbd4b:-8000:0000000000001066'>
+                    <UML:Multiplicity xmi.id = '127-0-1-1--8fc5fb9:1418172323a:-8000:0000000000001066'>
                       <UML:Multiplicity.range>
-                        <UML:MultiplicityRange xmi.id = '127-0-1-1-828eecf:1416f4fbd4b:-8000:0000000000001065'
-                          lower = '0' upper = '-1'/>
+                        <UML:MultiplicityRange xmi.id = '127-0-1-1--8fc5fb9:1418172323a:-8000:0000000000001065'
+                          lower = '1' upper = '1'/>
                       </UML:Multiplicity.range>
                     </UML:Multiplicity>
                   </UML:AssociationEnd.multiplicity>
@@ -6863,9 +6863,9 @@ Registry in the log start action.</UML:TaggedValue.dataValue>
                   name = 'sent_mail_ids' visibility = 'public' isSpecification = 'false' isNavigable = 'true'
                   ordering = 'unordered' aggregation = 'none' targetScope = 'instance' changeability = 'changeable'>
                   <UML:AssociationEnd.multiplicity>
-                    <UML:Multiplicity xmi.id = '127-0-1-1-1b55c8f5:1412d87a009:-8000:0000000000001615'>
+                    <UML:Multiplicity xmi.id = '127-0-1-1--8fc5fb9:1418172323a:-8000:0000000000001064'>
                       <UML:Multiplicity.range>
-                        <UML:MultiplicityRange xmi.id = '127-0-1-1-1b55c8f5:1412d87a009:-8000:0000000000001614'
+                        <UML:MultiplicityRange xmi.id = '127-0-1-1--8fc5fb9:1418172323a:-8000:0000000000001063'
                           lower = '0' upper = '-1'/>
                       </UML:Multiplicity.range>
                     </UML:Multiplicity>
@@ -29828,7 +29828,7 @@ Registry in the log start action.</UML:TaggedValue.dataValue>
                         offset="35" />
     </private>
     <path name="Fig16.0"
-      description="org.tigris.gef.presentation.FigPoly"
+      description="org.argouml.gefext.ArgoFigPoly"
       fill="0"
       fillcolor="white"
       stroke="1"
