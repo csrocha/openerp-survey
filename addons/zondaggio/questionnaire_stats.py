@@ -81,7 +81,8 @@ class estrato_stats(osv.osv):
     _columns = {
         'name': fields.integer('Estrato', readonly=True), 
         'survey_id': fields.many2one('sondaggio.survey', 'Survey ID', readonly=True), 
-        'total_ver': fields.integer('Total', readonly=True),
+        'total': fields.integer('Total', readonly=True),
+        'total_ver': fields.integer('Total Verificado', readonly=True),
         'total_muestra': fields.integer('Total Muestra', readonly=True),
         'pendiente': fields.integer('Pendiente', readonly=True),
         'channel_undefined': fields.integer('Undefined', readonly=True),
@@ -108,22 +109,65 @@ class estrato_stats(osv.osv):
                    E.id as id,
                    E.name::int as name,
                    E.survey_id as survey_id,
-                   COUNT(*) as total_ver,
+                   COUNT(*) as total,
                    E.tam_muestra as total_muestra,
                    E.tam_muestra - SUM(CASE WHEN Q.state in  ('draft', 'waiting', 'in_process', 'cancelled', 'rejected') THEN 0 ELSE 1 END) as pendiente,
-                   (SELECT count(*) FROM sondaggio_questionnaire AS P WHERE NULLIF(P.par_estrato_f,'')::int=NULLIF(E.name,'')::int AND channel is NULL) as channel_undefined,
-                   (SELECT count(*) FROM sondaggio_questionnaire AS P WHERE NULLIF(P.par_estrato_f,'')::int=NULLIF(E.name,'')::int AND channel='online') as channel_online,
-                   (SELECT count(*) FROM sondaggio_questionnaire AS P WHERE NULLIF(P.par_estrato_f,'')::int=NULLIF(E.name,'')::int AND channel='offline') as channel_offline,
-                   (SELECT count(*) FROM sondaggio_questionnaire AS P WHERE NULLIF(P.par_estrato_f,'')::int=NULLIF(E.name,'')::int AND channel='telephonic') as channel_telephonic,
-                   (SELECT count(*) FROM sondaggio_questionnaire AS P WHERE NULLIF(P.par_estrato_f,'')::int=NULLIF(E.name,'')::int AND channel='personal') as channel_personal,
-                   (SELECT count(*) FROM sondaggio_questionnaire AS P WHERE NULLIF(P.par_estrato_f,'')::int=NULLIF(E.name,'')::int AND state='draft') as state_draft,
-                   (SELECT count(*) FROM sondaggio_questionnaire AS P WHERE NULLIF(P.par_estrato_f,'')::int=NULLIF(E.name,'')::int AND state='cancelled') as state_cancelled,
-                   (SELECT count(*) FROM sondaggio_questionnaire AS P WHERE NULLIF(P.par_estrato_f,'')::int=NULLIF(E.name,'')::int AND state='waiting') as state_waiting,
-                   (SELECT count(*) FROM sondaggio_questionnaire AS P WHERE NULLIF(P.par_estrato_f,'')::int=NULLIF(E.name,'')::int AND state='in_process') as state_in_process,
-                   (SELECT count(*) FROM sondaggio_questionnaire AS P WHERE NULLIF(P.par_estrato_f,'')::int=NULLIF(E.name,'')::int AND state='complete') as state_complete,
-                   (SELECT count(*) FROM sondaggio_questionnaire AS P WHERE NULLIF(P.par_estrato_f,'')::int=NULLIF(E.name,'')::int AND state='in_coding') as state_in_coding,
-                   (SELECT count(*) FROM sondaggio_questionnaire AS P WHERE NULLIF(P.par_estrato_f,'')::int=NULLIF(E.name,'')::int AND state='rejected') as state_rejected,
-                   (SELECT count(*) FROM sondaggio_questionnaire AS P WHERE NULLIF(P.par_estrato_f,'')::int=NULLIF(E.name,'')::int AND state='validated') as state_validated
+                   (SELECT count(*) FROM sondaggio_questionnaire AS P WHERE
+                        P.survey_id=E.survey_id AND
+                        NULLIF(P.par_estrato_f,'')::int=NULLIF(E.name,'')::int AND
+                        NULLIF(par_fecha_ver,'') is NULL) as total_ver,
+                   (SELECT count(*) FROM sondaggio_questionnaire AS P WHERE
+                        P.survey_id=E.survey_id AND
+                        NULLIF(P.par_estrato_f,'')::int=NULLIF(E.name,'')::int AND
+                        channel is NULL) as channel_undefined,
+                   (SELECT count(*) FROM sondaggio_questionnaire AS P WHERE
+                        P.survey_id=E.survey_id AND
+                        NULLIF(P.par_estrato_f,'')::int=NULLIF(E.name,'')::int AND
+                        channel='online') as channel_online,
+                   (SELECT count(*) FROM sondaggio_questionnaire AS P WHERE
+                        P.survey_id=E.survey_id AND
+                        NULLIF(P.par_estrato_f,'')::int=NULLIF(E.name,'')::int AND
+                        channel='offline') as channel_offline,
+                   (SELECT count(*) FROM sondaggio_questionnaire AS P WHERE
+                        P.survey_id=E.survey_id AND
+                        NULLIF(P.par_estrato_f,'')::int=NULLIF(E.name,'')::int AND
+                        channel='telephonic') as channel_telephonic,
+                   (SELECT count(*) FROM sondaggio_questionnaire AS P WHERE
+                        P.survey_id=E.survey_id AND
+                        NULLIF(P.par_estrato_f,'')::int=NULLIF(E.name,'')::int AND
+                        channel='personal') as channel_personal,
+                   (SELECT count(*) FROM sondaggio_questionnaire AS P WHERE
+                        P.survey_id=E.survey_id AND
+                        NULLIF(P.par_estrato_f,'')::int=NULLIF(E.name,'')::int AND
+                        state='draft') as state_draft,
+                   (SELECT count(*) FROM sondaggio_questionnaire AS P WHERE
+                        P.survey_id=E.survey_id AND
+                        NULLIF(P.par_estrato_f,'')::int=NULLIF(E.name,'')::int AND
+                        state='cancelled') as state_cancelled,
+                   (SELECT count(*) FROM sondaggio_questionnaire AS P WHERE
+                        P.survey_id=E.survey_id AND
+                        NULLIF(P.par_estrato_f,'')::int=NULLIF(E.name,'')::int AND
+                        state='waiting') as state_waiting,
+                   (SELECT count(*) FROM sondaggio_questionnaire AS P WHERE
+                        P.survey_id=E.survey_id AND
+                        NULLIF(P.par_estrato_f,'')::int=NULLIF(E.name,'')::int AND
+                        state='in_process') as state_in_process,
+                   (SELECT count(*) FROM sondaggio_questionnaire AS P WHERE
+                        P.survey_id=E.survey_id AND
+                        NULLIF(P.par_estrato_f,'')::int=NULLIF(E.name,'')::int AND
+                        state='complete') as state_complete,
+                   (SELECT count(*) FROM sondaggio_questionnaire AS P WHERE
+                        P.survey_id=E.survey_id AND
+                        NULLIF(P.par_estrato_f,'')::int=NULLIF(E.name,'')::int AND
+                        state='in_coding') as state_in_coding,
+                   (SELECT count(*) FROM sondaggio_questionnaire AS P WHERE
+                        P.survey_id=E.survey_id AND
+                        NULLIF(P.par_estrato_f,'')::int=NULLIF(E.name,'')::int AND
+                        state='rejected') as state_rejected,
+                   (SELECT count(*) FROM sondaggio_questionnaire AS P WHERE
+                        P.survey_id=E.survey_id AND
+                        NULLIF(P.par_estrato_f,'')::int=NULLIF(E.name,'')::int AND
+                        state='validated') as state_validated
                 FROM sondaggio_estrato AS E
                      LEFT JOIN sondaggio_questionnaire AS Q
                    ON (NULLIF(E.name,'')::int = NULLIF(Q.par_estrato_f,'')::int)

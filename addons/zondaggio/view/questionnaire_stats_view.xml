@@ -134,6 +134,7 @@
             <field name="arch" type="xml">
                 <tree string="estrato_stats" version="7.0">
                     <field name="name" />
+                    <field name="total" />
                     <field name="total_ver" />
                     <field name="total_muestra" />
                     <field name="pendiente" />
