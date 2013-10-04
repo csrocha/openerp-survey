@@ -106,6 +106,8 @@ class communication_batch(osv.osv):
                             mail_ids.append(mail_id)
                             comm_mail_ids.append(mail_id)
 
+                    questionnaire_obj.write(cr, uid, [questionnaire.id.id], { 'sent_mail_id': mail_id } )
+
             self.write(cr, uid, comm.id, {'sent_mail_ids': [(6,0,comm_mail_ids)],
                                           'send_date': datetime.now().strftime('%Y-%m-%d') })
             done_ids.append(comm.id)
