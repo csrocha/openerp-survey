@@ -98,7 +98,15 @@
                              <group>
                                  <field name="send_date"/>
                              </group>
-                             <field name="sent_mail_ids">
+                             <label string="Mails con errores"/>
+                             <field name="sent_mail_ids" domain="[('state','=','exception')]">
+                                <tree>
+                                <field name="email_to"/>
+                                <field name="state"/>
+                                </tree>
+                             </field>
+                             <label string="Mails enviados"/>
+                             <field name="sent_mail_ids" domain="[('state','=','sent')]">
                                 <tree>
                                 <field name="email_to"/>
                                 <field name="state"/>
