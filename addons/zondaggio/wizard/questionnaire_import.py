@@ -90,6 +90,7 @@ class questionnaire_import(osv.osv_memory):
             column_version = w.version_column_id.name
             survey_id = w.survey_id.id
             crc = None
+            nl = 1
             for r in rows:
                 rdict = dict(zip(fields, r))
                 questionnaire_ids = questionnaire_obj.search(cr, uid, [('name','=',rdict[column_name])])
@@ -97,7 +98,14 @@ class questionnaire_import(osv.osv_memory):
                     q = questionnaire_obj.browse(cr, uid, questionnaire_ids)[0]
                     parameters = dict( (p.name, p.value) for p in q.parameter_ids )
                     parameter_ids = [ p.id for p in q.parameter_ids ]
-                    if int(parameters.get(column_version, 0)) < int(rdict[column_version] and rdict[column_version] or 0):
+
+                    try:
+                        par_col_version = int(parameters.get(column_version, 0))
+                        rdi_col_version = int(rdict[column_version] and rdict[column_version] or 0)
+                    except:
+                        raise osv.osv(_('Import error in line %i') % u, _('Please check column version is a number. Value is %s or %s', parameters.get(column_version, 0), rdict[column_version]))
+
+                    if par_col_version < rdi_col_version:
                         dwrite = {
                             'parameter_ids': [
                                 (2, pid) for pid in parameter_ids
@@ -121,6 +129,7 @@ class questionnaire_import(osv.osv_memory):
                     questionnaire_obj.create(cr, uid, dwrite)
                     if not(c % 40): _logger.info('Created %i questionnaires and continue.' % (c+1))
                     c = c + 1
+                nl = nl + 1
 
         _logger.info('Created %i questionnaires.' % c)
         _logger.info('Updated %i questionnaires.' % u)
