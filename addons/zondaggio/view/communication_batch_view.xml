@@ -99,14 +99,14 @@
                                  <field name="send_date"/>
                              </group>
                              <label string="Mails con errores"/>
-                             <field name="sent_mail_ids" domain="[('state','=','exception')]">
+                             <field name="sent_mail_ids" readonly="1" domain="[('state','=','exception')]">
                                 <tree>
                                 <field name="email_to"/>
                                 <field name="state"/>
                                 </tree>
                              </field>
                              <label string="Mails enviados"/>
-                             <field name="sent_mail_ids" domain="[('state','=','sent')]">
+                             <field name="sent_mail_ids" readonly="1" domain="[('state','=','sent')]">
                                 <tree>
                                 <field name="email_to"/>
                                 <field name="state"/>
