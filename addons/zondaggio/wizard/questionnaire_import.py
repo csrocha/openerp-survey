@@ -103,7 +103,7 @@ class questionnaire_import(osv.osv_memory):
                         par_col_version = int(parameters.get(column_version, 0))
                         rdi_col_version = int(rdict[column_version] and rdict[column_version] or 0)
                     except:
-                        raise osv.osv(_('Import error in line %i') % u, _('Please check column version is a number. Value is %s or %s', parameters.get(column_version, 0), rdict[column_version]))
+                        raise osv.except_osv(_('Import error in line %i') % u, _('Please check column version is a number. Value is %s or %s') % (parameters.get(column_version, 0), rdict[column_version]))
 
                     if par_col_version < rdi_col_version:
                         dwrite = {
