@@ -93,7 +93,7 @@ class questionnaire_import(osv.osv_memory):
             nl = 1
             for r in rows:
                 rdict = dict(zip(fields, r))
-                questionnaire_ids = questionnaire_obj.search(cr, uid, [('name','=',rdict[column_name])])
+                questionnaire_ids = questionnaire_obj.search(cr, uid, [('name','=',rdict[column_name]),('survey_id','=',survey_id)])
                 if questionnaire_ids:
                     q = questionnaire_obj.browse(cr, uid, questionnaire_ids)[0]
                     parameters = dict( (p.name, p.value) for p in q.parameter_ids )
@@ -103,6 +103,7 @@ class questionnaire_import(osv.osv_memory):
                         par_col_version = int(parameters.get(column_version, 0))
                         rdi_col_version = int(rdict[column_version] and rdict[column_version] or 0)
                     except:
+                        import pdb; pdb.set_trace()
                         raise osv.except_osv(_('Import error in line %i') % nl, _('Please check column version is a number. Value is %s or %s') % (parameters.get(column_version, 0), rdict[column_version]))
 
                     if par_col_version < rdi_col_version:
