@@ -112,6 +112,22 @@
                                 <field name="state"/>
                                 </tree>
                              </field>
+                             <label string="Encuestas enviadas"/> 
+                             <field name="questionnaire_ids" readonly="1" domain="[('sent_mail_id.state','=','sent')]">
+                                <tree>
+                                    <field name="name"/>
+                                    <field name="state"/>
+                                    <field name="parameter_ids"/>
+                                </tree>
+                             </field>
+                             <label string="Encuestas con errores"/> 
+                             <field name="questionnaire_ids" readonly="1" domain="[('sent_mail_id.state','!=','sent')]">
+                                <tree>
+                                    <field name="name"/>
+                                    <field name="state"/>
+                                    <field name="parameter_ids"/>
+                                </tree>
+                             </field>
                          </page>
                      </notebook>
                     </sheet>
