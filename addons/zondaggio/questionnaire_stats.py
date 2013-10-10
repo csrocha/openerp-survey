@@ -53,12 +53,12 @@ class questionnaire_stats(osv.osv):
         cr.execute("""
             CREATE OR REPLACE VIEW sondaggio_questionnaire_stats AS (
                 SELECT
-                    min(sondaggio_questionnaire.id) AS id,
-                    sondaggio_questionnaire.survey_id AS survey_id,
-                    sondaggio_questionnaire.state AS state,
+                    min(A.id) AS id,
+                    A.survey_id AS survey_id,
+                    A.state AS state,
                     COUNT(*) AS count
-                FROM sondaggio_questionnaire
-                GROUP BY survey_id, state
+                FROM sondaggio_questionnaire AS A
+                GROUP BY A.survey_id, A.state
             )
         """)
  
