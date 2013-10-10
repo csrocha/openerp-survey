@@ -44,7 +44,6 @@
                 <tree string="Questionnaire Stats"
                     colors="grey:state=='cancelled';blue:state in ('draft',);black:state in ('cancelled', 'waiting', 'in_coding', 'in_process', 'complete'); red:state in ()"
                     >
-                    <field name="survey_id" />
                     <field name="state" />
                     <field name="count" />
                 </tree>
@@ -67,21 +66,21 @@
             </field>
         </record>
 
-        <record id="action_sondaggio_questionnaire_stats" model="ir.actions.act_window">
+        <record id="action_questionnaire_stats" model="ir.actions.act_window">
             <field name="name">Questionnaires Stats</field>
             <field name="res_model">sondaggio.questionnaire_stats</field>
             <field name="view_type">tree</field>
             <field name="view_mode">tree,graph</field>
             <field name="view_id" ref="view_sondaggio_questionnaire_stats_tree"/>
             <field name="search_view_id" ref="view_sondaggio_questionnaire_stats_filter"/>
-            <field name="domain">[]</field>
+            <field name="domain">[('survey_id','=',active_id)]</field>
         </record>
 
         <menuitem
             name="Questionnaires Stats"
             id="menu_questionnaires_stats"
             sequence="100"
-            action="action_sondaggio_questionnaire_stats"
+            action="action_questionnaire_stats"
             parent="sondaggio.menu_for_poolster"
             groups="sondaggio.group_poolster"
             />
