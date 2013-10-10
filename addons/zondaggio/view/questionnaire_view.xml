@@ -145,7 +145,7 @@
                      <group id="main">
                          <field name="name" readonly="0" string="CUIT" attrs="{'readonly':['|',('actual_page','!=',1),('state','!=','draft')]}"/>
                          <field name="code" readonly="0" string="Codigo de Acceso" attrs="{'readonly':['|',('actual_page','!=',1),('state','!=','draft')]}"/>
-                         <field name="survey_id" readonly="0" attrs="{'readonly':['|',('actual_page','!=',1),('state','!=','draft')]}"/>
+                         <field name="survey_id" readonly="0" attrs="{'readonly':['|',('actual_page','!=',1),('state','!=','draft')]}" on_change="onchange_survey_id(survey_id)"/>
                      </group>
                      <notebook>
                          <page string="Information">
@@ -166,8 +166,8 @@
                                  <field name="date_cancelled" />
                              </group>
                          </page>
-                         <page string="Parameters" states="draft,complete,validated,rejected">
-                             <field name="parameter_ids">
+                         <page string="Parameters">
+                             <field name="parameter_ids" on_change="onchange_parameter_ids(parameter_ids)">
                                  <tree editable="bottom">
                                      <field name="name"/>
                                      <field name="value"/>
@@ -248,6 +248,15 @@
                     </div>
                 </form>
             </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_open_questionnaires">
+            <field name="name">Questionnaires</field>
+            <field name="res_model">sondaggio.questionnaire</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('survey_id','=',active_id)]</field>
+            <field name="context">{'survey_id': active_id}</field>
         </record>
 
     </data>

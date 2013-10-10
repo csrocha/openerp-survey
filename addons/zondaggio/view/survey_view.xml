@@ -87,10 +87,17 @@
                         <field name="automatic" />
                         <field name="message" />
                     </group>
-                     <group col="6">
+                    <group col="6">
                         <button name="zondaggio.action_question_editor" string="Edit Questions" type="action"/>
                         <button name="zondaggio.action_variable_editor" string="Edit Variables" type="action"/>
+                    </group>
+                    <group col="6">
+                        <button name="zondaggio.action_questionnaire_stats" string="Open Questionnaire Statistics" type="action"/>
                         <button name="zondaggio.action_estrato_stats" string="Open Estrato Statistics" type="action"/>
+                    </group>
+                    <group col="6">
+                        <button name="zondaggio.action_open_questionnaires" string="Open Questionnaires" type="action"/>
+                        <button name="zondaggio.action_open_communications" string="Open Communications" type="action"/>
                     </group>
                     <notebook>
                         <page string="Conditions">
