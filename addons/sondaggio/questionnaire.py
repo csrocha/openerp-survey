@@ -75,8 +75,8 @@ class questionnaire(osv.osv):
                     ),
         'parameter_ids': fields.one2many('sondaggio.parameter', 'questionnaire_id', string='Parameters'), 
         'communication_batch_ids': fields.many2many('sondaggio.communication_batch', 'sondaggio_communication_batch_ids_questionnaire_ids_rel', 'questionnaire_id', 'communication_batch_id', string='communication_batch_ids'), 
-        'estrato_id': fields.many2one('sondaggio.estrato', string='estrato_id', readonly=True, required=True), 
-        'sent_mail_id': fields.many2one('mail.mail', string='Sent Mails', required=True), 
+        'estrato_id': fields.many2one('sondaggio.estrato', string='estrato_id', readonly=True), 
+        'sent_mail_id': fields.many2one('mail.mail', string='Sent Mails'), 
         'answer_ids': fields.one2many('sondaggio.answer', 'questionnaire_id', string='answer_ids', select=True), 
     }
 
