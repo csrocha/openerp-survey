@@ -61,23 +61,21 @@
             <field name="arch" type="xml">
                 <search string="questionnaire" version="7.0">
                     <group string="By Attribute">
-                    <field name="name" string="Name"
-                            />
-                    <field name="respondent_id" string="Respondent"
-                            />
-                    <field name="pollster_id" string="Pollster"
-                            />
-                    <field name="state" string="State"
-                            />
-                    <field name="respondent_code" string="Respondent Code"
-                            />
-                    <field name="channel" string="Channel"
-                            />
+                    <field name="name" string="Name" />
+                    <field name="respondent_code" string="Respondent Code" />
                     <field name="par_razon_social" />
                     <field name="par_razon_social_ver" />
                     <field name="par_estrato_f" />
                     <field name="par_fecha_ver" />
                     <field name="par_fecha_env" />
+                    <separator orientation="vertical"/>
+                    <field name="state" string="State" />
+                    <field name="mail_state" string="Mail State" />
+                    <field name="channel" string="Channel" />
+                    <field name="respondent_id" string="Respondent" />
+                    <field name="pollster_id" string="Pollster" />
+                    <field name="survey_id" string="Survey"/>
+                    <separator orientation="vertical"/>
                     <filter string="State" context="{'group_by': 'state'}"/>
                     <filter string="Channel" context="{'group_by': 'channel'}"/>
                     <filter string="Estrato" context="{'group_by': 'par_estrato_f'}"/>
@@ -175,6 +173,9 @@
                              </field>
                          </page>
                          <page string="Comunications" readonly="True" states="draft,complete,validated,rejected">
+                             <group>
+                             <field name="mail_state" readonly="True"/>
+                             </group>
                              <field name="communication_batch_ids">
                                  <tree>
                                      <field name="name"/>

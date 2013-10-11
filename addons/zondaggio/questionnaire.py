@@ -29,6 +29,7 @@ from openerp.tools import SKIPPED_ELEMENT_TYPES
 from openerp.tools.translate import _
 import tools
 import time
+from datetime import datetime
 import logging
 import os.path
 
@@ -336,6 +337,15 @@ class questionnaire(osv.osv):
                                       readonly=True, type='datetime', store=False),
         'date_cancelled': fields.function(get_date, method=True, string='Date Cancelled',
                                       readonly=True, type='datetime', store=False),
+        'mail_state': fields.related('sent_mail_id', 'state', type='selection',
+                                    string="Last mail state",
+                                    selection=[
+                                        ('outgoing', 'Outgoing'),
+                                        ('sent', 'Sent'),
+                                        ('received', 'Received'),
+                                        ('exception', 'Delivery Failed'),
+                                        ('cancel', 'Cancelled'),
+                                    ]),
     }
 
     _order = 'name asc, par_estrato_f asc'
@@ -927,6 +937,44 @@ class questionnaire(osv.osv):
         dump_inputs(cr, questionnaire_ids = ids, out_file=out_file, header=header, state=state)
 
         return True
+
+    def onchange_survey_id(self, cr, uid, ids, survey_id):
+        """
+        Set list of parameters if any questionnaire in the same survey have defined parameters.
+        """
+        import pdb; pdb.set_trace()
+
+        if survey_id:
+            cr.execute("SELECT COUNT(*) FROM sondaggio_questionnaire AS Q LEFT JOIN sondaggio_parameter AS P ON (Q.id = P.questionnaire_id) WHERE Q.id = %s AND ", )
+
+        return {'value':{ 'parameter_ids': [] } }
+
+        return result
+
+    def onchange_parameter_ids(self, cr, uid, ids, parameter_ids, context=None):
+        """
+        Set fecha_ver when any parameter change questionnaire.
+        """
+        parameter_obj = self.pool.get('sondaggio.parameter')
+        fecha_ver_id = parameter_obj.search(cr, uid, [('questionnaire_id','in',ids),('name','=','fecha_ver')])
+        fecha_actual = datetime.now().strftime('%d%m%Y')
+
+        if [ a for a,b,c in parameter_ids if b == 0 and 'name' in c and c['name'] == 'fecha_ver' ]:
+            return {}
+
+        if fecha_ver_id:
+            # Cambiar la fecha con este ID
+            parameter_ids = [ [a,b,c] for a,b,c in parameter_ids if b != fecha_ver_id[0] ]
+            fecha_ver_action = parameter_ids + [[1,fecha_ver_id[0],{'value':fecha_actual}]]
+
+        else:
+            # Crear parametro fecha
+            parameter_ids = [ [a,b,c] for a,b,c in parameter_ids if 'name' in c and c['name'] != 'fecha_ver' ]
+            fecha_ver_action = parameter_ids + [[0,0,{'name':'fecha_ver', 'value':fecha_actual}]]
+
+        print fecha_ver_action
+
+        return {'value': { 'parameter_ids': fecha_ver_action } }
 
 questionnaire()
 
