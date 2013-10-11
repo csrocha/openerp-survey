@@ -27,6 +27,39 @@
 <openerp>
     <data>
 
+        <!-- Kanban View -->
+        <record model="ir.ui.view" id="sondaggio_survey_kanban_view">
+            <field name="name">sondaggio.survey.kanban</field>
+            <field name="model">sondaggio.survey</field>
+            <field name="arch" type="xml">
+                <kanban>
+                    <!--list of field to be loaded -->
+                    <field name="name" />
+                    <templates>
+                    <t t-name="kanban-box">
+                            <div class="oe_kanban_card">
+                                <div class="oe_kanban_content">
+                                    <h4>
+                                        <a type="edit">
+                                            <field name="name"></field>
+                                        </a>
+                                    </h4>
+                                    <ul>
+                                        <li>&#187; <a type="action" name="zondaggio.action_question_editor">Questions</a></li>
+                                        <li>&#187; <a type="action" name="zondaggio.action_variable_editor">Variables</a></li>
+                                        <li>&#187; <a type="action" name="zondaggio.action_questionnaire_stats">Questionnaire Stats</a></li>
+                                        <li>&#187; <a type="action" name="zondaggio.action_estrato_stats">Estrato Stats</a></li>
+                                        <li>&#187; <a type="action" name="zondaggio.action_open_questionnaires">Questionnaires</a></li>
+                                        <li>&#187; <a type="action" name="zondaggio.action_open_communications">Communications</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+
         <!-- SEARCH VIEW -->
         <record id="view_sondaggio_survey_filter" model="ir.ui.view">
             <field name="name">sondaggio.survey.select</field>
@@ -164,6 +197,16 @@
                     <field name="state" />
                 </tree>
             </field>
+        </record>
+
+        <!-- ACTION -->
+
+        <record id="sondaggio.action_sondaggio_survey_surveys" model="ir.actions.act_window">
+            <field name="name">Surveys</field>
+            <field name="res_model">sondaggio.survey</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">kanban,tree,form</field>
+            <field name="domain">[]</field>
         </record>
 
     </data>
