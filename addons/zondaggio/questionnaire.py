@@ -948,7 +948,7 @@ class questionnaire(osv.osv):
                        select P.name, '' as value
                        FROM sondaggio_questionnaire AS Q
                        LEFT JOIN sondaggio_parameter AS P ON (Q.id = P.questionnaire_id)
-                       WHERE Q.survey_id=%s GROUP BY P.name;
+                       WHERE Q.survey_id=%s GROUP BY P.name ORDER BY P.name;
                        """, (survey_id,))
             pars = cr.fetchall()
             pars = map(lambda (n,v): (0,0,dict(name=n,value=v)), pars)
