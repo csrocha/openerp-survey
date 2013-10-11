@@ -942,14 +942,17 @@ class questionnaire(osv.osv):
         """
         Set list of parameters if any questionnaire in the same survey have defined parameters.
         """
-        import pdb; pdb.set_trace()
-
+        pars = []
         if survey_id:
-            cr.execute("SELECT COUNT(*) FROM sondaggio_questionnaire AS Q LEFT JOIN sondaggio_parameter AS P ON (Q.id = P.questionnaire_id) WHERE Q.id = %s AND ", )
-
-        return {'value':{ 'parameter_ids': [] } }
-
-        return result
+            cr.execute("""
+                       select P.name, '' as value
+                       FROM sondaggio_questionnaire AS Q
+                       LEFT JOIN sondaggio_parameter AS P ON (Q.id = P.questionnaire_id)
+                       WHERE Q.survey_id=%s GROUP BY P.name;
+                       """, (survey_id,))
+            pars = cr.fetchall()
+            pars = map(lambda (n,v): (0,0,dict(name=n,value=v)), pars)
+        return {'value':{ 'parameter_ids': pars } }
 
     def onchange_parameter_ids(self, cr, uid, ids, parameter_ids, context=None):
         """
