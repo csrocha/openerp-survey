@@ -36,6 +36,22 @@ class communication_batch(osv.osv):
     _name = 'sondaggio.communication_batch'
     _inherit = 'sondaggio.communication_batch'
 
+    def copy(self, cr, uid, id, default=None, context=None):
+        """
+        Fix #20: Copiar los adjuntos cuando se copien una comunicación.
+        """
+        default = default or {}
+        default.update({'state': 'draft', 'send_date': False, 'sent_mail_ids': []})
+        cid = super(communication_batch, self).copy(cr, uid, id, default, context)
+
+        if cid:
+            attach_obj = self.pool.get('ir.attachment')
+            attach_ids = attach_obj.search(cr, uid, [('res_model','=','sondaggio.communication_batch'),('res_id','=',id)])
+            for aid in attach_ids:
+                attach_obj.copy(cr, uid, aid, {'res_id': cid}, context)
+
+        return cid
+
     def do_publish(self, cr, uid, ids=None,context=None):
         """Completa la lista de questionnaire_ids a partir de los questionnaire_ids que hay en survey_id. Cambia a estado running."""
         return self.send_mails(cr, uid, ids, context=context);
