@@ -23,6 +23,22 @@
 -->
 <openerp>
     <data>
+        <!-- Actions -->
+        <record model="ir.actions.act_window" id="action_open_questionnaire_ok">
+            <field name="name">Encuestas Enviadas</field>
+            <field name="res_model">sondaggio.questionnaire</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('survey_id','=',survey_id),('mail_state','=','sent')]</field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_open_questionnaire_nook">
+            <field name="name">Encuestas Enviadas</field>
+            <field name="res_model">sondaggio.questionnaire</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('survey_id','=',survey_id),('mail_state','!=','sent')]</field>
+        </record>
 
         <!-- SEARCH VIEW -->
         <record id="view_sondaggio_communication_batch_filter" model="ir.ui.view">
@@ -83,7 +99,7 @@
                              </group>
                          </page>
                          <page string="Questionnaires">
-                            <field name="questionnaire_ids" domain="[('survey_id','=',survey_id')]">
+                            <field name="questionnaire_ids" domain="[('survey_id','=',survey_id)]">
                                 <tree>
                                     <field name="name"/>
                                     <field name="state"/>
@@ -98,36 +114,23 @@
                              <group>
                                  <field name="send_date"/>
                              </group>
-                             <label string="Mails con errores"/>
-                             <field name="sent_mail_ids" readonly="1" domain="[('state','=','exception')]">
-                                <tree>
-                                <field name="email_to"/>
-                                <field name="state"/>
-                                </tree>
-                             </field>
                              <label string="Mails enviados"/>
-                             <field name="sent_mail_ids" readonly="1" domain="[('state','=','sent')]">
+                             <field name="sent_mail_ids" readonly="1">
                                 <tree>
                                 <field name="email_to"/>
                                 <field name="state"/>
                                 </tree>
                              </field>
-                             <label string="Encuestas enviadas"/> 
-                             <field name="questionnaire_ids" readonly="1" domain="[('sent_mail_id.state','=','sent')]">
-                                <tree>
-                                    <field name="name"/>
-                                    <field name="state"/>
-                                    <field name="parameter_ids"/>
-                                </tree>
-                             </field>
-                             <label string="Encuestas con errores"/> 
-                             <field name="questionnaire_ids" readonly="1" domain="[('sent_mail_id.state','!=','sent')]">
-                                <tree>
-                                    <field name="name"/>
-                                    <field name="state"/>
-                                    <field name="parameter_ids"/>
-                                </tree>
-                             </field>
+                            <group col="6">
+                                <button name="zondaggio.action_open_questionnaire_ok"
+                                    string="Encuestas enviadas" type="action"
+                                    context="{'survey_id': survey_id}"
+                                    />
+                                <button name="zondaggio.action_open_questionnaire_nook"
+                                    string="Encuestas con errores" type="action"
+                                    context="{'survey_id': survey_id}"
+                                    />
+                            </group>
                          </page>
                      </notebook>
                     </sheet>
