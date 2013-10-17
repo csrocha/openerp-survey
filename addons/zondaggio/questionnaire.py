@@ -318,7 +318,7 @@ class questionnaire(osv.osv):
         'par_encuestador': fields.function(get_parameters, method=True, string='Encuestador',
                                       readonly=True, type='text', fnct_search=search_parameters, store=True),
         'last_communication_date': fields.function(get_communication_date, method=True, string='Fecha de comunicación',
-                                                   readonly=True, type='date', store=False),
+                                                   readonly=True, type='date', store=True),
         'num_communications': fields.function(get_num_communications, method=True, string='Number of communications',
                                                    readonly=True, type='integer', store=False),
         'date_draft': fields.function(get_date, method=True, string='Date in Draft',
@@ -858,6 +858,20 @@ class questionnaire(osv.osv):
         answer_obj = self.pool.get('sondaggio.answer')
         question_obj = self.pool.get('sondaggio.node')
 
+        # Actualizamos fecha actual
+        fecha_actual = datetime.now().strftime('%d%m%Y')
+        parameter_obj = self.pool.get('sondaggio.parameter')
+        fecha_ver_id = parameter_obj.search(cr, uid, [('questionnaire_id','in',ids),('name','=','fecha_ver')])
+        parameter_ids = values['parameter_ids']
+        if fecha_ver_id:
+            change = lambda a,b,c: b if a in fecha_ver_id else c
+            parameter_ids = [ [ change(b, 1, a), b, change(b, dict(c or {},value=fecha_actual), c) ]
+                             for a,b,c in parameter_ids ]
+        else:
+            # Crear parametro fecha
+            parameter_ids = parameter_ids + [[0,0,{'name':'fecha_ver', 'value':fecha_actual}]]
+        values['parameter_ids'] = parameter_ids
+
         res = super(questionnaire, self).write(cr, uid, ids, values, context=context)
 
         if self.is_valid(cr, uid, ids, values, context=None):
@@ -958,26 +972,26 @@ class questionnaire(osv.osv):
         """
         Set fecha_ver when any parameter change questionnaire.
         """
-        parameter_obj = self.pool.get('sondaggio.parameter')
-        fecha_ver_id = parameter_obj.search(cr, uid, [('questionnaire_id','in',ids),('name','=','fecha_ver')])
+        if 'fecha_ver' in [ c['name'] for a,b,c in parameter_ids if c and 'name' in c ]:
+            return {'value': { 'parameter_ids': parameter_ids } }
+
         fecha_actual = datetime.now().strftime('%d%m%Y')
 
-        if [ a for a,b,c in parameter_ids if b == 0 and 'name' in c and c['name'] == 'fecha_ver' ]:
-            return {}
-
+        parameter_obj = self.pool.get('sondaggio.parameter')
+        fecha_ver_id = parameter_obj.search(cr, uid, [('questionnaire_id','in',ids),('name','=','fecha_ver')])
         if fecha_ver_id:
             # Cambiar la fecha con este ID
-            parameter_ids = [ [a,b,c] for a,b,c in parameter_ids if b != fecha_ver_id[0] ]
-            fecha_ver_action = parameter_ids + [[1,fecha_ver_id[0],{'value':fecha_actual}]]
+            change = lambda a,b,c: b if a in fecha_ver_id else c
+            parameter_ids = [ [ change(b, 1, a), b, change(b, dict(c or {},value=fecha_actual), c) ]
+                             for a,b,c in parameter_ids ]
 
         else:
             # Crear parametro fecha
-            parameter_ids = [ [a,b,c] for a,b,c in parameter_ids if 'name' in c and c['name'] != 'fecha_ver' ]
-            fecha_ver_action = parameter_ids + [[0,0,{'name':'fecha_ver', 'value':fecha_actual}]]
+            parameter_ids = parameter_ids + [[0,0,{'name':'fecha_ver', 'value':fecha_actual}]]
 
-        print fecha_ver_action
+        print "XXXX:", parameter_ids
 
-        return {'value': { 'parameter_ids': fecha_ver_action } }
+        return {'value': { 'parameter_ids': parameter_ids } }
 
 questionnaire()
 

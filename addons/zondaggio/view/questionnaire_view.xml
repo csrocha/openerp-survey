@@ -165,7 +165,7 @@
                              </group>
                          </page>
                          <page string="Parameters">
-                             <field name="parameter_ids" on_change="onchange_parameter_ids(parameter_ids)">
+                             <field name="parameter_ids">
                                  <tree editable="bottom">
                                      <field name="name"/>
                                      <field name="value"/>
