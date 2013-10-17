@@ -135,6 +135,7 @@
                     <field name="name" />
                     <field name="total" />
                     <field name="total_ver" />
+                    <field name="total_env" />
                     <field name="total_muestra" />
                     <field name="pendiente" />
                     <field name="channel_undefined" />

@@ -83,6 +83,7 @@ class estrato_stats(osv.osv):
         'survey_id': fields.many2one('sondaggio.survey', 'Survey ID', readonly=True), 
         'total': fields.integer('Total', readonly=True),
         'total_ver': fields.integer('Total Verificado', readonly=True),
+        'total_env': fields.integer('Total Enviado', readonly=True),
         'total_muestra': fields.integer('Total Muestra', readonly=True),
         'pendiente': fields.integer('Pendiente', readonly=True),
         'channel_undefined': fields.integer('Undefined', readonly=True),
@@ -115,7 +116,11 @@ class estrato_stats(osv.osv):
                    (SELECT count(*) FROM sondaggio_questionnaire AS P WHERE
                         P.survey_id=E.survey_id AND
                         NULLIF(P.par_estrato_f,'')::int=NULLIF(E.name,'')::int AND
-                        NULLIF(par_fecha_ver,'') is NULL) as total_ver,
+                        NULLIF(par_fecha_ver,'') is not NULL) as total_ver,
+                   (SELECT count(*) FROM sondaggio_questionnaire AS P WHERE
+                        P.survey_id=E.survey_id AND
+                        NULLIF(P.par_estrato_f,'')::int=NULLIF(E.name,'')::int AND
+                        last_communication_date is not NULL) as total_env,
                    (SELECT count(*) FROM sondaggio_questionnaire AS P WHERE
                         P.survey_id=E.survey_id AND
                         NULLIF(P.par_estrato_f,'')::int=NULLIF(E.name,'')::int AND
