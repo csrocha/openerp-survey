@@ -133,6 +133,20 @@
                         <button name="zondaggio.action_open_communications" string="Open Communications" type="action"/>
                     </group>
                     <notebook>
+                        <page string="Estratos">
+                            <field name="estrato_ids" type="xml" context="{'survey_id':active_id}">
+                                <tree editable="bottom">
+                                    <field name="name" string="Nombre"/>
+                                    <field name="sector" string="Sector" />
+                                    <field name="region" string="Region" />
+                                    <field name="dimension" string="Tamaño" />
+                                    <field name="var_es_4" string="Var 4" />
+                                    <field name="var_es_5" string="Var 5" />
+                                    <field name="tam_muestra" string="Tamaño muestra"/>
+                                    <field name="cant_muestra_reemplazo" string="Muestra reemplazo"/>
+                                </tree>
+                            </field>
+                        </page>
                         <page string="Conditions">
                             <field name="control_condition_ids" type="xml">
                                 <tree editable="bottom">
