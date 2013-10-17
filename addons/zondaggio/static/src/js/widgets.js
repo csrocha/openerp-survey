@@ -60,27 +60,34 @@ function openerp_zondaggio_widgets(instance, module){
  
             // Set state
             var state=self.questionnaire.get('questionnaire').state;
+            if (state == 'in_coding') {
+                $('.zoe_in_coding').removeClass('zoe_hidden')
+                $('.zoe_in_coding .zoe_input input').prop('disabled',false);
+            } else {
+                $('.zoe_in_coding').removeClass('zoe_hidden')
+                $('.zoe_in_coding .zoe_input input').prop('disabled',true);
+            }
             switch (moment + '|' + state) {
                 case 'start|draft':
                     self.questionnaire.send_signal('sgn_begin').then(function(){
-                    return self.questionnaire.send_signal('sgn_wait');
-            });
-            break;
+                        return self.questionnaire.send_signal('sgn_wait');
+                    });
+                    break;
                 case 'start|complete':
                     $('.zoe_active').removeClass('zoe_active').addClass('zoe_inactive');
-            $('.zoe_closed').removeClass('zoe_inactive').addClass('zoe_active')
-            $('div.zoe_title>div>*').remove();
-            $('button').addClass('zoe_hidden');
-            break;
-            case 'on_change|waiting':
-            self.has_change = true;
-            break;
-            case 'save|waiting':
-            if (self.has_change) self.questionnaire.send_signal('sgn_continue');
-            break;
-            case 'on_close|in_progress':
-            self.questionnaire.send_signal('sgn_end');
-            break;
+                    $('.zoe_closed').removeClass('zoe_inactive').addClass('zoe_active')
+                    $('div.zoe_title>div>*').remove();
+                    $('button').addClass('zoe_hidden');
+                    break;
+                case 'on_change|waiting':
+                    self.has_change = true;
+                    break;
+                case 'save|waiting':
+                    if (self.has_change) self.questionnaire.send_signal('sgn_continue');
+                    break;
+                case 'on_close|in_progress':
+                    self.questionnaire.send_signal('sgn_end');
+                    break;
             }
         },
         dynamicCss:function() {

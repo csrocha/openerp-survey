@@ -858,19 +858,20 @@ class questionnaire(osv.osv):
         answer_obj = self.pool.get('sondaggio.answer')
         question_obj = self.pool.get('sondaggio.node')
 
-        # Actualizamos fecha actual
-        fecha_actual = datetime.now().strftime('%d%m%Y')
-        parameter_obj = self.pool.get('sondaggio.parameter')
-        fecha_ver_id = parameter_obj.search(cr, uid, [('questionnaire_id','in',ids),('name','=','fecha_ver')])
-        parameter_ids = values['parameter_ids']
-        if fecha_ver_id:
-            change = lambda a,b,c: b if a in fecha_ver_id else c
-            parameter_ids = [ [ change(b, 1, a), b, change(b, dict(c or {},value=fecha_actual), c) ]
-                             for a,b,c in parameter_ids ]
-        else:
-            # Crear parametro fecha
-            parameter_ids = parameter_ids + [[0,0,{'name':'fecha_ver', 'value':fecha_actual}]]
-        values['parameter_ids'] = parameter_ids
+        # Actualizamos fecha de valudacion si hay cambio de parametros.
+        if 'parameter_ids' in values:
+            fecha_actual = datetime.now().strftime('%d%m%Y')
+            parameter_ids = values['parameter_ids']
+            parameter_obj = self.pool.get('sondaggio.parameter')
+            fecha_ver_id = parameter_obj.search(cr, uid, [('questionnaire_id','in',ids),('name','=','fecha_ver')])
+            if fecha_ver_id:
+                change = lambda a,b,c: b if a in fecha_ver_id else c
+                parameter_ids = [ [ change(b, 1, a), b, change(b, dict(c or {},value=fecha_actual), c) ]
+                                 for a,b,c in parameter_ids ]
+            else:
+                # Crear parametro fecha
+                parameter_ids = parameter_ids + [[0,0,{'name':'fecha_ver', 'value':fecha_actual}]]
+            values['parameter_ids'] = parameter_ids
 
         res = super(questionnaire, self).write(cr, uid, ids, values, context=context)
 
@@ -881,9 +882,11 @@ class questionnaire(osv.osv):
                 ('name','in',[key[4:] for key in values.keys() if key[3]=="_"])
             ])
 
+            to_create = list(values.keys())
+
             for answer in answer_obj.read(cr, uid, answer_ids, ['name']):
                 variable_name = answer['name']
-                v = {}
+                v = { }
 
                 if 'msg_%s' % variable_name in values: v.update(message  = values['msg_%s' % variable_name])
                 if 'sta_%s' % variable_name in values: v.update(state    = values['sta_%s' % variable_name])
@@ -892,6 +895,26 @@ class questionnaire(osv.osv):
                 if 'val_%s' % variable_name in values: v.update(valid    = values['val_%s' % variable_name])
                 
                 answer_obj.write(cr, uid, answer['id'], v)
+
+                to_create.remove('inp_%s' % answer['name'])
+
+            for a in to_create:
+                prefix, variable_name = a[:4], a[4:]
+                if 'inp_' == prefix:
+                    question_ids = question_obj.search(cr, uid, [('variable_name','=',variable_name)])
+                    for question_id in question_ids:
+                        _logger.debug('Creating variable %s' % variable_name)
+                        for _id in ids:
+                            answer_obj.create(cr, uid, {'name': a[4:],
+                                                        'questionnaire_id': _id,
+                                                        'question_id': question_id,
+                                                        'message':  values.get('msg_%s' % variable_name, False),
+                                                        'state':    values.get('sta_%s' % variable_name, False),
+                                                        'input':    values.get('inp_%s' % variable_name, False),
+                                                        'formated': values.get('for_%s' % variable_name, False),
+                                                        'valid':    values.get('val_%s' % variable_name, False),
+                                                       })
+                pass
 
             return True
 
@@ -967,31 +990,6 @@ class questionnaire(osv.osv):
             pars = cr.fetchall()
             pars = map(lambda (n,v): (0,0,dict(name=n,value=v)), pars)
         return {'value':{ 'parameter_ids': pars } }
-
-    def onchange_parameter_ids(self, cr, uid, ids, parameter_ids, context=None):
-        """
-        Set fecha_ver when any parameter change questionnaire.
-        """
-        if 'fecha_ver' in [ c['name'] for a,b,c in parameter_ids if c and 'name' in c ]:
-            return {'value': { 'parameter_ids': parameter_ids } }
-
-        fecha_actual = datetime.now().strftime('%d%m%Y')
-
-        parameter_obj = self.pool.get('sondaggio.parameter')
-        fecha_ver_id = parameter_obj.search(cr, uid, [('questionnaire_id','in',ids),('name','=','fecha_ver')])
-        if fecha_ver_id:
-            # Cambiar la fecha con este ID
-            change = lambda a,b,c: b if a in fecha_ver_id else c
-            parameter_ids = [ [ change(b, 1, a), b, change(b, dict(c or {},value=fecha_actual), c) ]
-                             for a,b,c in parameter_ids ]
-
-        else:
-            # Crear parametro fecha
-            parameter_ids = parameter_ids + [[0,0,{'name':'fecha_ver', 'value':fecha_actual}]]
-
-        print "XXXX:", parameter_ids
-
-        return {'value': { 'parameter_ids': parameter_ids } }
 
 questionnaire()
 
