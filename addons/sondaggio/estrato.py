@@ -35,6 +35,11 @@ class estrato(osv.osv):
 
     _columns = {
         'name': fields.char(string='name'),
+        'sector': fields.char(string='sector'),
+        'dimension': fields.integer(string='Dim'),
+        'region': fields.char(string='Reg'),
+        'var_es_4': fields.char(string='var_es_4'),
+        'var_es_5': fields.char(string='var_es_5'),
         'tam_muestra': fields.integer(string='tam_muestra'),
         'cant_muestra_reemplazo': fields.integer(string='cant_muestra_reemplazo'),
         'questionnaire_ids': fields.one2many('sondaggio.questionnaire', 'estrato_id', string='questionnaire_ids', readonly=True), 

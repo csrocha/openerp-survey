@@ -33,6 +33,16 @@
                     <group string="By Attribute">
                     <field name="name" string="name"
                             />
+                    <field name="sector" string="sector"
+                            />
+                    <field name="dimension" string="Dim"
+                            />
+                    <field name="region" string="Reg"
+                            />
+                    <field name="var_es_4" string="var_es_4"
+                            />
+                    <field name="var_es_5" string="var_es_5"
+                            />
                     <field name="tam_muestra" string="tam_muestra"
                             />
                     <field name="cant_muestra_reemplazo" string="cant_muestra_reemplazo"
@@ -55,6 +65,16 @@
                     <sheet string="estrato">
                      <group>
                         <field name="name"
+                            />
+                        <field name="sector"
+                            />
+                        <field name="dimension"
+                            />
+                        <field name="region"
+                            />
+                        <field name="var_es_4"
+                            />
+                        <field name="var_es_5"
                             />
                         <field name="tam_muestra"
                             />
@@ -81,6 +101,16 @@
                     >
                     <field name="name"
                         />
+                    <field name="sector"
+                        />
+                    <field name="dimension"
+                        />
+                    <field name="region"
+                        />
+                    <field name="var_es_4"
+                        />
+                    <field name="var_es_5"
+                        />
                     <field name="tam_muestra"
                         />
                     <field name="cant_muestra_reemplazo"
@@ -99,6 +129,16 @@
                     editable="bottom"
                     >
                     <field name="name"
+                        />
+                    <field name="sector"
+                        />
+                    <field name="dimension"
+                        />
+                    <field name="region"
+                        />
+                    <field name="var_es_4"
+                        />
+                    <field name="var_es_5"
                         />
                     <field name="tam_muestra"
                         />
