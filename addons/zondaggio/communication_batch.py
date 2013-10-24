@@ -107,22 +107,22 @@ class communication_batch(osv.osv):
                                                           [('res_model','=','sondaggio.communication_batch'),('res_id','=',comm.id)])
 
                     if parameter_id:
-                            data = parameter_obj.read(cr,uid,parameter_id,['value'])
-                            email_value = data[0]['value']
-                            email_value = COMMASPACE.join(email_value.split(';'))
-                            mail_id = mail_mail.create(cr, uid, {
-                                    'email_from': 'info@fop.mierp.net',
-                                    'email_to':   email_value,
-                                    'email_cc':   email_copy_to,
-                                    'reply_to':   email_reply_to,
-                                    'subject':    email_subject,
-                                    'body_html':  email_body.format(text_url=text_url),
-                                    'attachment_ids': [(6, 0, attachment_ids)] },
-                                    context=context)
-                            mail_ids.append(mail_id)
-                            comm_mail_ids.append(mail_id)
+                        data = parameter_obj.read(cr,uid,parameter_id,['value'])
+                        email_value = data[0]['value']
+                        email_value = COMMASPACE.join(email_value.split(';'))
+                        mail_id = mail_mail.create(cr, uid, {
+                            'email_from': 'info@fop.mierp.net',
+                            'email_to':   email_value,
+                            'email_cc':   email_copy_to,
+                            'reply_to':   email_reply_to,
+                            'subject':    email_subject,
+                            'body_html':  email_body.format(text_url=text_url),
+                            'attachment_ids': [(6, 0, attachment_ids)] },
+                            context=context)
+                        mail_ids.append(mail_id)
+                        comm_mail_ids.append(mail_id)
 
-                    questionnaire_obj.write(cr, uid, [questionnaire.id.id], { 'sent_mail_id': mail_id } )
+                        questionnaire_obj.write(cr, uid, [questionnaire.id.id], { 'sent_mail_id': mail_id } )
 
             self.write(cr, uid, comm.id, {'sent_mail_ids': [(6,0,comm_mail_ids)],
                                           'send_date': datetime.now().strftime('%Y-%m-%d') })
